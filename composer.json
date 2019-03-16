@@ -12,5 +12,9 @@
             "email": "contato@mateusjunges.com"
         }
     ],
-
+    "autoload": {
+        "psr-4": {
+            "MateusJunges\\ACL\\": "src/"
+        }
+    }
 }
