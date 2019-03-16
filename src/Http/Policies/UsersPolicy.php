@@ -100,4 +100,24 @@ class UsersPolicy
         }
         return false;
     }
+
+    /**
+     * Determine if the current logged in user can view user permissions
+     * @param User $user
+     * @return bool
+     */
+    public function viewPermissions(User $user)
+    {
+        $permission = 'users.viewPermissions';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
 }

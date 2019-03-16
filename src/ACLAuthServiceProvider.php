@@ -4,6 +4,7 @@ namespace MateusJunges\ACL;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use MateusJunges\ACL\Http\Policies\DeniedPermissionsPolicyPolicy;
 use MateusJunges\ACL\Http\Policies\GroupsPolicy;
 use MateusJunges\ACL\Http\Policies\PermissionsPolicy;
 use MateusJunges\ACL\Http\Policies\RolesPolicy;
@@ -26,6 +27,8 @@ class ACLAuthServiceProvider extends ServiceProvider
         Permission::class => PermissionsPolicy::class,
         Group::class => GroupsPolicy::class,
         UserHasGroup::class => RolesPolicy::class,
+        UserHasDeniedPermission::class => DeniedPermissionsPolicyPolicy::class,
+
     ];
 
     /**
@@ -37,9 +40,12 @@ class ACLAuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        //Users gates
         Gate::resource('users', UsersPolicy::class);
+        Gate::define('users.viewPermissions', '\MateusJunges\ACL\Http\Policies\UsersPolicy@viewPermissions');
         Gate::resource('permissions', PermissionsPolicy::class);
         Gate::resource('groups', GroupsPolicy::class);
         Gate::resource('roles', RolesPolicy::class);
+        Gate::resource('deniedPermissons', DeniedPermissionsPolicyPolicy::class);
     }
 }
