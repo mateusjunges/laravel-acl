@@ -5,6 +5,7 @@ namespace MateusJunges\ACL\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use MateusJunges\ACL\Http\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 

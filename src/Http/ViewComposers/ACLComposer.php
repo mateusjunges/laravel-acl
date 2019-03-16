@@ -3,20 +3,20 @@ namespace MateusJunges\ACL\Http\ViewComposers;
 
 
 use Illuminate\View\View;
-use MateusJunges\ACL\MateusJungesACL;
+use MateusJunges\ACL\LaravelACL;
 
 class ACLComposer
 {
     /**
-     * @var MateusJungesACL
+     * @var LaravelACL
      */
     private $acl;
 
     /**
      * ACLComposer constructor.
-     * @param MateusJungesACL $acl
+     * @param LaravelACL $acl
      */
-    public function __construct(MateusJungesACL $acl)
+    public function __construct(LaravelACL $acl)
     {
         $this->acl = $acl;
     }

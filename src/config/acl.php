@@ -2,7 +2,7 @@
 
 return [
     'models' => [
-        'user' => \MateusJunges\Http\Models\User::class,
+        'user' => \MateusJunges\ACL\Http\Models\User::class,
     ],
     'app' => [
         'name' => 'ACL'
@@ -20,9 +20,11 @@ return [
     |
      */
     'menu' => [
-        [
-
-        ]
+//        [
+//            'text' => 'Admin',
+//            'can' => 'users.admin',
+//            ''
+//        ]
     ],
 
     /*

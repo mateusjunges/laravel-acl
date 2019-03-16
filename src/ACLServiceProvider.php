@@ -98,8 +98,8 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(MateusJungesACL::class, function (Container $app){
-           return new MateusJungesACL(
+        $this->app->singleton(LaravelACL::class, function (Container $app){
+           return new LaravelACL(
              $app['config']['acl.filters'],
              $app['events'],
              $app

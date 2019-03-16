@@ -7,7 +7,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use MateusJunges\ACL\Http\Events\BuildMenu;
 use MateusJunges\ACL\Http\Menu\Builder;
 
-class MateusJungesACL
+class LaravelACL
 {
     /**
      * @var array

@@ -3,6 +3,8 @@
 namespace MateusJunges\ACL\Http\Menu\Filters;
 
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Support\Facades\Auth;
+use MateusJunges\ACL\Http\Models\User;
 use MateusJunges\ACL\Http\Menu\Builder;
 
 class GateFilter
@@ -43,10 +45,8 @@ class GateFilter
     {
         if (!isset($item['can']))
             return true;
-
         if (isset($item['model']))
             return $this->gate->allows($item['can'], $item['model']);
-
         return $this->gate->allows($item['can']);
     }
 }
