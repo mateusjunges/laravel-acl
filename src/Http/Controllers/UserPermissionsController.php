@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
-
-namespace MateusJunges\Http\Controllers;
+namespace MateusJunges\ACL\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 

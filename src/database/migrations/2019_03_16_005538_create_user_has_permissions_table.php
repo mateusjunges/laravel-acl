@@ -15,6 +15,16 @@ class CreateUserHasPermissionsTable extends Migration
     {
         Schema::create('user_has_permissions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id', false, true);
+            $table->integer('permission_id', false, true);
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on('permissions')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

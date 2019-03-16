@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\Http\Controllers;
+namespace MateusJunges\ACL\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

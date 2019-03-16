@@ -15,6 +15,17 @@ class CreateUserHasGroupsTable extends Migration
     {
         Schema::create('user_has_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id', false, true);
+            $table->integer('group_id', false, true);
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('groups')
+                ->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

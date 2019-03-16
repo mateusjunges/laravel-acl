@@ -15,6 +15,17 @@ class CreateGroupHasPermissionsTable extends Migration
     {
         Schema::create('group_has_permissions', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('group_id', false, true);
+            $table->integer('permission_id', false, true);
+            $table->foreign('group_id')
+                ->references('id')
+                ->on('groups')
+                ->onDelete('cascade');
+            $table->foreign('permission_id')
+                ->references('id')
+                ->on('permissions')
+                ->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }
