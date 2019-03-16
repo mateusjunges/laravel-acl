@@ -20,11 +20,27 @@ return [
     |
      */
     'menu' => [
-//        [
-//            'text' => 'Admin',
-//            'can' => 'users.admin',
-//            ''
-//        ]
+        [
+            'text' => 'Admin',
+            'can' => 'users.admin',
+            'submenu' => [
+                [
+                    'text' => 'Usuários',
+                    'can' => 'users.view',
+                    'route' => 'users.index',
+                ],
+                [
+                    'text' => 'Permissões',
+                    'can' => 'permissions.view',
+                    'route' => 'permissions.index',
+                ],
+                [
+                    'text' => 'Grupos',
+                    'can' => 'groups.view',
+                    'route' => 'groups.index',
+                ],
+            ]
+        ]
     ],
 
     /*

@@ -41,11 +41,45 @@ class ACLAuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //Users gates
-        Gate::resource('users', UsersPolicy::class);
-        Gate::define('users.viewPermissions', '\MateusJunges\ACL\Http\Policies\UsersPolicy@viewPermissions');
-        Gate::resource('permissions', PermissionsPolicy::class);
-        Gate::resource('groups', GroupsPolicy::class);
-        Gate::resource('roles', RolesPolicy::class);
-        Gate::resource('deniedPermissons', DeniedPermissionsPolicyPolicy::class);
+        Gate::resource('users', UsersPolicy::class, [
+            'create' => 'create',
+            'view' => 'view',
+            'update' => 'update',
+            'delete' => 'delete',
+            'admin' => 'admin',
+            'viewPermissions' => 'viewPermissions',
+        ]);
+
+        //Permissions gates
+        Gate::resource('permissions', PermissionsPolicy::class, [
+            'create' => 'create',
+            'view' => 'view',
+            'update' => 'update',
+            'delete' => 'delete',
+        ]);
+
+        //Groups gates
+        Gate::resource('groups', GroupsPolicy::class, [
+            'create' => 'create',
+            'view' => 'view',
+            'update' => 'update',
+            'delete' => 'delete',
+        ]);
+
+        //Roles gates
+        Gate::resource('roles', RolesPolicy::class, [
+            'create' => 'create',
+            'view' => 'view',
+            'update' => 'update',
+            'delete' => 'delete',
+        ]);
+
+        //Denied Permissions gates
+        Gate::resource('deniedPermissons', DeniedPermissionsPolicyPolicy::class, [
+            'create' => 'create',
+            'view' => 'view',
+            'update' => 'update',
+            'delete' => 'delete',
+        ]);
     }
 }

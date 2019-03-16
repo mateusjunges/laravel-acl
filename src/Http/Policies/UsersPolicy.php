@@ -120,4 +120,21 @@ class UsersPolicy
         }
         return false;
     }
+
+    /**
+     * Determine if a user is an admin
+     * @param User $user
+     * @return bool
+     */
+    public function admin(User $user)
+    {
+        if ($user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
 }
