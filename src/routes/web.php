@@ -15,7 +15,9 @@ Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' =
     //User routes begin here:
     Route::resource('users', 'UserController');
     Route::prefix('users')->group(function (){
-
+        Route::post('columns', 'UserController@columns')->name('users.columns');
+        Route::post('data', 'UserController@data')->name('users.data');
+        Route::get('permissions/{user_id}', 'UserController@permissions')->name('users.permissions');
     });
     //User routes end here;
 
@@ -39,4 +41,10 @@ Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' =
        //
     });
     //Role routes end here
+
+    //Denied permissions routes
+    Route::resource('denied-permissions', 'DeniedPermissionsController');
+    Route::prefix('denied-permissions')->group(function (){
+        //
+    });
 });

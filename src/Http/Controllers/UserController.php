@@ -5,8 +5,8 @@ namespace MateusJunges\ACL\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use MateusJunges\ACL\Http\Models\User;
+use MateusJunges\ACL\Http\Requests\UserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -97,7 +97,6 @@ class UserController extends Controller
                 $data = User::where('name', 'LIKE', '%'.$search.'%')
                     ->orWhere('username', 'LIKE', '%'.$search.'%')
                     ->orWhere('id', 'LIKE', '%'.$search.'%')
-                    ->orWhere('cpf', 'LIKE', '%'.$search.'%')
                     ->orWhere('email', 'LIKE', '%'.$search.'%');
                 $users = $data->get();
                 $totalFiltererd = $data->count();
@@ -165,5 +164,101 @@ class UserController extends Controller
         }
     }
 
+
+    public function create()
+    {
+        try{
+            if (Gate::denies('users.creaate')){
+                $message = array(
+                    'type' => 'warning',
+                    'title' => 'Acesso negado!',
+                    'text' => 'Você não tem permissão para acessar esta área do sistema'
+                );
+                session()->flash('message', $message);
+                return redirect()->back();
+            }
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+        }
+    }
+
+    public function store(UserRequest $request)
+    {
+        try{
+            if (Gate::denies('users.create')){
+                $message = array(
+                    'type' => 'warning',
+                    'title' => 'Acesso negado!',
+                    'text' => 'Você não tem permissão para acessar esta área do sistema'
+                );
+                if ($request->ajax()){
+                    return response()->json([
+                        'code' => Response::HTTP_UNAUTHORIZED,
+                        'timer' => 5000,
+                        'text' => 'Você não possui permissão para acessar esta área do sistema.',
+                        'title' => 'Acesso negado!',
+                        'icon' => 'warning',
+                    ]);
+                }else{
+                    session()->flash('message', $message);
+                    return redirect()->back();
+                }
+            }
+
+            $user = new User();
+            $user->fill($request->all());
+            $user->save();
+
+            if ($request->ajax()){
+                return response()->json([
+                    'code' => Response::HTTP_OK,
+                    'timer' => 4000,
+                    'text' => 'Usuário cadastrado com sucesso!',
+                    'title' => 'Sucesso!',
+                    'icon' => 'success',
+                ]);
+            }else{
+                $message = array(
+                    'type' => 'success',
+                    'title' => 'Sucesso!',
+                    'text' => 'Usuário cadastrado com sucesso!',
+                );
+                session()->flash('message', $message);
+                return redirect()->route('users.index');
+            }
+        }catch (\Exception $exception){
+            if ($request->ajax()){
+                return response()->json([
+                   'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                   'timer' => 5000,
+                   'text' => 'Ocorreu um erro em nosso servidor. Tente novamente mais tarde.',
+                   'title' => 'Ops...',
+                   'icon' => 'error',
+                ]);
+            }else{
+                return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+            }
+        }
+    }
+
+    public function update(UserRequest $request)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
+    }
+
+    public function restore($id)
+    {
+
+    }
+
+    public function permanentlyDelete($id)
+    {
+
+    }
 
 }
