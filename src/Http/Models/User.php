@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\Http\Models;
+namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -38,9 +38,9 @@ class User extends Authenticatable
     public function deniedPermissions($trashed = false)
     {
         if($trashed)
-            return $this->belongsToMany(Permission::class, 'user_does_not_have_permissions');
-        return $this->belongsToMany(Permission::class, 'user_does_not_have_permissions')
-            ->whereNull('user_does_not_have_permissions.deleted_at');
+            return $this->belongsToMany(Permission::class, 'user_has_denied_permissions');
+        return $this->belongsToMany(Permission::class, 'user_has_denied_permissions')
+            ->whereNull('user_has_denied_permissions.deleted_at');
     }
     /**
      * Determine if a user has a specific denied permission
@@ -56,6 +56,7 @@ class User extends Authenticatable
      * Return all user permissions
      * Se o parâmetro $trashed for true, busca também nos registros marcados como softDelete
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @param $trashed
      */
     public function permissions($trashed = false){
         if($trashed)

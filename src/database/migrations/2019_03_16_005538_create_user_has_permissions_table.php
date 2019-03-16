@@ -25,6 +25,7 @@ class CreateUserHasPermissionsTable extends Migration
                 ->references('id')
                 ->on('permissions')
                 ->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

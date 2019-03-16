@@ -2,8 +2,9 @@
 
 namespace MateusJunges\ACL\Http\Policies;
 
-use MateusJunges\Http\Models\User;
+use MateusJunges\ACL\Http\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use MateusJunges\ACL\Http\Models\UserHasDeniedPermission;
 
 class UsersPolicy
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\Http\Models;
+namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

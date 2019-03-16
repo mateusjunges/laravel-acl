@@ -2,7 +2,7 @@
 
 namespace MateusJunges\ACL\Http\Policies;
 
-use MateusJunges\Http\Models\User;
+use MateusJunges\ACL\Http\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RolesPolicy
