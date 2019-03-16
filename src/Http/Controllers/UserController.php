@@ -17,7 +17,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('acl::layouts.page');
         try{
             if(Gate::denies('users.view')){
                 $message = array(
@@ -28,7 +27,7 @@ class UserController extends Controller
                 session()->flash('message', $message);
                 return redirect()->back();
             }
-            return view('users.index');
+            return view('acl::users.index');
         }catch (\Exception $exception){
             return response('Internal server error', Response::HTTP_INTERNAL_SERVER_ERROR);
         }

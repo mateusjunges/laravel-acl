@@ -1,5 +1,4 @@
 @extends('acl::layouts.master')
-@section('title', 'Home')
 @section('acl_css')
     <!-- In <head> after the Bootstrap CSS. -->
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
@@ -21,4 +20,5 @@
             </ul>
         </div>
     </nav>
+    @yield('content')
 @endsection
