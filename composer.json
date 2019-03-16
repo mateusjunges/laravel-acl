@@ -1,0 +1,16 @@
+{
+    "name": "mateusjunges/laravel-acl",
+    "description": "This package provides a complete Access Control List management",
+    "type": "laravel-package",
+    "require": {
+        "jeroennoten/laravel-adminlte": "^1.25"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mateus Junges",
+            "email": "contato@mateusjunges.com"
+        }
+    ],
+
+}
