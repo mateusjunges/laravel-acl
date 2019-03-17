@@ -11,6 +11,7 @@ class GroupController extends Controller
 {
     protected $groupModel;
     protected $groupHasPermissionModel;
+    protected $permissionModel;
 
 
     /**
@@ -20,8 +21,10 @@ class GroupController extends Controller
     {
         $groupModelClass = config('acl.models.group');
         $groupHasPermissionClass = config('acl.models.GroupHasPermission');
+        $permissionClass = config('acl.models.permission');
         $this->groupModel = app($groupModelClass);
         $this->groupHasPermissionModel = app($groupHasPermissionClass);
+        $this->permissionModel = app($permissionClass);
     }
 
     /**
@@ -41,16 +44,42 @@ class GroupController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         try{
             if(Gate::denies('groups.create'))
                 return abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized');
+            $permissions = $this->permissionModel->all();
+            return view('acl::groups.create',[
+                'permissions' => $permissions,
+            ]);
         }catch (\Exception $exception){
 
         }
     }
 
+    public function edit($id)
+    {
+        try{
+            $group = $this->groupModel->find($id);
+            $permisions = $this->permissionModel->all();
+            return view('acl::groups.edit', [
+                'group' => $group,
+                'permissions' => $permisions,
+            ]);
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal server error');
+        }
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         try{
@@ -76,6 +105,55 @@ class GroupController extends Controller
             return redirect()->route('groups.index');
         }catch (\Exception $exception){
             return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal server error');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
+    public function update(Request $request, $id)
+    {
+        try{
+            $group = $this->groupModel->find($id);
+            $group->update($request->except('permissions'));
+            $permissionsArray = $request->input('permissions');
+            if ($request->input('permissions') == null)
+                $permissionsArray = array();
+            foreach ($group->permissions as $groupPermission)
+                if(!in_array($groupPermission->permission_id, $permissionsArray))
+                    $this->groupHasPermissionModel->where([
+                        ['permission_id', '=', $groupPermission->id],
+                        ['group_id', '=', $group->id]
+                    ])->delete();
+            if ($permissionsArray != null){
+                foreach ($permissionsArray as $permission){
+                    $query = $this->groupHasPermissionModel->where([
+                        ['permission_id', '=', $permission],
+                        ['group_id', '=', $group->id]
+                    ])->withTrashed()->first();
+                    if($group->hasPermission($this->permissionModel->find($permission)->name, true)){
+                        if($query != null)
+                            if($query->trashed())
+                                $query->restore();
+                    }else{
+                        $newGroupPermission = new $this->groupHasPermissionModel();
+                        $newGroupPermission->permission_id = (int) $permission;
+                        $newGroupPermission->group_id = $group->id;
+                        $newGroupPermission->save();
+                    }
+                }
+            }
+            $message = array(
+                'title' => 'Sucesso!',
+                'type' => 'success',
+                'text' => 'Grupo de permissões atualizado com sucesso!',
+            );
+            session()->flash('message', $message);
+            return redirect()->route('groups.index');
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server error');
         }
     }
 
