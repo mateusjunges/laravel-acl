@@ -7,7 +7,7 @@
 
         .dropdown-submenu>.dropdown-menu {
             top: 0;
-            left: 100%;
+            left: 20%;
             margin-top: -6px;
             margin-left: -1px;
             -webkit-border-radius: 0 6px 6px 6px;
@@ -42,7 +42,7 @@
         }
 
         .dropdown-submenu.pull-left>.dropdown-menu {
-            left: -100%;
+            left: 0;
             margin-left: 10px;
             -webkit-border-radius: 6px 0 6px 6px;
             -moz-border-radius: 6px 0 6px 6px;

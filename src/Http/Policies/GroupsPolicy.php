@@ -2,7 +2,8 @@
 
 namespace MateusJunges\ACL\Http\Policies;
 
-use MateusJunges\ACL\Http\Models\User;
+use Gate;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class GroupsPolicy
@@ -16,7 +17,7 @@ class GroupsPolicy
      */
     public function __construct()
     {
-        //
+
     }
 
     /**
@@ -87,6 +88,40 @@ class GroupsPolicy
      */
     public function delete(User $user)
     {
+        $permission = 'groups.restore';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
+
+    public function permanentlyDelete(User $user)
+    {
+        $permission = 'groups.permanentlyDelete';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function restore(User $user)
+    {
         $permission = 'groups.delete';
         if ($user->hasDeniedPermission($permission))
             return false;
@@ -97,6 +132,53 @@ class GroupsPolicy
             if ($group->hasPermission($permission) || $group->hasPermission('admin'))
                 return true;
         }
+        return false;
+    }
+
+    public function viewPermissions(User $user)
+    {
+        $permission = 'groups.view-permissions';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function removeGroupPermission(User $user)
+    {
+        $permission = 'groups.removePermission';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function manage()
+    {
+        if (Gate::allows('groups.view')
+            || Gate::allows('groups.create')
+            || Gate::allows('groups.update')
+            || Gate::allows('groups.delete'))
+            return true;
         return false;
     }
 }

@@ -11,7 +11,7 @@ use MateusJunges\ACL\Http\Policies\RolesPolicy;
 use MateusJunges\ACL\Http\Policies\UsersPolicy;
 use MateusJunges\ACL\Http\Models\Group;
 use MateusJunges\ACL\Http\Models\Permission;
-use MateusJunges\ACL\Http\Models\User;
+use App\User;
 use MateusJunges\ACL\Http\Models\UserHasGroup;
 use MateusJunges\ACL\Http\Models\UserHasDeniedPermission;
 
@@ -47,6 +47,7 @@ class ACLAuthServiceProvider extends ServiceProvider
             'update' => 'update',
             'delete' => 'delete',
             'admin' => 'admin',
+            'trashed' => 'trashed',
             'viewPermissions' => 'viewPermissions',
         ]);
 
@@ -64,6 +65,11 @@ class ACLAuthServiceProvider extends ServiceProvider
             'view' => 'view',
             'update' => 'update',
             'delete' => 'delete',
+            'viewPermissions' => 'viewPermissions',
+            'removeGroupPermission' => 'removeGroupPermission',
+            'manage' => 'manage',
+            'restore' => 'restore',
+            'permanentlyDelete' => 'permanentlyDelete'
         ]);
 
         //Roles gates

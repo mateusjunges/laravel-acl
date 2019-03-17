@@ -2,7 +2,7 @@
 
 namespace MateusJunges\ACL\Http\Policies;
 
-use MateusJunges\ACL\Http\Models\User;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use MateusJunges\ACL\Http\Models\UserHasDeniedPermission;
 
@@ -133,6 +133,25 @@ class UsersPolicy
         $groups = $user->groups;
         foreach ($groups as $group) {
             if ($group->hasPermission('admin'))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function trashed(User $user)
+    {
+        $permission = 'users.trashed';
+        if ($user->hasDeniedPermission($permission))
+            return false;
+        if ($user->hasPermission($permission) || $user->isAdmin())
+            return true;
+        $groups = $user->groups;
+        foreach ($groups as $group) {
+            if ($group->hasPermission($permission) || $group->hasPermission('admin'))
                 return true;
         }
         return false;

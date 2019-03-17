@@ -5,7 +5,7 @@ namespace MateusJunges\ACL\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Gate;
 use Illuminate\Http\Request;
-use MateusJunges\ACL\Http\Models\User;
+use App\User;
 use MateusJunges\ACL\Http\Requests\UserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        try{
+//        try{
             if(Gate::denies('users.view')){
                 $message = array(
                     'type' => 'danger',
@@ -28,9 +28,9 @@ class UserController extends Controller
                 return redirect()->back();
             }
             return view('acl::users.index');
-        }catch (\Exception $exception){
-            return response('Internal server error', Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+//        }catch (\Exception $exception){
+//            return response('Internal server error', Response::HTTP_INTERNAL_SERVER_ERROR);
+//        }
     }
 
     /**
@@ -164,101 +164,136 @@ class UserController extends Controller
         }
     }
 
-
-    public function create()
+    /**
+     * Delete a user
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy($id)
     {
         try{
-            if (Gate::denies('users.creaate')){
-                $message = array(
+            if(Gate::denies('users.delete'))
+                return response()->json([
+                    'code' => Response::HTTP_UNAUTHORIZED,
+                    'timer' => 4000,
+                    'title' => 'Acesso negado!',
+                    'text' => 'Você não tem permissão para realizar esta ação no sistema',
+                    'icon' => 'success'
+                ]);
+            $user = User::find($id);
+            $user->delete();
+            return response()->json([
+                'code' => Response::HTTP_OK,
+                'timer' => 3000,
+                'title' => 'Sucesso!',
+                'text' => 'Usuário removido com sucesso!',
+                'icon' => 'success'
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'timer' => 4000,
+                'title' => 'Ops...',
+                'text' => 'Ocorreu um erro. Tente novamente mais tarde.',
+                'icon' => 'error'
+            ]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore($id)
+    {
+        try{
+            if(Gate::denies('users.restore'))
+                return response()->json([
+                    'code' => Response::HTTP_UNAUTHORIZED,
+                    'timer' => 4000,
+                    'text' => 'Você não tem permissão para realizar esta ação no sistema',
+                    'title' => 'Acesso negado!',
+                    'icon' => 'warning',
+                ]);
+            $user = User::withTrashed()->find($id);
+            $user->restore();
+            return response()->json([
+                'code' => Response::HTTP_OK,
+                'timer' => 4000,
+                'text' => 'Usuário restaurado com sucesso!',
+                'title' => 'Sucesso!',
+                'icon' => 'success',
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'timer' => 4000,
+                'text' => 'Algo deu errado. Tente novamente mais tarde!',
+                'title' => 'Ops...',
+                'icon' => 'error',
+            ]);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function permanentlyDelete($id)
+    {
+        try{
+            if(Gate::denies('users.permanentDelete'))
+                return response()->json([
+                    'code' => Response::HTTP_UNAUTHORIZED,
+                    'timer' => 4000,
+                    'text' => 'Você não tem permissão para realizar esta ação no sistema',
+                    'title' => 'Acesso negado!',
+                    'icon' => 'warning',
+                ]);
+            $user = User::withTrashed()->find($id);
+            $user->forceDelete();
+            return response()->json([
+                'code' => Response::HTTP_OK,
+                'timer' => 4000,
+                'text' => 'Usuário removido permanentemente!',
+                'title' => 'Sucesso!',
+                'icon' => 'success',
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'timer' => 4000,
+                'text' => 'Algo deu errado. Tente novamente mais tarde!',
+                'title' => 'Ops...',
+                'icon' => 'error',
+            ]);
+        }
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        try{
+            if(Gate::denies('users.trashed')){
+                $messages = array(
                     'type' => 'warning',
                     'title' => 'Acesso negado!',
-                    'text' => 'Você não tem permissão para acessar esta área do sistema'
+                    'timer' => 4000,
+                    'text' => 'Você não tem permissão para realizar esta ação no sistema!',
                 );
-                session()->flash('message', $message);
+                session()->flash('message', $messages);
                 return redirect()->back();
             }
+            $users = User::onlyTrashed()->get();
+            return view(
+                'acl::users.trashed', [
+                'users' => $users,
+            ]);
         }catch (\Exception $exception){
             return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
         }
-    }
-
-    public function store(UserRequest $request)
-    {
-        try{
-            if (Gate::denies('users.create')){
-                $message = array(
-                    'type' => 'warning',
-                    'title' => 'Acesso negado!',
-                    'text' => 'Você não tem permissão para acessar esta área do sistema'
-                );
-                if ($request->ajax()){
-                    return response()->json([
-                        'code' => Response::HTTP_UNAUTHORIZED,
-                        'timer' => 5000,
-                        'text' => 'Você não possui permissão para acessar esta área do sistema.',
-                        'title' => 'Acesso negado!',
-                        'icon' => 'warning',
-                    ]);
-                }else{
-                    session()->flash('message', $message);
-                    return redirect()->back();
-                }
-            }
-
-            $user = new User();
-            $user->fill($request->all());
-            $user->save();
-
-            if ($request->ajax()){
-                return response()->json([
-                    'code' => Response::HTTP_OK,
-                    'timer' => 4000,
-                    'text' => 'Usuário cadastrado com sucesso!',
-                    'title' => 'Sucesso!',
-                    'icon' => 'success',
-                ]);
-            }else{
-                $message = array(
-                    'type' => 'success',
-                    'title' => 'Sucesso!',
-                    'text' => 'Usuário cadastrado com sucesso!',
-                );
-                session()->flash('message', $message);
-                return redirect()->route('users.index');
-            }
-        }catch (\Exception $exception){
-            if ($request->ajax()){
-                return response()->json([
-                   'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                   'timer' => 5000,
-                   'text' => 'Ocorreu um erro em nosso servidor. Tente novamente mais tarde.',
-                   'title' => 'Ops...',
-                   'icon' => 'error',
-                ]);
-            }else{
-                return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
-            }
-        }
-    }
-
-    public function update(UserRequest $request)
-    {
-
-    }
-
-    public function destroy($id)
-    {
-
-    }
-
-    public function restore($id)
-    {
-
-    }
-
-    public function permanentlyDelete($id)
-    {
-
     }
 
 }

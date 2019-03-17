@@ -18,13 +18,23 @@ Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' =
         Route::post('columns', 'UserController@columns')->name('users.columns');
         Route::post('data', 'UserController@data')->name('users.data');
         Route::get('permissions/{user_id}', 'UserController@permissions')->name('users.permissions');
+        Route::get('trashed', 'UserController@trashed')->name('users.trashed');
     });
     //User routes end here;
 
     //Group routes begin here:
-    Route::resource('groups', 'GroupController');
-    Route::prefix('groups')->group(function (){
-       //
+    Route::resource('groups', 'GroupController', [
+        'except' => [
+            'show',
+        ]
+    ]);
+    Route::prefix('groups' )->group(function (){
+       Route::get('trashed', 'GroupController@trashed')->name('groups.trashed');
+       Route::put('restore/{group}', 'GroupController@restore')->name('groups.restore');
+       Route::prefix('permissions')->group(function (){
+           Route::get('{group}', 'GroupController@permissions')->name('groups.permissions');
+           Route::delete('{permission}', 'GroupController@removeGroupPermission')->name('groups.remove-permission');
+       });
     });
     //Group routes end here;
 
