@@ -12,8 +12,11 @@
             {{ $item['text'] }}
         </a>
         @if(isset($item['submenu']))
-            <div class="dropdown-menu">
-                <ul>
+            <div class="dropdown-submenu">
+                <ul class="nav-item dropdown-menu"
+                    aria-haspopup="true"
+                    data-toggle="dropdown-menu"
+                    aria-expanded="false">
                     @each('acl::partials.menu-item', $item['submenu'], 'item')
                 </ul>
             </div>
