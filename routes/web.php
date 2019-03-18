@@ -13,7 +13,11 @@
 
 Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' => ['web', 'auth']], function (){
     //User routes begin here:
-    Route::resource('users', 'UserController');
+    Route::resource('users', 'UserController', [
+        'except' => [
+            'create', 'update', 'show'
+        ],
+    ]);
     Route::prefix('users')->group(function (){
         Route::post('columns', 'UserController@columns')->name('users.columns');
         Route::post('data', 'UserController@data')->name('users.data');
