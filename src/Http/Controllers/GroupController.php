@@ -112,7 +112,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        try{
+        try{
             $group = $this->groupModel->find($id);
             $group->update($request->except('permissions'));
             $permissionsArray = $request->input('permissions');
@@ -148,9 +148,9 @@ class GroupController extends Controller
             );
             session()->flash('message', $message);
             return redirect()->route('groups.index');
-//        }catch (\Exception $exception){
-//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server error');
-//        }
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server error');
+        }
     }
 
     public function permissions($id){
