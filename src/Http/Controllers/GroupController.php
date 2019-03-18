@@ -90,10 +90,7 @@ class GroupController extends Controller
             $group->save();
 
             foreach ($request->permissions as $permission) {
-                $groupHasPermission = new $this->groupHasPermissionModel;
-                $groupHasPermission->group_id = $group->id;
-                $groupHasPermission->permission_id = $permission;
-                $groupHasPermission->save();
+                $group->permissions()->atach($permission);
             }
 
             $message = array(
@@ -115,7 +112,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
+//        try{
             $group = $this->groupModel->find($id);
             $group->update($request->except('permissions'));
             $permissionsArray = $request->input('permissions');
@@ -123,10 +120,9 @@ class GroupController extends Controller
                 $permissionsArray = array();
             foreach ($group->permissions as $groupPermission)
                 if(!in_array($groupPermission->permission_id, $permissionsArray))
-                    $this->groupHasPermissionModel->where([
-                        ['permission_id', '=', $groupPermission->id],
-                        ['group_id', '=', $group->id]
-                    ])->delete();
+                    $group->permissions()->updateExistingPivot($groupPermission->id,[
+                        'deleted_at' => now(),
+                    ]);
             if ($permissionsArray != null){
                 foreach ($permissionsArray as $permission){
                     $query = $this->groupHasPermissionModel->where([
@@ -138,10 +134,10 @@ class GroupController extends Controller
                             if($query->trashed())
                                 $query->restore();
                     }else{
-                        $newGroupPermission = new $this->groupHasPermissionModel();
-                        $newGroupPermission->permission_id = (int) $permission;
-                        $newGroupPermission->group_id = $group->id;
-                        $newGroupPermission->save();
+                        $group->permissions()->attach($permission, [
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
                     }
                 }
             }
@@ -152,9 +148,9 @@ class GroupController extends Controller
             );
             session()->flash('message', $message);
             return redirect()->route('groups.index');
-        }catch (\Exception $exception){
-            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server error');
-        }
+//        }catch (\Exception $exception){
+//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server error');
+//        }
     }
 
     public function permissions($id){
