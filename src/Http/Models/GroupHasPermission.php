@@ -4,12 +4,11 @@ namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use MateusJunges\ACL\Traits\GroupHasPermissionsTrait;
 
 class GroupHasPermission extends Model
 {
-    use SoftDeletes;
-
-    protected $table = 'group_has_permissions';
+    use SoftDeletes, GroupHasPermissionsTrait;
 
     protected $fillable = [
         'group_id', 'permission_id',
@@ -17,5 +16,5 @@ class GroupHasPermission extends Model
 
     protected $dates = ['deleted_at'];
 
-
+    protected $table;
 }

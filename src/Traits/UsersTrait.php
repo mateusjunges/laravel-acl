@@ -2,7 +2,18 @@
 
 namespace MateusJunges\ACL\Traits;
 
-trait UserPermissionsTrait {
+trait UsersTrait {
+
+    /**
+     * UsersTrait constructor.
+     */
+    public function __construct()
+    {
+        $this->table = config('acl.tables.users') != ''
+            ? config('acl.tables.users')
+            : 'users';
+    }
+
     private $permissionClass;
 
     public function getPermissionClass()

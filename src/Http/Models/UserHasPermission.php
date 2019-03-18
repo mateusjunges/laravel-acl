@@ -4,10 +4,11 @@ namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use MateusJunges\ACL\Traits\UserHasPermissionTrait;
 
 class UserHasPermission extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, UserHasPermissionTrait;
 
     protected $table = 'user_has_permissions';
 
