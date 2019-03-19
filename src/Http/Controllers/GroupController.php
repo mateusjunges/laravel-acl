@@ -108,39 +108,16 @@ class GroupController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse|void
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         try{
             $group = $this->groupModel->find($id);
             $group->update($request->except('permissions'));
-            $permissionsArray = $request->input('permissions');
-            if ($request->input('permissions') == null)
-                $permissionsArray = array();
-            foreach ($group->permissions as $groupPermission)
-                if(!in_array($groupPermission->permission_id, $permissionsArray))
-                    $group->permissions()->updateExistingPivot($groupPermission->id,[
-                        'deleted_at' => now(),
-                    ]);
-            if ($permissionsArray != null){
-                foreach ($permissionsArray as $permission){
-                    $query = $this->groupHasPermissionModel->where([
-                        ['permission_id', '=', $permission],
-                        ['group_id', '=', $group->id]
-                    ])->withTrashed()->first();
-                    if($group->hasPermission($this->permissionModel->find($permission)->name, true)){
-                        if($query != null)
-                            if($query->trashed())
-                                $query->restore();
-                    }else{
-                        $group->permissions()->attach($permission, [
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]);
-                    }
-                }
-            }
+
+            $group->permissions()->sync($request->input('permissions'));
+
             $message = array(
                 'title' => 'Sucesso!',
                 'type' => 'success',
