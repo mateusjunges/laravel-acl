@@ -3,7 +3,6 @@
 namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use MateusJunges\ACL\Traits\UserHasGroupsTrait;
 
 class UserHasGroup extends Model
@@ -22,5 +21,7 @@ class UserHasGroup extends Model
         'user_id',
         'group_id',
     ];
+
+    protected $timestamps = false;
 
 }

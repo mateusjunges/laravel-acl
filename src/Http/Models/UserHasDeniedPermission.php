@@ -3,7 +3,6 @@
 namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use MateusJunges\ACL\Traits\UserHasDeniedPermissionsTrait;
 
 class UserHasDeniedPermission extends Model
@@ -15,4 +14,5 @@ class UserHasDeniedPermission extends Model
         'user_id',
         'permission_id',
     ];
+    protected $timestamps = false;
 }

@@ -25,16 +25,12 @@ trait UsersTrait {
 
     /**
      * Return all user permissions
-     * @param $trashed
      * @return mixed
      */
-    public function permissions($trashed)
+    public function permissions()
     {
-        if ($trashed)
-            return $this->belongsToMany(config('acl.models.permission'),
-                config('acl.tables.user_has_permissions'));
-        return $this->belongsToMany(config('acl.models.permission'), 'user_has_permissions')
-            ->whereNull(config('acl.tables.user_has_permissions').'.deleted_at');
+        return $this->belongsToMany(config('acl.models.permission'),
+            config('acl.tables.user_has_permissions'));
     }
 
     /**
@@ -42,35 +38,27 @@ trait UsersTrait {
      * @param bool $trashed
      * @return mixed
      */
-    public function groups($trashed = false){
-        if ($trashed)
-            return $this->belongsToMany(config('acl.models.group'), config('acl.tables.user_has_groups'));
-        return $this->belongsToMany(config('acl.models.group'), config('acl.tables.user_has_groups'))
-            ->whereNull(config('acl.tables.user_has_groups').'.deleted_at');
+    public function groups(){
+        return $this->belongsToMany(config('acl.models.group'), config('acl.tables.user_has_groups'));
     }
 
 
     /**
      * Return all permissions which user does not have access
-     * @param bool $trashed
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function deniedPermissions($trashed = false)
+    public function deniedPermissions()
     {
-        if($trashed)
-            return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.user_has_denied_permissions'));
-        return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.user_has_denied_permissions'))
-            ->whereNull(config('acl.tables.user_has_denied_permissions').'.deleted_at');
+        return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.user_has_denied_permissions'));
     }
 
     /**
      * Determine if a user has a specific permission
-     * @param $trashed
      * @param $permission
      * @return bool
      */
-    public function hasPermission($permission, $trashed = false){
-        return null !== $this->permissions($trashed)->where('name', '=', $permission)->first();
+    public function hasPermission($permission){
+        return null !== $this->permissions()->where('name', '=', $permission)->first();
     }
 
     /**
@@ -79,8 +67,8 @@ trait UsersTrait {
      * @param $group
      * @return bool
      */
-    public function hasGroup($group, $trashed = false){
-        return null !== $this->groups($trashed)->where('name', $group)->first();
+    public function hasGroup($group){
+        return null !== $this->groups()->where('name', $group)->first();
     }
 
     /**
@@ -94,23 +82,21 @@ trait UsersTrait {
     /**
      * Determine if a user has any group of a group array
      * @param $groups
-     * @param $trashed
      * @return bool|\Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function hasAnyGroup($groups, $trashed = false){
+    public function hasAnyGroup($groups){
         if(is_array($groups))
-            return $this->groups($trashed)->whereIn('name', $groups);
+            return $this->groups()->whereIn('name', $groups);
         return $this->hasGroup('name', $groups);
     }
 
     /**
      * Determine if a user has a specific denied permission
      * @param $permission
-     * @param bool $trashed
      * @return bool
      */
-    public function hasDeniedPermission($permission, $trashed = false)
+    public function hasDeniedPermission($permission)
     {
-        return null !== $this->deniedPermissions($trashed)->where('name', $permission)->first();
+        return null !== $this->deniedPermissions()->where('name', $permission)->first();
     }
 }

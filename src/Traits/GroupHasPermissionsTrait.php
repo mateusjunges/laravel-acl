@@ -13,6 +13,4 @@ trait GroupHasPermissionsTrait
             ? config('acl.group_has_permissions')
             : 'group_has_permissions';
     }
-
-    protected $timestamps = false;
 }

@@ -17,26 +17,21 @@ trait GroupsTrait
 
     /**
      * Return all group permissions
-     * @param $trashed
      * @return mixed
      */
-    public function permissions($trashed = false)
+    public function permissions()
     {
-        if ($trashed)
-            return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.group_has_permissions'));
-        return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.group_has_permissions'))
-            ->whereNull(config('acl.tables.group_has_permissions').'.deleted_at');
+        return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.group_has_permissions'));
     }
 
     /**
      * Determine if a group has a specific permission
      * @param $permission
-     * @param $trashed
      * @return bool
      */
-    public function hasPermission($permission, $trashed = false)
+    public function hasPermission($permission)
     {
-        return null !== $this->permissions($trashed)->where('name', $permission)->first();
+        return null !== $this->permissions()->where('name', $permission)->first();
     }
 
     /**

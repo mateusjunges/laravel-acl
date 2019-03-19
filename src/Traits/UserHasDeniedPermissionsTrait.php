@@ -14,9 +14,4 @@ trait UserHasDeniedPermissionsTrait
             : 'user_has_denied_permissions';
 
     }
-
-    protected $timestamps = false;
-
-
-
 }
