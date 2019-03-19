@@ -13,4 +13,6 @@ trait UserHasPermissionTrait
             ? config('acl.tables.user_has_permissions')
             : 'user_has_permissions';
     }
+
+    protected $timestamps = false;
 }

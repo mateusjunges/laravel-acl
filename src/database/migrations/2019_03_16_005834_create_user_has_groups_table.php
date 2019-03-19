@@ -25,8 +25,6 @@ class CreateUserHasGroupsTable extends Migration
                 ->references('id')
                 ->on('groups')
                 ->onDelete('cascade');
-            $table->timestamp('deleted_at')->nullable();
-            $table->timestamps();
         });
     }
 

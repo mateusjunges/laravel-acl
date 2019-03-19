@@ -8,13 +8,11 @@ use MateusJunges\ACL\Traits\UserHasPermissionTrait;
 
 class UserHasPermission extends Model
 {
-    use SoftDeletes, UserHasPermissionTrait;
+    use UserHasPermissionTrait;
 
     protected $table = 'user_has_permissions';
-
     protected $fillable = [
         'user_id', 'permission_id',
     ];
 
-    protected $dates = ['deleted_at'];
 }

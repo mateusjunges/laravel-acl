@@ -13,4 +13,6 @@ trait UserHasGroupsTrait
             ? '' || config('acl.tables.user_has_groups')
             :  'user_has_groups';
     }
+
+    protected $timestamps = false;
 }

@@ -8,7 +8,7 @@ use MateusJunges\ACL\Traits\UserHasGroupsTrait;
 
 class UserHasGroup extends Model
 {
-    use SoftDeletes, UserHasGroupsTrait;
+    use UserHasGroupsTrait;
 
     /**
      * @var bool|string
@@ -22,10 +22,5 @@ class UserHasGroup extends Model
         'user_id',
         'group_id',
     ];
-
-    /**
-     * @var array
-     */
-    protected $dates = ['deleted_at'];
 
 }

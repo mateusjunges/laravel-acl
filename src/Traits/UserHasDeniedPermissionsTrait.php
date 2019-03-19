@@ -15,6 +15,8 @@ trait UserHasDeniedPermissionsTrait
 
     }
 
+    protected $timestamps = false;
+
 
 
 }

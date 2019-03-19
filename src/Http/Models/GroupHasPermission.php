@@ -8,13 +8,11 @@ use MateusJunges\ACL\Traits\GroupHasPermissionsTrait;
 
 class GroupHasPermission extends Model
 {
-    use SoftDeletes, GroupHasPermissionsTrait;
+    use GroupHasPermissionsTrait;
 
     protected $fillable = [
         'group_id', 'permission_id',
     ];
-
-    protected $dates = ['deleted_at'];
 
     protected $table;
 }

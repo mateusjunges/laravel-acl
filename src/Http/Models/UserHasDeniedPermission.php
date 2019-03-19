@@ -8,16 +8,11 @@ use MateusJunges\ACL\Traits\UserHasDeniedPermissionsTrait;
 
 class UserHasDeniedPermission extends Model
 {
-    use SoftDeletes, UserHasDeniedPermissionsTrait;
+    use UserHasDeniedPermissionsTrait;
 
     protected $table;
     protected $fillable = [
         'user_id',
         'permission_id',
     ];
-
-    protected $dates = ['deleted_at'];
-
-
-
 }
