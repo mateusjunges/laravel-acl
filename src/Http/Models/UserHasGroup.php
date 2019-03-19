@@ -22,6 +22,6 @@ class UserHasGroup extends Model
         'group_id',
     ];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
 }

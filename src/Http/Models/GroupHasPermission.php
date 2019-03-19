@@ -14,5 +14,5 @@ class GroupHasPermission extends Model
     ];
 
     protected $table;
-    protected $timestamps = false;
+    public $timestamps = false;
 }

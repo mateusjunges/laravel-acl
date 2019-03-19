@@ -14,5 +14,5 @@ class UserHasDeniedPermission extends Model
         'user_id',
         'permission_id',
     ];
-    protected $timestamps = false;
+    public $timestamps = false;
 }
