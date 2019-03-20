@@ -12,19 +12,14 @@
 
 
 Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' => ['web', 'auth']], function (){
-    Route::get('/groups/create', function (){
-        $permissions = \MateusJunges\ACL\Http\Models\Permission::all();
-        return view('acl::groups.create', compact('permissions'));
-    });
-    Route::post('/groups', function (){
+    Route::group(['namespace' => 'Groups'], function (){
+        Route::resource('groups', 'GroupController', [
+            'except' => [
 
-    })->name('groups.store');
-    Route::get('/groups/{id}', function ($id){
-       $group = \MateusJunges\ACL\Http\Models\Group::find($id);
-       $permissions = \MateusJunges\ACL\Http\Models\Permission::all();
-       return view('acl::groups.edit', compact(['group', 'permissions']));
+            ]
+        ]);
+        Route::prefix('groups')->group(function (){
+           Route::delete('permissions/{group}/{permission}', 'GroupController@removePermission')->name('groups.remove-permission');
+        });
     });
-    Route::put('groups/{id}', function ($id){
-
-    })->name('groups.update');
 });

@@ -19,10 +19,10 @@
                     <thead>
                     <tr>
                         <th>Nome</th>
-                        @can('groups.removeGroupPermission')
+                        @can('remove-group')
                             <th>Remover</th>
                         @endcan
-                        <th>Apelido</th>
+                        <th>Slug</th>
                         <th>Descrição</th>
                     </tr>
                     </thead>
@@ -30,13 +30,13 @@
                     @foreach($permissions as $permission)
                         <tr>
                             <td>{{ $permission->name }}</td>
-                            @can('groups.removeGroupPermission')
+                            @can('remove-group')
                                 <td>
                                     <button class="btn btn-danger btn-sm delete"
                                             data-route="groups/permissions"
                                             data-gender="a"
                                             data-type="permissão"
-                                            data-name="{{ $permission->nickname }}"
+                                            data-name="{{ $permission->name }}"
                                             data-id="{{ $permission->relation_id }}"
                                             value="{{ csrf_token() }}"
                                             id="delete-group-permission">
@@ -44,7 +44,7 @@
                                     </button>
                                 </td>
                             @endcan
-                            <td>{{ $permission->nickname }}</td>
+                            <td>{{ $permission->slug }}</td>
                             <td>{{ $permission->description }}</td>
                         </tr>
                     @endforeach
