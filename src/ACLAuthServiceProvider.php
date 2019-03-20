@@ -2,6 +2,7 @@
 
 namespace MateusJunges\ACL;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use MateusJunges\ACL\Http\Policies\DeniedPermissionsPolicyPolicy;
@@ -23,12 +24,11 @@ class ACLAuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UsersPolicy::class,
-        Permission::class => PermissionsPolicy::class,
-        Group::class => GroupsPolicy::class,
-        UserHasGroup::class => RolesPolicy::class,
-        UserHasDeniedPermission::class => DeniedPermissionsPolicyPolicy::class,
-
+//        User::class => UsersPolicy::class,
+//        Permission::class => PermissionsPolicy::class,
+//        Group::class => GroupsPolicy::class,
+//        UserHasGroup::class => RolesPolicy::class,
+//        UserHasDeniedPermission::class => DeniedPermissionsPolicyPolicy::class,
     ];
 
     /**
@@ -40,52 +40,24 @@ class ACLAuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //Users gates
-        Gate::resource('users', UsersPolicy::class, [
-            'create' => 'create',
-            'view' => 'view',
-            'update' => 'update',
-            'delete' => 'delete',
-            'admin' => 'admin',
-            'trashed' => 'trashed',
-            'viewPermissions' => 'viewPermissions',
-        ]);
+        /**
+         * Define the system permission gates
+         */
+        Permission::all()->map(function ($permission){
+            Gate::define($permission->slug, function ($user) use ($permission){
+                return $user->hasPermission($permission) || $user->isAdmin();
+            });
+        });
 
-        //Permissions gates
-        Gate::resource('permissions', PermissionsPolicy::class, [
-            'create' => 'create',
-            'view' => 'view',
-            'update' => 'update',
-            'delete' => 'delete',
-        ]);
+        /**
+         * Add blade directives
+         */
+        Blade::directive('group', function ($group){
+           return "<?php if(auth()->check() && auth()->user()->hasGroup({$group})) :";
+        });
+        Blade::directive('endgroup', function ($group){
+           return "<?php endif; ?>";
+        });
 
-        //Groups gates
-        Gate::resource('groups', GroupsPolicy::class, [
-            'create' => 'create',
-            'view' => 'view',
-            'update' => 'update',
-            'delete' => 'delete',
-            'viewPermissions' => 'viewPermissions',
-            'removeGroupPermission' => 'removeGroupPermission',
-            'manage' => 'manage',
-            'restore' => 'restore',
-            'permanentlyDelete' => 'permanentlyDelete'
-        ]);
-
-        //Roles gates
-        Gate::resource('roles', RolesPolicy::class, [
-            'create' => 'create',
-            'view' => 'view',
-            'update' => 'update',
-            'delete' => 'delete',
-        ]);
-
-        //Denied Permissions gates
-        Gate::resource('deniedPermissons', DeniedPermissionsPolicyPolicy::class, [
-            'create' => 'create',
-            'view' => 'view',
-            'update' => 'update',
-            'delete' => 'delete',
-        ]);
     }
 }

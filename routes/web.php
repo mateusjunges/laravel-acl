@@ -23,6 +23,10 @@ Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' =
         Route::post('data', 'UserController@data')->name('users.data');
         Route::get('permissions/{user_id}', 'UserController@permissions')->name('users.permissions');
         Route::get('trashed', 'UserController@trashed')->name('users.trashed');
+        Route::prefix('permissions')->group(function (){
+            Route::get('{user}', 'UserController@permissions')->name('users.permissions');
+            Route::delete('{permission}', 'UserController@removePermission')->name('users.remove-permission');
+        });
     });
     //User routes end here;
 

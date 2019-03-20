@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserHasPermissionsTable extends Migration
+class CreateUserHasDeniedPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class CreateUserHasPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_has_permissions', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('user_has_denied_permissions', function (Blueprint $table) {
             $table->integer('user_id', false, true);
             $table->integer('permission_id', false, true);
             $table->foreign('user_id')
@@ -25,6 +24,7 @@ class CreateUserHasPermissionsTable extends Migration
                 ->references('id')
                 ->on('permissions')
                 ->onDelete('cascade');
+            $table->primary(['user_id','permission_id']);
         });
     }
 
@@ -35,6 +35,6 @@ class CreateUserHasPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_has_permissions');
+        Schema::dropIfExists('user_has_denied_permissions');
     }
 }

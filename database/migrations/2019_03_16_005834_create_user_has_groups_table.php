@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupHasPermissionsTable extends Migration
+class CreateUserHasGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_has_permissions', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('user_has_groups', function (Blueprint $table) {
+            $table->integer('user_id', false, true);
             $table->integer('group_id', false, true);
-            $table->integer('permission_id', false, true);
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('group_id')
                 ->references('id')
                 ->on('groups')
                 ->onDelete('cascade');
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on('permissions')
-                ->onDelete('cascade');
+            $table->primary(['user_id', 'group_id']);
         });
     }
 
@@ -35,6 +35,6 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_has_permissions');
+        Schema::dropIfExists('user_has_groups');
     }
 }

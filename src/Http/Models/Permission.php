@@ -15,6 +15,6 @@ class Permission extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'description', 'nickname',
+        'name', 'description', 'slug',
     ];
 }
