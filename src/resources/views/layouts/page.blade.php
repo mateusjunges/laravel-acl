@@ -69,7 +69,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                @each('acl::partials.menu-item', $acl->menu(), 'item')
+                {{--@each('acl::partials.menu-item', $acl->menu(), 'item')--}}
             </ul>
             <div class="nav-item dropdown">
                 <a id="navbarDropdown"

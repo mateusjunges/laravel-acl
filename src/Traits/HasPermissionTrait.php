@@ -82,13 +82,13 @@ trait HasPermissionTrait
     /**
      * Give permissions to the user
      * @param mixed ...$permissions
-     * @return $this
+     * @return mixed
      */
     public function givePermissions(array $permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
-        if ($permissions === null)
-            return $this;
+        if ($permissions->count() == 0)
+            return false;
         $this->permissions()->syncWithoutDetaching($permissions);
         return $this;
     }

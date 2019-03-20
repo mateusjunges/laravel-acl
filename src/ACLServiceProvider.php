@@ -34,10 +34,6 @@ class ACLServiceProvider extends ServiceProvider
 
         //Publishes assets
         $this->publishAssets();
-
-        $this->registerViewComposer($view);
-        static::registerMenu($events, $config);
-
     }
 
     /**
@@ -72,38 +68,12 @@ class ACLServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param Dispatcher $events
-     * @param Repository $config
-     */
-    public function registerMenu(Dispatcher $events, Repository $config)
-    {
-        $events->listen(BuildMenu::class, function (BuildMenu $event) use ($config){
-           $menu = $config->get('acl.menu');
-           call_user_func_array([$event->menu, 'add'], $menu);
-        });
-    }
-
-    /**
-     * @param Factory $view
-     */
-    public function registerViewComposer(Factory $view)
-    {
-        $view->composer('acl::layouts.page', ACLComposer::class);
-    }
-
-    /**
      * Register any application services.
      *
      * @return void
      */
     public function register()
     {
-        $this->app->singleton(LaravelACL::class, function (Container $app){
-           return new LaravelACL(
-             $app['config']['acl.filters'],
-             $app['events'],
-             $app
-           );
-        });
+        //
     }
 }

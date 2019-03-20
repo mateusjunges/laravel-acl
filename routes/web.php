@@ -12,57 +12,19 @@
 
 
 Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' => ['web', 'auth']], function (){
-    //User routes begin here:
-    Route::resource('users', 'UserController', [
-        'except' => [
-            'create', 'update', 'show'
-        ],
-    ]);
-    Route::prefix('users')->group(function (){
-        Route::post('columns', 'UserController@columns')->name('users.columns');
-        Route::post('data', 'UserController@data')->name('users.data');
-        Route::get('permissions/{user_id}', 'UserController@permissions')->name('users.permissions');
-        Route::get('trashed', 'UserController@trashed')->name('users.trashed');
-        Route::prefix('permissions')->group(function (){
-            Route::get('{user}', 'UserController@permissions')->name('users.permissions');
-            Route::delete('{permission}', 'UserController@removePermission')->name('users.remove-permission');
-        });
+    Route::get('/groups/create', function (){
+        $permissions = \MateusJunges\ACL\Http\Models\Permission::all();
+        return view('acl::groups.create', compact('permissions'));
     });
-    //User routes end here;
+    Route::post('/groups', function (){
 
-    //Group routes begin here:
-    Route::resource('groups', 'GroupController', [
-        'except' => [
-            'show',
-        ]
-    ]);
-    Route::prefix('groups' )->group(function (){
-       Route::get('trashed', 'GroupController@trashed')->name('groups.trashed');
-       Route::put('restore/{group}', 'GroupController@restore')->name('groups.restore');
-       Route::prefix('permissions')->group(function (){
-           Route::get('{group}', 'GroupController@permissions')->name('groups.permissions');
-           Route::delete('{permission}', 'GroupController@removeGroupPermission')->name('groups.remove-permission');
-       });
+    })->name('groups.store');
+    Route::get('/groups/{id}', function ($id){
+       $group = \MateusJunges\ACL\Http\Models\Group::find($id);
+       $permissions = \MateusJunges\ACL\Http\Models\Permission::all();
+       return view('acl::groups.edit', compact(['group', 'permissions']));
     });
-    //Group routes end here;
+    Route::put('groups/{id}', function ($id){
 
-    //Permission routes begin here
-    Route::resource('permissions', 'PermissionController');
-    Route::prefix('permissions')->group(function (){
-        //
-    });
-    //Permission routes end here
-
-    //Role routes begin here:
-    Route::resource('roles', 'RoleController');
-    Route::prefix('roles')->group(function (){
-       //
-    });
-    //Role routes end here
-
-    //Denied permissions routes
-    Route::resource('denied-permissions', 'DeniedPermissionsController');
-    Route::prefix('denied-permissions')->group(function (){
-        //
-    });
+    })->name('groups.update');
 });

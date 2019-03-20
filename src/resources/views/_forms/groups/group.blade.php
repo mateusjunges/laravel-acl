@@ -12,6 +12,19 @@
         <span class="text-danger">{{ $errors->first('name') }}</span>
     @endif
 </div>
+<div class="form-group">
+    <label for="group-slug">Slug do grupo:</label>
+    <input type="text"
+           id="group-slug"
+           minlength="3"
+           name="slug"
+           placeholder="Informe o nome do novo grupo"
+           value="{{ isset($group) ? $group->slug : old('slug') }}"
+           class="form-control">
+    @if($errors->has('slug'))
+        <span class="text-danger">{{ $errors->first('slug') }}</span>
+    @endif
+</div>
 <label for="group-description">Descrição:</label>
 <div class="form-group">
     <textarea name="description"
@@ -34,12 +47,12 @@
         @if(isset($group))
             @foreach($permissions as $permission)
                 <option value="{{ $permission->id }}"
-                        {{ ($group->hasPermission($permission->name) ? 'selected' : '') }}
+                        {{ ($group->hasPermission($permission->id) ? 'selected' : '') }}
                 @if(old('$permissions') != null)
                     {{ (in_array($permission->id, old('permissions')) ? 'selected' : '') }}
                         @endif
                 >
-                    {{ $permission->nickname }}
+                    {{ $permission->name }}
                 </option>
             @endforeach
         @else
@@ -49,7 +62,7 @@
                     {{ in_array($permission->id, old('permissions')) ? 'selected' : '' }}
                         @endif
                 >
-                    {{ $permission->nickname }}
+                    {{ $permission->name }}
                 </option>
             @endforeach
         @endif
