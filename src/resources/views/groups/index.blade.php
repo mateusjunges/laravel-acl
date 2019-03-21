@@ -17,15 +17,15 @@
                     <thead>
                     <tr>
                         <th>Nome</th>
-                        @can('groups.viewPermissions')
+                        {{--@can('groups.viewPermissions')--}}
                             <th>Ver Permissões</th>
-                        @endcan
-                        @can('groups.update')
+                        {{--@endcan--}}
+                        {{--@can('groups.update')--}}
                             <th>Editar</th>
-                        @endcan
-                        @can('groups.delete')
+                        {{--@endcan--}}
+                        {{--@can('groups.delete')--}}
                             <th>Remover</th>
-                        @endcan
+                        {{--@endcan--}}
                         <th>Descrição</th>
                     </tr>
                     </thead>
@@ -33,16 +33,16 @@
                     @foreach($groups as $group)
                         <tr>
                             <td>{{ $group->name }}</td>
-                            @can('groups.viewPermissions')
+                            {{--@can('groups.viewPermissions')--}}
                                 <td>
-                                    <a href="{{ route('groups.permissions', $group->id) }}">
+                                    <a href="{{ route('groups.show', $group->id) }}">
                                         <button class="btn btn-warning btn-sm permissions">
                                             <i class="fa fa-tags"></i>
                                         </button>
                                     </a>
                                 </td>
-                            @endcan
-                            @can('groups.update')
+                            {{--@endcan--}}
+                            {{--@can('groups.update')--}}
                                 <td>
                                     <a href="{{ route('groups.edit', $group->id) }}">
                                         <button class="btn btn-primary btn-sm">
@@ -50,8 +50,8 @@
                                         </button>
                                     </a>
                                 </td>
-                            @endcan
-                            @can('groups.delete')
+                            {{--@endcan--}}
+                            {{--@can('groups.delete')--}}
                                 <td>
                                     <button class="btn btn-danger btn-sm delete"
                                             value="{{ csrf_token() }}"
@@ -63,7 +63,7 @@
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
-                            @endcan
+                            {{--@endcan--}}
                             <td>{{ $group->description }}</td>
                         </tr>
                     @endforeach

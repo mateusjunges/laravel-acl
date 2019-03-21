@@ -4,7 +4,6 @@ namespace MateusJunges\ACL\Traits;
 
 trait GroupsTrait
 {
-
     /**
      * GroupsTrait constructor.
      */

@@ -10,7 +10,8 @@ $(document).ready(function () {
         let route = $(this).data('route');
         let id = $(this).data('id');
         let gender = $(this).data('gender');
-
+        let permission = $(this).data('permissionid');
+        console.log(id);
         var tr = $(this).closest('tr');
 
         swal(`Deseja realmente excluir ${gender} ${type} ${name}?`,{
@@ -20,7 +21,7 @@ $(document).ready(function () {
             if (response === true){
                 $.ajax({
                     method: 'post',
-                    url: `/${route}/${id}`,
+                    url: `/${route}/${id}/${permission}`,
                     async: false,
                     data: {
                         '_token': token,

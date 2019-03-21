@@ -4,7 +4,6 @@ namespace MateusJunges\ACL\Http\Controllers\Groups;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use MateusJunges\ACL\Http\Models\Group;
 use MateusJunges\ACL\Http\Models\Permission;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,12 @@ class GroupController extends Controller
      */
     public function index()
     {
-
+//        try{
+            $groups = Group::all();
+            return view('acl::groups.index', compact('groups'));
+//        }catch (\Exception $exception){
+//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+//        }
     }
 
     /**
@@ -44,7 +48,21 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        try{
+            $group = new Group();
+            $group->fill($request->all());
+            $group->save();
+            $group->permissions()->attach($request->input('permissions'));
+            $message = array(
+                'type' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Grupo criado com sucesso!',
+            );
+            session()->flash('message', $message);
+            return response()->redirectToRoute('groups.index')->with($message);
+//        }catch (\Exception $exception){
+//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+//        }
     }
 
     /**
@@ -104,6 +122,23 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $group = Group::find($id);
+            $group->delete();
+            return response()->json([
+               'code' => Response::HTTP_OK,
+               'timer' => 4000,
+               'title' => 'Sucesso!',
+               'text' => 'Grupo removido com sucesso!',
+               'icon' => 'success',
+            ]);
+        }catch (\Exception $exception){
+            return response()->json([
+                'code' => Response::HTTP_INTERNAL_SERVER_ERROR,
+                'timer' => 4000,
+                'icon' => 'error',
+                'text' => 'Ocorreu um erro. Tente novamente mais tarde!',
+            ]);
+        }
     }
 }

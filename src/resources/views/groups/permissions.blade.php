@@ -37,7 +37,8 @@
                                             data-gender="a"
                                             data-type="permissão"
                                             data-name="{{ $permission->name }}"
-                                            data-id="{{ $permission->relation_id }}"
+                                            data-id="{{ $group->id }}"
+                                            data-permission="{{ $permission->id }}"
                                             value="{{ csrf_token() }}"
                                             id="delete-group-permission">
                                         <i class="fa fa-trash"></i>

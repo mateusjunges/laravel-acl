@@ -10,17 +10,13 @@ class Group extends Model
 {
     use SoftDeletes, GroupsTrait;
 
+    protected $dates = ['deleted_at'];
     protected $table;
 
     /**
      * @var array
      */
     protected $fillable = [
-        'name', 'description',
+        'name', 'slug', 'description',
     ];
-
-    /**]
-     * @var array
-     */
-    protected $dates = ['deleted_at'];
 }
