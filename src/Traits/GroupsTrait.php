@@ -2,18 +2,12 @@
 
 namespace MateusJunges\ACL\Traits;
 
+
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 trait GroupsTrait
 {
-    /**
-     * GroupsTrait constructor.
-     */
-    public function __construct()
-    {
-        $this->table = config('acl.tables.groups') != ''
-            ? config('acl.tables.groups')
-            : 'groups';
-    }
-
+    use SoftDeletes;
     /**
      * Return all group permissions
      * @return mixed
