@@ -3,15 +3,14 @@
 namespace MateusJunges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use MateusJunges\ACL\Traits\GroupsTrait;
 
 class Group extends Model
 {
-    use SoftDeletes, GroupsTrait;
+    use GroupsTrait;
 
     protected $dates = ['deleted_at'];
-    protected $table;
+    protected $table = 'groups';
 
     /**
      * @var array

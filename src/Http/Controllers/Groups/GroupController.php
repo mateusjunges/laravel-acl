@@ -2,6 +2,7 @@
 
 namespace MateusJunges\ACL\Http\Controllers\Groups;
 
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use MateusJunges\ACL\Http\Models\Group;
@@ -18,8 +19,19 @@ class GroupController extends Controller
     public function index()
     {
 //        try{
-            $groups = Group::all();
-            return view('acl::groups.index', compact('groups'));
+            if (Gate::allows('view-groups')){
+                $groups = Group::all();
+
+                return view('acl::groups.index', compact('groups'));
+            }else{
+                $message = array(
+                    'type' => 'warning',
+                    'title' => 'Acesso negado!',
+                    'text' => 'Você não tem permissão para acessar esta área do sistema!',
+                );
+                session()->flash('message', $message);
+                return redirect()->back();
+            }
 //        }catch (\Exception $exception){
 //            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
 //        }
@@ -111,7 +123,21 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try{
+            $group = Group::find($id);
+            $group->update($request->all());
+            $group->save();
+            $group->permissions()->sync($request->permissions);
+            $message = array(
+                'type' => 'success',
+                'title' => 'Sucesso!',
+                'text' => 'Grupo atualizado com sucesso!',
+            );
+            session()->flash('message', $message);
+            return response()->redirectToRoute('groups.index');
+        }catch (\Exception $exception){
+           return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+        }
     }
 
     /**
