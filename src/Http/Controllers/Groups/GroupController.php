@@ -18,7 +18,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-//        try{
+        try{
             if (Gate::allows('view-groups')){
                 $groups = Group::all();
 
@@ -32,9 +32,9 @@ class GroupController extends Controller
                 session()->flash('message', $message);
                 return redirect()->back();
             }
-//        }catch (\Exception $exception){
-//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
-//        }
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+        }
     }
 
     /**
@@ -60,7 +60,7 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-//        try{
+        try{
             $group = new Group();
             $group->fill($request->all());
             $group->save();
@@ -72,9 +72,9 @@ class GroupController extends Controller
             );
             session()->flash('message', $message);
             return response()->redirectToRoute('groups.index')->with($message);
-//        }catch (\Exception $exception){
-//            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
-//        }
+        }catch (\Exception $exception){
+            return abort(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
+        }
     }
 
     /**
