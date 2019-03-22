@@ -15,14 +15,14 @@ class PermissionsSeeder extends Seeder
     {
         $permissionModel = app(config('acl.models.permission'));
         $permissionModel->create([
-           'name'        => '',
-           'slug'        => '',
-           'description' => ''
+           'name'        => 'Visualizar permissões de usuário',
+           'slug'        => 'view-user-permissions',
+           'description' => 'Permite visualizar as permissões atribuídas a um usuário'
         ]);
         $permissionModel->create([
-            'name'        => '',
-            'slug'        => '',
-            'description' => ''
+            'name'        => 'Remover permissão de usuário',
+            'slug'        => 'remove-user-permission',
+            'description' => 'Permite remover uma permissão de um usuário'
         ]);
         $permissionModel->create([
             'name'        => '',
