@@ -2,7 +2,7 @@
 
 namespace MateusJunges\ACL\Traits;
 
-trait HasPermissionTrait
+trait UsersTrait
 {
     /**
      * Return all user groups
@@ -72,6 +72,16 @@ trait HasPermissionTrait
     }
 
     /**
+     * @param array $groups
+     * @return mixed
+     */
+    protected function getAllGroups(array $groups)
+    {
+        $model = app(config('acl.models.group'));
+        return $model->whereIn('id', $groups)->get();
+    }
+
+    /**
      * @return bool
      */
     public function isAdmin()
@@ -81,10 +91,10 @@ trait HasPermissionTrait
 
     /**
      * Give permissions to the user
-     * @param mixed ...$permissions
+     * @param mixed $permissions
      * @return mixed
      */
-    public function givePermissions(array $permissions)
+    public function assignPermissions(array $permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
         if ($permissions->count() == 0)
@@ -102,6 +112,34 @@ trait HasPermissionTrait
     {
         $permissions = $this->getAllPermissions($permissions);
         $this->permissions()->detach($permissions);
+        return $this;
+    }
+
+    /**
+     * Assign a group to a user
+     * @param array $groups
+     * @return $this|bool
+     */
+    public function assignGroup(array $groups)
+    {
+        $groups = $this->getAllGroups($groups);
+        if ($groups->count() == 0)
+            return false;
+        $this->groups()->syncWithoutDetaching($groups);
+        return $this;
+    }
+
+    /**
+     * Revoke user access to a group
+     * @param array $groups
+     * @return $this|bool
+     */
+    public function revokeGroup(array $groups)
+    {
+        $groups = $this->getAllGroups($groups);
+        if ($groups->count() == 0)
+            return false;
+        $this->groups()->detach($groups);
         return $this;
     }
 

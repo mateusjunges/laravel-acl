@@ -4,20 +4,19 @@
     <select name="user"
             id="user"
             class="form-control">
-        @if(isset($userToEdit))
-            @foreach($users as $user)
+        @if(isset($user))
+            @foreach($users as $u)
                 <option value="{{ $user->id }}"
-                        @if(($user->id == $userToEdit) || ($user->id == old('user')))
+                        @if(($u->id == $user->id) || ($u->id == old('user')))
                             selected
                         @endif
                 >
-                    {{ $user->name }}</option>
+                    {{ $u->name }}</option>
             @endforeach
         @else
-
-            @foreach($users as $user)
-                <option value="{{ $user->id }}" {{ $user->id == old('user') ? 'selected' : '' }}>
-                    {{ $user->name }}</option>
+            @foreach($users as $u)
+                <option value="{{ $u->id }}" {{ $u->id == old('user') ? 'selected' : '' }}>
+                    {{ $u->name }}</option>
             @endforeach
         @endif
     </select>

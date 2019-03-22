@@ -33,7 +33,7 @@ trait GroupsTrait
      */
     public function users()
     {
-        return $this->belongsToMany(config('acl.models.User'), config('acl.tables.user_has_groups'));
+        return $this->belongsToMany(config('acl.models.user'), config('acl.tables.user_has_groups'));
     }
 
     /**
@@ -41,7 +41,7 @@ trait GroupsTrait
      * @param array $permissions
      * @return $this|bool
      */
-    public function givePermissions(array $permissions)
+    public function assignPermissions(array $permissions)
     {
         $permissions = $this->getAllPermissions($permissions);
         if ($permissions->count() == 0)
@@ -72,5 +72,46 @@ trait GroupsTrait
         $model = app(config('acl.models.permission'));
         return $model->whereIn('id', $permissions)->get();
     }
+
+    /**
+     * Retrive a user model for each one of the users id array
+     * @param array $users
+     * @return mixed
+     */
+    protected function getAllUsers(array $users)
+    {
+        $model = app(config('acl.models.user'));
+        return $model->whereIn('id', $users)->get();
+    }
+
+    /**
+     * Assign user to group
+     * @param array $users
+     * @return $this|bool
+     */
+    public function assignUser(array $users)
+    {
+        $users = $this->getAllUsers($users);
+        if ($users->count() == 0)
+            return false;
+        $this->users()->syncWithoutDetaching($users);
+        return $this;
+    }
+
+    /**
+     * Remove users from the group
+     * @param array $users
+     * @return bool
+     *
+     */
+    public function removeUser(array $users)
+    {
+        $users = $this->getAllUsers($users);
+        if ($users->count() == 0)
+            return false;
+        $this->users()->detach($users);
+    }
+
+
 
 }

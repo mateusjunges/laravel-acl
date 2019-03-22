@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mateu
- * Date: 18/03/2019
- * Time: 20:01
- */
 
 namespace MateusJunges\ACL\Traits;
 
