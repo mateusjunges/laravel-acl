@@ -22,4 +22,11 @@ Route::group(['namespace' => 'MateusJunges\ACL\Http\Controllers', 'middleware' =
            Route::delete('permissions/{group}/{permission}', 'GroupController@removePermission')->name('groups.remove-permission');
         });
     });
+    Route::group(['namespace' => 'Users', 'prefix' => 'users'], function (){
+       Route::post('permissions', 'UserPermissionController@store')->name('user.permissions.store');
+       Route::get('permissions/create', 'UserPermissionController@create')->name('user.permissions.create');
+       Route::get('{user}/permissions', 'UserPermissionController@show')->name('user.permissions.show');
+       Route::delete('permissions/{user}/{permission}', 'UserPermissionController@destroy')->name('user.permissions.remove');
+
+    });
 });
