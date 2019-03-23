@@ -65,7 +65,14 @@ trait UsersTrait
      */
     public function hasDirectPermission($permission)
     {
-        return (bool) $this->permissions()->where('slug', $permission->slug)->count();
+        $model = app(config('acl.models.permission'));
+        if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
+        else if (is_numeric($permission))
+            $permission = $model->find($permission);
+        if($permission != null)
+            return (bool) ($this->permissions()->where('slug', $permission->slug)->count());
+        return false;
     }
 
 

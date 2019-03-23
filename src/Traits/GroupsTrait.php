@@ -24,7 +24,14 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
-        return null !== $this->permissions()->where('slug', $permission->slug)->first();
+        $model = app(config('acl.models.group'));
+        if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
+        else if (is_numeric($permission))
+            $permission = $model->find($permission);
+        if ($permission != null)
+            return null !== $this->permissions()->where('slug', $permission->slug)->first();
+        return false;
     }
 
     /**
