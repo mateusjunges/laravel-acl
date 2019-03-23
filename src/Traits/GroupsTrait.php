@@ -24,7 +24,7 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
-        return null !== $this->permissions->where('id', $permission)->first();
+        return null !== $this->permissions->where('slug', $permission->slug)->first();
     }
 
     /**
@@ -63,7 +63,7 @@ trait GroupsTrait
     }
 
     /**
-     * Retrive a permission model for each one of the permissions array
+     * Retrive permission id for each one of the permissions array
      * @param array $permissions
      * @return mixed
      */
@@ -116,7 +116,7 @@ trait GroupsTrait
     /**
      * Remove users from the group
      * @param array $users
-     * @return bool
+     * @return mixed
      *
      */
     public function removeUser(array $users)
@@ -125,6 +125,54 @@ trait GroupsTrait
         if ($users->count() == 0)
             return false;
         $this->users()->detach($users);
+        return $this;
+    }
+
+
+    /**
+     * Check if the group has any permission of a permission array
+     * @param array $permissions
+     * @return bool
+     */
+    public function hasAnyPermission(array $permissions)
+    {
+        $model = app(config('acl.models.permission'));
+        $permissions = array_map(function ($permission) use ($model){
+            if ($permission instanceof $model)
+                return $permission;
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
+            else if (is_numeric($permission))
+                return $model->find($permission);
+        }, $permissions);
+
+        foreach ($permissions as $permission)
+            if ($this->hasPermission($permission))
+                return true;
+        return false;
+    }
+
+    /**
+     * Check if a group has all specified permissions
+     * @param array $permissions
+     * @return bool
+     */
+    public function hasAllPermissions(array $permissions)
+    {
+        $model = app(config('acl.models.permission'));
+        $permissions = array_map(function ($permission) use ($model){
+            if ($permission instanceof $model)
+                return $permission;
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
+            else if (is_numeric($permission))
+                return $model->find($permission);
+        }, $permissions);
+
+        foreach ($permissions as $permission)
+            if (!$this->hasPermission($permission))
+                return false;
+        return true;
     }
 
 
