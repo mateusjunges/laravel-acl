@@ -30,11 +30,7 @@ trait UsersTrait
      */
     public function hasGroup($group)
     {
-        foreach ($group as $g) {
-            if ($this->groups->contains('slug', $g))
-                return true;
-        }
-        return false;
+        return null !== $this->groups()->where('slug', $group->slug)->first();
     }
 
     /**
@@ -197,9 +193,10 @@ trait UsersTrait
             else if (is_numeric($group))
                 return $model->find($group)->first();
         }, $groups);
-        foreach ($groups as $group)
+        foreach ($groups as $group){
             if ($this->hasGroup($group))
                 return true;
+        }
         return false;
     }
 
