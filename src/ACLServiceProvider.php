@@ -23,7 +23,6 @@ class ACLServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
 
-        $this->loadRoutesFrom(__DIR__ .'/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
 
         //Publishes config
@@ -31,27 +30,15 @@ class ACLServiceProvider extends ServiceProvider
 
         //Publishes views
         $this->loadViews();
-
-        //Publishes assets
-        $this->publishAssets();
     }
 
-    /**
-     * Load and publishes the assets
-     */
-    public function publishAssets()
-    {
-        $this->publishes([
-            __DIR__ . '/../public/' => public_path('/vendor/mateusjunges/acl'),
-        ], 'assets');
-    }
 
     /**
      * Load and publishes the views folder
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ .'/resources/views', 'acl');
+        $this->loadViewsFrom(__DIR__ .'/../resources/views', 'acl');
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/mateusjunges/acl'),
         ], 'views');
