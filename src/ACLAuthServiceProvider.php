@@ -19,19 +19,6 @@ use MateusJunges\ACL\Http\Models\UserHasDeniedPermission;
 class ACLAuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-//        User::class => UsersPolicy::class,
-//        Permission::class => PermissionsPolicy::class,
-//        Group::class => GroupsPolicy::class,
-//        UserHasGroup::class => RolesPolicy::class,
-//        UserHasDeniedPermission::class => DeniedPermissionsPolicyPolicy::class,
-    ];
-
-    /**
      * Bootstrap any application services.
      *
      * @return void
