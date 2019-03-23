@@ -43,7 +43,8 @@ class ACLAuthServiceProvider extends ServiceProvider
         /**
          * Define the system permission gates
          */
-        Permission::all()->map(function ($permission){
+        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel->all()->map(function ($permission){
             Gate::define($permission->slug, function ($user) use ($permission){
                 return $user->hasPermission($permission) || $user->isAdmin();
             });
