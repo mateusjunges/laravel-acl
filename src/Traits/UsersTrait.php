@@ -2,6 +2,7 @@
 
 namespace MateusJunges\ACL\Traits;
 
+
 trait UsersTrait
 {
     /**
@@ -24,10 +25,10 @@ trait UsersTrait
 
     /**
      * Determine if a user has the specified group
-     * @param mixed ...$groups
+     * @param mixed $groups
      * @return bool
      */
-    public function hasGroup( ... $groups)
+    public function hasGroup($groups)
     {
         foreach ($groups as $group) {
             if ($this->groups->contains('slug', $group))
@@ -68,7 +69,14 @@ trait UsersTrait
     protected function getAllPermissions(array $permissions)
     {
         $model = app(config('acl.models.permission'));
-        return $model->whereIn('id', $permissions)->get();
+        return collect(array_map(function ($permission) use ($model){
+            if (is_string($permission))
+                return $model->where('slug', $permission)->first()->id;
+            else if (is_numeric($permission))
+                return $model->find($permission)->id;
+            else if ($permission instanceof $model)
+                return $permission->id;
+        }, $permissions));
     }
 
     /**
@@ -78,7 +86,15 @@ trait UsersTrait
     protected function getAllGroups(array $groups)
     {
         $model = app(config('acl.models.group'));
-        return $model->whereIn('id', $groups)->get();
+        return collect(array_map(function ($group) use ($model){
+            if ($group instanceof $model)
+                return $group->id;
+            else if (is_string($group))
+                return $model->where('slug', $group)->first()->id;
+            else if (is_numeric($group))
+                return $model->find($group)->id;
+        }, $groups));
+//        return $model->whereIn('id', $groups)->get();
     }
 
     /**
@@ -123,6 +139,7 @@ trait UsersTrait
     public function assignGroup(array $groups)
     {
         $groups = $this->getAllGroups($groups);
+//        dd($groups);
         if ($groups->count() == 0)
             return false;
         $this->groups()->syncWithoutDetaching($groups);
@@ -143,6 +160,10 @@ trait UsersTrait
         return $this;
     }
 
+    public function hasAnyPermission(array $permissions)
+    {
+
+    }
 
 
 }

@@ -30,10 +30,10 @@
     <select name="groups"
             multiple="multiple"
             id="groups" class="form-control">
-        @if(isset($group))
+        @if(isset($user))
             @foreach($groups as $g)
                 <option value="{{ $g->id }}"
-                {{--@if()@endif--}}
+                @if(app(config('acl.models.user'))->hasGroup(''))@endif
                 @if(old('groups') != null)
                     {{ (in_array($g->id, old('groups')) ? 'selected' : '') }}
                         @endif
