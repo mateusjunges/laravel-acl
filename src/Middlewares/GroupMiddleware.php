@@ -8,6 +8,14 @@ use MateusJunges\ACL\Exceptions\Unauthorized;
 
 class GroupMiddleware
 {
+    /**
+     * Handle an incoming request
+     *
+     * @param $request
+     * @param Closure $next
+     * @param $groups
+     * @return mixed
+     */
     public function handle($request, Closure $next, $groups)
     {
         if (Auth::guest())

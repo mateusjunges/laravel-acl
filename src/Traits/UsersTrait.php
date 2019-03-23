@@ -34,13 +34,24 @@ trait UsersTrait
     }
 
     /**
+     * Determine if a user has a permission, regardless of whether it is direct or via group
      * @param $permission
      * @return bool
      */
     public function hasPermission($permission)
     {
-        return (bool) ($this->permissions->where('slug', $permission->slug)->count())
+        return (bool) ($this->permissions()->where('slug', $permission->slug)->count())
             || $this->hasPermissionThroughGroup($permission);
+    }
+
+    /**
+     * Determine if a user has a permission directly associated
+     * @param $permission
+     * @return bool
+     */
+    public function hasDirectPermission($permission)
+    {
+        return (bool) $this->permissions()->where('slug', $permission->slug)->count();
     }
 
 

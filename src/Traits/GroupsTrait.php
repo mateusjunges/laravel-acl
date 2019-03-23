@@ -24,7 +24,7 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
-        return null !== $this->permissions->where('slug', $permission->slug)->first();
+        return null !== $this->permissions()->where('slug', $permission->slug)->first();
     }
 
     /**
