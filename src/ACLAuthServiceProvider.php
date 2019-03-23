@@ -63,7 +63,7 @@ class ACLAuthServiceProvider extends ServiceProvider
         });
        Blade::directive('endpermission', function (){
            return "<?php endif; ?>";
-       })
+       });
 
     }
 }
