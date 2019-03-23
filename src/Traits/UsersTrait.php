@@ -30,7 +30,14 @@ trait UsersTrait
      */
     public function hasGroup($group)
     {
-        return null !== $this->groups()->where('slug', $group->slug)->first();
+        $model = app(config('acl.models.group'));
+        if (is_string($group))
+            $group = $model->where('slug', $group)->first();
+        else if (is_numeric($group))
+            $group = $model->find($group);
+        if ($group != null)
+            return null !== $this->groups()->where('slug', $group->slug)->first();
+        return false;
     }
 
     /**
@@ -40,8 +47,15 @@ trait UsersTrait
      */
     public function hasPermission($permission)
     {
-        return (bool) ($this->permissions()->where('slug', $permission->slug)->count())
-            || $this->hasPermissionThroughGroup($permission);
+        $model = app(config('acl.models.permission'));
+        if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
+        else if (is_numeric($permission))
+            $permission = $model->find($permission);
+        if($permission != null)
+            return (bool) ($this->permissions()->where('slug', $permission->slug)->count())
+                || $this->hasPermissionThroughGroup($permission);
+        return false;
     }
 
     /**
