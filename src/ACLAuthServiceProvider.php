@@ -58,6 +58,12 @@ class ACLAuthServiceProvider extends ServiceProvider
         Blade::directive('endgroup', function (){
            return "<?php endif; ?>";
         });
+        Blade::directive('permission', function ($permission){
+            return "<?php if(auth()->user()->check() && auth()->user()->hasPermission({$permission}) :";
+        });
+       Blade::directive('endpermission', function (){
+           return "<?php endif; ?>";
+       })
 
     }
 }
