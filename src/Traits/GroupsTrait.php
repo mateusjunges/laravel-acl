@@ -63,14 +63,21 @@ trait GroupsTrait
     }
 
     /**
-     * Retrive a permission model for each one of the permissions id array
+     * Retrive a permission model for each one of the permissions array
      * @param array $permissions
      * @return mixed
      */
     protected function getAllPermissions(array $permissions)
     {
         $model = app(config('acl.models.permission'));
-        return $model->whereIn('id', $permissions)->get();
+        return collect(array_map(function ($permission) use ($model){
+            if (is_string($permission))
+                return $model->where('slug', $permission)->first()->id;
+            else if (is_numeric($permission))
+                return $model->find($permission)->id;
+            else if ($permission instanceof $model)
+                return $permission->id;
+        }, $permissions));
     }
 
     /**
@@ -81,7 +88,15 @@ trait GroupsTrait
     protected function getAllUsers(array $users)
     {
         $model = app(config('acl.models.user'));
-        return $model->whereIn('id', $users)->get();
+        return collect(
+            array_map(function ($user) use ($model){
+                if ($user instanceof $model)
+                    return $user->id;
+                else if (is_numeric($user))
+                    return $model->find($user)->id;
+                else if (is_string($user))
+                    return $model->where('name', $user)->first()->id;
+            }, $users));
     }
 
     /**

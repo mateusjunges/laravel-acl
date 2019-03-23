@@ -94,7 +94,6 @@ trait UsersTrait
             else if (is_numeric($group))
                 return $model->find($group)->id;
         }, $groups));
-//        return $model->whereIn('id', $groups)->get();
     }
 
     /**
@@ -139,7 +138,6 @@ trait UsersTrait
     public function assignGroup(array $groups)
     {
         $groups = $this->getAllGroups($groups);
-//        dd($groups);
         if ($groups->count() == 0)
             return false;
         $this->groups()->syncWithoutDetaching($groups);
