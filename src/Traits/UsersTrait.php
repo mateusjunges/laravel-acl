@@ -25,13 +25,13 @@ trait UsersTrait
 
     /**
      * Determine if a user has the specified group
-     * @param mixed $groups
+     * @param mixed $group
      * @return bool
      */
-    public function hasGroup($groups)
+    public function hasGroup($group)
     {
-        foreach ($groups as $group) {
-            if ($this->groups->contains('slug', $group))
+        foreach ($group as $g) {
+            if ($this->groups->contains('slug', $g))
                 return true;
         }
         return false;
@@ -182,6 +182,28 @@ trait UsersTrait
     }
 
     /**
+     * Check if the user has any group
+     * @param array $groups
+     * @return bool
+     */
+    public function hasAnyGroup(array $groups)
+    {
+        $model = app(config('acl.models.group'));
+        $groups = array_map(function ($group) use ($model){
+            if ($group instanceof $model)
+                return $group;
+            else if (is_string($group))
+                return $model->where('slug', $group)->fisrt();
+            else if (is_numeric($group))
+                return $model->find($group)->first();
+        }, $groups);
+        foreach ($groups as $group)
+            if ($this->hasGroup($group))
+                return true;
+        return false;
+    }
+
+    /**
      * Check if the user has all specified permissions
      * @param array $permissions
      * @return bool
@@ -203,6 +225,8 @@ trait UsersTrait
                 return false;
         return true;
     }
+
+
 
 
 }
