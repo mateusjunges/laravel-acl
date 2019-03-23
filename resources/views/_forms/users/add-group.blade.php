@@ -1,12 +1,12 @@
 <div class="form-group">
     <label for="users">Selecione o usuário</label>
-    <select name="users"
+    <select name="user"
             id="users"
             class="form-control">
         @if(isset($user))
             @foreach($users as $u)
                 <option value="{{ $u->id }}"
-                    @if(($u->id == $user->id) || ($u->id == old('users')))
+                    @if(($u->id == $user->id) || ($u->id == old('user')))
                         selected
                     @endif
                 >
@@ -15,7 +15,7 @@
             @endforeach
         @else
             @foreach($users as $u)
-                <option value="{{ $u->id }}" {{ $u->id == old('users') ? 'selected' : '' }}>
+                <option value="{{ $u->id }}" {{ $u->id == old('user') ? 'selected' : '' }}>
                     {{ $u->name }}
                 </option>
             @endforeach
@@ -33,7 +33,7 @@
         @if(isset($user))
             @foreach($groups as $g)
                 <option value="{{ $g->id }}"
-                @if(app(config('acl.models.user'))->hasGroup(''))@endif
+                        {{ $user->hasGroup($g) ? 'selected' : '' }}
                 @if(old('groups') != null)
                     {{ (in_array($g->id, old('groups')) ? 'selected' : '') }}
                         @endif
@@ -42,13 +42,13 @@
                 </option>
             @endforeach
         @else
-            @foreach($permissions as $permission)
-                <option value="{{ $permission->id }}"
+            @foreach($groups as $g)
+                <option value="{{ $g->id }}"
                 @if(old('groups') != null)
-                    {{ in_array($permission->id, old('groups')) ? 'selected' : '' }}
+                    {{ in_array($g->id, old('groups')) ? 'selected' : '' }}
                         @endif
                 >
-                    {{ $permission->name }}
+                    {{ $g->name }}
                 </option>
             @endforeach
         @endif

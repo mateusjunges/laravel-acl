@@ -31,10 +31,10 @@
             multiple
             id="user-permissions"
             class="form-control">
-        @if(isset($userToEdit))
+        @if(isset($user))
             @foreach($permissions as $permission)
                 <option value="{{ $permission->id }}"
-                        {{ ($userToEdit->can($permission->slug) ? 'selected' : '') }}
+                        {{ ($user->hasDirectPermission($permission->slug) ? 'selected' : '') }}
                 @if(old('$permissions') != null)
                     {{ (in_array($permission->id, old('permissions')) ? 'selected' : '') }}
                         @endif
