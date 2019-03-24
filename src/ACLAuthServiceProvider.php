@@ -10,9 +10,6 @@ use Junges\ACL\Http\Policies\GroupsPolicy;
 use Junges\ACL\Http\Policies\PermissionsPolicy;
 use Junges\ACL\Http\Policies\RolesPolicy;
 use Junges\ACL\Http\Policies\UsersPolicy;
-use Junges\ACL\Http\Models\Group;
-use Junges\ACL\Http\Models\Permission;
-use App\User;
 use Junges\ACL\Http\Models\UserHasGroup;
 use Junges\ACL\Http\Models\UserHasDeniedPermission;
 

@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Traits;
 
-
 trait PermissionsTrait
 {
     /**

@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Traits;
 
-
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 trait GroupsTrait
