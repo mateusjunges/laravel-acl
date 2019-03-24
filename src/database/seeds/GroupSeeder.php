@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\ACL\database\seeds;
+namespace Junges\ACL\database\seeds;
 
 use Illuminate\Database\Seeder;
 

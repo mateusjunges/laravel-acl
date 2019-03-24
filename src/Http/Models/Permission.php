@@ -1,10 +1,10 @@
 <?php
 
-namespace MateusJunges\ACL\Http\Models;
+namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use MateusJunges\ACL\Traits\PermissionsTrait;
+use Junges\ACL\Traits\PermissionsTrait;
 
 class Permission extends Model
 {

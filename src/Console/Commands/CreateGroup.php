@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\ACL\Console\Commands;
+namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
 

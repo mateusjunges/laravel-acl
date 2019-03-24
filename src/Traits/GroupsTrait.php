@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\ACL\Traits;
+namespace Junges\ACL\Traits;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;

@@ -1,11 +1,11 @@
 <?php
 
-namespace MateusJunges\database\seeds;
+namespace Junges\database\seeds;
 
 use Illuminate\Database\Seeder;
-use MateusJunges\ACL\database\seeds\GroupHasPermissionSeeder;
-use MateusJunges\ACL\database\seeds\GroupSeeder;
-use MateusJunges\ACL\database\seeds\PermissionsSeeder;
+use Junges\ACL\database\seeds\GroupHasPermissionSeeder;
+use Junges\ACL\database\seeds\GroupSeeder;
+use Junges\ACL\database\seeds\PermissionsSeeder;
 
 class DatabaseSeeder extends Seeder
 {

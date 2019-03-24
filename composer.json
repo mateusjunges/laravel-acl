@@ -14,7 +14,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "MateusJunges\\ACL\\": "src/"
+            "Junges\\ACL\\": "src/"
         }
     }
 }

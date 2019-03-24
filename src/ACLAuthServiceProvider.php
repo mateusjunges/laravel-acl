@@ -1,20 +1,20 @@
 <?php
 
-namespace MateusJunges\ACL;
+namespace Junges\ACL;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use MateusJunges\ACL\Http\Policies\DeniedPermissionsPolicyPolicy;
-use MateusJunges\ACL\Http\Policies\GroupsPolicy;
-use MateusJunges\ACL\Http\Policies\PermissionsPolicy;
-use MateusJunges\ACL\Http\Policies\RolesPolicy;
-use MateusJunges\ACL\Http\Policies\UsersPolicy;
-use MateusJunges\ACL\Http\Models\Group;
-use MateusJunges\ACL\Http\Models\Permission;
+use Junges\ACL\Http\Policies\DeniedPermissionsPolicyPolicy;
+use Junges\ACL\Http\Policies\GroupsPolicy;
+use Junges\ACL\Http\Policies\PermissionsPolicy;
+use Junges\ACL\Http\Policies\RolesPolicy;
+use Junges\ACL\Http\Policies\UsersPolicy;
+use Junges\ACL\Http\Models\Group;
+use Junges\ACL\Http\Models\Permission;
 use App\User;
-use MateusJunges\ACL\Http\Models\UserHasGroup;
-use MateusJunges\ACL\Http\Models\UserHasDeniedPermission;
+use Junges\ACL\Http\Models\UserHasGroup;
+use Junges\ACL\Http\Models\UserHasDeniedPermission;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {

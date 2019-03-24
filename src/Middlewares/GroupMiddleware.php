@@ -1,10 +1,10 @@
 <?php
 
-namespace MateusJunges\ACL\Middlewares;
+namespace Junges\ACL\Middlewares;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use MateusJunges\ACL\Exceptions\Unauthorized;
+use Junges\ACL\Exceptions\Unauthorized;
 
 class GroupMiddleware
 {

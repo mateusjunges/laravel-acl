@@ -1,9 +1,9 @@
 <?php
 
-namespace MateusJunges\ACL\Http\Models;
+namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use MateusJunges\ACL\Traits\GroupsTrait;
+use Junges\ACL\Traits\GroupsTrait;
 
 class Group extends Model
 {

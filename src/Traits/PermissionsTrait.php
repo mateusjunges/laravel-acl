@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\ACL\Traits;
+namespace Junges\ACL\Traits;
 
 
 trait PermissionsTrait
@@ -28,7 +28,7 @@ trait PermissionsTrait
     {
         $model = config('acl.models.user') != ''
             ? config('acl.models.group')
-            : '\MateusJunges\ACL\Http\Models';
+            : '\Junges\ACL\Http\Models';
         $table = config('acl.tables.group_has_permissions') != ''
             ? config('acl.tables.group_has_permissions')
             : 'group_has_permissions';

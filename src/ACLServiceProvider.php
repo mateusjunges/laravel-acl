@@ -1,16 +1,13 @@
 <?php
 
-namespace MateusJunges\ACL;
+namespace Junges\ACL;
 
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
-use MateusJunges\ACL\Console\Commands\CreateGroup;
-use MateusJunges\ACL\Console\Commands\CreatePermission;
-use MateusJunges\ACL\Http\Events\BuildMenu;
-use MateusJunges\ACL\Http\ViewComposers\ACLComposer;
+use Junges\ACL\Console\Commands\CreateGroup;
+use Junges\ACL\Console\Commands\CreatePermission;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -45,7 +42,7 @@ class ACLServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ .'/../resources/views', 'acl');
         $this->publishes([
-            __DIR__ . '/resources/views' => resource_path('views/vendor/mateusjunges/acl'),
+            __DIR__ . '/resources/views' => resource_path('views/vendor/junges/acl'),
         ], 'views');
     }
 

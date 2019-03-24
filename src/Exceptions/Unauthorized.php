@@ -1,6 +1,6 @@
 <?php
 
-namespace MateusJunges\ACL\Exceptions;
+namespace Junges\ACL\Exceptions;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
