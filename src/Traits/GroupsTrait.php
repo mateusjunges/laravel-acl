@@ -50,7 +50,7 @@ trait GroupsTrait
      */
     public function assignPermissions(array $permissions)
     {
-        $permissions = $this->getAllPermissions($permissions);
+        $permissions = $this->getPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->syncWithoutDetaching($permissions);
@@ -64,7 +64,7 @@ trait GroupsTrait
      */
     public function revokePermissions(array $permissions)
     {
-        $permissions = $this->getAllPermissions($permissions);
+        $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
         return $this;
     }
@@ -74,7 +74,7 @@ trait GroupsTrait
      * @param array $permissions
      * @return mixed
      */
-    protected function getAllPermissions(array $permissions)
+    protected function getPermissionIds(array $permissions)
     {
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){

@@ -2,7 +2,6 @@
 
 namespace MateusJunges\ACL\Traits;
 
-
 trait UsersTrait
 {
     /**
@@ -90,11 +89,35 @@ trait UsersTrait
         return false;
     }
 
+
+    /**
+     * Retrieves all permissions a user has via groups
+     * @return mixed
+     */
+    public function permissionViaGroups()
+    {
+        return $this->load(config('acl.tables.groups'), 'groups.permissions')
+            ->groups->flatMap(function ($group){
+                return $group->permissions;
+            })->sort()->values();
+    }
+
+    /**
+     * Return all the permissions a user has, both directly and via groups
+     */
+    public function getPermissions()
+    {
+        $permissions = $this->permissions;
+        if ($this->groups)
+            $permissions = $permissions->merge($this->permissionViaGroups());
+        return $permissions->sort()->values();
+    }
+
     /**
      * @param array $permissions
      * @return mixed
      */
-    protected function getAllPermissions(array $permissions)
+    protected function getPermissionIds(array $permissions)
     {
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
@@ -139,7 +162,7 @@ trait UsersTrait
      */
     public function assignPermissions(array $permissions)
     {
-        $permissions = $this->getAllPermissions($permissions);
+        $permissions = $this->getPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->syncWithoutDetaching($permissions);
@@ -153,7 +176,7 @@ trait UsersTrait
      */
     public function revokePermissions(array $permissions)
     {
-        $permissions = $this->getAllPermissions($permissions);
+        $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
         return $this;
     }
