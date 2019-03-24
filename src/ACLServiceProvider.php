@@ -7,6 +7,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
+use MateusJunges\ACL\Console\Commands\CreatePermission;
 use MateusJunges\ACL\Http\Events\BuildMenu;
 use MateusJunges\ACL\Http\ViewComposers\ACLComposer;
 
@@ -30,6 +31,9 @@ class ACLServiceProvider extends ServiceProvider
 
         //Publishes views
         $this->loadViews();
+
+        //Load commands
+        $this->loadCommands();
     }
 
 
@@ -52,6 +56,14 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/acl.php' => config_path('acl.php'),
         ], 'config');
+    }
+
+    public function loadCommands()
+    {
+        if ($this->app->runningInConsole())
+            $this->commands([
+                CreatePermission::class,
+            ]);
     }
 
     /**
