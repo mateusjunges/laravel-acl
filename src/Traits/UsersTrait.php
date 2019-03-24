@@ -105,7 +105,7 @@ trait UsersTrait
     /**
      * Return all the permissions a user has, both directly and via groups
      */
-    public function getPermissions()
+    public function getAllPermissions()
     {
         $permissions = $this->permissions;
         if ($this->groups)
