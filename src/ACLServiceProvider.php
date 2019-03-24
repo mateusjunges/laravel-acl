@@ -7,6 +7,7 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
+use MateusJunges\ACL\Console\Commands\CreateGroup;
 use MateusJunges\ACL\Console\Commands\CreatePermission;
 use MateusJunges\ACL\Http\Events\BuildMenu;
 use MateusJunges\ACL\Http\ViewComposers\ACLComposer;
@@ -63,6 +64,7 @@ class ACLServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole())
             $this->commands([
                 CreatePermission::class,
+                CreateGroup::class,
             ]);
     }
 
