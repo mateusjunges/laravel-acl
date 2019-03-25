@@ -16,5 +16,13 @@
         "psr-4": {
             "Junges\\ACL\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Junges\\ACL\\ACLServiceProvider",
+                "Junges\\ACL\\ACLAuthServiceProvider"
+            ]
+        }
     }
 }
