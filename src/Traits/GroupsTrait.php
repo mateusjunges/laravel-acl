@@ -57,6 +57,20 @@ trait GroupsTrait
     }
 
     /**
+     * Sync group permissions on database.
+     * @param array $permissions
+     * @return $this|bool
+     */
+    public function syncPermissions(array $permissions)
+    {
+        $permissions = $this->getPermissionIds($permissions);
+        if ($permissions->count() == 0)
+            return false;
+        $this->permissions()->sync($permissions);
+        return $this;
+    }
+
+    /**
      * Remove group permissions
      * @param array $permissions
      * @return $this
