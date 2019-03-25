@@ -14,7 +14,7 @@ class CreateUserHasGroupsTable extends Migration
     public function up()
     {
         Schema::create('user_has_groups', function (Blueprint $table) {
-            $table->integer('user_id', false, true);
+            $table->bigInteger('user_id', false, true);
             $table->integer('group_id', false, true);
             $table->foreign('user_id')
                 ->references('id')
