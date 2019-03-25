@@ -5,13 +5,6 @@ namespace Junges\ACL;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Junges\ACL\Http\Policies\DeniedPermissionsPolicyPolicy;
-use Junges\ACL\Http\Policies\GroupsPolicy;
-use Junges\ACL\Http\Policies\PermissionsPolicy;
-use Junges\ACL\Http\Policies\RolesPolicy;
-use Junges\ACL\Http\Policies\UsersPolicy;
-use Junges\ACL\Http\Models\UserHasGroup;
-use Junges\ACL\Http\Models\UserHasDeniedPermission;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {
@@ -33,6 +26,7 @@ class ACLAuthServiceProvider extends ServiceProvider
                 return $user->hasPermission($permission) || $user->isAdmin();
             });
         });
+
 
         /**
          * Add blade directives

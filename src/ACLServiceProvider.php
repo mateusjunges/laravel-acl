@@ -22,7 +22,8 @@ class ACLServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
 
-        $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
+        //Publishes migrations:
+        $this->loadMigrations();
 
         //Publishes config
         $this->publishConfig();
@@ -63,6 +64,14 @@ class ACLServiceProvider extends ServiceProvider
                 CreatePermission::class,
                 CreateGroup::class,
             ]);
+    }
+
+    public function loadMigrations()
+    {
+        $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
+        $this->publishes([
+            __DIR__ .'/database/migrations' => database_path('migrations/vendor/junges/acl'),
+        ], 'migrations');
     }
 
     /**
