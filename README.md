@@ -32,7 +32,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ```bash
         {
             "require": {
-                "mateusjunges/laravel-acl": "1.*",
+                "mateusjunges/laravel-acl": "1.0.*",
             }
         }
 ``` 
