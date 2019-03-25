@@ -2,6 +2,9 @@
 
 namespace Junges\ACL\Traits;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
+
 trait UsersTrait
 {
     /**
@@ -82,10 +85,17 @@ trait UsersTrait
      */
     public function hasPermissionThroughGroup($permission)
     {
-        foreach ($permission->groups as $group) {
-            if ($this->groups->contains($group))
-                return true;
-        }
+        $model = app(config('acl.models.permission'));
+        if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first() != null ? $model->where('slug', $permission)->first() : null;
+        else if (is_numeric($permission))
+            $permission = $model->find($permission) != null ? $model->find($permission) : null;
+
+        if ($permission != null)
+            foreach ($permission->groups as $group) {
+                if ($this->groups->contains($group))
+                    return true;
+            }
         return false;
     }
 
@@ -134,7 +144,7 @@ trait UsersTrait
      * @param array $groups
      * @return mixed
      */
-    protected function getAllGroups(array $groups)
+    protected function getGroupIds(array $groups)
     {
         $model = app(config('acl.models.group'));
         return collect(array_map(function ($group) use ($model){
@@ -170,6 +180,21 @@ trait UsersTrait
     }
 
     /**
+     * Sync user permissions on database.
+     * @param array $permissions
+     * @return $this|bool
+     */
+    public function syncPermissions(array $permissions)
+    {
+        $permissions = $this->getPermissionIds($permissions);
+        if ($permissions->count() == 0)
+            return false;
+        $this->permissions()->sync($permissions);
+        return $this;
+
+    }
+
+    /**
      * Revoke permissions from the user
      * @param array $permissions
      * @return $this
@@ -188,7 +213,7 @@ trait UsersTrait
      */
     public function assignGroup(array $groups)
     {
-        $groups = $this->getAllGroups($groups);
+        $groups = $this->getGroupIds($groups);
         if ($groups->count() == 0)
             return false;
         $this->groups()->syncWithoutDetaching($groups);
@@ -202,7 +227,7 @@ trait UsersTrait
      */
     public function revokeGroup(array $groups)
     {
-        $groups = $this->getAllGroups($groups);
+        $groups = $this->getGroupIds($groups);
         if ($groups->count() == 0)
             return false;
         $this->groups()->detach($groups);
@@ -244,7 +269,7 @@ trait UsersTrait
             if ($group instanceof $model)
                 return $group;
             else if (is_string($group))
-                return $model->where('slug', $group)->fisrt();
+                return $model->where('slug', $group)->first();
             else if (is_numeric($group))
                 return $model->find($group)->first();
         }, $groups);
@@ -278,6 +303,38 @@ trait UsersTrait
         return true;
     }
 
+
+    /**
+     * Scope the model query to certain groups only
+     *
+     * @param Builder $query
+     * @param $groups
+     * @return Builder
+     */
+    public function scopeGroup(Builder $query, $groups) : Builder
+    {
+        $groupModel  = app(config('acl.models.group'));
+        if ($groups instanceof Collection)
+            $groups = $groups->all();
+        if (!is_array($groups))
+            $groups = [$groups];
+
+        $groups = array_map(function ($group) use ($groupModel){
+            if ($group instanceof $groupModel)
+                return $group;
+            if (is_numeric($group))
+                return $groupModel->find($group);
+            else if (is_string($group))
+                return $groupModel->where('slug', $group)->first();
+        }, $groups);
+        return $query->whereHas('groups', function ($query) use ($groups) {
+           $query->where(function ($query) use ($groups){
+              foreach ($groups as $group) {
+                $query->orWhere(config('acl.tables.groups').'.id', $group->id);
+              }
+           });
+        });
+    }
 
 
 
