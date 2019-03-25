@@ -126,6 +126,20 @@ When published, [the `config/acl.php` config file](https://github.com/mateusjung
 
 ## Usage
 
+First of all, use the `UsersTrait.php` on your `User` model:
+
+```php
+    use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Junges\ACL\Traits\UsersTrait;
+    
+    class User extends Authenticatable
+    {
+        use UserTrait;
+    
+        // 
+    }
+```
+
 You can add permissions to a user using the function below, 
 using as parameter an array of
 permissions slugs, permissions ids or instance of permissions model.
