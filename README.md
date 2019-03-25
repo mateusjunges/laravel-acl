@@ -3,7 +3,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat-square)](https://packagist.org/packages/mateusjunges/laravel-acl)
 [![Total Downloads](https://img.shields.io/packagist/dt/mateusjunges/laravel-acl.svg?style=flat-square)](https://packagist.org/packages/mateusjunges/laravel-acl)
-
+[![License](https://poser.pugx.org/mateusjunges/laravel-acl/license)](https://packagist.org/packages/mateusjunges/laravel-acl)
 
 
 This package allows you to manage user permissions and groups in a database.
