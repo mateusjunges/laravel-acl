@@ -510,3 +510,24 @@ To do this you must update the `models.group` and `models.permission` values in 
 ```bash
     php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="config"
 ```
+
+
+### Basic form templates
+This package provides form to add a group or permission to the user, and permissions to groups.
+Just include the view on you form:
+
+```php
+    <form action="" method="">
+        @include('acl::_forms.groups.group')
+    </form>
+```
+```php
+    <form action="" method="">
+        @include('acl::_forms.users.add-group')
+    </form>
+```
+```php
+    <form action="" method="">
+        @include('acl::_forms.users.add-permission')
+    </form>
+```
