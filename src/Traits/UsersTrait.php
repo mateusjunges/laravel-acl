@@ -336,6 +336,62 @@ trait UsersTrait
         });
     }
 
+    /**
+     * Convert permission id or permission slug to permission model
+     * @param $permissions
+     * @return array
+     */
+    protected function convertToPermissionModels($permissions)
+    {
+        $permissionModel = app(config('acl.models.permission'));
+        if ($permissions instanceof Collection)
+            $permissions = $permissions->all();
+        $permissions = is_array($permissions) ? $permissions : [$permissions];
+        return array_map(function ($permission) use ($permissionModel){
+            if ($permission instanceof $permissionModel)
+                return $permission;
+            else if (is_string($permission))
+                return $permissionModel->where('slug', $permission)->first();
+            else if (is_numeric($permission))
+                return $permissionModel->find($permission);
+        }, $permissions);
+    }
+
+
+    /**
+     * Scope the model query to certain permissions only.
+     *
+     * @param Builder $query
+     * @param $permissions
+     * @return Builder
+     */
+    public function scopePermission(Builder $query, $permissions) : Builder
+    {
+        $permissions = $this->convertToPermissionModels($permissions);
+
+        $groupsWithPermissions = array_unique(array_reduce($permissions, function ($result, $permission){
+            return array_merge($result, $permission->groups->all());
+        }, []));
+
+        return $query->where(function ($query) use ($permissions, $groupsWithPermissions){
+           $query->whereHas('permissions', function ($query) use ($permissions){
+               $query->where(function ($query) use ($permissions){
+                   foreach ($permissions as $permission) {
+                       $query->orWhere(config('acl.tables.permissions').'.id', $permission->id);
+                   }
+               });
+           });
+           if (count($groupsWithPermissions) > 0)
+               $query->orWhereHas('groups', function ($query) use ($groupsWithPermissions){
+                   $query->where(function ($query) use ($groupsWithPermissions){
+                       foreach ($groupsWithPermissions as $groupsWithPermission) {
+                           $query->orWhere(config('acl.tables.groups').'.id', $groupsWithPermission->id);
+                       }
+                   });
+               });
+        });
+    }
+
 
 
 }
