@@ -20,7 +20,9 @@ class ACLAuthServiceProvider extends ServiceProvider
         /**
          * Define the system permission gates
          */
-        $permissionModel = app(config('acl.models.permission'));
+        config('acl.models.permission') !== null
+        ? $permissionModel = app(config('acl.models.permission'))
+        : $permissionModel = app(\Junges\ACL\Http\Models\Permission::class);
         $permissionModel->all()->map(function ($permission){
             Gate::define($permission->slug, function ($user) use ($permission){
                 return $user->hasPermission($permission) || $user->isAdmin();
