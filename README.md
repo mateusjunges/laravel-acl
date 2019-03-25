@@ -100,7 +100,7 @@ When published, [the `config/acl.php` config file](https://github.com/mateusjung
     ];
 ```
 
-##Usage
+## Usage
 
 You can add permissions to a user using the function below, 
 using as parameter an array of
@@ -140,7 +140,7 @@ To do this, you have the same method, and they can be used by the same way?
 After add permissions to a group, you may want/need to add a user to a group.
 This can be done in two different ways:
 
-####First way:
+#### First way:
 You can add a group to a user, and use 4 different types of parameters:
 ```php
     //Assign a group to a user, with a group slug array: 
@@ -155,7 +155,7 @@ You can add a group to a user, and use 4 different types of parameters:
     //Assign group to a user, combining the three methods above:
     $user->assignGroup([Group::find(1), 'group-slug-2', 3]);
 ```
-####Second way:
+#### Second way:
 You can add a user to a group, and use 4 different types of parameters:
 ```php
     //Assign a user to a group, with a user names slug array: 
@@ -171,7 +171,7 @@ You can add a user to a group, and use 4 different types of parameters:
     $group->assignUser([User::find(1), 'User name', 3]);
 ```
 
-###Revoke permissions
+### Revoke permissions
 #### 1 - Revoke permissions from user
 You can revoke a user permission using the method below:
 ```php
@@ -200,8 +200,8 @@ Like the methods to add or remove a group from a user, you can use as function p
 array of group/user ids, group/user slugs, instance of group/user model , or, 
 combine these three ways.
 
-#Checking for permissions
-###Checking if user has permission:
+# Checking for permissions
+### Checking if user has permission:
 You can check if a user has a permission using:
 ```php
     //With permission slugs:
@@ -231,7 +231,7 @@ You can also check if the user has any permission:
 ```
 If the user has any of the permissions passed, the function return `true`. Otherwise, returns `false`;
 
-###Checking if user has permission trough group:
+### Checking if user has permission trough group:
 You can check if one user is associated with a group which has the required permission:
 
 ```php
@@ -244,7 +244,7 @@ You can check if one user is associated with a group which has the required perm
     //With permission slug:
     $user->hasPermissionThroughGroup('admin');
 ```
-###Checking if group has permissions:
+### Checking if group has permissions:
 You can check if a group has a required permission with:
 
 ```php
@@ -257,7 +257,7 @@ You can check if a group has a required permission with:
    //With instance of permission model: 
    $group->hasPermission(Permission::find(1));
 ```
-###Checking if a group has any permission:
+### Checking if a group has any permission:
 In the same way as for users, you can check if a group has any of the required permissions:
 
 ```php
@@ -274,7 +274,7 @@ In the same way as for users, you can check if a group has any of the required p
     $group->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
 ```
 
-##Syncing user permissions
+## Syncing user permissions
 The user permissions can synced with this method:
 ```php
     //With permission id array:
@@ -290,7 +290,7 @@ The user permissions can synced with this method:
     $user->syncPermissions([1, 'permission-slug', Permission::find(3)]);   
 ```
 
-##Syncing group permissions
+## Syncing group permissions
 The groups permissions can synced with this method:
 ```php
     //With permission id array:
@@ -326,7 +326,7 @@ The same trait also adds a scope to only get users who have a certain permission
 The `permission` scope can accept a string (permission slug), a `\Junges\ACL\Http\Models\Permission::class` or an 
 `\Illuminate\Support\Collection` object.
 
-#Blade and permissions
+# Blade and permissions
 To check for permissions with this package, you can still using laravel built in `@can` blade 
 directive and `can()` method:
 
@@ -342,7 +342,7 @@ directive and `can()` method:
     @endcan
 ```
 
-###Using package custom blade directives
+### Using package custom blade directives
 This package also adds Blade directives to verify whether 
 the currently logged in user has a given list of groups/permissions.
 
@@ -360,7 +360,7 @@ For permissions:
 ```
 You can only use blade directives with group/permission id or slug.
 
-#Using a Middleware
+# Using a Middleware
 
 
 If you want to use the middleware provided by this package 
