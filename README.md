@@ -172,7 +172,7 @@ You can add a user to a group, and use 4 different types of parameters:
 ```
 
 ###Revoke permissions
-####1 - Revoke permissions from user
+#### 1 - Revoke permissions from user
 You can revoke a user permission using the method below:
 ```php
     $user->revokePermissions(['permission-slug', 2, Permission::find(3)]);
@@ -181,7 +181,7 @@ Like the methods to add or remove a group from a user, you can use as function p
 array of permission ids, permission slugs, instance of permission model, or, 
 combine these three ways.
 
-####2 - Revoke permissions from groups:
+#### 2 - Revoke permissions from groups:
 You can revoke a group permission using the method below:
 ```php
     $group->revokePermissions(['permission-slug', 2, Permission::find(3)]);
@@ -190,7 +190,7 @@ Like the methods to add or remove a group from a user, you can use as function p
 array of permission ids, permission slugs, instance of permission model, or, 
 combine these three ways.
 
-####3 - Revoke a group from user:
+#### 3 - Revoke a group from user:
 You can remove a group from the user by using one of these methods:
 ```php
     $user->revokeGroup(['permission-slug', 2, Permission::find(3)]);
