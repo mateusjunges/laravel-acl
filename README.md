@@ -5,6 +5,20 @@ This package allows you to manage user permissions and groups in a database.
 Once installed you can do stuff like this:
 
 
+
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Check for permissions](#checking-for-permissions)
+    * [Syncing user permissions](#syncing-user-permissions)
+    * [Syncing group permissions](#syncing-group-permissions)
+    * [Blade and permissions](#blade-and-permissions)
+        * [Using package custom blade directives](#using-package-custom-blade-directives)
+    * [Using a middleware](#using-a-middleware)
+    * [Using artisan commands](#using-artisan-commands)
+    * [Extending and replacing models](#extending-and-replacing-models)
+     
+
+
 ## Installation
 
 You can install the package via composer:
@@ -12,6 +26,16 @@ You can install the package via composer:
 ``` bash
 composer require mateusjunges/laravel-acl
 ```
+
+Or add this line in your `composer.json`, inside of the `require` section:
+
+```bash
+        {
+            "require": {
+                "mateusjunges/laravel-acl": "1.*",
+            }
+        }
+``` 
 
 If you are using laravel 5.5 or higher, 
 the service provider will automatically get registered. Or you may manually add the service provider in your `config/app.php` file:
