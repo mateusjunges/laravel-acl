@@ -1,5 +1,11 @@
 # This package help you to associate users with permissions and permission groups
 
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat-square)](https://packagist.org/packages/mateusjunges/laravel-acl)
+[![Total Downloads](https://img.shields.io/packagist/dt/mateusjunges/laravel-acl.svg?style=flat-square)](https://packagist.org/packages/mateusjunges/laravel-acl)
+
+
+
 This package allows you to manage user permissions and groups in a database.
 
 Once installed you can do stuff like this:
