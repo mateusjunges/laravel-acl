@@ -8,10 +8,6 @@
 
 This package allows you to manage user permissions and groups in a database.
 
-Once installed you can do stuff like this:
-
-
-
 * [Installation](#installation)
 * [Usage](#usage)
     * [Check for permissions](#checking-for-permissions)
@@ -91,17 +87,17 @@ When published, [the `config/acl.php` config file](https://github.com/mateusjung
          */
         'models' => [
             /*
-             | The model you want to use as User Model must use MateusJunges\ACL\Traits\UsersTrait
+             | The model you want to use as User Model must use \Junges\ACL\Traits\UsersTrait
              */
             'user'       => \App\User::class,
     
             /*
-             | The model you want to use as Permission model must use the MateusJunges\ACL\Traits\PermissionsTrait
+             | The model you want to use as Permission model must use the \Junges\ACL\Traits\PermissionsTrait
              */
             'permission' => Junges\ACL\Http\Models\Permission::class,
     
             /*
-             | The model you want to use as Group model must use the MateusJunges\ACL\Traits\GroupsTrait
+             | The model you want to use as Group model must use the \Junges\ACL\Traits\GroupsTrait
              */
             'group'      => Junges\ACL\Http\Models\Group::class,
         ],
