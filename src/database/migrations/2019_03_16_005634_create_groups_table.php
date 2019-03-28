@@ -13,7 +13,8 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        $tables = config('acl.tables');
+        Schema::create($tables['groups'], function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique()->nullable(false);
             $table->string('slug')->unique()->nullable(false);
@@ -30,6 +31,7 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        $tables = config('acl.tables');
+        Schema::dropIfExists($tables['groups']);
     }
 }

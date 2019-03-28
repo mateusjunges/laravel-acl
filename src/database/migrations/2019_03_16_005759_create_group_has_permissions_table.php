@@ -13,16 +13,17 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_has_permissions', function (Blueprint $table) {
+        $tables = config('acl.tables');
+        Schema::create($tables['group_has_permissions'], function (Blueprint $table) use ($tables) {
             $table->integer('group_id', false, true);
             $table->integer('permission_id', false, true);
             $table->foreign('group_id')
                 ->references('id')
-                ->on('groups')
+                ->on($tables['groups'])
                 ->onDelete('cascade');
             $table->foreign('permission_id')
                 ->references('id')
-                ->on('permissions')
+                ->on($tables['permissions'])
                 ->onDelete('cascade');
             $table->primary(['group_id', 'permission_id']);
         });
@@ -35,6 +36,7 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_has_permissions');
+        $tables = config('acl.tables');
+        Schema::dropIfExists($tables['group_has_permissions']);
     }
 }
