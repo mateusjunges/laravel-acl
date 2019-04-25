@@ -136,7 +136,7 @@ First of all, use the `UsersTrait.php` on your `User` model:
     
     class User extends Authenticatable
     {
-        use UserTrait;
+        use UsersTrait;
     
         // 
     }
