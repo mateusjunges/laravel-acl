@@ -56,7 +56,7 @@ need to customize the tables, you can publish [the migrations](https://github.co
 with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider::class" --tag="migrations"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="migrations"
 ```
 
 After the migrations has been published you can create the tables on your database by running the migrations:
@@ -68,7 +68,7 @@ publish the config file and update the tables array.
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider::class" --tag="config"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="config"
 ```
 
 When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-acl/blob/master/config/acl.php) config file contains:
