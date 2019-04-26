@@ -16,6 +16,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Blade and permissions](#blade-and-permissions)
         * [Using package custom blade directives](#using-package-custom-blade-directives)
     * [Using a middleware](#using-a-middleware)
+    * [Handling group and permission exceptions](#handling-group-and-permission-exceptions)
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
 
@@ -418,7 +419,7 @@ inside the `routeMiddleware` array:
 protected $routeMiddleware = [
     'permissions' => \Junges\ACL\Middlewares\PermissionMiddleware::class,
     'groups' => \Junges\ACL\Middlewares\GroupMiddleware::class,
-    'permissionOrGroup' => \Junges\ACL\Middlewares\PermissionOrGroup::class,
+    'permissionOrGroup' => \Junges\ACL\Middlewares\PermissionOrGroupMiddleware::class,
 ];
 ```
 Then you can protect you routes using middleware rules:
@@ -484,6 +485,23 @@ The `permissionOrGroup` will check if the current logged in user has any of the 
 groups necessary to access a route.
 
 In positive case, both middleware guarantee access to the route.
+
+# Handling group and permission exceptions
+
+If you want to override the default `403` response, you can catch the `Unauthorized` exception using the 
+laravel exception handler:
+
+```php
+    public function render($request, Exception $exception)
+    {
+        if ($exception instanceof \Junges\ACL\Exceptions\Unauthorized) {
+            // Your code here
+        }
+    
+        return parent::render($request, $exception);
+    }
+```
+
 
 # Using artisan commands
 

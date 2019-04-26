@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file
 
+## 1.1.1
+- Fix Readme typo in middleware documentation
+- Add Exception handler documentation
 
 ## 1.1.0
 - Changed all tables primary key to `bigInteger` 
