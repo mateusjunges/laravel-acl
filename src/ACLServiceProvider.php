@@ -41,7 +41,7 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ .'/../resources/views', 'acl');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'acl');
         $this->publishes([
             __DIR__ . '/resources/views' => resource_path('views/vendor/junges/acl'),
         ], 'views');

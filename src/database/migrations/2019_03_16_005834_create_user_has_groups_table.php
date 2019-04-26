@@ -13,19 +13,22 @@ class CreateUserHasGroupsTable extends Migration
      */
     public function up()
     {
-        $tables = config('acl.tables');
-        Schema::create($tables['user_has_groups'], function (Blueprint $table)  use ($tables) {
-            $table->bigInteger('user_id', false, true);
-            $table->integer('group_id', false, true);
-            $table->foreign('user_id')
-                ->references('id')
-                ->on($tables['users'])
-                ->onDelete('cascade');
-            $table->foreign('group_id')
-                ->references('id')
-                ->on($tables['groups'])
-                ->onDelete('cascade');
-            $table->primary(['user_id', 'group_id']);
+        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
+        $usersTable = config('acl.tables.users', 'users');
+        $groupsTable = config('acl.tables.groups', 'groups');
+        Schema::create($userHasGroupsTable,
+            function (Blueprint $table)  use ($usersTable, $groupsTable) {
+                $table->bigInteger('user_id', false, true);
+                $table->bigInteger('group_id', false, true);
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on($usersTable)
+                    ->onDelete('cascade');
+                $table->foreign('group_id')
+                    ->references('id')
+                    ->on($groupsTable)
+                    ->onDelete('cascade');
+                $table->primary(['user_id', 'group_id']);
         });
     }
 
@@ -36,7 +39,7 @@ class CreateUserHasGroupsTable extends Migration
      */
     public function down()
     {
-        $tables = config('acl.tables');
-        Schema::dropIfExists($tables['user_has_groups']);
+        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
+        Schema::dropIfExists($userHasGroupsTable);
     }
 }
