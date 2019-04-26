@@ -13,19 +13,23 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function up()
     {
-        $tables = config('acl.tables');
-        Schema::create($tables['group_has_permissions'], function (Blueprint $table) use ($tables) {
-            $table->integer('group_id', false, true);
-            $table->integer('permission_id', false, true);
-            $table->foreign('group_id')
-                ->references('id')
-                ->on($tables['groups'])
-                ->onDelete('cascade');
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on($tables['permissions'])
-                ->onDelete('cascade');
-            $table->primary(['group_id', 'permission_id']);
+        $groupHasPermissionTable = config('acl.tables.group_has_permissions', 'group_has_permissions');
+        $groupsTable = config('acl.tables.groups', 'groups');
+        $permissionsTable = config('acl.tables.permissions', 'permissions');
+
+        Schema::create($groupHasPermissionTable,
+            function (Blueprint $table) use ($groupsTable, $permissionsTable) {
+                $table->bigInteger('group_id', false, true);
+                $table->bigInteger('permission_id', false, true);
+                $table->foreign('group_id')
+                    ->references('id')
+                    ->on($groupsTable)
+                    ->onDelete('cascade');
+                $table->foreign('permission_id')
+                    ->references('id')
+                    ->on($permissionsTable)
+                    ->onDelete('cascade');
+                $table->primary(['group_id', 'permission_id']);
         });
     }
 
@@ -36,7 +40,7 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function down()
     {
-        $tables = config('acl.tables');
-        Schema::dropIfExists($tables['group_has_permissions']);
+        $groupHasPermissionsTable = config('acl.tables.group_has_permissions', 'group_has_permissions');
+        Schema::dropIfExists($groupHasPermissionsTable);
     }
 }

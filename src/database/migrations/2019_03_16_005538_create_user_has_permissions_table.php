@@ -13,19 +13,23 @@ class CreateUserHasPermissionsTable extends Migration
      */
     public function up()
     {
-        $tables = config('acl.tables');
-        Schema::create($tables['user_has_permissions'], function (Blueprint $table) use ($tables){
-            $table->bigInteger('user_id', false, true);
-            $table->integer('permission_id', false, true);
-            $table->foreign('user_id')
-                ->references('id')
-                ->on($tables['users'])
-                ->onDelete('cascade');
-            $table->foreign('permission_id')
-                ->references('id')
-                ->on($tables['permissions'])
-                ->onDelete('cascade');
-            $table->primary(['user_id', 'permission_id']);
+        $userHasPermissionTable = config('acl.tables.user_has_permissions',
+            'user_has_permissions');
+        $permissionsTable = config('acl.tables.permissions', 'permissions');
+        $usersTable = config('acl.tables.users', 'users');
+        Schema::create($userHasPermissionTable,
+            function (Blueprint $table) use ($permissionsTable, $usersTable){
+                $table->bigInteger('user_id', false, true);
+                $table->bigInteger('permission_id', false, true);
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on($usersTable)
+                    ->onDelete('cascade');
+                $table->foreign('permission_id')
+                    ->references('id')
+                    ->on($permissionsTable)
+                    ->onDelete('cascade');
+                $table->primary(['user_id', 'permission_id']);
         });
     }
 
@@ -36,7 +40,7 @@ class CreateUserHasPermissionsTable extends Migration
      */
     public function down()
     {
-        $tables = config('acl.tables');
-        Schema::dropIfExists($tables['user_has_permissions']);
+        $userHasPermissionTable = config('acl.tables.user_has_permissions', 'user_has_permissions');
+        Schema::dropIfExists($userHasPermissionTable);
     }
 }
