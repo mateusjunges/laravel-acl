@@ -426,13 +426,13 @@ Then you can protect you routes using middleware rules:
 ```php
 Route::get('/', function(){
     echo "Middlewares working!";
-})->middleware('perissions:admin');
+})->middleware('permissions:admin');
 ```
 
 ```php
 Route::get('/', function(){
     echo "Middlewares working!";
-})->middleware('perissionOrGroup:admin');
+})->middleware('permissionOrGroup:admin');
 ```
 
 ```php
@@ -445,13 +445,13 @@ Alternatively, you can separate multiple groups or permissions with a `|` (pipe)
 ```php
 Route::get('/', function(){
     echo "Middlewares working!";
-})->middleware('perissions:admin|manager');
+})->middleware('permissions:admin|manager');
 ```
 
 ```php
 Route::get('/', function(){
     echo "Middlewares working!";
-})->middleware('perissionOrGroup:admin|manager');
+})->middleware('permissionOrGroup:admin|manager');
 ```
 
 ```php
