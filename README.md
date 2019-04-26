@@ -418,7 +418,7 @@ inside the `routeMiddleware` array:
 protected $routeMiddleware = [
     'permissions' => \Junges\ACL\Middlewares\PermissionMiddleware::class,
     'groups' => \Junges\ACL\Middlewares\GroupMiddleware::class,
-    'permissionOrGroup' => \Junges\ACL\Middlewares\PermissionOrGroup::class,
+    'permissionOrGroup' => \Junges\ACL\Middlewares\PermissionOrGroupMiddleware::class,
 ];
 ```
 Then you can protect you routes using middleware rules:
