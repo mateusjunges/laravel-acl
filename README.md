@@ -514,6 +514,42 @@ php artisan group:create name slug description
 php artisan permission:create name slug description
 ```
 
+You can also use artisan commands to display user and groups permissions:
+
+The following command display all permissions stored on the database:
+```bash
+php artisan permission:show
+```
+
+The above command with `--group` option display all permissions of the specified group.
+You can use the `group slug` or the `group id` as option value, just like this:
+```bash
+php artisan permission:show --group 1
+```
+Or
+```bash
+php artisan permission:show --group admin
+```
+Likewise, you can display user permissions, using de `user:permissions` artisan command,
+with the `user id`, the user's`username`, the user `email` or the user `Name` as argument:
+
+With the username:
+```bash
+php artisan user:permissions username
+```
+With the user id:
+```bash
+php artisan user:permissions 1
+```
+With user Name:
+```bash
+php artisan user:permissions "User Name"
+```
+and with the user's email:
+```bash
+php artisan user:permissions "email@domain.com"
+```
+
 ## Extending and replacing models
 
 If you need to EXTEND the existing `Group` or `Permission` models note that:
