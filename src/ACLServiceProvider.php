@@ -35,6 +35,9 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load commands
         $this->loadCommands();
+
+        //Load translations
+        $this->loadTranlations();
     }
 
 
@@ -50,7 +53,7 @@ class ACLServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load and publishes the acl.php configuration file
+     * Load and publishes the pt-br.php configuration file
      */
     public function publishConfig()
     {
@@ -76,6 +79,15 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ .'/database/migrations' => database_path('migrations/vendor/junges/acl'),
         ], 'migrations');
+    }
+
+    public function loadTranlations()
+    {
+        $translationsPath = __DIR__.'/resources/lang';
+        $this->loadTranslationsFrom($translationsPath, 'acl');
+        $this->publishes([
+            $translationsPath => base_path('resources/lang/vendor/acl')
+        ], 'translations');
     }
 
     /**
