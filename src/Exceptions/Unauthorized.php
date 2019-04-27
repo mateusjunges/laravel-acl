@@ -13,7 +13,7 @@ class Unauthorized extends HttpException
      */
     public static function forGroups() : self
     {
-        $message = "Este usuário não possui os grupos necessários para acessar esta rota.";
+        $message = trans('acl::acl.forGroups');
         return  new static(Response::HTTP_FORBIDDEN, $message, null, []);
     }
 
@@ -23,7 +23,7 @@ class Unauthorized extends HttpException
      */
     public static function forPermissions() : self
     {
-        $message = "Este usuário não possui as permissões necessárias para acessar esta rota";
+        $message = trans('acl::acl.forPermissions');
         return new static(Response::HTTP_FORBIDDEN, $message, null, []);
     }
 
@@ -33,7 +33,7 @@ class Unauthorized extends HttpException
      */
     public static function notLoggedIn() : self
     {
-        $message = "Você não está logado no sistema.";
+        $message = trans('acl::acl.notLoggedIn');
         return new static(Response::HTTP_FORBIDDEN, $message, null, []);
     }
 
@@ -43,7 +43,7 @@ class Unauthorized extends HttpException
      */
     public static function forGroupsOrPermissions() : self
     {
-        $message = "Você não possui nenhuma das permissões necessárias para acessar esta rota";
+        $message = trans('acl::acl.forGroupsOrPermissions');
         return new static(Response::HTTP_FORBIDDEN, $message, null, []);
     }
 
