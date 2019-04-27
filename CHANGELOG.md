@@ -2,6 +2,11 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file
 
+## 1.2.0
+- Added `user:permissions` artisan command to show user permissions
+- Added `permission:show` artisan command to show all database permissions or the
+permissions for one specified group
+
 ## 1.1.1
 - Fix Readme typo in middleware documentation
 - Add Exception handler documentation
