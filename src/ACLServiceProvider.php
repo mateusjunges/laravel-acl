@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use Junges\ACL\Console\Commands\CreateGroup;
 use Junges\ACL\Console\Commands\CreatePermission;
 use Junges\ACL\Console\Commands\ShowPermissions;
+use Junges\ACL\Console\Commands\UserPermissions;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -65,6 +66,7 @@ class ACLServiceProvider extends ServiceProvider
                 CreatePermission::class,
                 ShowPermissions::class,
                 CreateGroup::class,
+                UserPermissions::class
             ]);
     }
 
