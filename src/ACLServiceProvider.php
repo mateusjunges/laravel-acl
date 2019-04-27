@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use Junges\ACL\Console\Commands\CreateGroup;
 use Junges\ACL\Console\Commands\CreatePermission;
+use Junges\ACL\Console\Commands\ShowPermissions;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -62,6 +63,7 @@ class ACLServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole())
             $this->commands([
                 CreatePermission::class,
+                ShowPermissions::class,
                 CreateGroup::class,
             ]);
     }
