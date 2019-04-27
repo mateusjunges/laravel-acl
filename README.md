@@ -19,6 +19,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Handling group and permission exceptions](#handling-group-and-permission-exceptions)
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
+    * [Using translations](#translations)
     
 
 
