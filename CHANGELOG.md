@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file
 
+## 1.2.1
+- Added [translation](https://github.com/mateusjunges/laravel-acl/tree/master/src/resources/lang) for exception messages
+
 ## 1.2.0
 - Added `user:permissions` artisan command to show user permissions
 - Added `permission:show` artisan command to show all database permissions or the

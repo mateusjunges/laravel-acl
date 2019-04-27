@@ -19,7 +19,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Handling group and permission exceptions](#handling-group-and-permission-exceptions)
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
-
+    
 
 
 ## Installation
@@ -587,3 +587,13 @@ Just include the view on you form:
     @include('acl::_forms.users.add-permission')
 </form>
 ```
+
+## Translations
+
+This package also provides translations for some messages. To use them is easy:
+
+- Change your `config/app.php` file locale for your corresponding locale, like `en` or `pt-br`.
+- Publish the translation files with 
+ ```bash
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="translations"
+ ```  
