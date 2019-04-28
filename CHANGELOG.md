@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to `mateusjunges/laravel-acl` will be documented in this file
+All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+
+## 1.3.0
+- Added new blade directives, [#29](https://github.com/mateusjunges/laravel-acl/issues/29)
+- Throws exception while creating duplicate groups or permissions
+- Fix `is_numeric` and `is_string` conflicts [#34](https://github.com/mateusjunges/laravel-acl/issues/34)
 
 ## 1.2.1
 - Added [translation](https://github.com/mateusjunges/laravel-acl/tree/master/src/resources/lang) for exception messages
