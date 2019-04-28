@@ -269,10 +269,10 @@ trait UsersTrait
         $groups = array_map(function ($group) use ($model){
             if ($group instanceof $model)
                 return $group;
+            else if (is_numeric($group))
+                return $model->find($group);
             else if (is_string($group))
                 return $model->where('slug', $group)->first();
-            else if (is_numeric($group))
-                return $model->find($group)->first();
         }, $groups);
         foreach ($groups as $group){
             if ($this->hasGroup($group))
