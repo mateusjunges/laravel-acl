@@ -20,6 +20,9 @@ This package allows you to manage user permissions and groups in a database.
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
     * [Using translations](#translations)
+* [Changelog](#changelog)
+* [Credits](#credits)
+* [License](#license)    
     
 
 
@@ -36,7 +39,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.1.*",
+        "mateusjunges/laravel-acl": "1.3.*",
     }
 }
 ```
@@ -637,3 +640,16 @@ This package also provides translations for some messages. To use them is easy:
  ```bash
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="translations"
  ```  
+# Changelog
+
+Please see [changelog](https://github.com/mateusjunges/laravel-acl/blob/master/CHANGELOG.md) for more information about the changes on this package.
+
+# Credits
+
+- [The Web Tier](https://thewebtier.com/laravel/understanding-roles-permissions-laravel/)
+- [All Contributors](https://github.com/mateusjunges/laravel-acl/graphs/contributors)
+
+# License
+The MIT License. Please see the [License File](https://github.com/mateusjunges/laravel-acl/blob/master/LICENSE) for more information.
+
+
