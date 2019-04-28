@@ -10,7 +10,7 @@ class GroupAlreadyExistsException extends InvalidArgumentException
     /**
      * Thrown when the group with the given slug already exists
      */
-    public function create()
+    public static function create()
     {
         $message = trans('acl::acl.group_already_exists');
         throw new static($message);
