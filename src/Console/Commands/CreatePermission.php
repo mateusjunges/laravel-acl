@@ -43,9 +43,11 @@ class CreatePermission extends Command
 
             if ($this->confirm("Deseja criar a permissão com nome '". $this->argument('name')."' e slug '".$this->argument('slug')."'?")){
 
-                $permission = $permissionModel->where('slug', $this->argument('slug'))->first();
+                $permission = $permissionModel->where('slug', $this->argument('slug'))
+                    ->orWhere('name', $this->argument('name'))
+                    ->first();
                 if (!is_null($permission))
-                    throw PermissionAlreadyExistsException::create($this->argument('slug'));
+                    throw PermissionAlreadyExistsException::create();
 
                 $permissionModel->create([
                    'name' => $this->argument('name'),
