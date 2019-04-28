@@ -4,6 +4,7 @@ namespace Junges\ACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 trait UsersTrait
 {
@@ -291,11 +292,12 @@ trait UsersTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
+
 
         foreach ($permissions as $permission)
             if (!$this->hasPermission($permission))
@@ -392,6 +394,16 @@ trait UsersTrait
         });
     }
 
+    /**
+     * Convert string to array
+     * @param string $permissions
+     * @return array
+     */
+    private function convertToArray(string $permissions)
+    {
+        $string = trim($permissions);
+        return explode('|', $string);
+    }
 
 
 }

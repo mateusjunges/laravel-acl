@@ -2,6 +2,7 @@
 
 namespace Junges\ACL;
 
+use function foo\func;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
@@ -83,6 +84,19 @@ class ACLAuthServiceProvider extends ServiceProvider
          * End permission directive
          */
         Blade::directive('endpermission', function (){
+            return "<?php } ?>";
+        });
+
+        /**
+         * Any permission directive
+         */
+        Blade::directive('anypermission', function($permissions){
+            return "<?php if(auth()->check() && auth()->user()->hasAllPermissions({$permissions})){?>";
+        });
+        /**
+         * End any permission directive
+         */
+        Blade::directive('endanypermission', function (){
             return "<?php } ?>";
         });
     }
