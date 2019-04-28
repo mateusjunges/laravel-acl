@@ -395,19 +395,58 @@ directive and `can()` method:
 This package also adds Blade directives to verify whether
 the currently logged in user has a given list of groups/permissions.
 
+The custom blade directives provided by this package are:
+- @group
+- @elsegroup
+- @permission
+- @elsepermission
+- @allpermissions
+- @allgroups
+- @anypermission
+- @anygroup
+
 For groups:
 ```php
 @group('admin')
     I have the admin group!
+@elsegroup('editor')
+    I have the editor group, but not the admin!
 @endgroup
 ```
 For permissions:
 ```php
 @permission('admin')
     I have the admin permission!
+@elsepermission('writer')
+    I have the writer permission, but not the admin!
 @endpermission
 ```
-You can only use blade directives with group/permission id or slug.
+
+Check for all permissions:
+```php
+@allpermissions(['permission-1', 'permission-2'])
+    I have permission 1 and permission 2!
+@endallpermissions
+```
+Check for any permission:
+```php
+@anypermission(['permission-1', 'permission-2'])
+    I have at least one of these permissions!
+@endanypermission
+```
+Check for all groups:
+```php
+@allgroups(['group-1', 'group-2'])
+    I have group 1 and group 2!
+@endallgroups
+```
+Check for any group:
+```php
+@anygroup(['group-1', 'group-2'])
+    I have at least one of these groups!
+@endanygroup
+```
+<b>NOTE</b>: You can only use custom blade directives with group/permission id or slug.
 
 # Using a Middleware
 
