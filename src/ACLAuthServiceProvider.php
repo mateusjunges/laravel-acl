@@ -90,13 +90,13 @@ class ACLAuthServiceProvider extends ServiceProvider
         /**
          * Any permission directive
          */
-        Blade::directive('anypermission', function($permissions){
+        Blade::directive('allpermission', function($permissions){
             return "<?php if(auth()->check() && auth()->user()->hasAllPermissions({$permissions})){?>";
         });
         /**
          * End any permission directive
          */
-        Blade::directive('endanypermission', function (){
+        Blade::directive('endallpermission', function (){
             return "<?php } ?>";
         });
     }
