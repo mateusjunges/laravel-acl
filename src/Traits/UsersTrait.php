@@ -4,6 +4,7 @@ namespace Junges\ACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 trait UsersTrait
 {
@@ -245,10 +246,10 @@ trait UsersTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
 
         foreach ($permissions as $permission)
@@ -268,16 +269,39 @@ trait UsersTrait
         $groups = array_map(function ($group) use ($model){
             if ($group instanceof $model)
                 return $group;
+            else if (is_numeric($group))
+                return $model->find($group);
             else if (is_string($group))
                 return $model->where('slug', $group)->first();
-            else if (is_numeric($group))
-                return $model->find($group)->first();
         }, $groups);
         foreach ($groups as $group){
             if ($this->hasGroup($group))
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Check if the user has all specified groups
+     * @param array $groups
+     * @return bool
+     */
+    public function hasAllGroups(array $groups)
+    {
+        $model = app(config('acl.models.group', \Junges\ACL\Http\Models\Group::class));
+        $groups = array_map(function ($group) use ($model){
+            if ($group instanceof $model)
+                return $group;
+            else if (is_numeric($group))
+                return $model->find($group);
+            else if (is_string($group))
+                return $model->where('slug', $group)->first();
+        }, $groups);
+        foreach ($groups as $group) {
+            if (!$this->hasGroup($group))
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -291,11 +315,12 @@ trait UsersTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
+
 
         foreach ($permissions as $permission)
             if (!$this->hasPermission($permission))
@@ -392,6 +417,16 @@ trait UsersTrait
         });
     }
 
+    /**
+     * Convert string to array
+     * @param string $permissions
+     * @return array
+     */
+    private function convertToArray(string $permissions)
+    {
+        $string = trim($permissions);
+        return explode('|', $string);
+    }
 
 
 }
