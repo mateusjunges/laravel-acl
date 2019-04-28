@@ -5,11 +5,11 @@ namespace Junges\ACL\Exceptions;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class Unauthorized extends HttpException
+class UnauthorizedException extends HttpException
 {
     /**
      * Exception used when user does not have the required groups to access some route
-     * @return Unauthorized
+     * @return UnauthorizedException
      */
     public static function forGroups() : self
     {
@@ -19,7 +19,7 @@ class Unauthorized extends HttpException
 
     /**
      * Exception used when user does not have the required permissions to access some route
-     * @return Unauthorized
+     * @return UnauthorizedException
      */
     public static function forPermissions() : self
     {
@@ -29,7 +29,7 @@ class Unauthorized extends HttpException
 
     /**
      * User are not logged in
-     * @return Unauthorized
+     * @return UnauthorizedException
      */
     public static function notLoggedIn() : self
     {
@@ -39,7 +39,7 @@ class Unauthorized extends HttpException
 
     /**
      * Used to return the exception when the user doesn't have any of the required permissions
-     * @return Unauthorized
+     * @return UnauthorizedException
      */
     public static function forGroupsOrPermissions() : self
     {
