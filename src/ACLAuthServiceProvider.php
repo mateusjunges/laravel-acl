@@ -125,5 +125,18 @@ class ACLAuthServiceProvider extends ServiceProvider
         Blade::directive('endanygroup', function (){
             return "<?php } ?>";
         });
+
+        /**
+         * All groups directive
+         */
+        Blade::directive('allgroups', function($groups){
+           return "<?php if(auth()->check() && auth()->user()->hasAllGroups({$groups})){?>";
+        });
+        /**
+         * End all groups directive
+         */
+        Blade::directive('endallgroups', function (){
+            return "<?php } ?>";
+        });
     }
 }
