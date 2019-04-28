@@ -9,10 +9,9 @@ class PermissionAlreadyExistsException extends InvalidArgumentException
 {
     /**
      * Exception thrown when the permission already exists on database
-     * @param string $permission
      * @return PermissionAlreadyExistsException
      */
-    public static function create(string $permission)
+    public static function create()
     {
         $message = trans('acl::acl.permission_already_exists');
         return new static($message);
