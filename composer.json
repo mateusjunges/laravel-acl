@@ -2,14 +2,27 @@
     "name": "mateusjunges/laravel-acl",
     "description": "This package provides a complete Access Control List management",
     "type": "laravel-package",
+    "keywords": [
+        "laravel",
+        "junges",
+        "acl",
+        "security",
+        "permissions",
+        "access-control-list"
+    ],
+    "homepage": "https://github.com/mateusjunges/laravel-acl",
     "require": {
- 
+        "php": ">=7.0",
+        "illuminate/auth": "~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0",
+        "illuminate/database": "~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0"
     },
     "license": "MIT",
     "authors": [
         {
             "name": "Mateus Junges",
-            "email": "contato@mateusjunges.com"
+            "email": "contato@mateusjunges.com",
+            "homepage": "https://mateusjunges.com",
+            "role": "Developer"
         }
     ],
     "autoload": {
