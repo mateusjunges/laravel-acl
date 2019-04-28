@@ -24,10 +24,10 @@ trait GroupsTrait
     public function hasPermission($permission)
     {
         $model = app(config('acl.models.group'));
-        if (is_string($permission))
-            $permission = $model->where('slug', $permission)->first();
-        else if (is_numeric($permission))
+        if (is_numeric($permission))
             $permission = $model->find($permission);
+        else if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
         if ($permission != null)
             return null !== $this->permissions()->where('slug', $permission->slug)->first();
         return false;
@@ -91,10 +91,10 @@ trait GroupsTrait
     {
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
-            if (is_string($permission))
-                return $model->where('slug', $permission)->first()->id;
-            else if (is_numeric($permission))
+            if (is_numeric($permission))
                 return $model->find($permission)->id;
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first()->id;
             else if ($permission instanceof $model)
                 return $permission->id;
         }, $permissions));
@@ -160,10 +160,10 @@ trait GroupsTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
 
         foreach ($permissions as $permission)
@@ -183,10 +183,10 @@ trait GroupsTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
 
         foreach ($permissions as $permission)
