@@ -3,6 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
+use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 
 class CreatePermission extends Command
 {
@@ -41,6 +42,11 @@ class CreatePermission extends Command
 
 
             if ($this->confirm("Deseja criar a permissão com nome '". $this->argument('name')."' e slug '".$this->argument('slug')."'?")){
+
+                $permission = $permissionModel->where('slug', $this->argument('slug'))->first();
+                if (!is_null($permission))
+                    throw PermissionAlreadyExistsException::create($this->argument('slug'));
+
                 $permissionModel->create([
                    'name' => $this->argument('name'),
                    'slug' => $this->argument('slug'),
@@ -52,8 +58,7 @@ class CreatePermission extends Command
             }
 
         }catch (\Exception $exception){
-            $this->error('Algo deu errado: '
-                .$exception->getMessage());
+            $this->error($exception->getMessage());
         }
     }
 }
