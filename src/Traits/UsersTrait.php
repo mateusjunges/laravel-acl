@@ -34,10 +34,10 @@ trait UsersTrait
     public function hasGroup($group)
     {
         $model = app(config('acl.models.group'));
-        if (is_string($group))
-            $group = $model->where('slug', $group)->first();
-        else if (is_numeric($group))
+        if (is_numeric($group))
             $group = $model->find($group);
+        else if (is_string($group))
+            $group = $model->where('slug', $group)->first();
         if ($group != null)
             return null !== $this->groups()->where('slug', $group->slug)->first();
         return false;
@@ -51,10 +51,10 @@ trait UsersTrait
     public function hasPermission($permission)
     {
         $model = app(config('acl.models.permission'));
-        if (is_string($permission))
-            $permission = $model->where('slug', $permission)->first();
-        else if (is_numeric($permission))
+        if (is_numeric($permission))
             $permission = $model->find($permission);
+        else if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
         if($permission != null)
             return (bool) ($this->permissions()->where('slug', $permission->slug)->count())
                 || $this->hasPermissionThroughGroup($permission);
@@ -69,10 +69,10 @@ trait UsersTrait
     public function hasDirectPermission($permission)
     {
         $model = app(config('acl.models.permission'));
-        if (is_string($permission))
-            $permission = $model->where('slug', $permission)->first();
-        else if (is_numeric($permission))
+        if (is_numeric($permission))
             $permission = $model->find($permission);
+        else if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first();
         if($permission != null)
             return (bool) ($this->permissions()->where('slug', $permission->slug)->count());
         return false;
@@ -87,10 +87,14 @@ trait UsersTrait
     public function hasPermissionThroughGroup($permission)
     {
         $model = app(config('acl.models.permission'));
-        if (is_string($permission))
-            $permission = $model->where('slug', $permission)->first() != null ? $model->where('slug', $permission)->first() : null;
-        else if (is_numeric($permission))
-            $permission = $model->find($permission) != null ? $model->find($permission) : null;
+        if (is_numeric($permission))
+            $permission = $model->find($permission) != null
+                ? $model->find($permission)
+                : null;
+        else if (is_string($permission))
+            $permission = $model->where('slug', $permission)->first() != null
+                ? $model->where('slug', $permission)->first()
+                : null;
 
         if ($permission != null)
             foreach ($permission->groups as $group) {
@@ -132,10 +136,10 @@ trait UsersTrait
     {
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
-            if (is_string($permission))
-                return $model->where('slug', $permission)->first()->id;
-            else if (is_numeric($permission))
+            if (is_numeric($permission))
                 return $model->find($permission)->id;
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first()->id;
             else if ($permission instanceof $model)
                 return $permission->id;
         }, $permissions));
@@ -151,10 +155,10 @@ trait UsersTrait
         return collect(array_map(function ($group) use ($model){
             if ($group instanceof $model)
                 return $group->id;
-            else if (is_string($group))
-                return $model->where('slug', $group)->first()->id;
             else if (is_numeric($group))
                 return $model->find($group)->id;
+            else if (is_string($group))
+                return $model->where('slug', $group)->first()->id;
         }, $groups));
     }
 
@@ -375,10 +379,10 @@ trait UsersTrait
         return array_map(function ($permission) use ($permissionModel){
             if ($permission instanceof $permissionModel)
                 return $permission;
-            else if (is_string($permission))
-                return $permissionModel->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $permissionModel->find($permission);
+            else if (is_string($permission))
+                return $permissionModel->where('slug', $permission)->first();
         }, $permissions);
     }
 
