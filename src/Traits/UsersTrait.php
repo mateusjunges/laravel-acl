@@ -282,6 +282,29 @@ trait UsersTrait
     }
 
     /**
+     * Check if the user has all specified groups
+     * @param array $groups
+     * @return bool
+     */
+    public function hasAllGroups(array $groups)
+    {
+        $model = app(config('acl.models.group', \Junges\ACL\Http\Models\Group::class));
+        $groups = array_map(function ($group) use ($model){
+            if ($group instanceof $model)
+                return $group;
+            else if (is_numeric($group))
+                return $model->find($group);
+            else if (is_string($group))
+                return $model->where('slug', $group)->first();
+        }, $groups);
+        foreach ($groups as $group) {
+            if (!$this->hasGroup($group))
+                return false;
+        }
+        return true;
+    }
+
+    /**
      * Check if the user has all specified permissions
      * @param array $permissions
      * @return bool
