@@ -3,6 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
+use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 
 class CreateGroup extends Command
 {
@@ -41,6 +42,11 @@ class CreateGroup extends Command
             $groupModel = app(config('acl.models.group'));
             if ($this->confirm("Deseja criar um grupo com o nome '"
                 .$this->argument('name')."' e slug '".$this->argument('slug')."'?")){
+                $group = $groupModel->where('slug', $this->argument('slug'))
+                    ->orWhere('name', $this->argument('name'))
+                    ->first();
+                if (!is_null($group))
+                    throw GroupAlreadyExistsException::create();
                 $groupModel->create([
                    'name' => $this->argument('name'),
                    'slug' => $this->argument('slug'),
@@ -52,7 +58,7 @@ class CreateGroup extends Command
             }
 
         }catch (\Exception $exception){
-            $this->error("Algo deu errado. ".$exception->getMessage());
+            $this->error($exception->getMessage());
         }
     }
 }

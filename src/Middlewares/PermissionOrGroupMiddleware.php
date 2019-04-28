@@ -4,7 +4,7 @@ namespace Junges\ACL\Middlewares;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Junges\ACL\Exceptions\Unauthorized;
+use Junges\ACL\Exceptions\UnauthorizedException;
 
 class PermissionOrGroupMiddleware
 {
@@ -19,13 +19,13 @@ class PermissionOrGroupMiddleware
     public function handle($request, Closure $next, $groupOrPermissions)
     {
         if (Auth::guest())
-            throw Unauthorized::notLoggedIn();
+            throw UnauthorizedException::notLoggedIn();
         $permissions = is_array($groupOrPermissions)
             ? $groupOrPermissions
             : explode('|', $groupOrPermissions);
         if (!Auth::user()->hasAnyPermission($permissions)
             && !Auth::user()->hasAnyGroup($permissions))
-            throw Unauthorized::forGroupsOrPermissions();
+            throw UnauthorizedException::forGroupsOrPermissions();
         return $next($request);
     }
 }
