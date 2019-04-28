@@ -246,10 +246,10 @@ trait UsersTrait
         $permissions = array_map(function ($permission) use ($model){
             if ($permission instanceof $model)
                 return $permission;
-            else if (is_string($permission))
-                return $model->where('slug', $permission)->first();
             else if (is_numeric($permission))
                 return $model->find($permission);
+            else if (is_string($permission))
+                return $model->where('slug', $permission)->first();
         }, $permissions);
 
         foreach ($permissions as $permission)
