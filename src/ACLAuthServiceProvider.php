@@ -2,6 +2,7 @@
 
 namespace Junges\ACL;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -37,19 +38,45 @@ class ACLAuthServiceProvider extends ServiceProvider
         /**
          * Add blade directives
          */
+        $this->registerBladeDirectives();
+    }
+
+    /**
+     * Add custom blade directives
+     */
+    private function registerBladeDirectives()
+    {
+
+        /**
+         * Group directive
+         */
         Blade::directive('group', function ($group){
-           return "<?php if(auth()->check() && auth()->user()->hasGroup({$group})){?>";
+            return "<?php if(auth()->check() && auth()->user()->hasGroup({$group})){?>";
 
         });
-        Blade::directive('endgroup', function (){
-           return "<?php } ?>";
+        /**
+         * Else group directive
+         */
+        Blade::directive('elsegroup', function ($group){
+            return "<?php }else if(auth()->check() && auth()->user()->hasGroup({$group})){?>";
         });
+        /**
+         * End group directive
+         */
+        Blade::directive('endgroup', function (){
+            return "<?php } ?>";
+        });
+        /**
+         * Permission directive
+         */
         Blade::directive('permission', function ($permission){
             return "<?php if(auth()->check() && auth()->user()->hasPermission({$permission})){?>";
         });
-       Blade::directive('endpermission', function (){
-           return "<?php } ?>";
-       });
-
+        /**
+         * End permission directive
+         */
+        Blade::directive('endpermission', function (){
+            return "<?php } ?>";
+        });
     }
 }
