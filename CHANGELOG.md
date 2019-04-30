@@ -2,6 +2,8 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.3.1
+- Fixed typo on README.md [#39](https://github.com/mateusjunges/laravel-acl/issues/39)
 ## 1.3.0
 - Added new blade directives, [#29](https://github.com/mateusjunges/laravel-acl/issues/29)
 - Throws exception while creating duplicate groups or permissions
