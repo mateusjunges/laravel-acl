@@ -173,7 +173,7 @@ $user->assignPermissions([Permission::find(1), Permission::find(2)]);
 $user->assignPermissions([1, 'permission-slug', Permission::find(1)]);
 ```
 Like as add permissions to user, you can add permissions to groups.
-To do this, you have the same method, and they can be used by the same way?
+To do this, you have the same method, and they can be used by the same way:
 
 ```php
 //With permission slugs:
@@ -265,7 +265,7 @@ $user->hasPermission(1);
 //With instance of permission model:
 $user->hasPermission(Permission::find(1));
 ```
-If the user has the permissions passed, the function return `true`. Otherwise, returns `false`;
+If the user has the permissions passed, the function return `true`. Otherwise, returns `false`.
 
 You can also check if the user has any permission:
 ```php
@@ -281,7 +281,7 @@ $user->hasAnyPermission([Permission::find(1), Permission::find(2), Permission::f
 //With the three methods above combined:
 $user->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
 ```
-If the user has any of the permissions passed, the function return `true`. Otherwise, returns `false`;
+If the user has any of the permissions passed, the function return `true`. Otherwise, returns `false`.
 
 ### Checking if user has permission trough group:
 You can check if one user is associated with a group which has the required permission:
