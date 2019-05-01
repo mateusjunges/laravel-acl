@@ -3,6 +3,7 @@
 namespace Junges\ACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 
 trait PermissionsTrait
@@ -47,9 +48,6 @@ trait PermissionsTrait
     {
         $user = $this->convertToUserModel($user);
 
-        if (is_null($user))
-            return $user;
-
         return $query->whereHas('users', function ($query) use($user){
            $query->where(function ($query) use ($user){
               $query->orWhere(config('acl.tables.users').'.id', $user->id);
@@ -64,6 +62,8 @@ trait PermissionsTrait
      */
     private function convertToUserModel($user)
     {
+        $userModel = app(config('acl.models.user'));
+
         $columns = $this->verifyColumns(config('acl.tables.users'));
         $columns = collect($columns)->map(function ($item){
             if ($item['isset_column'])
@@ -72,7 +72,6 @@ trait PermissionsTrait
         $columns = array_unique($columns);
         $columns = array_filter($columns, 'strlen');
 
-        $userModel = app(config('acl.models.user'));
 
         if ($user instanceof $userModel) return $user;
         else if (is_numeric($user)) return $userModel->find($user);

@@ -13,6 +13,10 @@ This package allows you to manage user permissions and groups in a database.
     * [Check for permissions](#checking-for-permissions)
     * [Syncing user permissions](#syncing-user-permissions)
     * [Syncing group permissions](#syncing-group-permissions)
+    * [Local scopes](#local-scopes)
+        * [The group scope](#the-group-scope)
+        * [The permission scope](#the-permission-scope)
+        * [The user scope on PermissionsTrait](#the-user-scope-on-jungesacltraitspermissionstrait)
     * [Blade and permissions](#blade-and-permissions)
         * [Using package custom blade directives](#using-package-custom-blade-directives)
     * [Using a middleware](#using-a-middleware)
@@ -358,6 +362,9 @@ $group->syncPermissions([Permission::find(1), Permission::find(2)]);
 $group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 ```
 
+## Local scopes
+
+### The `group` scope
 The `UserTrait.php` trait also adds a `group` scope to the query to certain groups
 or permissions:
 
@@ -368,6 +375,7 @@ $users = User::group('admin')->get();
 The `group` scope can accept a `\Junges\ACL\Http\Models\Group::class` object or an
 `\Illuminate\Support\Collection` object.
 
+### The `permission` scope
 The same trait also adds a scope to only get users who have a certain permission.
 
 ```php
@@ -377,6 +385,17 @@ $users = User::permission('edit-post')->get();
 
 The `permission` scope can accept a string (permission slug), a `\Junges\ACL\Http\Models\Permission::class` or an
 `\Illuminate\Support\Collection` object.
+
+### The `user` scope (on `\Junges\ACL\Traits\PermissionsTrait`)
+The `PermissionsTrait` adds a `user` scope to the query to certain users.
+With this scope, only permissions granted to the given user will be returned.
+
+```php
+//Return only permissions granted to the 'Test' user:
+$permissions = Permission::user('Test')->get();
+```
+The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id`.
+
 
 # Blade and permissions
 To check for permissions with this package, you can still using laravel built in `@can` blade
