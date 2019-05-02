@@ -17,6 +17,7 @@ This package allows you to manage user permissions and groups in a database.
         * [The group scope](#the-group-scope)
         * [The permission scope](#the-permission-scope)
         * [The user scope on PermissionsTrait](#the-user-scope-on-jungesacltraitspermissionstrait)
+        * [The user scope on GroupsTrait](#the-user-scope-on-jungesacltraitsgroupstrait)
     * [Blade and permissions](#blade-and-permissions)
         * [Using package custom blade directives](#using-package-custom-blade-directives)
     * [Using a middleware](#using-a-middleware)
@@ -394,6 +395,17 @@ With this scope, only permissions granted to the given user will be returned.
 //Return only permissions granted to the 'Test' user:
 $permissions = Permission::user('Test')->get();
 ```
+The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id`.
+
+### The `user` scope (on `\Junges\ACL\Traits\GroupsTrait`)
+The `GroupsTrait` adds a `user` scope to the query to certain users.
+With this scope, only groups granted to the given user will be returned.
+
+```php
+//Returns only groups granted to the 'Test' user:
+$groups = Group::user('Test')->get();
+```
+
 The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id`.
 
 
