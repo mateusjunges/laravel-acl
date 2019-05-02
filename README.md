@@ -556,7 +556,7 @@ laravel exception handler:
 ```php
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \Junges\ACL\Exceptions\Unauthorized) {
+        if ($exception instanceof \Junges\ACL\Exceptions\UnauthorizedException) {
             // Your code here
         }
     
