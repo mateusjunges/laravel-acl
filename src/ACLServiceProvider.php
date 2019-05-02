@@ -37,7 +37,7 @@ class ACLServiceProvider extends ServiceProvider
         $this->loadCommands();
 
         //Load translations
-        $this->loadTranlations();
+        $this->loadTranslations();
     }
 
 
@@ -81,7 +81,7 @@ class ACLServiceProvider extends ServiceProvider
         ], 'migrations');
     }
 
-    public function loadTranlations()
+    public function loadTranslations()
     {
         $translationsPath = __DIR__.'/resources/lang';
         $this->loadTranslationsFrom($translationsPath, 'acl');
