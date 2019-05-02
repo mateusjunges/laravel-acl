@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.4.0
+- Added `group` scope to the `PermissionsTrait` and `GroupsTrait`, as documented [here](https://github.com/mateusjunges/laravel-acl/tree/master#local-scopes).
+- Fixed typo on ACLServiceProvider, as mentioned [here](https://github.com/mateusjunges/laravel-acl/issues/44).
+
 ## 1.3.1
 - Fixed typo on README.md [#39](https://github.com/mateusjunges/laravel-acl/issues/39)
 ## 1.3.0
