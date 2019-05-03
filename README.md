@@ -44,7 +44,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.3.*",
+        "mateusjunges/laravel-acl": "1.4.*",
     }
 }
 ```

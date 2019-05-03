@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.4.1
+- Fix `permission:show` artisan command, as mentioned in [#51](https://github.com/mateusjunges/laravel-acl/issues/51)
+
 ## 1.4.0
 - Added `group` scope to the `PermissionsTrait` and `GroupsTrait`, as documented [here](https://github.com/mateusjunges/laravel-acl/tree/master#local-scopes).
 - Fixed typo on ACLServiceProvider, as mentioned [here](https://github.com/mateusjunges/laravel-acl/issues/44).
