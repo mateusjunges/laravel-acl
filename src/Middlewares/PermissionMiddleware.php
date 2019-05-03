@@ -24,7 +24,7 @@ class PermissionMiddleware
             ? $permissions
             : explode('|', $permissions);
         foreach ($permissions as $permission)
-            if (Auth::user()->can($permission))
+            if (Auth::user()->hasPermission($permission))
                 return $next($request);
         throw UnauthorizedException::forPermissions();
     }
