@@ -61,7 +61,7 @@ class ShowPermissions extends Command
                 $this->info('Showing '.$group->name.' permissions:');
             }else {
                 $this->info('Displaying all permissions:');
-                $permissions = Permission::all(['name', 'slug', 'description'])->toArray();
+                $permissions = Permission::all(['name', 'slug', 'description']);
             }
 
             $headers = ['Permission', 'Slug', 'Description'];
@@ -70,7 +70,7 @@ class ShowPermissions extends Command
                 $this->alert('No permissions found.');
                 return;
             }
-            $this->table($headers, $permissions);
+            $this->table($headers, $permissions->toArray());
 
         }catch (\Exception $exception){
             $this->error('Something went wrong.');
