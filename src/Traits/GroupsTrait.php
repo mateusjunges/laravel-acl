@@ -25,7 +25,7 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
-        $model = app(config('acl.models.group'));
+        $model = app(config('acl.models.permission'));
         if (is_numeric($permission))
             $permission = $model->find($permission);
         else if (is_string($permission))
