@@ -27,7 +27,7 @@
 </div>
 <div class="form-group">
     <label for="groups">Selecione os grupos:</label>
-    <select name="groups"
+    <select name="groups[]"
             multiple="multiple"
             id="groups" class="form-control">
         @if(isset($user))

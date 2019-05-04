@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.4.2
+- Fix `add-group.blade.php` view, as mentioned in [#54](https://github.com/mateusjunges/laravel-acl/issues/54)
+
 ## 1.4.1
 - Fix `permission:show` artisan command, as mentioned in [#51](https://github.com/mateusjunges/laravel-acl/issues/51)
 
