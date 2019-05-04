@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.4.3
+- Fix `GroupsTrait.php` issue, as described here [#56](https://github.com/mateusjunges/laravel-acl/issues/56)
+
 ## 1.4.2
 - Fix `add-group.blade.php` view, as mentioned in [#54](https://github.com/mateusjunges/laravel-acl/issues/54)
 
