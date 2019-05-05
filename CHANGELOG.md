@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.5.1
+- Added constructors to `Permission` and `Group` models, to dynamically set the corresponding model tables.
+
 ## 1.5.0
 - `Permission::create()` throws `\Junges\ACL\Exceptions\PermissionAlreadyExistsException` when trying to create an existing Permission;
 - `Group::create()` throws `\Junges\ACL\Exceptions\GroupAlreadyExistsException` when trying to create an existing Group;
