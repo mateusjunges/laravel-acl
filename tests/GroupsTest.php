@@ -67,4 +67,56 @@ class GroupsTest extends TestCase
             ]
         ));
     }
+
+    /**
+     * @test
+     */
+    public function it_can_have_permissions_assigned_by_id()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(
+            [
+                $this->testUserPermission->id
+            ]
+        ));
+    }
+    /**
+     * @test
+     */
+    public function it_can_have_permissions_assigned_by_slug()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(
+            [
+                $this->testUserPermission->slug
+            ]
+        ));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_have_permissions_assigned_by_permission_model()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(
+            [
+                $this->testUserPermission
+            ]
+        ));
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_can_have_permissions_assigned_by_mixed_parameters()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(
+            [
+                $this->testUserPermission,
+                $this->testUserPermission2->slug,
+                $this->testUserPermission3->id
+            ]
+        ));
+    }
+
+
 }

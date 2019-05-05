@@ -15,7 +15,15 @@ class TestCase extends Orchestra
      * @var User
      */
     protected $testUser;
+
+    /**
+     * @var User
+     */
     protected $testUser2;
+
+    /**
+     * @var User
+     */
     protected $testUser3;
 
     /**
@@ -32,6 +40,16 @@ class TestCase extends Orchestra
      * @var Permission
      */
     protected $testUserPermission;
+
+    /**
+     * @var Permission
+     */
+    protected $testUserPermission2;
+
+    /**
+     * @var Permission
+     */
+    protected $testUserPermission3;
 
     /**
      * @var Permission
@@ -59,6 +77,8 @@ class TestCase extends Orchestra
         $this->testUserGroup = app(Group::class)->find(1);
         $this->testAdminPermission = app(Permission::class)->find(1);
         $this->testUserPermission = app(Permission::class)->find(2);
+        $this->testUserPermission2 = app(Permission::class)->find(3);
+        $this->testUserPermission3 = app(Permission::class)->find(4);
         $this->testAdminGroup = app(Group::class)->find(2);
 
 
