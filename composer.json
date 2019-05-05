@@ -34,7 +34,8 @@
         "laravel": {
             "providers": [
                 "Junges\\ACL\\ACLServiceProvider",
-                "Junges\\ACL\\ACLAuthServiceProvider"
+                "Junges\\ACL\\ACLAuthServiceProvider",
+                "Junges\\ACL\\ACLEventsServiceProvider"
             ]
         }
     }
