@@ -4,6 +4,7 @@ namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Junges\ACL\Events\PermissionSaving;
 use Junges\ACL\Traits\PermissionsTrait;
 
 class Permission extends Model
@@ -16,5 +17,9 @@ class Permission extends Model
 
     protected $fillable = [
         'name', 'description', 'slug',
+    ];
+
+    protected $dispatchesEvents = [
+        'creating' => PermissionSaving::class
     ];
 }

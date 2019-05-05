@@ -59,6 +59,7 @@ After installing the laravel-acl package, register the service provider in
 'providers' => [
     Junges\ACL\ACLServiceProvider::class,
     Junges\ACL\ACLAuthServiceProvider::class,
+    Junges\ACL\ACLEventsServiceProvider::class,
 ];
 ```
 All migrations required for this package are already included. If you
@@ -575,6 +576,33 @@ laravel exception handler:
         return parent::render($request, $exception);
     }
 ```
+
+When trying to create an existing Permission, the `Junges\ACL\Exceptions\PermissionAlreadyExistsExeption` will be throw.
+You can catch the exception using default laravel handler:
+
+```php
+    public function render($request, Exception $exception)
+    {
+        if ($exception instanceof \Junges\ACL\Exceptions\PermissionAlreadyExistsException) {
+            // Your code here
+        }
+    
+        return parent::render($request, $exception);
+    }
+```
+The same is valid for the `Junges\ACL\Exceptions\PermissionAlreadyExistsException`:
+```php
+    public function render($request, Exception $exception)
+    {
+        if ($exception instanceof \Junges\ACL\Exceptions\GroupAlreadyExistsException) {
+        
+        }
+    
+        return parent::render($request, $exception);
+    }
+```
+
+
 
 
 # Using artisan commands

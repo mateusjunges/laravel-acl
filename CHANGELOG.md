@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.5.0
+- `Permission::create()` throws `\Junges\ACL\Exceptions\PermissionAlreadyExistsException` when trying to create an existing Permission;
+- `Group::create()` throws `\Junges\ACL\Exceptions\GroupAlreadyExistsException` when trying to create an existing Group;
+
 ## 1.4.3
 - Fix `GroupsTrait.php` issue, as described here [#56](https://github.com/mateusjunges/laravel-acl/issues/56)
 

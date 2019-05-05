@@ -3,6 +3,7 @@
 namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Traits\GroupsTrait;
 
 class Group extends Model
@@ -17,5 +18,9 @@ class Group extends Model
      */
     protected $fillable = [
         'name', 'slug', 'description',
+    ];
+
+    protected $dispatchesEvents = [
+      'creating' => GroupSaving::class
     ];
 }
