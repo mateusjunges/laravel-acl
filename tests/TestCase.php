@@ -4,10 +4,9 @@
 namespace Junges\ACL\Test;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Junges\ACL\ACLAuthServiceProvider;
 use Junges\ACL\ACLServiceProvider;
-use Junges\ACL\Http\Models\Group;
-use Junges\ACL\Http\Models\Permission;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -16,22 +15,29 @@ class TestCase extends Orchestra
      * @var User
      */
     protected $testUser;
+    protected $testUser2;
+    protected $testUser3;
+
     /**
      * @var Group
      */
     protected $testUserGroup;
+
     /**
      * @var Group
      */
     protected $testAdminGroup;
+
     /**
      * @var Permission
      */
     protected $testUserPermission;
+
     /**
      * @var Permission
      */
     protected $testAdminPermission;
+
     /**
      * @var User
      */
@@ -40,14 +46,16 @@ class TestCase extends Orchestra
     /**
      * Set up the tests
      */
-
     public function setUp()
     {
         parent::setUp();
 
         $this->configureDatabase($this->app);
+        
         $this->testUser = User::find(1);
         $this->testAdminUser = User::find(2);
+        $this->testUser2 = User::find(3);
+        $this->testUser3 = User::find(4);
         $this->testUserGroup = app(Group::class)->find(1);
         $this->testAdminPermission = app(Permission::class)->find(1);
         $this->testUserPermission = app(Permission::class)->find(2);
@@ -93,10 +101,33 @@ class TestCase extends Orchestra
      */
     public function configureDatabase($app)
     {
-        $app['config']->set('acl.tables.users', 'users');
+        DB::statement("DROP TABLE IF EXISTS test_users CASCADE;");
+        DB::statement("DROP TABLE IF EXISTS test_permissions CASCADE;");
+        DB::statement("DROP TABLE IF EXISTS test_groups CASCADE;");
+        DB::statement("DROP TABLE IF EXISTS test_user_has_permissions CASCADE;");
+        DB::statement("DROP TABLE IF EXISTS test_user_has_groups CASCADE;");
+        DB::statement("DROP TABLE IF EXISTS test_group_has_permissions CASCADE;");
 
-        $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table){
+        /**
+         * Set up the tables for testing proposes
+         */
+        $app['config']->set('acl.tables.users', 'test_users');
+        $app['config']->set('acl.tables.groups', 'test_groups');
+        $app['config']->set('acl.tables.permissions', 'test_permissions');
+        $app['config']->set('acl.tables.user_has_permissions', 'test_user_has_permissions');
+        $app['config']->set('acl.tables.group_has_permissions', 'test_group_has_permissions');
+        $app['config']->set('acl.tables.user_has_groups', 'test_user_has_groups');
+
+        /**
+         * Set up the models for testing proposes
+         */
+        $app['config']->set('acl.models.permission', \Junges\ACL\Test\Permission::class);
+        $app['config']->set('acl.models.group', \Junges\ACL\Test\Group::class);
+        $app['config']->set('acl.models.user', \Junges\ACL\Test\User::class);
+
+        $app['db']->connection()->getSchemaBuilder()->create('test_users', function (Blueprint $table){
            $table->bigIncrements('id');
+           $table->string('name');
            $table->string('email');
            $table->softDeletes();
         });
@@ -116,26 +147,38 @@ class TestCase extends Orchestra
         (new \CreatePermissionsTable())->up();
         (new \CreateGroupsTable())->up();
         (new \CreateGroupHasPermissionsTable())->up();
+        (new \CreateUserHasPermissionsTable())->up();
+        (new \CreateUserHasGroupsTable())->up();
 
 
         /**
          * Create two new users
          */
         User::create([
-           'email' => 'user@user.com',
+            'name' => 'User 1',
+            'email' => 'user@user.com',
         ]);
         User::create([
-            'email' => 'admin@admin.com',
+             'name' => 'User 2',
+             'email' => 'admin@admin.com',
+        ]);
+        User::create([
+            'name' => 'User 3',
+            'email' => 'user3@user3.com',
+        ]);
+        User::create([
+            'name' => 'User 4',
+            'email' => 'user4@user4.com',
         ]);
         /**
          * Create some groups
          */
-        $app[Group::class]->create([
+        Group::create([
            'name' => 'Test User Group',
            'slug' => 'test-user-group',
            'description' => 'This is the test user group'
         ]);
-        $app[Group::class]->create([
+        Group::create([
             'name' => 'Test Admin Group',
             'slug' => 'test-admin-group',
             'description' => 'This is the test admin user group',
@@ -144,27 +187,27 @@ class TestCase extends Orchestra
         /**
          * Create some permissions
          */
-        $app[Permission::class]->create([
+        Permission::create([
             'name' => 'Admin',
             'slug' => 'admin',
             'description' => 'This permission give you all access to the system',
         ]);
-        $app[Permission::class]->create([
+        Permission::create([
            'name' => 'Edit Posts',
            'slug' => 'edit-posts',
            'description' => 'This permission allows you to edit posts',
         ]);
-        $app[Permission::class]->create([
+        Permission::create([
             'name' => 'Edit Articles',
             'slug' => 'edit-articles',
             'description' => 'This permission allows you to edit articles',
         ]);
-        $app[Permission::class]->create([
+        Permission::create([
             'name' => 'Edit website',
             'slug' => 'edit-website',
             'description' => 'This permission allows you to edit the website',
         ]);
-        $app[Permission::class]->create([
+        Permission::create([
             'name' => 'Edit news',
             'slug' => 'edit-news',
             'description' => 'This permission allows you to edit the news page',

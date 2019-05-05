@@ -18,7 +18,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = ['email'];
+    protected $fillable = ['name', 'email'];
 
     /**
      * @var bool
@@ -28,6 +28,6 @@ class User extends Model
     /**
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'test_users';
 
 }

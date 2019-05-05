@@ -37,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Junges\\ACL\\Test\\": "tests"
+            "Junges\\ACL\\Test\\": "tests/"
         }
     },
     "extra": {
@@ -50,6 +50,6 @@
         }
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "vendor/bin/phpunit"
     }
 }
