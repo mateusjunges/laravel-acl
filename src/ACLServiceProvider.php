@@ -10,6 +10,7 @@ use Junges\ACL\Console\Commands\CreateGroup;
 use Junges\ACL\Console\Commands\CreatePermission;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
+use Junges\ACL\Http\Observers\GroupObserver;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,9 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load translations
         $this->loadTranslations();
+
+        //Load observers
+        $this->loadObservers();
     }
 
 
@@ -88,6 +92,12 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             $translationsPath => base_path('resources/lang/vendor/acl')
         ], 'translations');
+    }
+
+    public function loadObservers()
+    {
+//        $groupModel = app(config('acl.models.group'));
+//        $groupModel->observe(GroupObserver::class);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 use Junges\ACL\Traits\GroupsTrait;
 
@@ -20,11 +21,7 @@ class Group extends Model
         'name', 'slug', 'description',
     ];
 
-    public static function create(array $attributes = [])
-    {
-        if(static::where('slug', $attributes['slug'])->orWhere('name', $attributes['name'])->first()){
-            throw GroupAlreadyExistsException::create();
-        }
-        return parent::create($attributes);
-    }
+    protected $dispatchesEvents = [
+      'creating' => GroupSaving::class
+    ];
 }
