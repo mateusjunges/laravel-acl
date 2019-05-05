@@ -23,4 +23,14 @@ class Group extends Model
     protected $dispatchesEvents = [
       'creating' => GroupSaving::class
     ];
+
+    /**
+     * Group constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->setTable(config('acl.tables.groups'));
+    }
 }
