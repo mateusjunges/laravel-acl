@@ -22,4 +22,10 @@ class Permission extends Model
     protected $dispatchesEvents = [
         'creating' => PermissionSaving::class
     ];
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->setTable(config('acl.tables.permissions'));
+    }
 }
