@@ -167,7 +167,7 @@ trait UsersTrait
      */
     public function isAdmin()
     {
-        return $this->can('admin');
+        return $this->hasPermission('admin');
     }
 
     /**
