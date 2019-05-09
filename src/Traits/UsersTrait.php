@@ -137,11 +137,13 @@ trait UsersTrait
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
             if (is_numeric($permission))
-                return $model->find($permission)->id;
+                $_permission =  $model->find($permission);
             else if (is_string($permission))
-                return $model->where('slug', $permission)->first()->id;
+                $_permission =  $model->where('slug', $permission)->first();
             else if ($permission instanceof $model)
-                return $permission->id;
+                $_permission = $permission;
+            if (isset($_permission))
+                if (!is_null($_permission)) return $_permission->id;
         }, $permissions));
     }
 
