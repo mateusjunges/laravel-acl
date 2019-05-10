@@ -102,7 +102,7 @@ trait UsersTrait
                 if ($this->groups->contains($group))
                     return true;
             }
-        return false; 
+        return false;
     }
 
 
@@ -448,17 +448,4 @@ trait UsersTrait
                });
         });
     }
-
-    /**
-     * Convert string to array
-     * @param string $permissions
-     * @return array
-     */
-    private function convertToArray(string $permissions)
-    {
-        $string = trim($permissions);
-        return explode('|', $string);
-    }
-
-
 }
