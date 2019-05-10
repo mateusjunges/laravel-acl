@@ -7,5 +7,6 @@
         'forGroupsOrPermissions'    => "You do not have any of the permissions required to access this route",
         'permission_already_exists' => "One permission with this slug already exists!",
         'group_already_exists'      => "One group with this slug or name already exists!",
+        'permission_does_not_exist' => "There is no permission with this id: ",
     ];
 
