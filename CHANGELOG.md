@@ -2,8 +2,16 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
-## 1.5.2
+## 1.6.0
+- Fix [#59](https://github.com/mateusjunges/laravel-acl/issues/59)
+- Added exception that throws if you try to add a non existing permission to an user;
+- Added exception that throws if you try to add a non existing group to an user;
+- Added exception that throws if you try to add a non existing user to an group;
+- From this version forward, the permission and groups can be removed from users without any alert 
+if you add a non existing permission/group to the `revokePermissions` or `revokeGroup` methods,
+ as described [here](https://github.com/mateusjunges/laravel-acl/issues/59#issuecomment-491426217);
 
+## 1.5.2
 - Fix [#61](https://github.com/mateusjunges/laravel-acl/issues/61)
 - Fix [#62](https://github.com/mateusjunges/laravel-acl/issues/62), replacing `can()` with `hasPermission()` inside `UsersTrait`, on the `isAdmin()` function.
 
