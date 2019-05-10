@@ -5,6 +5,7 @@ namespace Junges\ACL\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 trait UsersTrait
 {
@@ -173,13 +174,38 @@ trait UsersTrait
     }
 
     /**
+     * Convert permissions to permission ids and throw exception if the permission doesn't exit.
+     *
+     * @param $permissions
+     * @return Collection
+     */
+    private function convertToPermissionIds($permissions)
+    {
+        $model = app(config('acl.models.permission'));
+        $permissions = !is_array($permissions) ? [$permissions] : $permissions;
+        return collect(array_map(function ($permission) use ($model){
+            if ($permission instanceof $model) return $permission->id;
+            else if (is_numeric($permission)){
+                $_permission = $model->find($permission);
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withId($permission);
+            }
+            else if (is_string($permission)){
+                $_permission = $model->where('slug', $permission)->first();
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withId($permission);
+            }
+        }, $permissions));
+    }
+
+    /**
      * Give permissions to the user
      * @param mixed $permissions
      * @return mixed
      */
     public function assignPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->syncWithoutDetaching($permissions);
@@ -193,7 +219,7 @@ trait UsersTrait
      */
     public function syncPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->sync($permissions);
