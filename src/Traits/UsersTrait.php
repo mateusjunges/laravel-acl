@@ -102,7 +102,7 @@ trait UsersTrait
                 if ($this->groups->contains($group))
                     return true;
             }
-        return false;
+        return false; 
     }
 
 
