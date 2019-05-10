@@ -5,6 +5,8 @@ namespace Junges\ACL\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Junges\ACL\Exceptions\GroupDoesNotExistException;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 trait UsersTrait
 {
@@ -137,11 +139,13 @@ trait UsersTrait
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
             if (is_numeric($permission))
-                return $model->find($permission)->id;
+                $_permission =  $model->find($permission);
             else if (is_string($permission))
-                return $model->where('slug', $permission)->first()->id;
+                $_permission =  $model->where('slug', $permission)->first();
             else if ($permission instanceof $model)
-                return $permission->id;
+                $_permission = $permission;
+            if (isset($_permission))
+                if (!is_null($_permission)) return $_permission->id;
         }, $permissions));
     }
 
@@ -154,20 +158,75 @@ trait UsersTrait
         $model = app(config('acl.models.group'));
         return collect(array_map(function ($group) use ($model){
             if ($group instanceof $model)
-                return $group->id;
+                $_group = $group;
             else if (is_numeric($group))
-                return $model->find($group)->id;
+                $_group =  $model->find($group);
             else if (is_string($group))
-                return $model->where('slug', $group)->first()->id;
+                $_group = $model->where('slug', $group)->first();
+            if (isset($_group))
+                if (!is_null($_group)) return $group->id;
         }, $groups));
     }
 
     /**
+     * Convert groups to group ids and throws exception if the group does not exist
+     *
+     * @param $groups
+     * @return Collection
+     * @throws GroupDoesNotExistException
+     */
+    private function convertToGroupIds($groups)
+    {
+        $model = app(config('acl.models.group'));
+        $groups = !is_array($groups) ? [$groups] : $groups;
+        return collect(array_map(function($group) use ($model){
+            if ($group instanceof $model) return $group->id;
+            else if (is_numeric($group)){
+                $_group = $model->find($group);
+                if ($_group instanceof $model) return $_group->id;
+                else throw GroupDoesNotExistException::withId($group);
+            }
+            else if (is_string($group)){
+                $_group = $model->where('slug', $group)->first();
+                if ($_group instanceof $model) return $_group->id;
+                else throw GroupDoesNotExistException::withSlug($group);
+            }
+        }, $groups));
+    }
+
+    /**
+     * Check if the specified user is an admin
      * @return bool
      */
     public function isAdmin()
     {
         return $this->hasPermission('admin');
+    }
+
+    /**
+     * Convert permissions to permission ids and throw exception if the permission doesn't exit.
+     *
+     * @param $permissions
+     * @return Collection
+     * @throws PermissionDoesNotExistException
+     */
+    private function convertToPermissionIds($permissions)
+    {
+        $model = app(config('acl.models.permission'));
+        $permissions = !is_array($permissions) ? [$permissions] : $permissions;
+        return collect(array_map(function ($permission) use ($model){
+            if ($permission instanceof $model) return $permission->id;
+            else if (is_numeric($permission)){
+                $_permission = $model->find($permission);
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withId($permission);
+            }
+            else if (is_string($permission)){
+                $_permission = $model->where('slug', $permission)->first();
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withSlug($permission);
+            }
+        }, $permissions));
     }
 
     /**
@@ -177,7 +236,7 @@ trait UsersTrait
      */
     public function assignPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->syncWithoutDetaching($permissions);
@@ -191,7 +250,7 @@ trait UsersTrait
      */
     public function syncPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->sync($permissions);
@@ -218,7 +277,7 @@ trait UsersTrait
      */
     public function assignGroup(array $groups)
     {
-        $groups = $this->getGroupIds($groups);
+        $groups = $this->convertToGroupIds($groups);
         if ($groups->count() == 0)
             return false;
         $this->groups()->syncWithoutDetaching($groups);
@@ -420,17 +479,4 @@ trait UsersTrait
                });
         });
     }
-
-    /**
-     * Convert string to array
-     * @param string $permissions
-     * @return array
-     */
-    private function convertToArray(string $permissions)
-    {
-        $string = trim($permissions);
-        return explode('|', $string);
-    }
-
-
 }

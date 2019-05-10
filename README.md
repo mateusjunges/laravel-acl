@@ -44,7 +44,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.4.*",
+        "mateusjunges/laravel-acl": "1.6.*",
     }
 }
 ```
@@ -603,7 +603,7 @@ The same is valid for the `Junges\ACL\Exceptions\PermissionAlreadyExistsExceptio
 ```
 
 
-
+The same is valid for `PermissionDoesNotExistException`, `GroupDoesNotExistException` and `UserDoesNotExistException.`
 
 # Using artisan commands
 

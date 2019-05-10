@@ -5,6 +5,8 @@ namespace Junges\ACL\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
+use Junges\ACL\Exceptions\UserDoesNotExistException;
 
 trait GroupsTrait
 {
@@ -51,7 +53,7 @@ trait GroupsTrait
      */
     public function assignPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->syncWithoutDetaching($permissions);
@@ -65,7 +67,7 @@ trait GroupsTrait
      */
     public function syncPermissions(array $permissions)
     {
-        $permissions = $this->getPermissionIds($permissions);
+        $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0)
             return false;
         $this->permissions()->sync($permissions);
@@ -94,11 +96,39 @@ trait GroupsTrait
         $model = app(config('acl.models.permission'));
         return collect(array_map(function ($permission) use ($model){
             if (is_numeric($permission))
-                return $model->find($permission)->id;
+                $_permission =  $model->find($permission);
             else if (is_string($permission))
-                return $model->where('slug', $permission)->first()->id;
+                $_permission = $model->where('slug', $permission)->first();
             else if ($permission instanceof $model)
-                return $permission->id;
+                $_permission = $permission;
+            if (isset($_permission))
+                if (!is_null($_permission)) return $_permission->id;
+        }, $permissions));
+    }
+
+    /**
+     * Convert permissions to permission ids and throws exception if the permission does not exist
+     *
+     * @param $permissions
+     * @return \Illuminate\Support\Collection
+     * @throws PermissionDoesNotExistException
+     */
+    private function convertToPermissionIds($permissions)
+    {
+        $model = app(config('acl.models.permission'));
+        $permissions = is_array($permissions) ? $permissions : [$permissions];
+        return collect(array_map(function($permission) use ($model){
+            if ($permission instanceof $model) return $permission->id;
+            else if (is_numeric($permission)){
+                $_permission = $model->find($permission);
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withId($permission);
+            }
+            else if (is_string($permission)){
+                $_permission = $model->where('slug', $permission)->first();
+                if ($_permission instanceof $model) return $_permission->id;
+                else throw PermissionDoesNotExistException::withSlug($permission);
+            }
         }, $permissions));
     }
 
@@ -113,12 +143,38 @@ trait GroupsTrait
         return collect(
             array_map(function ($user) use ($model){
                 if ($user instanceof $model)
-                    return $user->id;
+                    $_user =  $user;
                 else if (is_numeric($user))
-                    return $model->find($user)->id;
+                    $_user = $model->find($user);
                 else if (is_string($user))
-                    return $model->where('name', $user)->first()->id;
+                    $_user = $model->where('name', $user)->first();
+                if (isset($_user))
+                    if (!is_null($_user)) return $_user->id;
             }, $users));
+    }
+
+    /**
+     * Convert user to users id and throws exception if the user does not exist
+     * @param $users
+     * @return \Illuminate\Support\Collection
+     */
+    private function convertToUserId($users)
+    {
+        $model = app(config('acl.models.user'));
+        $users = is_array($users) ? $users : [$users];
+        return collect(array_map(function ($user) use ($model){
+            if ($user instanceof $model) return $user->id;
+            else if (is_numeric($user)){
+                $_user = $model->find($user);
+                if ($_user instanceof $model) return $_user->id;
+                else throw UserDoesNotExistException::withId($user);
+            }
+            else if (is_string($user)){
+                $_user = $model->where('name', $user)->first();
+                if ($_user instanceof $model) return $_user->id;
+                else throw UserDoesNotExistException::named($user);
+            }
+        }, $users));
     }
 
     /**
@@ -128,7 +184,7 @@ trait GroupsTrait
      */
     public function assignUser(array $users)
     {
-        $users = $this->getAllUsers($users);
+        $users = $this->convertToUserId($users);
         if ($users->count() == 0)
             return false;
         $this->users()->syncWithoutDetaching($users);
