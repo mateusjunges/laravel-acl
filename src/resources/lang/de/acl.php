@@ -11,4 +11,6 @@
         "permission_does_not_exist_with_slug" => "Es gibt keine Erlaubnis für diesen Slug:",
         "group_does_not_exist"                => "Es gibt keine Gruppe mit dieser ID:",
         "group_does_not_exist_with_slug"      => "Es gibt keine Gruppe mit dieser Schnecke:",
+        "user_does_not_exist_with_name"       => "Es gibt keinen Benutzer mit diesem Namen:",
+        "user_does_not_exist"                 => "Es gibt keinen Benutzer mit dieser ID:",
     ];

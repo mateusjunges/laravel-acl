@@ -11,4 +11,6 @@
         "permission_does_not_exist_with_slug" => "Нет разрешения с этим слагом:",
         "group_does_not_exist"                => "Нет группы с таким идентификатором:",
         "group_does_not_exist_with_slug"      => "Нет группы с этим слизнем:",
+        "user_does_not_exist_with_name"       => "Нет пользователя с таким именем:",
+        "user_does_not_exist"                 => "Нет пользователя с таким идентификатором:",
     ];

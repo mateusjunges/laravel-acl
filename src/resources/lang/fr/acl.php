@@ -11,4 +11,6 @@
         "permission_does_not_exist_with_slug" => "Il n'y a pas d'autorisation avec cette limace:",
         "group_does_not_exist"                => "Il n'y a pas de groupe avec cet identifiant:",
         "group_does_not_exist_with_slug"      => "Il n'y a pas de groupe avec cette limace:",
+        "user_does_not_exist_with_name"       => "Il n'y a pas d'utilisateur avec ce nom:",
+        "user_does_not_exist"                 => "Il n'y a pas d'utilisateur avec cet identifiant:",
     ];

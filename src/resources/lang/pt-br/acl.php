@@ -11,4 +11,6 @@
         "permission_does_not_exist_with_slug" => "Não existe nenhuma permissão com esse slug:",
         "group_does_not_exist"                => "Não existe nenhum grupo com esse Id:",
         "group_does_not_exist_with_slug"      => "Não existe nenhum groupo com esse slug:",
+        "user_does_not_exist_with_name"       => "Não existe nenhum usuário com este nome:",
+        "user_does_not_exist"                 => "Não existe nenhum usuário com este id:",
     ];
