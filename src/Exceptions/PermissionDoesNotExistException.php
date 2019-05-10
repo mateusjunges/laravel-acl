@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 class PermissionDoesNotExistException extends InvalidArgumentException
 {
     /**
-     *
      * @param $id
      * @return PermissionDoesNotExistException
      */
@@ -17,5 +16,15 @@ class PermissionDoesNotExistException extends InvalidArgumentException
     {
         $message = trans("acl::acl.permission_does_not_exist");
         return new static($message." ".$id, Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @param $slug
+     * @return PermissionDoesNotExistException
+     */
+    public static function withSlug($slug) : self
+    {
+        $message = trans("acl::acl.permission_does_not_exist");
+        return new static($message." ".$slug, Response::HTTP_BAD_REQUEST);
     }
 }
