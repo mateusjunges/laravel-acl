@@ -23,7 +23,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException
      */
     public static function withSlug($slug) : self
     {
-        $message = trans("acl::acl.permission_does_not_exist");
+        $message = trans("acl::acl.permission_does_not_exist_with_slug");
         return new static($message." ".$slug, Response::HTTP_BAD_REQUEST);
     }
 }
