@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Junges\ACL\Exceptions;
 
 use InvalidArgumentException;
