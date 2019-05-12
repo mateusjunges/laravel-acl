@@ -81,7 +81,7 @@ class TestCase extends Orchestra
         $this->testUserPermission3 = app(Permission::class)->find(4);
         $this->testAdminGroup = app(Group::class)->find(2);
 
-
+        (new ACLAuthServiceProvider($this->app))->boot();
     }
 
     public function getPackageProviders($app)
@@ -102,11 +102,11 @@ class TestCase extends Orchestra
         $app['config']->set('database.default', 'pgsql');
         $app['config']->set('database.connections.pgsql', [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'package_test'),
-            'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', '16021826'),
+            'host' => '127.0.0.1',
+            'port' => '5432',
+            'database' => 'package_test',
+            'username' => 'postgres',
+            'password' => '16021826',
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
@@ -172,7 +172,7 @@ class TestCase extends Orchestra
 
 
         /**
-         * Create two new users
+         * Create some new users
          */
         User::create([
             'name' => 'User 1',
@@ -232,6 +232,5 @@ class TestCase extends Orchestra
             'slug' => 'edit-news',
             'description' => 'This permission allows you to edit the news page',
         ]);
-
     }
 }
