@@ -41,7 +41,9 @@ class CreatePermission extends Command
             $permissionModel = app(config('acl.models.permission'));
 
 
-            if ($this->confirm("Deseja criar a permissão com nome '". $this->argument('name')."' e slug '".$this->argument('slug')."'?")){
+            if ($this->confirm("Do you want to create a permission named '"
+                . $this->argument('name')."' and with slug '"
+                .$this->argument('slug')."'?")){
 
                 $permission = $permissionModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
@@ -54,9 +56,9 @@ class CreatePermission extends Command
                    'slug' => $this->argument('slug'),
                    'description' => $this->argument('description'),
                 ]);
-                $this->info('Permissão criada com sucesso!');
+                $this->info('Permission created successfully!');
             }else{
-                $this->info('A permissão não foi criada');
+                $this->info('Permission was not created.');
             }
 
         }catch (\Exception $exception){

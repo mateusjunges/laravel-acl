@@ -40,8 +40,9 @@ class CreateGroup extends Command
     {
         try{
             $groupModel = app(config('acl.models.group'));
-            if ($this->confirm("Deseja criar um grupo com o nome '"
-                .$this->argument('name')."' e slug '".$this->argument('slug')."'?")){
+            if ($this->confirm("Do you want to create a group with the name '"
+                .$this->argument('name')."' and slug '"
+                .$this->argument('slug')."'?")){
                 $group = $groupModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
                     ->first();
@@ -52,9 +53,9 @@ class CreateGroup extends Command
                    'slug' => $this->argument('slug'),
                    'description' => $this->argument('description'),
                 ]);
-                $this->info("Grupo criado com sucesso!");
+                $this->info("Group created successfully!");
             }else{
-                $this->info("O grupo não foi criado.");
+                $this->info("Group was not created.");
             }
 
         }catch (\Exception $exception){

@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.6.1
+- Changed language of the package commands to english. [#69](https://github.com/mateusjunges/laravel-acl/issues/69)
+
 ## 1.6.0
 - Fix [#59](https://github.com/mateusjunges/laravel-acl/issues/59)
 - Added exception that throws if you try to add a non existing permission to an user;
