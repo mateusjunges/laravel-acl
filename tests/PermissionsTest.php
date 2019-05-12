@@ -25,4 +25,42 @@ class PermissionsTest extends TestCase
             'description' => 'This is a test description',
         ]);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_be_assigned_to_groups_with_permission_id()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions([1]));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_assigned_to_groups_with_permission_slug()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(['edit-posts']));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_assigned_to_groups_with_permission_model()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions([$this->testUserPermission3]));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_assigned_to_groups_with_mixed_params()
+    {
+        $this->assertIsObject($this->testUserGroup->assignPermissions(
+            [
+                $this->testUserPermission,
+                $this->testUserPermission2->id,
+                $this->testUserPermission3->slug
+            ]
+        ));
+    }
 }
