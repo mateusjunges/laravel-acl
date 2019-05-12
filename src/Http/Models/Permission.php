@@ -23,6 +23,10 @@ class Permission extends Model
         'creating' => PermissionSaving::class
     ];
 
+    /**
+     * Permission constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

@@ -24,6 +24,11 @@ class Group extends Model
       'creating' => GroupSaving::class
     ];
 
+
+    /**
+     * Group constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);

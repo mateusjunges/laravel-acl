@@ -38,7 +38,7 @@
                     {{ (in_array($g->id, old('groups')) ? 'selected' : '') }}
                         @endif
                 >
-                    {{ $permission->name }}
+                    {{ $g->name }}
                 </option>
             @endforeach
         @else
