@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Junges\ACL\Test;
 
-
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Junges\ACL\Traits\UsersTrait;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use UsersTrait, Authorizable, Authenticatable;
-
+    use UsersTrait;
+    use Notifiable;
     /**
      * The attributes that are mass assignable.
      *
