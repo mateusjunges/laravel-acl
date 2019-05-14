@@ -501,4 +501,17 @@ trait UsersTrait
         $this->groups()->delete();
         return $this;
     }
+
+    /**
+     *  Assign all system groups to the user
+     * @return mixed
+     */
+    public function assignAllGroups()
+    {
+        $groupModel = app(config('acl.models.group'));
+        $groupModel->all()->map(function($group){
+           $this->assignGroup([$group]);
+        });
+        return $this;
+    }
 }
