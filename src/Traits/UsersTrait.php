@@ -487,7 +487,7 @@ trait UsersTrait
      */
     public function revokeAllPermissions()
     {
-        $this->permissions()->delete();
+        $this->permissions()->detach();
         return $this;
     }
 
@@ -498,7 +498,7 @@ trait UsersTrait
      */
     public function revokeAllGroups()
     {
-        $this->groups()->delete();
+        $this->groups()->detach();
         return $this;
     }
 
@@ -511,6 +511,20 @@ trait UsersTrait
         $groupModel = app(config('acl.models.group'));
         $groupModel->all()->map(function($group){
            return $this->assignGroup([$group]);
+        });
+        return $this;
+    }
+
+    /**
+     * Assign all system permissions to the specified user
+     *
+     * @return $this
+     */
+    public function assignAllPermissions()
+    {
+        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel->all()->map(function($permission){
+            return $this->assignPermissions([$permission]);
         });
         return $this;
     }

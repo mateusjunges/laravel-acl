@@ -277,7 +277,7 @@ trait GroupsTrait
      */
     public function revokeAllPermissions()
     {
-        $this->permissions()->delete();
+        $this->permissions()->detach();
         return $this;
     }
 
