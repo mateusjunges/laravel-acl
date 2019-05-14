@@ -479,4 +479,13 @@ trait UsersTrait
                });
         });
     }
+
+    /**
+     * Revoke all user permissions
+     * @return mixed
+     */
+    public function revokeAllPermissions()
+    {
+        return $this->permissions()->delete();
+    }   
 }
