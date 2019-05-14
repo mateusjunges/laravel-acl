@@ -510,7 +510,7 @@ trait UsersTrait
     {
         $groupModel = app(config('acl.models.group'));
         $groupModel->all()->map(function($group){
-           $this->assignGroup([$group]);
+           return $this->assignGroup([$group]);
         });
         return $this;
     }
