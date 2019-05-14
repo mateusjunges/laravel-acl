@@ -493,7 +493,7 @@ trait UsersTrait
     /**
      * Revoke all user groups
      *
-     * @return mixed
+     * @return mixed 
      */
     public function revokeAllGroups()
     {
