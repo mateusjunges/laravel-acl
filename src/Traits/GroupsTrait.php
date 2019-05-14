@@ -300,12 +300,23 @@ trait GroupsTrait
      *
      * @return $this
      */
-    public function assignAllUsers()
+    public function attachAllUsers()
     {
         $userModel = app(config('acl.models.user'));
         $userModel->all()->map(function($user){
             return $this->assignUser([$user]);
         });
+        return $this;
+    }
+
+    /**
+     * Remove all users from the specified group
+     *
+     * @return $this
+     */
+    public function detachAllUsers()
+    {
+        $this->users()->detach();
         return $this;
     }
 
