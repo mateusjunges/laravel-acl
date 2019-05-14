@@ -3,6 +3,9 @@
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
 ## 1.7.0
+### Attention:
+- The `description` field, in `permissions` and `groups` tables provided by this package, from this version above, are **optional**.
+
 ### Groups Trait changes:
 - Added `revokeAllPermissions()` method
 - Added `assignAllPermissions()` method
