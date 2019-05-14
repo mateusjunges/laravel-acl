@@ -295,6 +295,20 @@ trait GroupsTrait
         return $this;
     }
 
+    /**
+     * Add all system users to the specified group
+     *
+     * @return $this
+     */
+    public function assignAllUsers()
+    {
+        $userModel = app(config('acl.models.user'));
+        $userModel->all()->map(function($user){
+            return $this->assignUser([$user]);
+        });
+        return $this;
+    }
+
 
     /**
      * Convert user's id, user's name, user's username or user's email to instance of User model
