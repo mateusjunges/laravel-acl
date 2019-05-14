@@ -365,6 +365,44 @@ $group->syncPermissions([Permission::find(1), Permission::find(2)]);
 $group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 ```
 
+## Some "shortcuts"
+
+The version `1.7.0` of this package provides some new methods to handle with groups and permissions.
+From now, you can use the `assignAllPermissions` method to assign all your system permissions to your users, 
+instead of doing this manually.
+Similarly, the `revokeAllPermissions`, `assignAllGroups` and `revokeAllGroups` have similar functions.
+Here is some example:
+
+```php
+//If you want to remove all user permissions:
+$user->revokeAllPermissions();
+
+//If you want to grant all permissions for some user:
+$user->assignAllPermissions();
+
+//Remove all user groups:
+$user->revokeAllGroups();
+
+//Add all groups to the user:
+$user->assignAllGroups();
+```    
+
+The `GroupsTrait` has some new methods as well:
+
+```php
+//To remove all group permissions:
+$group->revokeAllPermissions();
+
+//To add all permissions for some group:
+$group->assignAllPermissions();
+
+//Attach all users to a group:
+$group->attachAllUsers();
+
+//Dettach all users from a group:
+$group->dettachAllUsers();
+```
+
 ## Local scopes
 
 ### The `group` scope
