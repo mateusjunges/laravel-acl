@@ -273,11 +273,26 @@ trait GroupsTrait
     /**
      * Revoke all group permissions
      *
-     * @return mixed
+     * @return $this
      */
     public function revokeAllPermissions()
     {
-        return $this->permissions()->delete();
+        $this->permissions()->delete();
+        return $this;
+    }
+
+    /**
+     *Assign all system permissions to the specified group
+     *
+     * @return $this
+     */
+    public function assignAllPermissions()
+    {
+        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel->all()->map(function ($permission){
+            return $this->assignPermissions([$permission]);
+        });
+        return $this;
     }
 
 
