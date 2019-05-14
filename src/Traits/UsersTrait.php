@@ -482,10 +482,21 @@ trait UsersTrait
 
     /**
      * Revoke all user permissions
+     *
      * @return mixed
      */
     public function revokeAllPermissions()
     {
         return $this->permissions()->delete();
-    }   
+    }
+
+    /**
+     * Revoke all user groups
+     *
+     * @return mixed
+     */
+    public function revokeAllGroups()
+    {
+        return $this->groups()->delete();
+    }
 }
