@@ -481,7 +481,7 @@ trait UsersTrait
     }
 
     /**
-     * Revoke all user permissions
+     * Revoke all directly associated user permissions
      *
      * @return mixed
      */
