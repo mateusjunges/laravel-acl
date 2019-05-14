@@ -25,6 +25,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
     * [Using translations](#translations)
+    * [Entity relationship model](#entity-relationship-model)
 * [Changelog](#changelog)
 * [Credits](#credits)
 * [License](#license)    
@@ -44,7 +45,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.6.*",
+        "mateusjunges/laravel-acl": "1.7.*",
     }
 }
 ```
@@ -689,6 +690,11 @@ Just include the view on you form:
     @include('acl::_forms.users.add-permission')
 </form>
 ```
+
+## Entity Relationship Model
+
+This is the entity relationship model for this package:
+![github-large](docs/database-model.png)
 
 ## Translations
 
