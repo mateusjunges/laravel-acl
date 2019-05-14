@@ -487,7 +487,8 @@ trait UsersTrait
      */
     public function revokeAllPermissions()
     {
-        return $this->permissions()->delete();
+        $this->permissions()->delete();
+        return $this;
     }
 
     /**
@@ -497,6 +498,7 @@ trait UsersTrait
      */
     public function revokeAllGroups()
     {
-        return $this->groups()->delete();
+        $this->groups()->delete();
+        return $this;
     }
 }
