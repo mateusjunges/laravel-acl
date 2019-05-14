@@ -18,7 +18,7 @@ class CreateGroupsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique()->nullable(false);
             $table->string('slug')->unique()->nullable(false);
-            $table->text('description')->nullable(false);
+            $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

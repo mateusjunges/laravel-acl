@@ -25,6 +25,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Using artisan commands](#using-artisan-commands)
     * [Extending and replacing models](#extending-and-replacing-models)
     * [Using translations](#translations)
+    * [Entity relationship model](#entity-relationship-model)
 * [Changelog](#changelog)
 * [Credits](#credits)
 * [License](#license)    
@@ -44,7 +45,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.6.*",
+        "mateusjunges/laravel-acl": "1.7.*",
     }
 }
 ```
@@ -362,6 +363,44 @@ $group->syncPermissions([Permission::find(1), Permission::find(2)]);
 
 //Combining the three ways:
 $group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
+```
+
+## Some "shortcuts"
+
+The version `1.7.0` of this package provides some new methods to handle with groups and permissions.
+From now, you can use the `assignAllPermissions` method to assign all your system permissions to your users, 
+instead of doing this manually.
+Similarly, the `revokeAllPermissions`, `assignAllGroups` and `revokeAllGroups` have similar functions.
+Here is some example:
+
+```php
+//If you want to remove all user permissions:
+$user->revokeAllPermissions();
+
+//If you want to grant all permissions for some user:
+$user->assignAllPermissions();
+
+//Remove all user groups:
+$user->revokeAllGroups();
+
+//Add all groups to the user:
+$user->assignAllGroups();
+```    
+
+The `GroupsTrait` has some new methods as well:
+
+```php
+//To remove all group permissions:
+$group->revokeAllPermissions();
+
+//To add all permissions for some group:
+$group->assignAllPermissions();
+
+//Attach all users to a group:
+$group->attachAllUsers();
+
+//Dettach all users from a group:
+$group->dettachAllUsers();
 ```
 
 ## Local scopes
@@ -689,6 +728,11 @@ Just include the view on you form:
     @include('acl::_forms.users.add-permission')
 </form>
 ```
+
+## Entity Relationship Model
+
+This is the entity relationship model for this package:
+![github-large](docs/database-model.png)
 
 ## Translations
 

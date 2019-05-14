@@ -2,6 +2,27 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.7.0
+### Attention:
+- The `description` field, in `permissions` and `groups` tables provided by this package, from this version above, are **optional**.
+
+### Groups Trait changes:
+- Added `revokeAllPermissions()` method
+- Added `assignAllPermissions()` method
+- Added `attachAllUsers()` method
+- Added `dettachAllUsers()` method
+
+### Users Trait changes:
+- Added `assignAllPermissions()` method
+- Added `revokeAllPermissions()` method
+- Added `revokeAllGroups()` method
+- Added `assignAllGroups()` method
+
+
+### General changes:
+- Added package database [entity relationship model](https://github.com/mateusjunges/laravel-acl/blob/masterdocs/database-model.png)
+- Updated README.md to version 1.7.0
+
 ## 1.6.1
 - Changed language of the package commands to english. [#69](https://github.com/mateusjunges/laravel-acl/issues/69)
 

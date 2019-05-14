@@ -270,6 +270,56 @@ trait GroupsTrait
         });
     }
 
+    /**
+     * Revoke all group permissions
+     *
+     * @return $this
+     */
+    public function revokeAllPermissions()
+    {
+        $this->permissions()->detach();
+        return $this;
+    }
+
+    /**
+     *Assign all system permissions to the specified group
+     *
+     * @return $this
+     */
+    public function assignAllPermissions()
+    {
+        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel->all()->map(function ($permission){
+            return $this->assignPermissions([$permission]);
+        });
+        return $this;
+    }
+
+    /**
+     * Add all system users to the specified group
+     *
+     * @return $this
+     */
+    public function attachAllUsers()
+    {
+        $userModel = app(config('acl.models.user'));
+        $userModel->all()->map(function($user){
+            return $this->assignUser([$user]);
+        });
+        return $this;
+    }
+
+    /**
+     * Remove all users from the specified group
+     *
+     * @return $this
+     */
+    public function detachAllUsers()
+    {
+        $this->users()->detach();
+        return $this;
+    }
+
 
     /**
      * Convert user's id, user's name, user's username or user's email to instance of User model

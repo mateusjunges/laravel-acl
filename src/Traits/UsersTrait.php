@@ -479,4 +479,53 @@ trait UsersTrait
                });
         });
     }
+
+    /**
+     * Revoke all directly associated user permissions
+     *
+     * @return mixed
+     */
+    public function revokeAllPermissions()
+    {
+        $this->permissions()->detach();
+        return $this;
+    }
+
+    /**
+     * Revoke all user groups
+     *
+     * @return mixed
+     */
+    public function revokeAllGroups()
+    {
+        $this->groups()->detach();
+        return $this;
+    }
+
+    /**
+     *  Assign all system groups to the user
+     * @return mixed
+     */
+    public function assignAllGroups()
+    {
+        $groupModel = app(config('acl.models.group'));
+        $groupModel->all()->map(function($group){
+           return $this->assignGroup([$group]);
+        });
+        return $this;
+    }
+
+    /**
+     * Assign all system permissions to the specified user
+     *
+     * @return $this
+     */
+    public function assignAllPermissions()
+    {
+        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel->all()->map(function($permission){
+            return $this->assignPermissions([$permission]);
+        });
+        return $this;
+    }
 }
