@@ -270,6 +270,16 @@ trait GroupsTrait
         });
     }
 
+    /**
+     * Revoke all group permissions
+     *
+     * @return mixed
+     */
+    public function revokeAllPermissions()
+    {
+        return $this->permissions()->delete();
+    }
+
 
     /**
      * Convert user's id, user's name, user's username or user's email to instance of User model
