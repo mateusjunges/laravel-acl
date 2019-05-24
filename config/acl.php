@@ -50,4 +50,9 @@ return [
         'user_has_groups'             => 'user_has_groups',
     ],
 
+    /*
+     |
+     |If you want to customize your tables, set this flag to "true"
+     | */
+    'custom_migrations' => false,
 ];

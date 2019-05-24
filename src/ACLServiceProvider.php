@@ -79,7 +79,11 @@ class ACLServiceProvider extends ServiceProvider
 
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
+        $customMigrations = config('acl.custom_migrations');
+        if ($customMigrations)
+            $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
+        else
+            $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
         $this->publishes([
             __DIR__ .'/database/migrations' => database_path('migrations/vendor/junges/acl'),
         ], 'migrations');

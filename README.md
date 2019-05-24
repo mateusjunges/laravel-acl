@@ -70,6 +70,11 @@ with:
 ```bash
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="migrations"
 ```
+and set the `config` for `custom_migrations` to `true`, which is false by default. 
+
+```
+custom_migrations' => true,
+```
 
 After the migrations has been published you can create the tables on your database by running the migrations:
 ```bash
@@ -141,6 +146,12 @@ When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-a
             'user_has_permissions'        => 'user_has_permissions',
             'user_has_groups'             => 'user_has_groups',
         ],
+        
+        /*
+         |
+         |If you want to customize your tables, set this flag to "true"
+         | */
+        'custom_migrations' => false,
 
     ];
 ```
