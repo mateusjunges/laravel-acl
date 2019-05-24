@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.7.2
+- Add a way to customize package migrations.
+- Fix [#75](https://github.com/mateusjunges/laravel-acl/issues/75)
+
 ## 1.7.1
 - Removed all versions below 1.5.2 because of a bug in the `isAdmin` function, which caused infinite looping. 
 If you use a version below 1.5.2 of this package, please upgrade as soon as possible.
