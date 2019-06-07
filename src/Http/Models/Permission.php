@@ -20,11 +20,12 @@ class Permission extends Model
     ];
 
     protected $dispatchesEvents = [
-        'creating' => PermissionSaving::class
+        'creating' => PermissionSaving::class,
     ];
 
     /**
      * Permission constructor.
+     *
      * @param array $attributes
      */
     public function __construct(array $attributes = [])

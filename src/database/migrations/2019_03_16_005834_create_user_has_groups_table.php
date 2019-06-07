@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUserHasGroupsTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateUserHasGroupsTable extends Migration
         $usersTable = config('acl.tables.users', 'users');
         $groupsTable = config('acl.tables.groups', 'groups');
         Schema::create($userHasGroupsTable,
-            function (Blueprint $table)  use ($usersTable, $groupsTable) {
+            function (Blueprint $table) use ($usersTable, $groupsTable) {
                 $table->bigInteger('user_id', false, true);
                 $table->bigInteger('group_id', false, true);
                 $table->foreign('user_id')
@@ -29,7 +29,7 @@ class CreateUserHasGroupsTable extends Migration
                     ->on($groupsTable)
                     ->onDelete('cascade');
                 $table->primary(['user_id', 'group_id']);
-        });
+            });
     }
 
     /**

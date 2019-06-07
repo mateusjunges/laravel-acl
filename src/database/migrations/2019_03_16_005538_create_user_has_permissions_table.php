@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUserHasPermissionsTable extends Migration
 {
@@ -18,7 +18,7 @@ class CreateUserHasPermissionsTable extends Migration
         $permissionsTable = config('acl.tables.permissions', 'permissions');
         $usersTable = config('acl.tables.users', 'users');
         Schema::create($userHasPermissionTable,
-            function (Blueprint $table) use ($permissionsTable, $usersTable){
+            function (Blueprint $table) use ($permissionsTable, $usersTable) {
                 $table->bigInteger('user_id', false, true);
                 $table->bigInteger('permission_id', false, true);
                 $table->foreign('user_id')
@@ -30,7 +30,7 @@ class CreateUserHasPermissionsTable extends Migration
                     ->on($permissionsTable)
                     ->onDelete('cascade');
                 $table->primary(['user_id', 'permission_id']);
-        });
+            });
     }
 
     /**

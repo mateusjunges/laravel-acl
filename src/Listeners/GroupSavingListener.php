@@ -20,18 +20,20 @@ class GroupSavingListener
     /**
      * Handle the event.
      *
-     * @param  GroupSaving  $event
+     * @param GroupSaving $event
+     *
      * @return void
      */
     public function handle(GroupSaving $event)
     {
-       $group = $event->group;
-       $groupModel = app(config('acl.models.group'));
-       $groupAlreadyExists = $groupModel
+        $group = $event->group;
+        $groupModel = app(config('acl.models.group'));
+        $groupAlreadyExists = $groupModel
            ->where('slug', $group->slug)
            ->orWhere('name', $group->name)
            ->first();
-       if (!is_null($groupAlreadyExists))
-           throw GroupAlreadyExistsException::create();
+        if (!is_null($groupAlreadyExists)) {
+            throw GroupAlreadyExistsException::create();
+        }
     }
 }

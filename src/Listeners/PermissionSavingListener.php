@@ -20,7 +20,8 @@ class PermissionSavingListener
     /**
      * Handle the event.
      *
-     * @param  PermissionSaving  $event
+     * @param PermissionSaving $event
+     *
      * @return void
      */
     public function handle(PermissionSaving $event)
@@ -31,7 +32,8 @@ class PermissionSavingListener
             ->where('slug', $permission->slug)
             ->orWhere('name', $permission->name)
             ->first();
-        if (!is_null($permissionAlreadyExists))
+        if (!is_null($permissionAlreadyExists)) {
             throw PermissionAlreadyExistsException::create();
+        }
     }
 }
