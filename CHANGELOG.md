@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.7.3
+- Applies code style fixes from an analysis carried out by StyleCI.
+
 ## 1.7.2
 - Add a way to customize package migrations.
 - Fix [#75](https://github.com/mateusjunges/laravel-acl/issues/75)
