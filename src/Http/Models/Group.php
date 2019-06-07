@@ -21,11 +21,12 @@ class Group extends Model
     ];
 
     protected $dispatchesEvents = [
-      'creating' => GroupSaving::class
+      'creating' => GroupSaving::class,
     ];
 
     /**
      * Group constructor.
+     *
      * @param array $attributes
      */
     public function __construct(array $attributes = [])

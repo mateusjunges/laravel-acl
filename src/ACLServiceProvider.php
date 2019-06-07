@@ -19,7 +19,8 @@ class ACLServiceProvider extends ServiceProvider
      *
      * @param Dispatcher $events
      * @param Repository $config
-     * @param Factory $view
+     * @param Factory    $view
+     *
      * @return void
      */
     public function boot(Dispatcher $events, Repository $config, Factory $view)
@@ -44,48 +45,49 @@ class ACLServiceProvider extends ServiceProvider
         $this->loadObservers();
     }
 
-
     /**
-     * Load and publishes the views folder
+     * Load and publishes the views folder.
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/resources/views', 'acl');
+        $this->loadViewsFrom(__DIR__.'/resources/views', 'acl');
         $this->publishes([
-            __DIR__ . '/resources/views' => resource_path('views/vendor/junges/acl'),
+            __DIR__.'/resources/views' => resource_path('views/vendor/junges/acl'),
         ], 'views');
     }
 
     /**
-     * Load and publishes the pt-br.php configuration file
+     * Load and publishes the pt-br.php configuration file.
      */
     public function publishConfig()
     {
         $this->publishes([
-            __DIR__ . '/../config/acl.php' => config_path('acl.php'),
+            __DIR__.'/../config/acl.php' => config_path('acl.php'),
         ], 'config');
     }
 
     public function loadCommands()
     {
-        if ($this->app->runningInConsole())
+        if ($this->app->runningInConsole()) {
             $this->commands([
                 CreatePermission::class,
                 ShowPermissions::class,
                 CreateGroup::class,
-                UserPermissions::class
+                UserPermissions::class,
             ]);
+        }
     }
 
     public function loadMigrations()
     {
         $customMigrations = config('acl.custom_migrations');
-        if ($customMigrations)
+        if ($customMigrations) {
             $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
-        else
-            $this->loadMigrationsFrom(__DIR__ .'/database/migrations');
+        } else {
+            $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        }
         $this->publishes([
-            __DIR__ .'/database/migrations' => database_path('migrations/vendor/junges/acl'),
+            __DIR__.'/database/migrations' => database_path('migrations/vendor/junges/acl'),
         ], 'migrations');
     }
 
@@ -94,7 +96,7 @@ class ACLServiceProvider extends ServiceProvider
         $translationsPath = __DIR__.'/resources/lang';
         $this->loadTranslationsFrom($translationsPath, 'acl');
         $this->publishes([
-            $translationsPath => base_path('resources/lang/vendor/acl')
+            $translationsPath => base_path('resources/lang/vendor/acl'),
         ], 'translations');
     }
 

@@ -38,27 +38,27 @@ class CreateGroup extends Command
      */
     public function handle()
     {
-        try{
+        try {
             $groupModel = app(config('acl.models.group'));
             if ($this->confirm("Do you want to create a group with the name '"
                 .$this->argument('name')."' and slug '"
-                .$this->argument('slug')."'?")){
+                .$this->argument('slug')."'?")) {
                 $group = $groupModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
                     ->first();
-                if (!is_null($group))
+                if (!is_null($group)) {
                     throw GroupAlreadyExistsException::create();
+                }
                 $groupModel->create([
-                   'name' => $this->argument('name'),
-                   'slug' => $this->argument('slug'),
+                   'name'        => $this->argument('name'),
+                   'slug'        => $this->argument('slug'),
                    'description' => $this->argument('description'),
                 ]);
-                $this->info("Group created successfully!");
-            }else{
-                $this->info("Group was not created.");
+                $this->info('Group created successfully!');
+            } else {
+                $this->info('Group was not created.');
             }
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->error($exception->getMessage());
         }
     }

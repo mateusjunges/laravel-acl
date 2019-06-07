@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Junges\ACL;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,11 +12,11 @@ class ACLEventsServiceProvider extends ServiceProvider
 {
     public $listen = [
         GroupSaving::class => [
-            GroupSavingListener::class
+            GroupSavingListener::class,
         ],
         PermissionSaving::class => [
-            PermissionSavingListener::class
-        ]
+            PermissionSavingListener::class,
+        ],
     ];
 
     public function boot()

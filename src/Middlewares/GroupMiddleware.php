@@ -9,22 +9,26 @@ use Junges\ACL\Exceptions\UnauthorizedException;
 class GroupMiddleware
 {
     /**
-     * Handle an incoming request
+     * Handle an incoming request.
      *
      * @param $request
      * @param Closure $next
      * @param $groups
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $groups)
     {
-        if (Auth::guest())
+        if (Auth::guest()) {
             throw UnauthorizedException::notLoggedIn();
+        }
         $groups = is_array($groups)
             ? $groups
             : explode('|', $groups);
-        if (Auth::user()->hasAnyGroup($groups))
+        if (Auth::user()->hasAnyGroup($groups)) {
             return $next($request);
+        }
+
         throw UnauthorizedException::forGroups();
     }
 }

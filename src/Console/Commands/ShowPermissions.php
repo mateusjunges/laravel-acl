@@ -39,19 +39,23 @@ class ShowPermissions extends Command
      */
     public function handle()
     {
-        try{
+        try {
             $groupParameter = $this->option('group');
 
-            if ($groupParameter){
-                if (is_numeric($groupParameter)) $group = Group::find((int)$groupParameter);
-                else if (is_string($groupParameter)) $group = Group::where('slug', $groupParameter)->first();
+            if ($groupParameter) {
+                if (is_numeric($groupParameter)) {
+                    $group = Group::find((int) $groupParameter);
+                } elseif (is_string($groupParameter)) {
+                    $group = Group::where('slug', $groupParameter)->first();
+                }
 
-                if (is_null($group)){
+                if (is_null($group)) {
                     $this->error('Groups does not exit!');
+
                     return;
                 }
 
-                $permissions = $group->permissions->map(function ($permission){
+                $permissions = $group->permissions->map(function ($permission) {
                     return [
                         'permission'  => $permission->name,
                         'slug'        => $permission->slug,
@@ -59,20 +63,20 @@ class ShowPermissions extends Command
                     ];
                 });
                 $this->info('Showing '.$group->name.' permissions:');
-            }else {
+            } else {
                 $this->info('Displaying all permissions:');
                 $permissions = Permission::all(['name', 'slug', 'description']);
             }
 
             $headers = ['Permission', 'Slug', 'Description'];
 
-            if ($permissions->count() == 0){
+            if ($permissions->count() == 0) {
                 $this->alert('No permissions found.');
+
                 return;
             }
             $this->table($headers, $permissions->toArray());
-
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->error('Something went wrong.');
         }
     }

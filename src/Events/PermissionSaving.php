@@ -2,14 +2,13 @@
 
 namespace Junges\ACL\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class PermissionSaving
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
 
     public $permission;
 
@@ -25,7 +24,6 @@ class PermissionSaving
 
     /**
      * Get the channels the event should broadcast on.
-     *
      */
     public function broadcastOn()
     {
