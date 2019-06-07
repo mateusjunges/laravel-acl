@@ -2,7 +2,7 @@
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/license.svg" alt="License"></a>
-<a href="https://github.styleci.io/repos/175907190/shield" target="_blandk"><img src="https://github.styleci.io/repos/175907190"></a>
+<a href="https://github.styleci.io/repos/175907190" target="_blandk"><img src="https://github.styleci.io/repos/175907190/shield"></a>
 
 </p>
 
