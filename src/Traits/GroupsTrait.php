@@ -2,11 +2,11 @@
 
 namespace Junges\ACL\Traits;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Schema;
-use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Exceptions\UserDoesNotExistException;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 trait GroupsTrait
 {
@@ -125,7 +125,7 @@ trait GroupsTrait
                 $_permission = $permission;
             }
             if (isset($_permission)) {
-                if (!is_null($_permission)) {
+                if (! is_null($_permission)) {
                     return $_permission->id;
                 }
             }
@@ -188,7 +188,7 @@ trait GroupsTrait
                     $_user = $model->where('name', $user)->first();
                 }
                 if (isset($_user)) {
-                    if (!is_null($_user)) {
+                    if (! is_null($_user)) {
                         return $_user->id;
                     }
                 }
@@ -314,7 +314,7 @@ trait GroupsTrait
         }, $permissions);
 
         foreach ($permissions as $permission) {
-            if (!$this->hasPermission($permission)) {
+            if (! $this->hasPermission($permission)) {
                 return false;
             }
         }

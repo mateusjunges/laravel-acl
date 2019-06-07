@@ -46,7 +46,7 @@ class CreateGroup extends Command
                 $group = $groupModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
                     ->first();
-                if (!is_null($group)) {
+                if (! is_null($group)) {
                     throw GroupAlreadyExistsException::create();
                 }
                 $groupModel->create([

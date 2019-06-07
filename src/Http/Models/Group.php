@@ -2,9 +2,9 @@
 
 namespace Junges\ACL\Http\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Traits\GroupsTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
