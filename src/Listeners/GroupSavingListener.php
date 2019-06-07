@@ -32,7 +32,7 @@ class GroupSavingListener
            ->where('slug', $group->slug)
            ->orWhere('name', $group->name)
            ->first();
-        if (!is_null($groupAlreadyExists)) {
+        if (! is_null($groupAlreadyExists)) {
             throw GroupAlreadyExistsException::create();
         }
     }

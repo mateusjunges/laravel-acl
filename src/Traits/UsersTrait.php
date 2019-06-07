@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
@@ -171,7 +171,7 @@ trait UsersTrait
                 $_permission = $permission;
             }
             if (isset($_permission)) {
-                if (!is_null($_permission)) {
+                if (! is_null($_permission)) {
                     return $_permission->id;
                 }
             }
@@ -196,7 +196,7 @@ trait UsersTrait
                 $_group = $model->where('slug', $group)->first();
             }
             if (isset($_group)) {
-                if (!is_null($_group)) {
+                if (! is_null($_group)) {
                     return $group->id;
                 }
             }
@@ -215,7 +215,7 @@ trait UsersTrait
     private function convertToGroupIds($groups)
     {
         $model = app(config('acl.models.group'));
-        $groups = !is_array($groups) ? [$groups] : $groups;
+        $groups = ! is_array($groups) ? [$groups] : $groups;
 
         return collect(array_map(function ($group) use ($model) {
             if ($group instanceof $model) {
@@ -260,7 +260,7 @@ trait UsersTrait
     private function convertToPermissionIds($permissions)
     {
         $model = app(config('acl.models.permission'));
-        $permissions = !is_array($permissions) ? [$permissions] : $permissions;
+        $permissions = ! is_array($permissions) ? [$permissions] : $permissions;
 
         return collect(array_map(function ($permission) use ($model) {
             if ($permission instanceof $model) {
@@ -447,7 +447,7 @@ trait UsersTrait
             }
         }, $groups);
         foreach ($groups as $group) {
-            if (!$this->hasGroup($group)) {
+            if (! $this->hasGroup($group)) {
                 return false;
             }
         }
@@ -476,7 +476,7 @@ trait UsersTrait
         }, $permissions);
 
         foreach ($permissions as $permission) {
-            if (!$this->hasPermission($permission)) {
+            if (! $this->hasPermission($permission)) {
                 return false;
             }
         }
@@ -498,7 +498,7 @@ trait UsersTrait
         if ($groups instanceof Collection) {
             $groups = $groups->all();
         }
-        if (!is_array($groups)) {
+        if (! is_array($groups)) {
             $groups = [$groups];
         }
 

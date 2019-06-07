@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Eloquent\Builder;
 
 trait PermissionsTrait
 {
