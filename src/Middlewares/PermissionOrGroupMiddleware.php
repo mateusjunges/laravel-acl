@@ -25,10 +25,11 @@ class PermissionOrGroupMiddleware
         $permissions = is_array($groupOrPermissions)
             ? $groupOrPermissions
             : explode('|', $groupOrPermissions);
-        if (!Auth::user()->hasAnyPermission($permissions)
-            && !Auth::user()->hasAnyGroup($permissions)) {
+        if (! Auth::user()->hasAnyPermission($permissions)
+            && ! Auth::user()->hasAnyGroup($permissions)) {
             throw UnauthorizedException::forGroupsOrPermissions();
         }
+
         return $next($request);
     }
 }
