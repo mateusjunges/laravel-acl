@@ -32,7 +32,7 @@ class PermissionSavingListener
             ->where('slug', $permission->slug)
             ->orWhere('name', $permission->name)
             ->first();
-        if (!is_null($permissionAlreadyExists)) {
+        if (! is_null($permissionAlreadyExists)) {
             throw PermissionAlreadyExistsException::create();
         }
     }
