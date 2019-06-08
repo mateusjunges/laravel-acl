@@ -15,10 +15,11 @@ matrix:
   allow_failures:
     - php: 7.4snapshot
 
+services:
+  - postgresql
+
 before_script:
-  - sqlite3
-  - sqlite3 laravel_acl_tests;
-  -
+  - psql - c 'create database laravel_acl_test;' -U postgres
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 

@@ -98,9 +98,12 @@ class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'sqlite');
-        $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+        $app['config']->set('database.default', 'pgsql');
+        $app['config']->set('database.connections.pgsql', [
+            'driver'   => 'pgsql',
+            'username' => 'postgres',
+            'port'     => '5432',
+            'host'     => '127.0.0.1',
             'database' => 'laravel_acl_tests',
             'prefix'   => ''
         ]);
