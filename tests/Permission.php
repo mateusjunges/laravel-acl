@@ -3,9 +3,9 @@
 namespace Junges\ACL\Test;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Junges\ACL\Events\PermissionSaving;
 use Junges\ACL\Traits\PermissionsTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
 {
@@ -20,6 +20,6 @@ class Permission extends Model
     ];
 
     protected $dispatchesEvents = [
-        'creating' => PermissionSaving::class
+        'creating' => PermissionSaving::class,
     ];
 }

@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Junges\ACL\Test;
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Junges\ACL\ACLAuthServiceProvider;
 use Junges\ACL\ACLServiceProvider;
+use Junges\ACL\ACLAuthServiceProvider;
+use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -62,14 +61,14 @@ class TestCase extends Orchestra
     protected $testAdminUser;
 
     /**
-     * Set up the tests
+     * Set up the tests.
      */
     public function setUp()
     {
         parent::setUp();
 
         $this->configureDatabase($this->app);
-        
+
         $this->testUser = User::find(1);
         $this->testAdminUser = User::find(2);
         $this->testUser2 = User::find(3);
@@ -93,7 +92,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * Set up the environment
+     * Set up the environment.
      *
      * @param \Illuminate\Foundation\Application $app
      */
@@ -112,23 +111,22 @@ class TestCase extends Orchestra
 
         // Use test model for users provider
         $app['config']->set('auth.providers.users.model', \Junges\ACL\Test\User::class);
-
     }
 
     /**
-     * Set up the database for tests
+     * Set up the database for tests.
      * @param $app
      */
     public function configureDatabase($app)
     {
-        DB::statement("DROP TABLE IF EXISTS test_users CASCADE;");
-        DB::statement("DROP TABLE IF EXISTS test_permissions CASCADE;");
-        DB::statement("DROP TABLE IF EXISTS test_groups CASCADE;");
-        DB::statement("DROP TABLE IF EXISTS test_user_has_permissions CASCADE;");
-        DB::statement("DROP TABLE IF EXISTS test_user_has_groups CASCADE;");
-        DB::statement("DROP TABLE IF EXISTS test_group_has_permissions CASCADE;");
+        DB::statement('DROP TABLE IF EXISTS test_users CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_permissions CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_groups CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_user_has_permissions CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_user_has_groups CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_group_has_permissions CASCADE;');
 
-        /**
+        /*
          * Set up the tables for testing proposes
          */
         $app['config']->set('acl.tables.users', 'test_users');
@@ -138,30 +136,30 @@ class TestCase extends Orchestra
         $app['config']->set('acl.tables.group_has_permissions', 'test_group_has_permissions');
         $app['config']->set('acl.tables.user_has_groups', 'test_user_has_groups');
 
-        /**
+        /*
          * Set up the models for testing proposes
          */
         $app['config']->set('acl.models.permission', \Junges\ACL\Test\Permission::class);
         $app['config']->set('acl.models.group', \Junges\ACL\Test\Group::class);
         $app['config']->set('acl.models.user', \Junges\ACL\Test\User::class);
 
-        $app['db']->connection()->getSchemaBuilder()->create('test_users', function (Blueprint $table){
-           $table->bigIncrements('id');
-           $table->string('name');
-           $table->string('email');
-           $table->softDeletes();
+        $app['db']->connection()->getSchemaBuilder()->create('test_users', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('email');
+            $table->softDeletes();
         });
 
         /**
-         * Include de migration files
+         * Include de migration files.
          */
-        include_once __DIR__ . '/../src/database/migrations/2019_03_16_005237_create_permissions_table.php';
-        include_once __DIR__ . '/../src/database/migrations/2019_03_16_005634_create_groups_table.php';
-        include_once __DIR__ . '/../src/database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
-        include_once __DIR__ . '/../src/database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
-        include_once __DIR__ . '/../src/database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
+        include_once __DIR__.'/../src/database/migrations/2019_03_16_005237_create_permissions_table.php';
+        include_once __DIR__.'/../src/database/migrations/2019_03_16_005634_create_groups_table.php';
+        include_once __DIR__.'/../src/database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
+        include_once __DIR__.'/../src/database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
+        include_once __DIR__.'/../src/database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
 
-        /**
+        /*
          * Create the tables on the database
          */
         (new \CreatePermissionsTable())->up();
@@ -170,8 +168,7 @@ class TestCase extends Orchestra
         (new \CreateUserHasPermissionsTable())->up();
         (new \CreateUserHasGroupsTable())->up();
 
-
-        /**
+        /*
          * Create some new users
          */
         User::create([
@@ -190,13 +187,13 @@ class TestCase extends Orchestra
             'name' => 'User 4',
             'email' => 'user4@user4.com',
         ]);
-        /**
+        /*
          * Create some groups
          */
         Group::create([
            'name' => 'Test User Group',
            'slug' => 'test-user-group',
-           'description' => 'This is the test user group'
+           'description' => 'This is the test user group',
         ]);
         Group::create([
             'name' => 'Test Admin Group',
@@ -204,7 +201,7 @@ class TestCase extends Orchestra
             'description' => 'This is the test admin user group',
         ]);
 
-        /**
+        /*
          * Create some permissions
          */
         Permission::create([

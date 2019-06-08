@@ -1,21 +1,18 @@
 <?php
 
-
 namespace Junges\ACL\Test;
-
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response as ResponseCode;
-use Junges\ACL\Exceptions\UnauthorizedException;
 use Junges\ACL\Middlewares\GroupMiddleware;
+use Junges\ACL\Exceptions\UnauthorizedException;
 use Junges\ACL\Middlewares\PermissionMiddleware;
 use Junges\ACL\Middlewares\PermissionOrGroupMiddleware;
+use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class MiddlewareTest extends TestCase
 {
-
     /**
      * @var PermissionMiddleware
      */
@@ -32,7 +29,7 @@ class MiddlewareTest extends TestCase
     protected $permissionOrGroupMiddleware;
 
     /**
-     * Set up
+     * Set up.
      */
     public function setUp()
     {
@@ -221,21 +218,19 @@ class MiddlewareTest extends TestCase
     }
 
     /**
-     * Execute the specified middleware
+     * Execute the specified middleware.
      * @param $middleware
      * @param $parameter
      * @return int
      */
     private function execMiddleware($middleware, $parameter)
     {
-        try{
-            return $middleware->handle(new Request(), function (){
-               return (new Response())->setContent('<html></html>');
+        try {
+            return $middleware->handle(new Request(), function () {
+                return (new Response())->setContent('<html></html>');
             }, $parameter)->status();
-        }catch (UnauthorizedException $exception){
+        } catch (UnauthorizedException $exception) {
             return $exception->getStatusCode();
         }
     }
-
-
 }

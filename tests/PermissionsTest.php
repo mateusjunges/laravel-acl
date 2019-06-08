@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Junges\ACL\Test;
-
 
 use Illuminate\Database\QueryException;
 
@@ -59,7 +57,7 @@ class PermissionsTest extends TestCase
             [
                 $this->testUserPermission,
                 $this->testUserPermission2->id,
-                $this->testUserPermission3->slug
+                $this->testUserPermission3->slug,
             ]
         ));
     }
