@@ -11,6 +11,8 @@ We accept contributions via Pull Requests on [Github](https://github.com/mateusj
 
 - **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up to date.
 
+- **Add tests** - Your patch won't be accepted if it doesn't have tests.
+
 - **Create feature branches** - Pull requests from your master branch won't be accepted.
 
 - **One pull request per feature** - If you want to do more than one thing, create multiple pull requests.
