@@ -24,7 +24,6 @@ class Group extends Model
       'creating' => GroupSaving::class,
     ];
 
-
     /**
      * Group constructor.
      *

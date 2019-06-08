@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Junges\ACL\Test;
 
 use Illuminate\Database\QueryException;
@@ -21,12 +20,12 @@ class GroupsTest extends TestCase
         Group::create([
              'name' => 'Test Group',
              'slug' => 'test-group',
-             'description' => 'This is a test group'
+             'description' => 'This is a test group',
         ]);
         Group::create([
             'name' => 'Test Group',
             'slug' => 'test-group',
-            'description' => 'This is a test group'
+            'description' => 'This is a test group',
         ]);
     }
 
@@ -75,10 +74,11 @@ class GroupsTest extends TestCase
     {
         $this->assertIsObject($this->testUserGroup->assignPermissions(
             [
-                $this->testUserPermission->id
+                $this->testUserPermission->id,
             ]
         ));
     }
+
     /**
      * @test
      */
@@ -86,7 +86,7 @@ class GroupsTest extends TestCase
     {
         $this->assertIsObject($this->testUserGroup->assignPermissions(
             [
-                $this->testUserPermission->slug
+                $this->testUserPermission->slug,
             ]
         ));
     }
@@ -98,11 +98,10 @@ class GroupsTest extends TestCase
     {
         $this->assertIsObject($this->testUserGroup->assignPermissions(
             [
-                $this->testUserPermission
+                $this->testUserPermission,
             ]
         ));
     }
-
 
     /**
      * @test
@@ -113,10 +112,8 @@ class GroupsTest extends TestCase
             [
                 $this->testUserPermission,
                 $this->testUserPermission2->slug,
-                $this->testUserPermission3->id
+                $this->testUserPermission3->id,
             ]
         ));
     }
-
-
 }

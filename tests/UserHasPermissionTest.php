@@ -2,12 +2,10 @@
 
 namespace Junges\ACL\Test;
 
-use Junges\ACL\Test\TestCase;
-
 class UserHasPermissionTest extends TestCase
 {
     /**
-     * Setup
+     * Setup.
      */
     public function setUp(): void
     {

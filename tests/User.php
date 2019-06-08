@@ -2,9 +2,9 @@
 
 namespace Junges\ACL\Test;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Junges\ACL\Traits\UsersTrait;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -26,5 +26,4 @@ class User extends Authenticatable
      * @var string
      */
     protected $table = 'test_users';
-
 }
