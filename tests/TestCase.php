@@ -101,7 +101,7 @@ class TestCase extends Orchestra
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver'   => 'sqlite',
-            'database' => ':memory',
+            'database' => 'laravel_acl_tests',
             'prefix'   => ''
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
