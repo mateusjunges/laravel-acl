@@ -11,7 +11,7 @@ class Group extends Model
     use GroupsTrait;
 
     protected $dates = ['deleted_at'];
-    protected $table = 'groups';
+    protected $table;
 
     /**
      * @var array
@@ -23,6 +23,7 @@ class Group extends Model
     protected $dispatchesEvents = [
       'creating' => GroupSaving::class,
     ];
+
 
     /**
      * Group constructor.
