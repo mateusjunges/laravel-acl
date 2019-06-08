@@ -2,12 +2,12 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
-## 1.7.3
-- Applies code style fixes from an analysis carried out by [StyleCI](https://styleci.io/).
-
-## 1.7.3
+## 1.7.4
 - Add package tests
 - Continuous integration with TravisCI
+
+## 1.7.3
+- Applies code style fixes from an analysis carried out by [StyleCI](https://styleci.io/).
 
 ## 1.7.2
 - Add a way to customize package migrations.
