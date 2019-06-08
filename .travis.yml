@@ -19,7 +19,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database laravel_acl_test;' -U postgres
+  - psql -c 'create database laravel_acl_tests;' -U postgres
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
 
