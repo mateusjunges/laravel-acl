@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+  - 7.4snapshot
+
+matrix:
+  allow_failures:
+    - php: 7.4snapshot
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database laravel_acl_tests;' -U postgres
+  - travis_retry composer self-update
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+
+script:
+  - vendor/bin/phpunit tests --coverage-text --coverage-clover=coverage.clover

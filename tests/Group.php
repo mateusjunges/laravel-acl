@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Http\Models;
+namespace Junges\ACL\Test;
 
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Traits\GroupsTrait;
@@ -11,7 +11,7 @@ class Group extends Model
     use GroupsTrait;
 
     protected $dates = ['deleted_at'];
-    protected $table;
+    protected $table = 'test_groups';
 
     /**
      * @var array
@@ -23,15 +23,4 @@ class Group extends Model
     protected $dispatchesEvents = [
       'creating' => GroupSaving::class,
     ];
-
-    /**
-     * Group constructor.
-     *
-     * @param array $attributes
-     */
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->setTable(config('acl.tables.groups'));
-    }
 }
