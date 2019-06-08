@@ -99,13 +99,10 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'pgsql');
-        $app['config']->set('database.connections.pgsql', [
-            'driver' => 'pgsql',
-            'host' => '127.0.0.1',
-            'port' => '5432',
-            'database' => 'package_test',
-            'username' => 'postgres',
-            'password' => '16021826',
+        $app['config']->set('database.connections.sqlite', [
+            'driver'   => 'sqlite',
+            'database' => ':memory',
+            'prefix'   => ''
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
