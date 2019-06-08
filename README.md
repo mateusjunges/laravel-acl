@@ -2,8 +2,8 @@
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/license.svg" alt="License"></a>
-<a href="https://github.styleci.io/repos/175907190" target="_blandk"><img src="https://github.styleci.io/repos/175907190/shield"></a>
-
+<a href="https://github.styleci.io/repos/175907190" target="_blank"><img src="https://github.styleci.io/repos/175907190/shield?style=flat"></a>
+<a href="https://travis-ci.org/mateusjunges/laravel-acl"><img src="https://img.shields.io/travis/mateusjunges/laravel-acl/master.svg?style=flat" alt="Build Status"></a>
 </p>
 
 # Laravel ACL
@@ -28,6 +28,7 @@ This package allows you to manage user permissions and groups in a database.
     * [Extending and replacing models](#extending-and-replacing-models)
     * [Using translations](#translations)
     * [Entity relationship model](#entity-relationship-model)
+* [Tests](#tests)    
 * [Changelog](#changelog)
 * [Credits](#credits)
 * [License](#license)    
@@ -756,6 +757,11 @@ This package also provides translations for some messages. To use them is easy:
  ```bash
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="translations"
  ```  
+ 
+# Tests
+
+Run `composer test` to test this package.
+ 
 # Changelog
 
 Please see [changelog](https://github.com/mateusjunges/laravel-acl/blob/master/CHANGELOG.md) for more information about the changes on this package.
