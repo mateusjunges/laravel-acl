@@ -7,7 +7,7 @@ class UserHasPermissionTest extends TestCase
     /**
      * Setup.
      */
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
     }
