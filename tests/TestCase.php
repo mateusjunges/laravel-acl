@@ -106,7 +106,7 @@ class TestCase extends Orchestra
             'host'     => '127.0.0.1',
             'password' => '',
             'database' => 'laravel_acl_tests',
-            'prefix'   => ''
+            'prefix'   => '',
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
