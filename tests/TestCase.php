@@ -61,6 +61,11 @@ class TestCase extends Orchestra
     protected $testAdminUser;
 
     /**
+     * @var Group
+     */
+    protected $testUserGroup2;
+
+    /**
      * Set up the tests.
      */
     public function setUp()
@@ -79,6 +84,7 @@ class TestCase extends Orchestra
         $this->testUserPermission2 = app(Permission::class)->find(3);
         $this->testUserPermission3 = app(Permission::class)->find(4);
         $this->testAdminGroup = app(Group::class)->find(2);
+        $this->testUserGroup2 = app(Group::class)->find(3);
 
         (new ACLAuthServiceProvider($this->app))->boot();
     }
@@ -104,7 +110,7 @@ class TestCase extends Orchestra
             'username' => 'postgres',
             'port'     => '5432',
             'host'     => '127.0.0.1',
-            'password' => '',
+            'password' => env('DB_PASSWORD', ''),
             'database' => 'laravel_acl_tests',
             'prefix'   => '',
         ]);
@@ -200,6 +206,11 @@ class TestCase extends Orchestra
             'name' => 'Test Admin Group',
             'slug' => 'test-admin-group',
             'description' => 'This is the test admin user group',
+        ]);
+        Group::create([
+           'name' => 'Test User Group 2',
+           'slug' => 'test-user-group-2',
+           'description' => 'This is the test user group 2',
         ]);
 
         /*
