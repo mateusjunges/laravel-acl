@@ -17,7 +17,7 @@ class UserHasPermissionTest extends TestCase
      */
     public function can_give_permission_to_user()
     {
-        $this->assertIsObject($this->testUser->assignPermissions([$this->testUserPermission]));
+        $this->assertInstanceOf(User::class, $this->testUser->assignPermissions([$this->testUserPermission]));
     }
 
     /**
@@ -25,6 +25,6 @@ class UserHasPermissionTest extends TestCase
      */
     public function can_revoke_permissions_of_user()
     {
-        $this->assertIsObject($this->testUser->revokePermissions([$this->testUserPermission]));
+        $this->assertInstanceOf(User::class, $this->testUser->revokePermissions([$this->testUserPermission]));
     }
 }
