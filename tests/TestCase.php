@@ -110,7 +110,7 @@ class TestCase extends Orchestra
             'username' => 'postgres',
             'port'     => '5432',
             'host'     => '127.0.0.1',
-            'password' => env('DB_PASSWORD', ''),
+            'password' => env('DB_PASSWORD', '16021826'),
             'database' => 'laravel_acl_tests',
             'prefix'   => '',
         ]);

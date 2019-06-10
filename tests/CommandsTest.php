@@ -2,13 +2,12 @@
 
 namespace Junges\Tests;
 
-use Junges\ACL\Test\Permission;
 use Junges\ACL\Test\TestCase;
 
 class CommandsTest extends TestCase
 {
     /**
-     * Command test config
+     * Command test config.
      */
     public function setUp()
     {
@@ -23,7 +22,7 @@ class CommandsTest extends TestCase
         $this->artisan('permission:create', [
             'name' => 'Command test permission',
             'slug' => 'command-test-permission',
-            'description' => 'Command test'
+            'description' => 'Command test',
         ])->assertExitCode(0);
     }
 
@@ -35,7 +34,7 @@ class CommandsTest extends TestCase
         $this->artisan('group:create', [
             'name' => 'Command test group',
             'slug' => 'command-test-group',
-            'description' => 'Test command group'
+            'description' => 'Test command group',
         ])->assertExitCode(0);
     }
 }
