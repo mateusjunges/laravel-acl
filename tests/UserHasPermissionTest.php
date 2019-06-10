@@ -48,7 +48,7 @@ class UserHasPermissionTest extends TestCase
         $this->assertInstanceOf(User::class, $this->testUser->assignPermissions([
             $this->testUserPermission->id,
             $this->testUserPermission2->slug,
-            $this->testUserPermission3
+            $this->testUserPermission3,
         ]));
     }
 
@@ -60,7 +60,7 @@ class UserHasPermissionTest extends TestCase
         $this->assertInstanceOf(User::class, $this->testUser->revokePermissions([
             $this->testUserPermission->id,
             $this->testUserPermission2->slug,
-            $this->testUserPermission3
+            $this->testUserPermission3,
         ]));
     }
 
@@ -118,7 +118,7 @@ class UserHasPermissionTest extends TestCase
         $this->assertInstanceOf(User::class, $this->testUser->assignGroup([
             $this->testUserGroup->id,
             $this->testAdminGroup->slug,
-            $this->testUserGroup2
+            $this->testUserGroup2,
         ]));
     }
 }
