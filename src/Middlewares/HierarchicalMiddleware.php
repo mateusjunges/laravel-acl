@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Junges\ACL\Middlewares;
 
 use Closure;
@@ -16,8 +15,26 @@ class HierarchicalMiddleware
      * @param Closure $next
      * @param $permission
      */
-    public function handle($request, Closure $next, $permission)
+    public function handle($request, Closure $next, $permissions)
     {
+        if (Auth::guest()){
+            throw UnauthorizedException::notLoggedIn();
+        }
 
+        $permissions = is_array($permissions) ? $permissions : explode('|', $permissions);
+
+        $permissions->map(function ($permission) use ($next, $request) {
+           $partials = explode('.', $permission);
+           $ability = '';
+           foreach ($partials as $partial){
+               //Recreate the ability with each partial:
+               $ability .= $ability ? '.' . $partial : $partial;
+               if (Auth::user()->can($ability)){
+                   return $next($request);
+               }
+           }
+           return $permission;
+        });
+        throw UnauthorizedException::forPermissions();
     }
 }
