@@ -2,7 +2,6 @@
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://codeclimate.com/github/mateusjunges/laravel-acl"><img src="https://codeclimate.com/github/mateusjunges/laravel-acl.svg"></a>
-[![Code Climate](https://codeclimate.com/github/njbarrett/laravel-postgis/badges/gpa.svg)](https://codeclimate.com/github/njbarrett/laravel-postgis)
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/license.svg" alt="License"></a>
 <a href="https://github.styleci.io/repos/175907190" target="_blank"><img src="https://github.styleci.io/repos/175907190/shield?style=flat"></a>
 <a href="https://travis-ci.org/mateusjunges/laravel-acl"><img src="https://img.shields.io/travis/mateusjunges/laravel-acl/master.svg?style=flat" alt="Build Status"></a>
