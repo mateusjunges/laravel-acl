@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.7.5
+- Fix [#93](https://github.com/mateusjunges/laravel-acl/issues/93)
+- Add database connection check before register gates
+
 ## 1.7.4
 - Add package tests
 - Continuous integration with TravisCI
