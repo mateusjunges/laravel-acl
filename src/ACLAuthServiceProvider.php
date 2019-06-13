@@ -2,11 +2,11 @@
 
 namespace Junges\ACL;
 
+use DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
-use DB;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {
@@ -26,8 +26,7 @@ class ACLAuthServiceProvider extends ServiceProvider
         ? $permissionModel = app(config('acl.models.permission'))
         : $permissionModel = app(\Junges\ACL\Http\Models\Permission::class);
 
-
-        if ($this->checkConnectionStatus()){
+        if ($this->checkConnectionStatus()) {
             if (config('acl.tables.permissions') !== null) {
                 if (Schema::hasTable(config('acl.tables.permissions'))) {
                     $permissionModel->all()->map(function ($permission) {
@@ -148,10 +147,11 @@ class ACLAuthServiceProvider extends ServiceProvider
      */
     private function checkConnectionStatus()
     {
-        try{
+        try {
             DB::connection()->getPdo();
+
             return true;
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return false;
         }
     }
