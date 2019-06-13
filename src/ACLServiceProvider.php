@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
-use Junges\ACL\Http\Observers\GroupObserver;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
