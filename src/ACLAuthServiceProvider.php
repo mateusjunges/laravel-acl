@@ -2,6 +2,7 @@
 
 namespace Junges\ACL;
 
+use DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Schema;
@@ -25,13 +26,15 @@ class ACLAuthServiceProvider extends ServiceProvider
         ? $permissionModel = app(config('acl.models.permission'))
         : $permissionModel = app(\Junges\ACL\Http\Models\Permission::class);
 
-        if (config('acl.tables.permissions') !== null) {
-            if (Schema::hasTable(config('acl.tables.permissions'))) {
-                $permissionModel->all()->map(function ($permission) {
-                    Gate::define($permission->slug, function ($user) use ($permission) {
-                        return $user->hasPermission($permission) || $user->isAdmin();
+        if ($this->checkConnectionStatus()) {
+            if (config('acl.tables.permissions') !== null) {
+                if (Schema::hasTable(config('acl.tables.permissions'))) {
+                    $permissionModel->all()->map(function ($permission) {
+                        Gate::define($permission->slug, function ($user) use ($permission) {
+                            return $user->hasPermission($permission) || $user->isAdmin();
+                        });
                     });
-                });
+                }
             }
         }
 
@@ -136,5 +139,20 @@ class ACLAuthServiceProvider extends ServiceProvider
         Blade::directive('endallgroups', function () {
             return '<?php } ?>';
         });
+    }
+
+    /**
+     * Check for database connection.
+     * @return bool
+     */
+    private function checkConnectionStatus()
+    {
+        try {
+            DB::connection()->getPdo();
+
+            return true;
+        } catch (\Exception $exception) {
+            return false;
+        }
     }
 }

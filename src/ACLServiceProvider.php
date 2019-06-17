@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
-use Junges\ACL\Http\Observers\GroupObserver;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
@@ -40,9 +39,6 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load translations
         $this->loadTranslations();
-
-        //Load observers
-        $this->loadObservers();
     }
 
     /**
@@ -66,6 +62,9 @@ class ACLServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * Load package commands.
+     */
     public function loadCommands()
     {
         if ($this->app->runningInConsole()) {
@@ -78,6 +77,9 @@ class ACLServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Load package migrations.
+     */
     public function loadMigrations()
     {
         $customMigrations = config('acl.custom_migrations');
@@ -91,6 +93,9 @@ class ACLServiceProvider extends ServiceProvider
         ], 'migrations');
     }
 
+    /**
+     * Load package translations.
+     */
     public function loadTranslations()
     {
         $translationsPath = __DIR__.'/resources/lang';
@@ -98,12 +103,6 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             $translationsPath => base_path('resources/lang/vendor/acl'),
         ], 'translations');
-    }
-
-    public function loadObservers()
-    {
-//        $groupModel = app(config('acl.models.group'));
-//        $groupModel->observe(GroupObserver::class);
     }
 
     /**
