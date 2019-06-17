@@ -120,7 +120,6 @@ class TestCase extends Orchestra
         $app['config']->set('auth.providers.users.model', \Junges\ACL\Test\User::class);
     }
 
-
     /**
      * Set up the database for tests.
      * @param $app
@@ -250,12 +249,12 @@ class TestCase extends Orchestra
         Permission::create([
             'name' => 'Test hierarchical permissions',
             'slug' => 'admin.auth',
-            'description' => 'This is a hierarchical permission test'
+            'description' => 'This is a hierarchical permission test',
         ]);
         Permission::create([
             'name' => 'Test hierarchical permissions 1',
             'slug' => 'admin.auth.users',
-            'description' => 'This is a hierarchical permission test'
+            'description' => 'This is a hierarchical permission test',
         ]);
     }
 }
