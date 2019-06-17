@@ -120,14 +120,15 @@ class TestCase extends Orchestra
         $app['config']->set('auth.providers.users.model', \Junges\ACL\Test\User::class);
     }
 
+
     /**
      * Set up the database for tests.
      * @param $app
      */
     public function configureDatabase($app)
     {
-        DB::statement('DROP TABLE IF EXISTS test_users CASCADE;');
         DB::statement('DROP TABLE IF EXISTS test_permissions CASCADE;');
+        DB::statement('DROP TABLE IF EXISTS test_users CASCADE;');
         DB::statement('DROP TABLE IF EXISTS test_groups CASCADE;');
         DB::statement('DROP TABLE IF EXISTS test_user_has_permissions CASCADE;');
         DB::statement('DROP TABLE IF EXISTS test_user_has_groups CASCADE;');
@@ -169,6 +170,11 @@ class TestCase extends Orchestra
         /*
          * Create the tables on the database
          */
+        (new \CreatePermissionsTable())->down();
+        (new \CreateGroupsTable())->down();
+        (new \CreateGroupHasPermissionsTable())->down();
+        (new \CreateUserHasPermissionsTable())->down();
+        (new \CreateUserHasGroupsTable())->down();
         (new \CreatePermissionsTable())->up();
         (new \CreateGroupsTable())->up();
         (new \CreateGroupHasPermissionsTable())->up();
@@ -240,6 +246,16 @@ class TestCase extends Orchestra
             'name' => 'Edit news',
             'slug' => 'edit-news',
             'description' => 'This permission allows you to edit the news page',
+        ]);
+        Permission::create([
+            'name' => 'Test hierarchical permissions',
+            'slug' => 'admin.auth',
+            'description' => 'This is a hierarchical permission test'
+        ]);
+        Permission::create([
+            'name' => 'Test hierarchical permissions 1',
+            'slug' => 'admin.auth.users',
+            'description' => 'This is a hierarchical permission test'
         ]);
     }
 }
