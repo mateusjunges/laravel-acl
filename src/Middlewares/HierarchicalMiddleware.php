@@ -29,14 +29,13 @@ class HierarchicalMiddleware
             $parts = explode('.', $permission);
             $ability = '';
             foreach ($parts as $part) {
-                $ability .= $ability ? '.' . $part : $part;
+                $ability .= $ability ? '.'.$part : $part;
                 if (Auth::user()->can($ability)) {
                     // Grant access on the first match
                     return $next($request);
                 }
             }
         }
-
+        throw UnauthorizedException::forPermissions();
     }
-
 }
