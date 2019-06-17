@@ -38,5 +38,4 @@ class HierarchicalMiddleware
         }
         throw UnauthorizedException::forPermissions();
     }
-    
 }
