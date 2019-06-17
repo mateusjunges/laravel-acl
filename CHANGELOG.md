@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## [UNRELEASED]
+- Check wildcard permissions
+- Tests for new middleware
+
 ## 1.7.4
 - Add package tests
 - Continuous integration with TravisCI
