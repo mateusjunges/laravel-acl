@@ -16,7 +16,6 @@ class HierarchicalMiddleware
      * @param $permissions
      * @return bool
      */
-
     public function handle($request, Closure $next, $permissions)
     {
         if (Auth::guest()) {
@@ -39,4 +38,5 @@ class HierarchicalMiddleware
         }
         throw UnauthorizedException::forPermissions();
     }
+    
 }
