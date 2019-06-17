@@ -30,6 +30,7 @@ class HierarchicalMiddleware
             $ability = '';
             foreach ($parts as $part) {
                 $ability .= $ability ? '.'.$part : $part;
+
                 if (Auth::user()->can($ability)) {
                     // Grant access on the first match
                     return $next($request);
