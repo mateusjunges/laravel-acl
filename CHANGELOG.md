@@ -2,6 +2,11 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+
+## [UNRELEASED]
+- Check wildcard permissions
+- Tests for new middleware
+
 ## 1.7.5
 - Fix [#93](https://github.com/mateusjunges/laravel-acl/issues/93)
 - Add database connection check before register gates
