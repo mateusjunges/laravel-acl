@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Test;
 
-use Illuminate\Support\Facades\DB;
 use Junges\ACL\ACLServiceProvider;
 use Junges\ACL\ACLAuthServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
@@ -115,7 +114,6 @@ class TestCase extends Orchestra
         // Use test model for users provider
         $app['config']->set('auth.providers.users.model', \Junges\ACL\Test\User::class);
     }
-
 
     /**
      * Set up the database for tests.
@@ -234,12 +232,12 @@ class TestCase extends Orchestra
         Permission::create([
             'name' => 'Test hierarchical permissions',
             'slug' => 'admin.auth',
-            'description' => 'This is a hierarchical permission test'
+            'description' => 'This is a hierarchical permission test',
         ]);
         Permission::create([
             'name' => 'Test hierarchical permissions 1',
             'slug' => 'admin.auth.users',
-            'description' => 'This is a hierarchical permission test'
+            'description' => 'This is a hierarchical permission test',
         ]);
     }
 }

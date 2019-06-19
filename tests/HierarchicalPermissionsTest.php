@@ -77,5 +77,4 @@ class HierarchicalPermissionsTest extends TestCase
             return $exception->getStatusCode();
         }
     }
-
 }
