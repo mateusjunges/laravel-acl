@@ -41,9 +41,7 @@ class CreatePermission extends Command
         try {
             $permissionModel = app(config('acl.models.permission'));
 
-            if ($this->confirm("Do you want to create a permission named '"
-                .$this->argument('name')."' and with slug '"
-                .$this->argument('slug')."'?")) {
+            try {
                 $permission = $permissionModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
                     ->first();
@@ -51,13 +49,14 @@ class CreatePermission extends Command
                     throw PermissionAlreadyExistsException::create();
                 }
                 $permissionModel->create([
-                   'name'        => $this->argument('name'),
-                   'slug'        => $this->argument('slug'),
-                   'description' => $this->argument('description'),
+                    'name'        => $this->argument('name'),
+                    'slug'        => $this->argument('slug'),
+                    'description' => $this->argument('description'),
                 ]);
                 $this->info('Permission created successfully!');
-            } else {
-                $this->info('Permission was not created.');
+
+            }catch (\Exception $exception) {
+                $this->error('Permission was not created!');
             }
         } catch (\Exception $exception) {
             $this->error($exception->getMessage());
