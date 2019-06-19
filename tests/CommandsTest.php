@@ -2,11 +2,10 @@
 
 namespace Junges\Tests;
 
-use Illuminate\Support\Facades\Artisan;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 use Junges\ACL\Test\Group;
-use Junges\ACL\Test\Permission;
 use Junges\ACL\Test\TestCase;
+use Junges\ACL\Test\Permission;
+use Illuminate\Support\Facades\Artisan;
 
 class CommandsTest extends TestCase
 {
@@ -23,17 +22,15 @@ class CommandsTest extends TestCase
      */
     public function it_can_create_a_permission()
     {
-
         $permission = Artisan::call('permission:create', [
             'name' => 'Command test permission',
             'slug' => 'command-test-permission',
             'description' => 'Command test',
         ]);
 
-        $this->assertCount(1,Permission::where('slug', 'command-test-permission')->get());
+        $this->assertCount(1, Permission::where('slug', 'command-test-permission')->get());
         $this->assertEquals(0, $permission);
     }
-
 
     /**
      * @test

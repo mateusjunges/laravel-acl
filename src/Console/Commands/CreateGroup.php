@@ -40,7 +40,7 @@ class CreateGroup extends Command
     {
         try {
             $groupModel = app(config('acl.models.group'));
-            try{
+            try {
                 $group = $groupModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))
                     ->first();
@@ -53,7 +53,7 @@ class CreateGroup extends Command
                     'description' => $this->argument('description'),
                 ]);
                 $this->info('Group created successfully!');
-            }catch (\Exception $exception){
+            } catch (\Exception $exception) {
                 $this->error('Group was not created!');
             }
         } catch (\Exception $exception) {

@@ -54,8 +54,7 @@ class CreatePermission extends Command
                     'description' => $this->argument('description'),
                 ]);
                 $this->info('Permission created successfully!');
-
-            }catch (\Exception $exception) {
+            } catch (\Exception $exception) {
                 $this->error('Permission was not created!');
             }
         } catch (\Exception $exception) {
