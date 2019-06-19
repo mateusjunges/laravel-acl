@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Test;
 
-use Illuminate\Support\Facades\DB;
 use Junges\ACL\ACLServiceProvider;
 use Junges\ACL\ACLAuthServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
@@ -104,15 +103,11 @@ class TestCase extends Orchestra
      */
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'pgsql');
-        $app['config']->set('database.connections.pgsql', [
-            'driver'   => 'pgsql',
-            'username' => 'postgres',
-            'port'     => '5432',
-            'host'     => '127.0.0.1',
-            'password' => env('DB_PASSWORD', ''),
-            'database' => 'laravel_acl_tests',
-            'prefix'   => '',
+        $app['config']->set('database.default', 'sqlite');
+        $app['config']->set('database.connections.sqlite', [
+           'driver'   => 'sqlite',
+           'database' => ':memory:',
+           'prefix'   => '',
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
@@ -126,13 +121,6 @@ class TestCase extends Orchestra
      */
     public function configureDatabase($app)
     {
-        DB::statement('DROP TABLE IF EXISTS test_permissions CASCADE;');
-        DB::statement('DROP TABLE IF EXISTS test_users CASCADE;');
-        DB::statement('DROP TABLE IF EXISTS test_groups CASCADE;');
-        DB::statement('DROP TABLE IF EXISTS test_user_has_permissions CASCADE;');
-        DB::statement('DROP TABLE IF EXISTS test_user_has_groups CASCADE;');
-        DB::statement('DROP TABLE IF EXISTS test_group_has_permissions CASCADE;');
-
         /*
          * Set up the tables for testing proposes
          */
@@ -169,11 +157,6 @@ class TestCase extends Orchestra
         /*
          * Create the tables on the database
          */
-        (new \CreatePermissionsTable())->down();
-        (new \CreateGroupsTable())->down();
-        (new \CreateGroupHasPermissionsTable())->down();
-        (new \CreateUserHasPermissionsTable())->down();
-        (new \CreateUserHasGroupsTable())->down();
         (new \CreatePermissionsTable())->up();
         (new \CreateGroupsTable())->up();
         (new \CreateGroupHasPermissionsTable())->up();
