@@ -50,7 +50,7 @@ class ShowPermissions extends Command
                 }
 
                 if (is_null($group)) {
-                    $this->error('Groups does not exit!');
+                    $this->error('Group does not exist!');
 
                     return;
                 }
