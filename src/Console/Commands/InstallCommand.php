@@ -3,6 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class InstallCommand extends Command
 {
@@ -37,6 +38,16 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        //
+        $this->comment("Publishing Laravel ACL Migrations...");
+        $this->callSilent('vendor:publish', ['--tag' => 'acl-migrations']);
+        $this->comment("Using default migrations by default.");
+
+        $this->comment("Publishing Laravel ACL configuration...");
+        $this->callSilent('vendor:publish', ['--tag' => 'acl-config']);
+
+
+        $this->info("Laravel ACL installed successfully");
+
+        $this->comment("Remember to use the UsersTrait inside your User model.");
     }
 }
