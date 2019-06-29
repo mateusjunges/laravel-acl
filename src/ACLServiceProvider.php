@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
-use Junges\ACL\Http\Observers\GroupObserver;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
@@ -40,9 +39,6 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load translations
         $this->loadTranslations();
-
-        //Load observers
-        $this->loadObservers();
     }
 
     /**
@@ -57,7 +53,7 @@ class ACLServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load and publishes the pt-br.php configuration file.
+     * Load and publishes the configuration file.
      */
     public function publishConfig()
     {
@@ -107,12 +103,6 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             $translationsPath => base_path('resources/lang/vendor/acl'),
         ], 'translations');
-    }
-
-    public function loadObservers()
-    {
-//        $groupModel = app(config('acl.models.group'));
-//        $groupModel->observe(GroupObserver::class);
     }
 
     /**
