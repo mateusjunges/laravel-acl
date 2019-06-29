@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
+use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
@@ -73,6 +74,7 @@ class ACLServiceProvider extends ServiceProvider
                 ShowPermissions::class,
                 CreateGroup::class,
                 UserPermissions::class,
+                InstallCommand::class
             ]);
         }
     }
