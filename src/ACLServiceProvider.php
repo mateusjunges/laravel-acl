@@ -66,6 +66,9 @@ class ACLServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * Register the package's commands.
+     */
     public function loadCommands()
     {
         if ($this->app->runningInConsole()) {
@@ -78,6 +81,9 @@ class ACLServiceProvider extends ServiceProvider
         }
     }
 
+    /**
+     * Register the package's migrations.
+     */
     public function loadMigrations()
     {
         $customMigrations = config('acl.custom_migrations');
@@ -91,6 +97,9 @@ class ACLServiceProvider extends ServiceProvider
         ], 'migrations');
     }
 
+    /**
+     * Register the package's migrations.
+     */
     public function loadTranslations()
     {
         $translationsPath = __DIR__.'/resources/lang';
