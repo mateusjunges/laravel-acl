@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Test;
+namespace Junges\ACL\Tests;
 
 use Junges\ACL\ACLServiceProvider;
 use Junges\ACL\ACLAuthServiceProvider;
@@ -112,7 +112,7 @@ class TestCase extends Orchestra
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
         // Use test model for users provider
-        $app['config']->set('auth.providers.users.model', \Junges\ACL\Test\User::class);
+        $app['config']->set('auth.providers.users.model', \Junges\ACL\Tests\User::class);
     }
 
     /**
@@ -134,9 +134,9 @@ class TestCase extends Orchestra
         /*
          * Set up the models for testing proposes
          */
-        $app['config']->set('acl.models.permission', \Junges\ACL\Test\Permission::class);
-        $app['config']->set('acl.models.group', \Junges\ACL\Test\Group::class);
-        $app['config']->set('acl.models.user', \Junges\ACL\Test\User::class);
+        $app['config']->set('acl.models.permission', \Junges\ACL\Tests\Permission::class);
+        $app['config']->set('acl.models.group', \Junges\ACL\Tests\Group::class);
+        $app['config']->set('acl.models.user', \Junges\ACL\Tests\User::class);
 
         $app['db']->connection()->getSchemaBuilder()->create('test_users', function (Blueprint $table) {
             $table->bigIncrements('id');
