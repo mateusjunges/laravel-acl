@@ -2,7 +2,7 @@
 
 namespace Junges\Tests;
 
-use Junges\ACL\Test\TestCase;
+use Junges\ACL\Tests\TestCase;
 
 class InstallCommandTest extends TestCase
 {

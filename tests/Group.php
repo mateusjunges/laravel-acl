@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Test;
+namespace Junges\ACL\Tests;
 
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Traits\GroupsTrait;
