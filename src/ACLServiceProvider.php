@@ -74,7 +74,7 @@ class ACLServiceProvider extends ServiceProvider
                 ShowPermissions::class,
                 CreateGroup::class,
                 UserPermissions::class,
-                InstallCommand::class
+                InstallCommand::class,
             ]);
         }
     }
