@@ -4,7 +4,7 @@
 <a href="https://codeclimate.com/github/mateusjunges/laravel-acl"><img src="https://codeclimate.com/github/mateusjunges/laravel-acl.svg"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/license.svg" alt="License"></a>
 <a href="https://github.styleci.io/repos/175907190" target="_blank"><img src="https://github.styleci.io/repos/175907190/shield?style=flat"></a>
-<a href="https://travis-ci.org/mateusjunges/laravel-acl"><img src="https://img.shields.io/travis/mateusjunges/laravel-acl/master.svg?style=flat" alt="Build Status"></a>
+<a href="https://travis-ci.org/mateusjunges/laravel-acl"><img src="https://img.shields.io/travis/jungessolutions/laravel-acl/master.svg?style=flat" alt="Build Status"></a>
 </p>
 
 # Laravel ACL
