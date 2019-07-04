@@ -2,6 +2,7 @@
 
 namespace Junges\ACL\Test;
 
+use Junges\ACL\Traits\ACLWildcardsTrait;
 use Junges\ACL\Traits\UsersTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use UsersTrait;
+    use ACLWildcardsTrait;
     use Notifiable;
     /**
      * The attributes that are mass assignable.
