@@ -3,9 +3,9 @@
 namespace Junges\ACL\Tests;
 
 use Junges\ACL\Events\GroupSaving;
-use Junges\ACL\Traits\ACLWildcardsTrait;
 use Junges\ACL\Traits\GroupsTrait;
 use Illuminate\Database\Eloquent\Model;
+use Junges\ACL\Traits\ACLWildcardsTrait;
 
 class Group extends Model
 {
