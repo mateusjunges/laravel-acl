@@ -12,7 +12,7 @@ trait ACLWildcardsTrait {
      */
     public function hasPermissionWithWildcards(string $permissionSlug) : bool
     {
-        $permissionSlug = str_replace('.*.', '.%.', $permissionSlug);
+        $permissionSlug = str_replace('*', '%', $permissionSlug);
         return (bool) $this->permissions()
             ->where('slug', 'like', $permissionSlug)
             ->count();

@@ -21,7 +21,10 @@ class WildcardPermissionsTest extends TestCase
         $this->testUser->assignPermissions([6, 7]);
         $this->assertCount(2, $this->testUser->permissions);
         $this->assertTrue(
-            $this->testUser->hasPermissionWithWildcards('admin.*.users')
+            Auth::user()->hasPermissionWithWildcards('admin.*.users')
+        );
+        $this->assertTrue(
+            Auth::user()->haspermissionWithWildcards('admin.*')
         );
     }
 }
