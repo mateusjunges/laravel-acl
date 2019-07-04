@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 
-class HierarchicalMiddleware
+class HierarchicalPermissionsMiddleware
 {
     /**
      * Handle an incoming request.

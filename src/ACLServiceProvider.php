@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
+use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
@@ -49,21 +50,21 @@ class ACLServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/resources/views', 'acl');
         $this->publishes([
             __DIR__.'/resources/views' => resource_path('views/vendor/junges/acl'),
-        ], 'views');
+        ], 'acl-views');
     }
 
     /**
-     * Load and publishes the pt-br.php configuration file.
+     * Load and publishes the configuration file.
      */
     public function publishConfig()
     {
         $this->publishes([
             __DIR__.'/../config/acl.php' => config_path('acl.php'),
-        ], 'config');
+        ], 'acl-config');
     }
 
     /**
-     * Load package commands.
+     * Register the package's commands.
      */
     public function loadCommands()
     {
@@ -73,12 +74,13 @@ class ACLServiceProvider extends ServiceProvider
                 ShowPermissions::class,
                 CreateGroup::class,
                 UserPermissions::class,
+                InstallCommand::class,
             ]);
         }
     }
 
     /**
-     * Load package migrations.
+     * Register the package's migrations.
      */
     public function loadMigrations()
     {
@@ -90,11 +92,11 @@ class ACLServiceProvider extends ServiceProvider
         }
         $this->publishes([
             __DIR__.'/database/migrations' => database_path('migrations/vendor/junges/acl'),
-        ], 'migrations');
+        ], 'acl-migrations');
     }
 
     /**
-     * Load package translations.
+     * Register the package's migrations.
      */
     public function loadTranslations()
     {
@@ -102,7 +104,7 @@ class ACLServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom($translationsPath, 'acl');
         $this->publishes([
             $translationsPath => base_path('resources/lang/vendor/acl'),
-        ], 'translations');
+        ], 'acl-translations');
     }
 
     /**

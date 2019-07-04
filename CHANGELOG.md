@@ -3,9 +3,11 @@
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
 
-## [UNRELEASED]
-- Check wildcard permissions
-- Tests for new middleware
+## 1.8.0
+- Check for permissions using wildcard (fix [#77](https://github.com/jungessolutions/laravel-acl/issues/77))
+- Hierarchical permissions middleware
+- Added an artisan command to install the package
+- Update package docs
 
 ## 1.7.5
 - Fix [#93](https://github.com/mateusjunges/laravel-acl/issues/93)

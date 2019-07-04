@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Test;
+namespace Junges\ACL\Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

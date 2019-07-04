@@ -12,8 +12,11 @@
 This package allows you to manage user permissions and groups in a database.
 
 * [Installation](#installation)
+    * [Using install command](#install-using-aclinstall-command)
+    * [Step by step installation](#step-by-step-installation)
 * [Usage](#usage)
     * [Check for permissions](#checking-for-permissions)
+    * [Check for permissions using wildcards](#checking-for-permissions-using-wildcards)
     * [Syncing user permissions](#syncing-user-permissions)
     * [Syncing group permissions](#syncing-group-permissions)
     * [Local scopes](#local-scopes)
@@ -37,7 +40,7 @@ This package allows you to manage user permissions and groups in a database.
 
 
 ## Installation
-
+ 
 To get started with laravel-acl, use Composer to add the package to your project's dependencies:
 
 ``` bash
@@ -67,12 +70,24 @@ After installing the laravel-acl package, register the service provider in
     Junges\ACL\ACLEventsServiceProvider::class,
 ];
 ```
+
+### Install using `acl:install` command
+
+You can install this package by running the provided install command:
+```bash
+php artisan acl:install
+```
+
+After run this command, the package installation is done. Proceed to the [usage](#usage) section.
+
+### Step by step installation
+
 All migrations required for this package are already included. If you
 need to customize the tables, you can publish [the migrations](https://github.com/mateusjunges/laravel-acl/tree/master/src/database/migrations)
 with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-migrations"
 ```
 and set the `config` for `custom_migrations` to `true`, which is false by default. 
 
@@ -89,7 +104,7 @@ publish the config file and update the tables array.
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-config"
 ```
 
 When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-acl/blob/master/config/acl.php) config file contains:
@@ -348,6 +363,37 @@ $group->hasAnyPermission([Permission::find(1), Permission::find(2), Permission::
 $group->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
 ```
 
+## Checking for permissions using wildcards
+Sometimes, you want to know if the logged in user has any permission related to users, like
+`*.users`. It can easily be done with the `ACLWildcardsTrait`.
+
+Add the `ACLWildcardsTrait` to your `user` model:
+
+```php
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Junges\ACL\Traits\UsersTrait;
+use Junges\ACL\Traits\ACLWildcardsTrait;
+
+class User extends Authenticatable
+{
+    use UsersTrait;
+    use ACLWildcardsTrait;
+
+    //
+}
+```
+Then, you can check for wildcard permissions using the `hasPermissionWithWildcard` method:
+```php
+$user->hasPermissionWithWildcards('users.*');
+```
+
+You can also use this trait to check for group permissions using wildcards.
+The `ACLWildcardsTrait` is used by the Group model by default:
+
+```php
+$group->hasPermissionWithWildcards('users.*');
+```
+
 ## Syncing user permissions
 The user permissions can synced with this method:
 ```php
@@ -541,7 +587,7 @@ Check for any group:
 
 
 If you want to use the middleware provided by this package
-(`PermissionMiddleware`, `GroupMiddleware` e `PermissionOrGroupMiddleware`),
+(`PermissionMiddleware`, `GroupMiddleware`, `HierarchicalPermissions` e `PermissionOrGroupMiddleware`),
 you need to add them to the `app/Http/Kernel.php` file,
 inside the `routeMiddleware` array:
 ```php
@@ -549,6 +595,7 @@ protected $routeMiddleware = [
     'permissions' => \Junges\ACL\Middlewares\PermissionMiddleware::class,
     'groups' => \Junges\ACL\Middlewares\GroupMiddleware::class,
     'permissionOrGroup' => \Junges\ACL\Middlewares\PermissionOrGroupMiddleware::class,
+    'hierarchical_permissions' => \Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware::class
 ];
 ```
 Then you can protect you routes using middleware rules:
@@ -571,6 +618,12 @@ Route::get('/', function(){
 })->middleware('groups:admin');
 ```
 
+```php
+Route::get('/', function(){
+    echo "Middlewares working!";
+})->middleware('hierarchical_permissions:user.auth.admin');
+```
+
 Alternatively, you can separate multiple groups or permissions with a `|` (pipe) character:
 ```php
 Route::get('/', function(){
@@ -590,6 +643,12 @@ Route::get('/', function(){
 })->middleware('groups:admin|manager');
 ```
 
+```php
+Route::get('/', function(){
+    echo "Middlewares working!";
+})->middleware('hierarchical_permissions:user.auth.admin|user.manager.user.admin');
+```
+
 You can protect controller similarly, by setting desired middleware in the constructor:
 
 ```php
@@ -605,6 +664,13 @@ public function __construct()
 }
 ```
 
+```php
+public function __construct()
+{
+    $this->middleware('hierarchical_permissions:user.auth.admin|user.manager.user.admin');
+}
+```
+
 The `groups` middleware will check if the current logged in user has any of the groups passed to the middleware.
 
 The `permissions` middleware will check if the current logged in user has any of the required groups
@@ -612,6 +678,16 @@ for a route.
 
 The `permissionOrGroup` will check if the current logged in user has any of the required permissions or
 groups necessary to access a route.
+
+The `hierarchical_permissions` middleware will check if the current logged in user has any of the "sub-permissions" 
+in the passed string. The `user.manager.user.admin` matches with all the following:
+```text
+user
+user.manager
+user.manager.user
+user.manager.user.admin
+```
+If the user has any of the above permissions, the access is granted.
 
 In positive case, both middleware guarantee access to the route.
 
@@ -756,7 +832,7 @@ This package also provides translations for some messages. To use them is easy:
 - Change your `config/app.php` file locale for your corresponding locale, like `en` or `pt-br`.
 - Publish the translation files with 
  ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-translations"
  ```  
  
 # Tests
