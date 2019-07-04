@@ -2,9 +2,9 @@
 
 namespace Junges\Tests;
 
-use Junges\ACL\Test\Group;
-use Junges\ACL\Test\TestCase;
-use Junges\ACL\Test\Permission;
+use Junges\ACL\Tests\Group;
+use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\Permission;
 use Illuminate\Support\Facades\Artisan;
 
 class CommandsTest extends TestCase

@@ -12,6 +12,8 @@
 This package allows you to manage user permissions and groups in a database.
 
 * [Installation](#installation)
+    * [Using install command](#install-using-aclinstall-command)
+    * [Step by step installation](#step-by-step-installation)
 * [Usage](#usage)
     * [Check for permissions](#checking-for-permissions)
     * [Syncing user permissions](#syncing-user-permissions)
@@ -37,7 +39,7 @@ This package allows you to manage user permissions and groups in a database.
 
 
 ## Installation
-
+ 
 To get started with laravel-acl, use Composer to add the package to your project's dependencies:
 
 ``` bash
@@ -67,12 +69,24 @@ After installing the laravel-acl package, register the service provider in
     Junges\ACL\ACLEventsServiceProvider::class,
 ];
 ```
+
+### Install using `acl:install` command
+
+You can install this package by running the provided install command:
+```bash
+php artisan acl:install
+```
+
+After run this command, the package installation is done. Proceed to the [usage](#usage) section.
+
+### Step by step installation
+
 All migrations required for this package are already included. If you
 need to customize the tables, you can publish [the migrations](https://github.com/mateusjunges/laravel-acl/tree/master/src/database/migrations)
 with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-migrations"
 ```
 and set the `config` for `custom_migrations` to `true`, which is false by default. 
 
@@ -89,7 +103,7 @@ publish the config file and update the tables array.
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-config"
 ```
 
 When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-acl/blob/master/config/acl.php) config file contains:
@@ -756,7 +770,7 @@ This package also provides translations for some messages. To use them is easy:
 - Change your `config/app.php` file locale for your corresponding locale, like `en` or `pt-br`.
 - Publish the translation files with 
  ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="translations"
+php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-translations"
  ```  
  
 # Tests

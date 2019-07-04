@@ -37,7 +37,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Junges\\ACL\\Test\\": "tests/"
+            "Junges\\ACL\\Tests\\": "tests/"
         }
     },
     "extra": {
