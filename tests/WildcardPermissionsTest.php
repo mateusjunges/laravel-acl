@@ -2,8 +2,8 @@
 
 namespace Junges\Tests;
 
-use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Tests\TestCase;
+use Illuminate\Support\Facades\Auth;
 
 class WildcardPermissionsTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 namespace Junges\ACL\Tests;
 
-use Junges\ACL\Traits\ACLWildcardsTrait;
 use Junges\ACL\Traits\UsersTrait;
 use Illuminate\Notifications\Notifiable;
+use Junges\ACL\Traits\ACLWildcardsTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
