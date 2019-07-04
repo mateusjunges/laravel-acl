@@ -4,6 +4,7 @@ Contributions are **welcome**!
 
 We accept contributions via Pull Requests on [Github](https://github.com/mateusjunges/laravel-acl).
 
+If you don't know how to contribute, check the [jungessolutions/docs](https://github.com/jungessolutions/docs/blob/master/ACL.md) repository of this package.
 
 ## Pull Requests
 
