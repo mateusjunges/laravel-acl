@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
-use Junges\ACL\Middlewares\HierarchicalMiddleware;
+use Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware;
 
 class HierarchicalPermissionsTest extends TestCase
 {
@@ -18,7 +18,7 @@ class HierarchicalPermissionsTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->hierarchicalMiddleware = new HierarchicalMiddleware($this->app);
+        $this->hierarchicalMiddleware = new HierarchicalPermissionsMiddleware($this->app);
     }
 
     /**
