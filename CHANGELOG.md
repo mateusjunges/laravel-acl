@@ -2,6 +2,8 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 1.8.1
+- Add `->unique()` for permission slugs (fix #109)
 
 ## 1.8.0
 - Check for permissions using wildcard (fix [#77](https://github.com/jungessolutions/laravel-acl/issues/77))
