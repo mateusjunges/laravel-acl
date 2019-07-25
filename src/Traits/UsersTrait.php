@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
+use Junges\ACL\Http\Models\Permission;
+use Junges\ACL\Http\Models\Group;
 
 trait UsersTrait
 {
@@ -30,44 +32,44 @@ trait UsersTrait
     }
 
     /**
-     * Determine if a user has the specified group.
-     *
+     * Determine if a user has the specified group
      * @param mixed $group
-     *
      * @return bool
      */
     public function hasGroup($group)
     {
-        $model = app(config('acl.models.group'));
         if (is_numeric($group)) {
-            $group = $model->find($group);
-        } elseif (is_string($group)) {
-            $group = $model->where('slug', $group)->first();
+            $where = ['id', $group];
+        } else if (is_string($group)) {
+            $where = ['slug', $group];
+        } else if ($group instanceof Group) {
+            $where = ['slug', $group->slug];
         }
+
         if ($group != null) {
-            return null !== $this->groups()->where('slug', $group->slug)->first();
+            return null !== $this->groups->where(...$where)->first();
         }
 
         return false;
     }
 
     /**
-     * Determine if a user has a permission, regardless of whether it is direct or via group.
-     *
+     * Determine if a user has a permission, regardless of whether it is direct or via group
      * @param $permission
-     *
      * @return bool
      */
     public function hasPermission($permission)
     {
-        $model = app(config('acl.models.permission'));
         if (is_numeric($permission)) {
-            $permission = $model->find($permission);
-        } elseif (is_string($permission)) {
-            $permission = $model->where('slug', $permission)->first();
+            $where = ['id', $permission];
+        } else if (is_string($permission)) {
+            $where = ['slug', $permission];
+        } else if ($permission instanceof Permission) {
+            $where = ['slug', $permission->slug];
         }
-        if ($permission != null) {
-            return (bool) ($this->permissions()->where('slug', $permission->slug)->count())
+
+        if($permission != null) {
+            return (bool) ($this->permissions->where(...$where)->count())
                 || $this->hasPermissionThroughGroup($permission);
         }
 
@@ -75,50 +77,46 @@ trait UsersTrait
     }
 
     /**
-     * Determine if a user has a permission directly associated.
-     *
+     * Determine if a user has a permission directly associated
      * @param $permission
-     *
      * @return bool
      */
     public function hasDirectPermission($permission)
     {
-        $model = app(config('acl.models.permission'));
         if (is_numeric($permission)) {
-            $permission = $model->find($permission);
-        } elseif (is_string($permission)) {
-            $permission = $model->where('slug', $permission)->first();
+            $where = ['id', $permission];
+        } else if (is_string($permission)) {
+            $where = ['slug', $permission];
+        } else if ($permission instanceof Permission) {
+            $where = ['slug', $permission->slug];
         }
-        if ($permission != null) {
-            return (bool) ($this->permissions()->where('slug', $permission->slug)->count());
+        
+        if($permission != null) {
+            return (bool) ($this->permissions->where(...$where)->count());
         }
 
         return false;
     }
 
+
     /**
-     * Determine if the user has a group which has the required permission.
-     *
+     * Determine if the user has a group which has the required permission
      * @param $permission
-     *
      * @return bool
      */
     public function hasPermissionThroughGroup($permission)
     {
-        $model = app(config('acl.models.permission'));
         if (is_numeric($permission)) {
-            $permission = $model->find($permission) != null
-                ? $model->find($permission)
-                : null;
-        } elseif (is_string($permission)) {
-            $permission = $model->where('slug', $permission)->first() != null
-                ? $model->where('slug', $permission)->first()
-                : null;
+            $where = ['id', $permission];
+        } else if (is_string($permission)) {
+            $where = ['slug', $permission];
+        } else if ($permission instanceof Permission) {
+            $where = ['slug', $permission->slug];
         }
-
+        
         if ($permission != null) {
-            foreach ($permission->groups as $group) {
-                if ($this->groups->contains($group)) {
+            foreach ($this->groups as $group) {
+                if ($group->permissions->where(...$where)->count() > 0) {
                     return true;
                 }
             }
