@@ -6,8 +6,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
-use Junges\ACL\Http\Models\Permission;
-use Junges\ACL\Http\Models\Group;
 
 trait UsersTrait
 {
@@ -38,15 +36,18 @@ trait UsersTrait
      */
     public function hasGroup($group)
     {
+        $model = app(config('acl.models.group'));
+        $where = null;
+
         if (is_numeric($group)) {
             $where = ['id', $group];
         } elseif (is_string($group)) {
             $where = ['slug', $group];
-        } elseif ($group instanceof Group) {
+        } elseif ($group instanceof $model) {
             $where = ['slug', $group->slug];
         }
 
-        if ($group != null) {
+        if ($group != null && $where != null) {
             return null !== $this->groups->where(...$where)->first();
         }
 
@@ -60,15 +61,18 @@ trait UsersTrait
      */
     public function hasPermission($permission)
     {
+        $model = app(config('acl.models.permission'));
+        $where = null;
+
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } elseif ($permission instanceof Permission) {
+        } elseif ($permission instanceof $model) {
             $where = ['slug', $permission->slug];
         }
 
-        if ($permission != null) {
+        if ($permission != null && $where != null) {
             return (bool) ($this->permissions->where(...$where)->count())
                 || $this->hasPermissionThroughGroup($permission);
         }
@@ -83,15 +87,18 @@ trait UsersTrait
      */
     public function hasDirectPermission($permission)
     {
+        $model = app(config('acl.models.permission'));
+        $where = null;
+
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } elseif ($permission instanceof Permission) {
+        } elseif ($permission instanceof $model) {
             $where = ['slug', $permission->slug];
         }
         
-        if ($permission != null) {
+        if ($permission != null && $where != null) {
             return (bool) ($this->permissions->where(...$where)->count());
         }
 
@@ -106,15 +113,18 @@ trait UsersTrait
      */
     public function hasPermissionThroughGroup($permission)
     {
+        $model = app(config('acl.models.permission'));
+        $where = null;
+
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } elseif ($permission instanceof Permission) {
+        } elseif ($permission instanceof $model) {
             $where = ['slug', $permission->slug];
         }
 
-        if ($permission != null) {
+        if ($permission != null && $where != null) {
             foreach ($this->groups as $group) {
                 if ($group->permissions->where(...$where)->count() > 0) {
                     return true;
