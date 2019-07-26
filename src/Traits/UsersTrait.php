@@ -97,14 +97,13 @@ trait UsersTrait
         } elseif ($permission instanceof $model) {
             $where = ['slug', $permission->slug];
         }
-        
+
         if ($permission != null && $where != null) {
             return (bool) ($this->permissions->where(...$where)->count());
         }
 
         return false;
     }
-
 
     /**
      * Determine if the user has a group which has the required permission.
