@@ -32,7 +32,7 @@ trait UsersTrait
     }
 
     /**
-     * Determine if a user has the specified group
+     * Determine if a user has the specified group.
      * @param mixed $group
      * @return bool
      */
@@ -40,9 +40,9 @@ trait UsersTrait
     {
         if (is_numeric($group)) {
             $where = ['id', $group];
-        } else if (is_string($group)) {
+        } elseif (is_string($group)) {
             $where = ['slug', $group];
-        } else if ($group instanceof Group) {
+        } elseif ($group instanceof Group) {
             $where = ['slug', $group->slug];
         }
 
@@ -54,7 +54,7 @@ trait UsersTrait
     }
 
     /**
-     * Determine if a user has a permission, regardless of whether it is direct or via group
+     * Determine if a user has a permission, regardless of whether it is direct or via group.
      * @param $permission
      * @return bool
      */
@@ -62,13 +62,13 @@ trait UsersTrait
     {
         if (is_numeric($permission)) {
             $where = ['id', $permission];
-        } else if (is_string($permission)) {
+        } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } else if ($permission instanceof Permission) {
+        } elseif ($permission instanceof Permission) {
             $where = ['slug', $permission->slug];
         }
 
-        if($permission != null) {
+        if ($permission != null) {
             return (bool) ($this->permissions->where(...$where)->count())
                 || $this->hasPermissionThroughGroup($permission);
         }
@@ -77,7 +77,7 @@ trait UsersTrait
     }
 
     /**
-     * Determine if a user has a permission directly associated
+     * Determine if a user has a permission directly associated.
      * @param $permission
      * @return bool
      */
@@ -85,13 +85,13 @@ trait UsersTrait
     {
         if (is_numeric($permission)) {
             $where = ['id', $permission];
-        } else if (is_string($permission)) {
+        } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } else if ($permission instanceof Permission) {
+        } elseif ($permission instanceof Permission) {
             $where = ['slug', $permission->slug];
         }
         
-        if($permission != null) {
+        if ($permission != null) {
             return (bool) ($this->permissions->where(...$where)->count());
         }
 
@@ -100,7 +100,7 @@ trait UsersTrait
 
 
     /**
-     * Determine if the user has a group which has the required permission
+     * Determine if the user has a group which has the required permission.
      * @param $permission
      * @return bool
      */
@@ -108,12 +108,12 @@ trait UsersTrait
     {
         if (is_numeric($permission)) {
             $where = ['id', $permission];
-        } else if (is_string($permission)) {
+        } elseif (is_string($permission)) {
             $where = ['slug', $permission];
-        } else if ($permission instanceof Permission) {
+        } elseif ($permission instanceof Permission) {
             $where = ['slug', $permission->slug];
         }
-        
+
         if ($permission != null) {
             foreach ($this->groups as $group) {
                 if ($group->permissions->where(...$where)->count() > 0) {
