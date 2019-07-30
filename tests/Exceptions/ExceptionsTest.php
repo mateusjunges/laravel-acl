@@ -3,6 +3,7 @@
 namespace Junges\Tests\Exceptions;
 
 use Illuminate\Database\QueryException;
+use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
 
@@ -28,6 +29,24 @@ class ExceptionsTest extends TestCase
             'slug' => 'test-duplicate-permission-one',
             'name' => 'Test duplicate Permision one',
             'description' => 'This is a test description',
+        ]);
+    }
+
+    /**
+     * @test
+     */
+    public function throws_an_exception_when_the_group_already_exists()
+    {
+        $this->expectException(QueryException::class);
+        Group::create([
+            'name' => 'Test Group',
+            'slug' => 'test-group',
+            'description' => 'This is a test group',
+        ]);
+        Group::create([
+            'name' => 'Test Group',
+            'slug' => 'test-group',
+            'description' => 'This is a test group',
         ]);
     }
 }
