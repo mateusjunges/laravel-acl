@@ -11,7 +11,7 @@ class AssignPermissionsMethodTest extends TestCase
     {
         $group = $this->testUserGroup;
         $permission = $this->testUserPermission;
-        $group->assignPermissions($permission)->hasPermission($permission);
+        $group->assignPermissions($permission);
         self::assertTrue($group->hasPermission($permission));
     }
 
