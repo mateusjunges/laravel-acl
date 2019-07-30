@@ -4,7 +4,7 @@ namespace Junges\ACL\Tests\Traits\UsersTrait;
 
 use Junges\ACL\Tests\TestCase;
 
-class GetAllPermissionsTest extends TestCase
+class GetAllPermissionsMethodTest extends TestCase
 {
     public function setUp()
     {

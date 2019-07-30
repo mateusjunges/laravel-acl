@@ -4,7 +4,7 @@ namespace Junges\ACL\Tests\Traits\UsersTrait;
 
 use Junges\ACL\Tests\TestCase;
 
-class PermissionViaGroupsTest extends TestCase
+class PermissionViaGroupsMethodTest extends TestCase
 {
     public function setUp()
     {
