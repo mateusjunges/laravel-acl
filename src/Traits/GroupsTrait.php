@@ -31,14 +31,15 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
-        $model = app(config('acl.models.permission'));
+        $where = null;
+
         if (is_numeric($permission)) {
-            $permission = $model->find($permission);
+            $where = ['id', $permission];
         } elseif (is_string($permission)) {
-            $permission = $model->where('slug', $permission)->first();
+            $where = ['slug', $permission];
         }
-        if ($permission != null) {
-            return null !== $this->permissions()->where('slug', $permission->slug)->first();
+        if ($permission != null && $where != null) {
+            return null !== $this->permissions->where(...$where)->first();
         }
 
         return false;
@@ -302,17 +303,6 @@ trait GroupsTrait
      */
     public function hasAllPermissions(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if (! $this->hasPermission($permission)) {
                 return false;

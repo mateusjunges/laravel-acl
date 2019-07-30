@@ -384,20 +384,8 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyPermission(array $permissions)
+    public function hasAnyPermission(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-//            return $this->convertToPermissionModels($permission);
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
                 return true;
@@ -407,12 +395,6 @@ trait UsersTrait
         return false;
     }
 
-
-    protected function hasAnyPermissionInArray(array $permissions)
-    {
-
-    }
-
     /**
      * Check if the user has any group.
      *
@@ -420,18 +402,8 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyGroup(array $groups)
+    public function hasAnyGroup(...$groups)
     {
-        $model = app(config('acl.models.group'));
-        $groups = array_map(function ($group) use ($model) {
-            if ($group instanceof $model) {
-                return $group;
-            } elseif (is_numeric($group)) {
-                return $model->find($group);
-            } elseif (is_string($group)) {
-                return $model->where('slug', $group)->first();
-            }
-        }, $groups);
         foreach ($groups as $group) {
             if ($this->hasGroup($group)) {
                 return true;
@@ -448,18 +420,8 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllGroups(array $groups)
+    public function hasAllGroups(...$groups)
     {
-        $model = app(config('acl.models.group', \Junges\ACL\Http\Models\Group::class));
-        $groups = array_map(function ($group) use ($model) {
-            if ($group instanceof $model) {
-                return $group;
-            } elseif (is_numeric($group)) {
-                return $model->find($group);
-            } elseif (is_string($group)) {
-                return $model->where('slug', $group)->first();
-            }
-        }, $groups);
         foreach ($groups as $group) {
             if (! $this->hasGroup($group)) {
                 return false;
@@ -478,17 +440,6 @@ trait UsersTrait
      */
     public function hasAllPermissions(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if (! $this->hasPermission($permission)) {
                 return false;
