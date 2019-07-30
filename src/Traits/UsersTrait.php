@@ -512,13 +512,21 @@ trait UsersTrait
         $permissions = is_array($permissions) ? $permissions : [$permissions];
 
         return array_map(function ($permission) use ($permissionModel) {
+            $_permission = null;
             if ($permission instanceof $permissionModel) {
-                return $permission;
+                $_permission = $permission;
             } elseif (is_numeric($permission)) {
-                return $permissionModel->find($permission);
+                $_permission = $permissionModel->find($permission);
+                if (is_null($_permission))
+                    throw PermissionDoesNotExistException::withId($permission);
             } elseif (is_string($permission)) {
-                return $permissionModel->where('slug', $permission)->first();
+                $_permission = $permissionModel->where('slug', $permission)->first();
+                if (is_null($_permission))
+                    throw PermissionDoesNotExistException::withSlug($permission);
             }
+            if (is_null($_permission))
+                throw PermissionDoesNotExistException::nullPermission();
+            return $_permission;
         }, $permissions);
     }
 
