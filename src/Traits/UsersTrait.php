@@ -474,23 +474,28 @@ trait UsersTrait
             }
             if (is_numeric($group)) {
                 $_group = $groupModel->find($group);
-                if (is_null($_group))
+                if (is_null($_group)) {
                     throw GroupDoesNotExistException::withId($group);
+                }
             } elseif (is_string($group)) {
                 $_group = $groupModel->where('slug', $group)->first();
-                if (is_null($_group))
+                if (is_null($_group)) {
                     throw GroupDoesNotExistException::withSlug($group);
+                }
             }
-            if (is_null($_group))
+            if (is_null($_group)) {
                 throw GroupDoesNotExistException::nullGroup();
+            }
+
             return $_group;
         }, $groups);
 
         return $query->whereHas('groups', function ($query) use ($groups) {
             $query->where(function ($query) use ($groups) {
                 foreach ($groups as $group) {
-                    if (is_null($group))
-                    $query->orWhere(config('acl.tables.groups').'.id', $group->id);
+                    if (is_null($group)) {
+                        $query->orWhere(config('acl.tables.groups').'.id', $group->id);
+                    }
                 }
             });
         });
@@ -517,15 +522,19 @@ trait UsersTrait
                 $_permission = $permission;
             } elseif (is_numeric($permission)) {
                 $_permission = $permissionModel->find($permission);
-                if (is_null($_permission))
+                if (is_null($_permission)) {
                     throw PermissionDoesNotExistException::withId($permission);
+                }
             } elseif (is_string($permission)) {
                 $_permission = $permissionModel->where('slug', $permission)->first();
-                if (is_null($_permission))
+                if (is_null($_permission)) {
                     throw PermissionDoesNotExistException::withSlug($permission);
+                }
             }
-            if (is_null($_permission))
+            if (is_null($_permission)) {
                 throw PermissionDoesNotExistException::nullPermission();
+            }
+
             return $_permission;
         }, $permissions);
     }

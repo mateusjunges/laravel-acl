@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Tests\Traits\UsersTrait;
 
-use Junges\ACL\Tests\TestCase;
 use Junges\ACL\Tests\User;
+use Junges\ACL\Tests\TestCase;
 
 class RevokePermissionsMethodTest extends TestCase
 {
