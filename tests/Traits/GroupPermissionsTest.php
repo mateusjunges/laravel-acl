@@ -44,4 +44,3 @@ class GroupPermissionsTest extends TestCase
         ));
     }
 }
-

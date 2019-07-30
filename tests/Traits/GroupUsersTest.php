@@ -35,6 +35,4 @@ class GroupUsersTest extends TestCase
             $this->testUser3->id
         ));
     }
-
-
 }

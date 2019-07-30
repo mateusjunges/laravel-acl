@@ -425,6 +425,7 @@ trait GroupsTrait
                     $query->orWhere($column, $user);
                 }
             });
+
             return $user->first();
         } else {
             return;
