@@ -204,7 +204,7 @@ trait UsersTrait
             }
             if (isset($_group)) {
                 if (! is_null($_group)) {
-                    return $group->id;
+                    return $_group->id;
                 }
             }
         }, $groups));
@@ -297,7 +297,7 @@ trait UsersTrait
      *
      * @return mixed
      */
-    public function assignPermissions(array $permissions)
+    public function assignPermissions(...$permissions)
     {
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
@@ -315,7 +315,7 @@ trait UsersTrait
      *
      * @return $this|bool
      */
-    public function syncPermissions(array $permissions)
+    public function syncPermissions(...$permissions)
     {
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
@@ -333,7 +333,7 @@ trait UsersTrait
      *
      * @return $this
      */
-    public function revokePermissions(array $permissions)
+    public function revokePermissions(...$permissions)
     {
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
@@ -348,7 +348,7 @@ trait UsersTrait
      *
      * @return $this|bool
      */
-    public function assignGroup(array $groups)
+    public function assignGroup(...$groups)
     {
         $groups = $this->convertToGroupIds($groups);
         if ($groups->count() == 0) {
@@ -366,7 +366,7 @@ trait UsersTrait
      *
      * @return $this|bool
      */
-    public function revokeGroup(array $groups)
+    public function revokeGroup(...$groups)
     {
         $groups = $this->getGroupIds($groups);
         if ($groups->count() == 0) {
@@ -384,7 +384,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyPermission(array $permissions)
+    public function hasAnyPermission(...$permissions)
     {
         $model = app(config('acl.models.permission'));
         $permissions = array_map(function ($permission) use ($model) {
@@ -413,7 +413,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyGroup(array $groups)
+    public function hasAnyGroup(...$groups)
     {
         $model = app(config('acl.models.group'));
         $groups = array_map(function ($group) use ($model) {
@@ -441,7 +441,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllGroups(array $groups)
+    public function hasAllGroups(...$groups)
     {
         $model = app(config('acl.models.group', \Junges\ACL\Http\Models\Group::class));
         $groups = array_map(function ($group) use ($model) {
@@ -469,7 +469,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllPermissions(array $permissions)
+    public function hasAllPermissions(...$permissions)
     {
         $model = app(config('acl.models.permission'));
         $permissions = array_map(function ($permission) use ($model) {
