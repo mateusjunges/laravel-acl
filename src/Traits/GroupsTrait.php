@@ -274,17 +274,6 @@ trait GroupsTrait
      */
     public function hasAnyPermission(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
                 return true;
