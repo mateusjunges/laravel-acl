@@ -5,7 +5,7 @@ namespace Junges\ACL\Tests\Traits\UsersTrait;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
 
-class HasAllPermissionsMethodTest extends TestCase
+class HasAllGroupsMethodTest extends TestCase
 {
     public function setUp()
     {
