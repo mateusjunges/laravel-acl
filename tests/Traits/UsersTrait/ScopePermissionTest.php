@@ -2,6 +2,8 @@
 
 namespace Junges\Tests\Traits\UsersTrait;
 
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
+use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
 use Junges\ACL\Tests\User;
 
@@ -38,5 +40,21 @@ class ScopePermissionTest extends TestCase
         );
     }
 
+    public function test_if_it_thrown_an_exception_if_the_group_does_not_exist_using_group_slug()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+        User::permission('test-non-existing-permission-slug')->get();
+    }
 
+    public function test_if_it_thrown_an_exception_if_the_group_does_not_exist_using_group_id()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+        User::permission(987654321)->get();
+    }
+
+    public function test_if_it_thrown_an_exception_if_the_group_does_not_exit_using_group_model()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+        User::permission(Group::find(987654321))->get();
+    }
 }
