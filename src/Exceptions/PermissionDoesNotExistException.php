@@ -30,4 +30,14 @@ class PermissionDoesNotExistException extends InvalidArgumentException
 
         return new static($message.' '.$slug, Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @return PermissionDoesNotExistException
+     */
+    public static function nullPermission() : self
+    {
+        $message = trans('acl::acl.null_model');
+
+        return new static($message, Response::HTTP_BAD_REQUEST);
+    }
 }
