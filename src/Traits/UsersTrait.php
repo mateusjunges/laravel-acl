@@ -395,6 +395,7 @@ trait UsersTrait
             } elseif (is_string($permission)) {
                 return $model->where('slug', $permission)->first();
             }
+//            return $this->convertToPermissionModels($permission);
         }, $permissions);
 
         foreach ($permissions as $permission) {
@@ -404,6 +405,12 @@ trait UsersTrait
         }
 
         return false;
+    }
+
+
+    protected function hasAnyPermissionInArray(array $permissions)
+    {
+
     }
 
     /**
