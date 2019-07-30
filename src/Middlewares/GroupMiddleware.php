@@ -22,9 +22,10 @@ class GroupMiddleware
         if (Auth::guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
-        $groups = is_array($groups)
-            ? $groups
-            : explode('|', $groups);
+//        $groups = is_array($groups)
+//            ? $groups
+//            : explode('|', $groups);
+//        dd($groups);
         if (Auth::user()->hasAnyGroup($groups)) {
             return $next($request);
         }

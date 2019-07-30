@@ -127,7 +127,7 @@ class MiddlewareTest extends TestCase
         $this->assertEquals(
             $this->execMiddleware(
                 $this->groupMiddleware,
-                $this->testUserGroup->slug
+                [$this->testUserGroup->slug]
             ),
             ResponseCode::HTTP_OK
         );
@@ -163,7 +163,7 @@ class MiddlewareTest extends TestCase
         $this->assertEquals(
             $this->execMiddleware(
                 $this->groupMiddleware,
-                $this->testAdminGroup->slug
+                [$this->testAdminGroup->slug]
             ),
             ResponseCode::HTTP_FORBIDDEN
         );
@@ -195,7 +195,7 @@ class MiddlewareTest extends TestCase
         $this->assertEquals(
             $this->execMiddleware(
                 $this->permissionOrGroupMiddleware,
-                [$this->testUserGroup->slug, $this->testUserPermission2->slug]
+                [$this->testUserGroup->slug, $this->testUserGroup2]
             ),
             ResponseCode::HTTP_OK
         );

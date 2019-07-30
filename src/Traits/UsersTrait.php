@@ -384,7 +384,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyPermission(...$permissions)
+    public function hasAnyPermission(array $permissions)
     {
         $model = app(config('acl.models.permission'));
         $permissions = array_map(function ($permission) use ($model) {
@@ -413,7 +413,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyGroup(...$groups)
+    public function hasAnyGroup(array $groups)
     {
         $model = app(config('acl.models.group'));
         $groups = array_map(function ($group) use ($model) {
@@ -441,7 +441,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllGroups(...$groups)
+    public function hasAllGroups(array $groups)
     {
         $model = app(config('acl.models.group', \Junges\ACL\Http\Models\Group::class));
         $groups = array_map(function ($group) use ($model) {
