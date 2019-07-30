@@ -141,7 +141,7 @@ trait UsersTrait
      */
     public function permissionViaGroups()
     {
-        return $this->load(config('acl.tables.groups'), 'groups.permissions')
+        return $this->load('groups', 'groups.permissions')
             ->groups->flatMap(function ($group) {
                 return $group->permissions;
             })->sort()->values();
