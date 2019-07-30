@@ -2,6 +2,29 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.0.0
+#### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
+- `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions`, `revokePermissions()`,
+`assignGroup()`, `revokeGroup`, `hasAnyGroup()`, `hasAllGroups()` and `hasAllPermissions()`
+methods now works with non array params. You can [read the docs here](https://github.com/jungessolutions/laravel-acl#checking-for-permissions);
+
+- Added eager loading for permissions checks.
+
+#### In [GroupsTrait.php]():
+- `assignPermissions()`, `syncPermissions()`, `revokePermissions()`,
+`assignUser()`, `removeUser()`, `hasAnyPermissions()` and `hasAllPermissions()`
+methods now works with non array params. You can [read the docs here](https://github.com/jungessolutions/laravel-acl#checking-for-permissions);  
+
+- Added eager loading for groups permissions checks.
+
+#### Tests
+- Added a test class for each trait method.
+- Fix middleware tests.
+- Added Exception tests.
+
+#### Fixed:
+- Fixes [#112](https://github.com/jungessolutions/laravel-acl/issues/112)
+
 ## 1.8.1
 - Add `->unique()` for permission slugs (fix #109)
 
