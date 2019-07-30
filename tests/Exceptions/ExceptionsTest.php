@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Tests\Exceptions;
 
-use Illuminate\Database\QueryException;
 use Junges\ACL\Tests\Group;
-use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\Permission;
+use Illuminate\Database\QueryException;
 
 class ExceptionsTest extends TestCase
 {

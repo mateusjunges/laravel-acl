@@ -2,9 +2,9 @@
 
 namespace Junges\ACL\Tests\Commands;
 
-use Illuminate\Support\Facades\Artisan;
-use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\Permission;
+use Illuminate\Support\Facades\Artisan;
 
 class CreatePermissionCommandTests extends TestCase
 {

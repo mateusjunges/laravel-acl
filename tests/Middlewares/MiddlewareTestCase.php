@@ -4,12 +4,12 @@ namespace Junges\ACL\Tests\Middlewares;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Junges\ACL\Exceptions\UnauthorizedException;
+use Junges\ACL\Tests\TestCase;
 use Junges\ACL\Middlewares\GroupMiddleware;
-use Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware;
+use Junges\ACL\Exceptions\UnauthorizedException;
 use Junges\ACL\Middlewares\PermissionMiddleware;
 use Junges\ACL\Middlewares\PermissionOrGroupMiddleware;
-use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware;
 
 class MiddlewareTestCase extends TestCase
 {
