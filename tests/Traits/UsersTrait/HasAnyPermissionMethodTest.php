@@ -1,11 +1,11 @@
 <?php
 
-namespace Junges\ACL\Tests\Traits;
+namespace Junges\ACL\Tests\Traits\UsersTrait;
 
 use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
 
-class UserHasAnyPermissionMethodTest extends TestCase
+class HasAnyPermissionMethodTest extends TestCase
 {
     public function setUp()
     {
