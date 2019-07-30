@@ -13,5 +13,5 @@
         'group_does_not_exist_with_slug'      => 'Não existe nenhum groupo com esse slug:',
         'user_does_not_exist_with_name'       => 'Não existe nenhum usuário com este nome:',
         'user_does_not_exist'                 => 'Não existe nenhum usuário com este id:',
-        'null_group'                          => 'Você está usando um model nulo como parâmetro.'
+        'null_model'                          => 'Você está usando um model nulo como parâmetro.',
     ];

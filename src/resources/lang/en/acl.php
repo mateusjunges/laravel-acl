@@ -13,5 +13,5 @@
         'group_does_not_exist_with_slug'      => 'There is no group with this slug:',
         'user_does_not_exist_with_name'       => 'There is no user with this name:',
         'user_does_not_exist'                 => 'There is no user with this id:',
-        'null_group'                          => 'You are passing a null group model as parameter'
+        'null_model'                          => 'You are passing a null model as parameter'
     ];
