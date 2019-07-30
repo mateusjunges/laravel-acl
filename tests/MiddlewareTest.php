@@ -86,7 +86,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions([$this->testUserPermission]);
+        Auth::user()->assignPermissions($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -104,7 +104,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions([$this->testUserPermission]);
+        Auth::user()->assignPermissions($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -122,7 +122,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignGroup([$this->testUserGroup]);
+        Auth::user()->assignGroup($this->testUserGroup);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -140,7 +140,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions([$this->testUserPermission]);
+        Auth::user()->assignPermissions($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -158,7 +158,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignGroup([$this->testUserGroup]);
+        Auth::user()->assignGroup($this->testUserGroup);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -190,7 +190,7 @@ class MiddlewareTest extends TestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignGroup([$this->testUserGroup]);
+        Auth::user()->assignGroup($this->testUserGroup);
 
         $this->assertEquals(
             $this->execMiddleware(

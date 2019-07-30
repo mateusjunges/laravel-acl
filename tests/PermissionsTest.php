@@ -29,7 +29,7 @@ class PermissionsTest extends TestCase
      */
     public function it_can_be_assigned_to_groups_with_permission_id()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions([1]));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(1));
     }
 
     /**
@@ -37,7 +37,7 @@ class PermissionsTest extends TestCase
      */
     public function it_can_be_assigned_to_groups_with_permission_slug()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(['edit-posts']));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions('edit-posts'));
     }
 
     /**
@@ -45,7 +45,7 @@ class PermissionsTest extends TestCase
      */
     public function it_can_be_assigned_to_groups_with_permission_model()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions([$this->testUserPermission3]));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions($this->testUserPermission3));
     }
 
     /**
@@ -54,11 +54,9 @@ class PermissionsTest extends TestCase
     public function it_can_be_assigned_to_groups_with_mixed_params()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(
-            [
                 $this->testUserPermission,
                 $this->testUserPermission2->id,
-                $this->testUserPermission3->slug,
-            ]
+                $this->testUserPermission3->slug
         ));
     }
 }

@@ -34,7 +34,7 @@ class GroupsTest extends TestCase
      */
     public function it_can_be_assigned_to_user_with_user_model()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser([$this->testUser]));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser($this->testUser));
     }
 
     /**
@@ -42,7 +42,7 @@ class GroupsTest extends TestCase
      */
     public function it_can_be_assigned_to_user_with_user_id()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser([$this->testUser->id]));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser($this->testUser->id));
     }
 
     /**
@@ -50,7 +50,7 @@ class GroupsTest extends TestCase
      */
     public function it_can_be_assigned_to_user_with_user_name()
     {
-        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser([$this->testUser->name]));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser($this->testUser->name));
     }
 
     /**
@@ -59,11 +59,9 @@ class GroupsTest extends TestCase
     public function it_can_be_assigned_to_user_with_mixed_parameters()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser(
-            [
                 $this->testUser,
                 $this->testUser2->name,
-                $this->testUser3->id,
-            ]
+                $this->testUser3->id
         ));
     }
 
@@ -73,9 +71,7 @@ class GroupsTest extends TestCase
     public function it_can_have_permissions_assigned_by_id()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(
-            [
-                $this->testUserPermission->id,
-            ]
+                $this->testUserPermission->id
         ));
     }
 
@@ -85,9 +81,7 @@ class GroupsTest extends TestCase
     public function it_can_have_permissions_assigned_by_slug()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(
-            [
-                $this->testUserPermission->slug,
-            ]
+                $this->testUserPermission->slug
         ));
     }
 
@@ -97,9 +91,7 @@ class GroupsTest extends TestCase
     public function it_can_have_permissions_assigned_by_permission_model()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(
-            [
-                $this->testUserPermission,
-            ]
+                $this->testUserPermission
         ));
     }
 
@@ -109,11 +101,9 @@ class GroupsTest extends TestCase
     public function it_can_have_permissions_assigned_by_mixed_parameters()
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions(
-            [
                 $this->testUserPermission,
                 $this->testUserPermission2->slug,
-                $this->testUserPermission3->id,
-            ]
+                $this->testUserPermission3->id
         ));
     }
 }
