@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Tests\Traits\UsersTrait;
 
-use Junges\ACL\Tests\TestCase;
 use Junges\ACL\Tests\User;
+use Junges\ACL\Tests\TestCase;
 
 class AssignPermissionsMethodTest extends TestCase
 {
@@ -23,7 +23,6 @@ class AssignPermissionsMethodTest extends TestCase
         self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
         self::assertTrue($this->testUser->hasPermission($this->testUserPermission2));
         self::assertTrue($this->testUser->hasPermission($this->testUserPermission3));
-
     }
 
     public function test_if_a_permission_can_be_assigned_to_user_with_permission_ids()

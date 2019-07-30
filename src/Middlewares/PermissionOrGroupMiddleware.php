@@ -43,9 +43,11 @@ class PermissionOrGroupMiddleware
     private function hasAnyPermission($user, array $permissions)
     {
         foreach ($permissions as $permission) {
-            if ($user->hasPermission($permission))
+            if ($user->hasPermission($permission)) {
                 return true;
+            }
         }
+
         return false;
     }
 
@@ -57,9 +59,11 @@ class PermissionOrGroupMiddleware
     private function hasAnyGroup($user, array $groups)
     {
         foreach ($groups as $group) {
-            if ($user->hasGroup($group))
+            if ($user->hasGroup($group)) {
                 return true;
+            }
         }
+
         return false;
     }
 }
