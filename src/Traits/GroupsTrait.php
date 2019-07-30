@@ -32,11 +32,13 @@ trait GroupsTrait
     public function hasPermission($permission)
     {
         $where = null;
-
+        $model = app(config('acl.models.permission'));
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
             $where = ['slug', $permission];
+        } elseif ($permission instanceof $model) {
+            $where = ['slug', $permission->slug];
         }
         if ($permission != null && $where != null) {
             return null !== $this->permissions->where(...$where)->first();
