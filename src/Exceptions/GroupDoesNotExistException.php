@@ -25,4 +25,11 @@ class GroupDoesNotExistException extends InvalidArgumentException
 
         return new static($message.' '.$slug, Response::HTTP_BAD_REQUEST);
     }
+
+    public static function nullGroup() : self
+    {
+        $message = trans('acl::acl.null_group');
+
+        return new static($message, Response::HTTP_BAD_REQUEST);
+    }
 }
