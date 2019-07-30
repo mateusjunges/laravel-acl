@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\Tests;
+namespace Junges\ACL\Tests\Commands;
 
 use Junges\ACL\Tests\TestCase;
 

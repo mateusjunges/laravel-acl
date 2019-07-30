@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\Tests;
+namespace Junges\ACL\Tests\Traits;
 
 use Junges\ACL\Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
@@ -28,10 +28,7 @@ class WildcardPermissionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_deny_access_if_user_does_not_have_matching_permissions()
+    public function test_if_it_deny_access_if_user_does_not_have_matching_permissions()
     {
         Auth::login($this->testUser2);
         $this->assertCount(0, Auth::user()->permissions);
@@ -40,20 +37,14 @@ class WildcardPermissionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function checks_with_star_only_always_give_permission_if_the_user_has_at_least_one_permission()
+    public function test_if_star_only_always_give_permission_if_the_user_has_at_least_one_permission()
     {
         Auth::login($this->testUser);
         Auth::user()->assignPermissions(1);
         $this->assertTrue(Auth::user()->hasPermissionWithWildcards('*'));
     }
 
-    /**
-     * @test
-     */
-    public function checks_with_star_only_deny_permission_if_the_user_does_not_have_any_permission()
+    public function test_if_star_only_deny_permission_if_the_user_does_not_have_any_permission()
     {
         Auth::login($this->testUser);
         $this->assertFalse(
@@ -61,10 +52,7 @@ class WildcardPermissionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function it_can_check_for_group_permissions_using_wildcards()
+    public function test_if_it_can_check_for_group_permissions_using_wildcards()
     {
         $this->testUserGroup->assignPermissions(6, 7);
         $this->assertTrue(
@@ -72,20 +60,14 @@ class WildcardPermissionsTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function checks_with_star_only_deny_permission_if_the_group_does_not_have_any_permission()
+    public function test_if_star_only_deny_permission_if_the_group_does_not_have_any_permission()
     {
         $this->assertFalse(
             $this->testUserGroup->hasPermissionWithWildcards('*')
         );
     }
 
-    /**
-     * @test
-     */
-    public function checks_with_star_only_always_give_permission_if_the_group_has_at_least_one_permission()
+    public function test_if_star_only_always_give_permission_if_the_group_has_at_least_one_permission()
     {
         $this->testUserGroup->assignPermissions(1);
         $this->assertTrue(
