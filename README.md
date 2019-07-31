@@ -52,7 +52,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.7.*",
+        "mateusjunges/laravel-acl": "2.0.*",
     }
 }
 ```
@@ -192,8 +192,7 @@ class User extends Authenticatable
 ```
 
 You can add permissions to a user using the function below,
-using as parameter an array of
-permissions slugs, permissions ids or instance of permissions model.
+using as parameter permissions slugs, permissions ids or instance of permissions model.
 Beside that, you can also combine this 3 ways, using a permission id,
 one instance of permission model and a permission slug too.
 ```php
@@ -286,17 +285,17 @@ $user->revokeGroup('permission-slug', 2, Permission::find(3));
 $group->removeUser('User name', 2, User::find(3));
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter a
-array of group/user ids, group/user slugs, instance of group/user model , or,
+ group/user ids, group/user slugs, instance of group/user model , or,
 combine these three ways.
 
 # Checking for permissions
 ### Checking if user has permission:
 You can check if a user has a permission using:
 ```php
-//With permission slugs:
+//With permission slug:
 $user->hasPermission('permission-slug');
 
-//With permission ids array:
+//With permission id:
 $user->hasPermission(1);
 
 //With instance of permission model:
@@ -312,7 +311,7 @@ $user->hasAnyPermission('permission-slug-1', 'permission-slug-2');
 //With permission ids:
 $user->hasAnyPermission(1, 2, 3);
 
-//With instance of permission model array:
+//With instance of permission model:
 $user->hasAnyPermission(Permission::find(1), Permission::find(2), Permission::find(3));
 
 //With the three methods above combined:
@@ -350,17 +349,17 @@ $group->hasPermission(Permission::find(1));
 In the same way as for users, you can check if a group has any of the required permissions:
 
 ```php
-//With permission slugs array:
-$group->hasAnyPermission(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$group->hasAnyPermission('permission-slug-1', 'permission-slug-2');
 
-//With permission ids array:
-$group->hasAnyPermission([1, 2, 3]);
+//With permission ids:
+$group->hasAnyPermission(1, 2, 3);
 
-//With instance of permission model array:
-$group->hasAnyPermission([Permission::find(1), Permission::find(2), Permission::find(3)]);
+//With instance of permission model:
+$group->hasAnyPermission(Permission::find(1), Permission::find(2), Permission::find(3));
 
 //With the three methods above combined:
-$group->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
+$group->hasAnyPermission(1, 'permission-slug' Permission::find(3));
 ```
 
 ## Checking for permissions using wildcards
@@ -397,17 +396,17 @@ $group->hasPermissionWithWildcards('users.*');
 ## Syncing user permissions
 The user permissions can synced with this method:
 ```php
-//With permission id array:
-$user->syncPermissions([1, 2, 4]);
+//With permission id:
+$user->syncPermissions(1, 2, 4);
 
-//With permission slugs array:
-$user->syncPermissions(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$user->syncPermissions('permission-slug-1', 'permission-slug-2');
 
-//With instance of permission model arrays:
-$user->syncPermissions([Permission::find(1), Permission::find(2)]);
+//With instance of permission model:
+$user->syncPermissions(Permission::find(1), Permission::find(2));
 
 //Combining the three ways:
-$user->syncPermissions([1, 'permission-slug', Permission::find(3)]);
+$user->syncPermissions(1, 'permission-slug', Permission::find(3));
 ```
 
 ## Syncing group permissions
@@ -416,10 +415,10 @@ The groups permissions can synced with this method:
 //With permission id:
 $group->syncPermissions(1, 2, 4);
 
-//With permission slugs array:
+//With permission slugs:
 $group->syncPermissions('permission-slug-1', 'permission-slug-2');
 
-//With instance of permission model arrays:
+//With instance of permission model:
 $group->syncPermissions(Permission::find(1), Permission::find(2));
 
 //Combining the three ways:
@@ -503,7 +502,7 @@ The `GroupsTrait` adds a `user` scope to the query to certain users.
 With this scope, only groups granted to the given user will be returned.
 
 ```php
-//Returns only groups granted to the 'Test' user:
+//Returns only groups granted to the 'Test' named user:
 $groups = Group::user('Test')->get();
 ```
 
@@ -559,25 +558,25 @@ For permissions:
 
 Check for all permissions:
 ```php
-@allpermissions(['permission-1', 'permission-2'])
+@allpermissions('permission-1', 'permission-2')
     I have permission 1 and permission 2!
 @endallpermissions
 ```
 Check for any permission:
 ```php
-@anypermission(['permission-1', 'permission-2'])
+@anypermission('permission-1', 'permission-2')
     I have at least one of these permissions!
 @endanypermission
 ```
 Check for all groups:
 ```php
-@allgroups(['group-1', 'group-2'])
+@allgroups('group-1', 'group-2')
     I have group 1 and group 2!
 @endallgroups
 ```
 Check for any group:
 ```php
-@anygroup(['group-1', 'group-2'])
+@anygroup('group-1', 'group-2')
     I have at least one of these groups!
 @endanygroup
 ```
