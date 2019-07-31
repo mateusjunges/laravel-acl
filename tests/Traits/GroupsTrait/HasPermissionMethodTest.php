@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Tests\Traits\GroupsTrait;
 
-use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\Permission;
 
 class HasPermissionMethodTest extends TestCase
 {

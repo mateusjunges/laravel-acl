@@ -24,5 +24,4 @@ class RevokeAllPermissionsMethodTest extends TestCase
 
         self::assertCount(0, $this->testUserGroup->permissions()->get());
     }
-
 }
