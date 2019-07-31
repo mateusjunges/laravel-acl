@@ -17,6 +17,11 @@ methods now works with non array params. You can [read the docs here](https://gi
 
 - Added eager loading for groups permissions checks.
 
+
+#### [Blade Directives](https://github.com/jungessolutions/laravel-acl#using-package-custom-blade-directives):
+- Now all blade directives does not need an array as parameter.
+You still able to check for permissions using mixed parameters, like permission id, permission slug, etc.
+
 #### Tests
 - Added a test class for each trait method.
 - Fix middleware tests.
