@@ -52,7 +52,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "1.7.*",
+        "mateusjunges/laravel-acl": "2.0.*",
     }
 }
 ```
@@ -192,38 +192,37 @@ class User extends Authenticatable
 ```
 
 You can add permissions to a user using the function below,
-using as parameter an array of
-permissions slugs, permissions ids or instance of permissions model.
-Beside that, you can also combine this 3 ways, using a array with a permission id,
+using as parameter permissions slugs, permissions ids or instance of permissions model.
+Beside that, you can also combine this 3 ways, using a permission id,
 one instance of permission model and a permission slug too.
 ```php
 //With permission slugs:
-$user->assignPermissions(['permission-slug-1', 'permission-slug-2']);
+$user->assignPermissions('permission-slug-1', 'permission-slug-2');
 
 //With permission ids:
-$user->assignPermissions([1, 2, 3]);
+$user->assignPermissions(1, 2, 3);
 
 //With instances of permission model:
-$user->assignPermissions([Permission::find(1), Permission::find(2)]);
+$user->assignPermissions(Permission::find(1), Permission::find(2));
 
 //With the three ways above combined:
-$user->assignPermissions([1, 'permission-slug', Permission::find(1)]);
+$user->assignPermissions(1, 'permission-slug', Permission::find(1));
 ```
 Like as add permissions to user, you can add permissions to groups.
 To do this, you have the same method, and they can be used by the same way:
 
 ```php
 //With permission slugs:
-$group->assignPermissions(['permission-slug-1', 'permission-slug-2']);
+$group->assignPermissions('permission-slug-1', 'permission-slug-2');
 
 //With permission ids:
-$group->assignPermissions([1, 2, 3]);
+$group->assignPermissions(1, 2, 3);
 
 //With instances of permission model:
-$group->assignPermissions([Permission::find(1), Permission::find(2)]);
+$group->assignPermissions(Permission::find(1), Permission::find(2));
 
 //With the three ways above combined:
-$group->assignPermissions([1, 'permission-slug', Permission::find(1)]);
+$group->assignPermissions(1, 'permission-slug', Permission::find(1));
 ```
 
 After add permissions to a group, you may want/need to add a user to a group.
@@ -232,71 +231,71 @@ This can be done in two different ways:
 #### First way:
 You can add a group to a user, and use 4 different types of parameters:
 ```php
-//Assign a group to a user, with a group slug array:
-$user->assignGroup(['group-slug-1', 'group-slug-2']);
+//Assign a group to a user, using group slugs:
+$user->assignGroup('group-slug-1', 'group-slug-2');
 
-//Assign a group to a user, with a group ids array:
-$user->assignGroup([1, 2, 3]);
+//Assign a group to a user, using group ids:
+$user->assignGroup(1, 2, 3);
 
-//Assign a group to a user, with instance of group models array:
-$user->assignGroup([Group::find(1), Group::find(2)]);
+//Assign a group to a user, with instance of group models:
+$user->assignGroup(Group::find(1), Group::find(2));
 
 //Assign group to a user, combining the three methods above:
-$user->assignGroup([Group::find(1), 'group-slug-2', 3]);
+$user->assignGroup(Group::find(1), 'group-slug-2', 3);
 ```
 #### Second way:
 You can add a user to a group, and use 4 different types of parameters:
 ```php
-//Assign a user to a group, with a user names slug array:
-$group->assignUser(['User one', 'User two']);
+//Assign a user to a group, with user names:
+$group->assignUser('User one', 'User two');
 
-//Assign a user to a group, with a user ids array:
-$group->assignUser([1, 2, 3]);
+//Assign a user to a group, user ids:
+$group->assignUser(1, 2, 3);
 
-//Assign a user to a group, with instance of User models array:
-$group->assignUser([User::find(1), User::find(2)]);
+//Assign a user to a group, with instance of User models:
+$group->assignUser(User::find(1), User::find(2));
 
 //Assign a user to a group combining the three methods above:
-$group->assignUser([User::find(1), 'User name', 3]);
+$group->assignUser(User::find(1), 'User name', 3);
 ```
 
 ### Revoke permissions
 #### 1 - Revoke permissions from user
 You can revoke a user permission using the method below:
 ```php
-$user->revokePermissions(['permission-slug', 2, Permission::find(3)]);
+$user->revokePermissions('permission-slug', 2, Permission::find(3));
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter a
-array of permission ids, permission slugs, instance of permission model, or,
+the permission ids, permission slugs, instance of permission model, or,
 combine these three ways.
 
 #### 2 - Revoke permissions from groups:
 You can revoke a group permission using the method below:
 ```php
-$group->revokePermissions(['permission-slug', 2, Permission::find(3)]);
+$group->revokePermissions('permission-slug', 2, Permission::find(3));
 ```
-Like the methods to add or remove a group from a user, you can use as function parameter a
-array of permission ids, permission slugs, instance of permission model, or,
+Like the methods to add or remove a group from a user, you can use as function parameter 
+the permission ids, permission slugs, instance of permission model, or,
 combine these three ways.
 
 #### 3 - Revoke a group from user:
 You can remove a group from the user by using one of these methods:
 ```php
-$user->revokeGroup(['permission-slug', 2, Permission::find(3)]);
-$group->removeUser(['User name', 2, User::find(3)]);
+$user->revokeGroup('permission-slug', 2, Permission::find(3));
+$group->removeUser('User name', 2, User::find(3));
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter a
-array of group/user ids, group/user slugs, instance of group/user model , or,
+ group/user ids, group/user slugs, instance of group/user model , or,
 combine these three ways.
 
 # Checking for permissions
 ### Checking if user has permission:
 You can check if a user has a permission using:
 ```php
-//With permission slugs:
+//With permission slug:
 $user->hasPermission('permission-slug');
 
-//With permission ids array:
+//With permission id:
 $user->hasPermission(1);
 
 //With instance of permission model:
@@ -306,17 +305,17 @@ If the user has the permissions passed, the function return `true`. Otherwise, r
 
 You can also check if the user has any permission:
 ```php
-//With permission slugs array:
-$user->hasAnyPermission(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$user->hasAnyPermission('permission-slug-1', 'permission-slug-2');
 
-//With permission ids array:
-$user->hasAnyPermission([1, 2, 3]);
+//With permission ids:
+$user->hasAnyPermission(1, 2, 3);
 
-//With instance of permission model array:
-$user->hasAnyPermission([Permission::find(1), Permission::find(2), Permission::find(3)]);
+//With instance of permission model:
+$user->hasAnyPermission(Permission::find(1), Permission::find(2), Permission::find(3));
 
 //With the three methods above combined:
-$user->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
+$user->hasAnyPermission(1, 'permission-slug' Permission::find(3));
 ```
 If the user has any of the permissions passed, the function return `true`. Otherwise, returns `false`.
 
@@ -350,17 +349,17 @@ $group->hasPermission(Permission::find(1));
 In the same way as for users, you can check if a group has any of the required permissions:
 
 ```php
-//With permission slugs array:
-$group->hasAnyPermission(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$group->hasAnyPermission('permission-slug-1', 'permission-slug-2');
 
-//With permission ids array:
-$group->hasAnyPermission([1, 2, 3]);
+//With permission ids:
+$group->hasAnyPermission(1, 2, 3);
 
-//With instance of permission model array:
-$group->hasAnyPermission([Permission::find(1), Permission::find(2), Permission::find(3)]);
+//With instance of permission model:
+$group->hasAnyPermission(Permission::find(1), Permission::find(2), Permission::find(3));
 
 //With the three methods above combined:
-$group->hasAnyPermission([1, 'permission-slug' Permission::find(3)]);
+$group->hasAnyPermission(1, 'permission-slug' Permission::find(3));
 ```
 
 ## Checking for permissions using wildcards
@@ -397,33 +396,33 @@ $group->hasPermissionWithWildcards('users.*');
 ## Syncing user permissions
 The user permissions can synced with this method:
 ```php
-//With permission id array:
-$user->syncPermissions([1, 2, 4]);
+//With permission id:
+$user->syncPermissions(1, 2, 4);
 
-//With permission slugs array:
-$user->syncPermissions(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$user->syncPermissions('permission-slug-1', 'permission-slug-2');
 
-//With instance of permission model arrays:
-$user->syncPermissions([Permission::find(1), Permission::find(2)]);
+//With instance of permission model:
+$user->syncPermissions(Permission::find(1), Permission::find(2));
 
 //Combining the three ways:
-$user->syncPermissions([1, 'permission-slug', Permission::find(3)]);
+$user->syncPermissions(1, 'permission-slug', Permission::find(3));
 ```
 
 ## Syncing group permissions
 The groups permissions can synced with this method:
 ```php
-//With permission id array:
-$group->syncPermissions([1, 2, 4]);
+//With permission id:
+$group->syncPermissions(1, 2, 4);
 
-//With permission slugs array:
-$group->syncPermissions(['permission-slug-1', 'permission-slug-2']);
+//With permission slugs:
+$group->syncPermissions('permission-slug-1', 'permission-slug-2');
 
-//With instance of permission model arrays:
-$group->syncPermissions([Permission::find(1), Permission::find(2)]);
+//With instance of permission model:
+$group->syncPermissions(Permission::find(1), Permission::find(2));
 
 //Combining the three ways:
-$group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
+$group->syncPermissions(1, 'permission-slug', Permission::find(3));
 ```
 
 ## Some "shortcuts"
@@ -503,7 +502,7 @@ The `GroupsTrait` adds a `user` scope to the query to certain users.
 With this scope, only groups granted to the given user will be returned.
 
 ```php
-//Returns only groups granted to the 'Test' user:
+//Returns only groups granted to the 'Test' named user:
 $groups = Group::user('Test')->get();
 ```
 
@@ -559,25 +558,25 @@ For permissions:
 
 Check for all permissions:
 ```php
-@allpermissions(['permission-1', 'permission-2'])
+@allpermissions('permission-1', 'permission-2')
     I have permission 1 and permission 2!
 @endallpermissions
 ```
 Check for any permission:
 ```php
-@anypermission(['permission-1', 'permission-2'])
+@anypermission('permission-1', 'permission-2')
     I have at least one of these permissions!
 @endanypermission
 ```
 Check for all groups:
 ```php
-@allgroups(['group-1', 'group-2'])
+@allgroups('group-1', 'group-2')
     I have group 1 and group 2!
 @endallgroups
 ```
 Check for any group:
 ```php
-@anygroup(['group-1', 'group-2'])
+@anygroup('group-1', 'group-2')
     I have at least one of these groups!
 @endanygroup
 ```

@@ -31,14 +31,17 @@ trait GroupsTrait
      */
     public function hasPermission($permission)
     {
+        $where = null;
         $model = app(config('acl.models.permission'));
         if (is_numeric($permission)) {
-            $permission = $model->find($permission);
+            $where = ['id', $permission];
         } elseif (is_string($permission)) {
-            $permission = $model->where('slug', $permission)->first();
+            $where = ['slug', $permission];
+        } elseif ($permission instanceof $model) {
+            $where = ['slug', $permission->slug];
         }
-        if ($permission != null) {
-            return null !== $this->permissions()->where('slug', $permission->slug)->first();
+        if ($permission != null && $where != null) {
+            return null !== $this->permissions->where(...$where)->first();
         }
 
         return false;
@@ -61,7 +64,7 @@ trait GroupsTrait
      *
      * @return $this|bool
      */
-    public function assignPermissions(array $permissions)
+    public function assignPermissions(...$permissions)
     {
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
@@ -79,7 +82,7 @@ trait GroupsTrait
      *
      * @return $this|bool
      */
-    public function syncPermissions(array $permissions)
+    public function syncPermissions(...$permissions)
     {
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
@@ -97,7 +100,7 @@ trait GroupsTrait
      *
      * @return $this
      */
-    public function revokePermissions(array $permissions)
+    public function revokePermissions(...$permissions)
     {
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
@@ -235,7 +238,7 @@ trait GroupsTrait
      *
      * @return $this|bool
      */
-    public function assignUser(array $users)
+    public function assignUser(...$users)
     {
         $users = $this->convertToUserId($users);
         if ($users->count() == 0) {
@@ -253,7 +256,7 @@ trait GroupsTrait
      *
      * @return mixed
      */
-    public function removeUser(array $users)
+    public function removeUser(...$users)
     {
         $users = $this->getAllUsers($users);
         if ($users->count() == 0) {
@@ -271,19 +274,8 @@ trait GroupsTrait
      *
      * @return bool
      */
-    public function hasAnyPermission(array $permissions)
+    public function hasAnyPermission(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
                 return true;
@@ -300,19 +292,8 @@ trait GroupsTrait
      *
      * @return bool
      */
-    public function hasAllPermissions(array $permissions)
+    public function hasAllPermissions(...$permissions)
     {
-        $model = app(config('acl.models.permission'));
-        $permissions = array_map(function ($permission) use ($model) {
-            if ($permission instanceof $model) {
-                return $permission;
-            } elseif (is_numeric($permission)) {
-                return $model->find($permission);
-            } elseif (is_string($permission)) {
-                return $model->where('slug', $permission)->first();
-            }
-        }, $permissions);
-
         foreach ($permissions as $permission) {
             if (! $this->hasPermission($permission)) {
                 return false;

@@ -25,8 +25,11 @@ class GroupMiddleware
         $groups = is_array($groups)
             ? $groups
             : explode('|', $groups);
-        if (Auth::user()->hasAnyGroup($groups)) {
-            return $next($request);
+
+        foreach ($groups as $group) {
+            if (Auth::user()->hasGroup($group)) {
+                return $next($request);
+            }
         }
 
         throw UnauthorizedException::forGroups();
