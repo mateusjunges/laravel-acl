@@ -13,7 +13,7 @@
     "homepage": "https://github.com/mateusjunges/laravel-acl",
     "require": {
         "php": ">=7.0",
-        "illuminate/auth": "~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0"|~6.0,
+        "illuminate/auth": "~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0|~6.0",
         "illuminate/database": "~5.4.0|~5.5.0|~5.6.0|~5.7.0|~5.8.0|~6.0"
     },
     "require-dev": {
