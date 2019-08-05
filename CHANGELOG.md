@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.0.1
+- Update composer.json for laravel 6.0
+
 ## 2.0.0
 #### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
 - `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions`, `revokePermissions()`,
