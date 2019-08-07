@@ -41,7 +41,7 @@ class GroupUsersTest extends TestCase
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser([
             $this->testUser,
             $this->testUser2->name,
-            $this->testUser3->id
+            $this->testUser3->id,
         ]));
     }
 }
