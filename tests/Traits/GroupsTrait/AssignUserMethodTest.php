@@ -45,7 +45,7 @@ class AssignUserMethodTest extends TestCase
         self::assertInstanceOf(Group::class, $this->testUserGroup->assignUser([
             $this->testUser->id,
             $this->testUser2->id,
-            $this->testUser3->id
+            $this->testUser3->id,
         ]));
 
         self::assertTrue($this->testUser->hasGroup($this->testUserGroup));

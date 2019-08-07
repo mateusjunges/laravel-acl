@@ -450,8 +450,10 @@ trait GroupsTrait
      */
     public function getCorrectParameter($param)
     {
-        if (is_array($param[0]))
+        if (is_array($param[0])) {
             return $param[0];
+        }
+
         return $param;
     }
 }
