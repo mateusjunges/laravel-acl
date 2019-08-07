@@ -84,6 +84,7 @@ trait GroupsTrait
      */
     public function syncPermissions(...$permissions)
     {
+        $permissions = is_array($permissions[0]) ? $permissions[0] : $permissions;
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
             return false;
@@ -147,7 +148,6 @@ trait GroupsTrait
     private function convertToPermissionIds($permissions)
     {
         $model = app(config('acl.models.permission'));
-        $permissions = is_array($permissions[0]) ? $permissions[0] : [$permissions];
         $permissions = is_array($permissions) ? $permissions : [$permissions];
 
         return collect(array_map(function ($permission) use ($model) {
