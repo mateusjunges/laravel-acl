@@ -43,7 +43,7 @@ class AssignPermissionsMethodTest extends TestCase
         $this->assertInstanceOf(User::class, $this->testUser->assignPermissions([
             $this->testUserPermission->id,
             $this->testUserPermission2->id,
-            $this->testUserPermission3->id
+            $this->testUserPermission3->id,
         ]));
 
         self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
