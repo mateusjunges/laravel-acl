@@ -349,6 +349,7 @@ trait UsersTrait
      */
     public function revokePermissions(...$permissions)
     {
+        $permissions =  $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
 
