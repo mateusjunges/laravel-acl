@@ -199,14 +199,26 @@ one instance of permission model and a permission slug too.
 //With permission slugs:
 $user->assignPermissions('permission-slug-1', 'permission-slug-2');
 
+//Using arrays:
+$user->assignPermissions(['permission-slug-1', 'permission-slug-2']);
+
 //With permission ids:
 $user->assignPermissions(1, 2, 3);
+
+//Using arrays:
+$user->assignPermissions([1, 2, 3]);
 
 //With instances of permission model:
 $user->assignPermissions(Permission::find(1), Permission::find(2));
 
+//Using arrays:
+$user->assignPermissions([Permission::find(1), Permission::find(2)]);
+
 //With the three ways above combined:
 $user->assignPermissions(1, 'permission-slug', Permission::find(1));
+
+//Using arrays:
+$user->assignPermissions([1, 'permission-slug', Permission::find(1)]);
 ```
 Like as add permissions to user, you can add permissions to groups.
 To do this, you have the same method, and they can be used by the same way:
@@ -215,14 +227,26 @@ To do this, you have the same method, and they can be used by the same way:
 //With permission slugs:
 $group->assignPermissions('permission-slug-1', 'permission-slug-2');
 
+//Using arrays:
+$group->assignPermissions(['permission-slug-1', 'permission-slug-2']);
+
 //With permission ids:
 $group->assignPermissions(1, 2, 3);
+
+//Using arrays:
+$group->assignPermissions([1, 2, 3]);
 
 //With instances of permission model:
 $group->assignPermissions(Permission::find(1), Permission::find(2));
 
+//Using arrays:
+$group->assignPermissions([Permission::find(1), Permission::find(2)]);
+
 //With the three ways above combined:
 $group->assignPermissions(1, 'permission-slug', Permission::find(1));
+
+//Using arrays:
+$group->assignPermissions([1, 'permission-slug', Permission::find(1)]);
 ```
 
 After add permissions to a group, you may want/need to add a user to a group.
@@ -234,14 +258,26 @@ You can add a group to a user, and use 4 different types of parameters:
 //Assign a group to a user, using group slugs:
 $user->assignGroup('group-slug-1', 'group-slug-2');
 
+//Using arrays: 
+$user->assignGroup(['group-slug-1', 'group-slug-2']);
+
 //Assign a group to a user, using group ids:
 $user->assignGroup(1, 2, 3);
+
+//Using arrays:
+$user->assignGroup([1, 2, 3]);
 
 //Assign a group to a user, with instance of group models:
 $user->assignGroup(Group::find(1), Group::find(2));
 
+//Using arrays:
+$user->assignGroup([Group::find(1), Group::find(2)]);
+
 //Assign group to a user, combining the three methods above:
 $user->assignGroup(Group::find(1), 'group-slug-2', 3);
+
+//Usign arrays:
+$user->assignGroup([Group::find(1), 'group-slug-2', 3]);
 ```
 #### Second way:
 You can add a user to a group, and use 4 different types of parameters:
@@ -249,14 +285,26 @@ You can add a user to a group, and use 4 different types of parameters:
 //Assign a user to a group, with user names:
 $group->assignUser('User one', 'User two');
 
+//Using arrays:
+$group->assignUser(['User one', 'User two']);
+
 //Assign a user to a group, user ids:
 $group->assignUser(1, 2, 3);
+
+//Using arrays:
+$group->assignUser([1, 2, 3]);
 
 //Assign a user to a group, with instance of User models:
 $group->assignUser(User::find(1), User::find(2));
 
+//Using arrays:
+$group->assignUser([User::find(1), User::find(2)]);
+
 //Assign a user to a group combining the three methods above:
 $group->assignUser(User::find(1), 'User name', 3);
+
+//Using arrays:
+$group->assignUser([User::find(1), 'User name', 3]);
 ```
 
 ### Revoke permissions
@@ -264,6 +312,9 @@ $group->assignUser(User::find(1), 'User name', 3);
 You can revoke a user permission using the method below:
 ```php
 $user->revokePermissions('permission-slug', 2, Permission::find(3));
+
+//Or with arrays:
+$user->revokePermissions(['permission-slug', 2, Permission::find(3)]);
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter a
 the permission ids, permission slugs, instance of permission model, or,
@@ -273,6 +324,9 @@ combine these three ways.
 You can revoke a group permission using the method below:
 ```php
 $group->revokePermissions('permission-slug', 2, Permission::find(3));
+
+//Or with arrays:
+$group->revokePermissions(['permission-slug', 2, Permission::find(3)]);
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter 
 the permission ids, permission slugs, instance of permission model, or,
@@ -283,6 +337,10 @@ You can remove a group from the user by using one of these methods:
 ```php
 $user->revokeGroup('permission-slug', 2, Permission::find(3));
 $group->removeUser('User name', 2, User::find(3));
+
+//Or with arrays:
+$user->revokeGroup(['permission-slug', 2, Permission::find(3)]);
+$group->removeUser(['User name', 2, User::find(3)]);
 ```
 Like the methods to add or remove a group from a user, you can use as function parameter a
  group/user ids, group/user slugs, instance of group/user model , or,
@@ -399,14 +457,26 @@ The user permissions can synced with this method:
 //With permission id:
 $user->syncPermissions(1, 2, 4);
 
+//Using array:
+$user->syncPermissions([1, 2, 4]);
+
 //With permission slugs:
 $user->syncPermissions('permission-slug-1', 'permission-slug-2');
+
+//Using arrays:
+$user->syncPermissions(['permission-slug-1', 'permission-slug-2']);
 
 //With instance of permission model:
 $user->syncPermissions(Permission::find(1), Permission::find(2));
 
+//Using arrays:
+$user->syncPermissions([Permission::find(1), Permission::find(2)]);
+
 //Combining the three ways:
 $user->syncPermissions(1, 'permission-slug', Permission::find(3));
+
+//Using arrays:
+$user->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 ```
 
 ## Syncing group permissions
@@ -415,14 +485,26 @@ The groups permissions can synced with this method:
 //With permission id:
 $group->syncPermissions(1, 2, 4);
 
+//Usign arrays:
+$group->syncPermissions([1, 2, 4]);
+
 //With permission slugs:
 $group->syncPermissions('permission-slug-1', 'permission-slug-2');
+
+//Using arrays:
+$group->syncPermissions(['permission-slug-1', 'permission-slug-2']);
 
 //With instance of permission model:
 $group->syncPermissions(Permission::find(1), Permission::find(2));
 
+//Using arrays:
+$group->syncPermissions([Permission::find(1), Permission::find(2)]);
+
 //Combining the three ways:
 $group->syncPermissions(1, 'permission-slug', Permission::find(3));
+
+//Using arrays:
+$group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 ```
 
 ## Some "shortcuts"

@@ -1,19 +1,34 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+## 2.0.2
+#### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
+- Add option to use array as parameter for `syncPermissions()` method;
+- Add option to use array as parameter for `assignPermissions()` method;
+- Add option to use array as parameter for `assignGroup()` method;
+- Add option to use array as parameter for `revokePermissions()` method;
+- Add option to use array as parameter for `assignGroup()` method;
+- Add option to use array as parameter for `revokeGroup()` method;
+
+#### In [GroupsTrait.php](https://github.com/mateusjunges/laravel-acl/blob/master/src/Traits/GroupsTrait.php):
+- Add option to use array as parameter for `syncPermissions()` method;
+- Add option to use array as parameter for `assignPermissions()` method;
+- Add option to use array as parameter for `revokePermissions()` method;
+- Add option to use array as parameter for `assignUser()` method;
+- Add option to use array as parameter for `removeUser()` method;
 
 ## 2.0.1
 - Update composer.json for laravel 6.0
 
 ## 2.0.0
 #### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
-- `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions`, `revokePermissions()`,
+- `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions()`, `revokePermissions()`,
 `assignGroup()`, `revokeGroup`, `hasAnyGroup()`, `hasAllGroups()` and `hasAllPermissions()`
 methods now works with non array params. You can [read the docs here](https://github.com/jungessolutions/laravel-acl#checking-for-permissions);
 
 - Added eager loading for permissions checks.
 
-#### In [GroupsTrait.php]():
+#### In [GroupsTrait.php](https://github.com/mateusjunges/laravel-acl/blob/master/src/Traits/GroupsTrait.php):
 - `assignPermissions()`, `syncPermissions()`, `revokePermissions()`,
 `assignUser()`, `removeUser()`, `hasAnyPermissions()` and `hasAllPermissions()`
 methods now works with non array params. You can [read the docs here](https://github.com/jungessolutions/laravel-acl#checking-for-permissions);  

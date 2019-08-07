@@ -36,4 +36,13 @@ class UserGroupsTest extends TestCase
             $this->testUserGroup2
         ));
     }
+
+    public function test_if_it_can_add_groups_to_user_with_array_parameter()
+    {
+        $this->assertInstanceOf(User::class, $this->testUser->assignGroup([
+            $this->testUserGroup->id,
+            $this->testAdminGroup->slug,
+            $this->testUserGroup2,
+        ]));
+    }
 }

@@ -66,6 +66,7 @@ trait GroupsTrait
      */
     public function assignPermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
             return false;
@@ -84,6 +85,7 @@ trait GroupsTrait
      */
     public function syncPermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
             return false;
@@ -102,6 +104,7 @@ trait GroupsTrait
      */
     public function revokePermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
 
@@ -240,6 +243,7 @@ trait GroupsTrait
      */
     public function assignUser(...$users)
     {
+        $users = $this->getCorrectParameter($users);
         $users = $this->convertToUserId($users);
         if ($users->count() == 0) {
             return false;
@@ -258,6 +262,7 @@ trait GroupsTrait
      */
     public function removeUser(...$users)
     {
+        $users = $this->getCorrectParameter($users);
         $users = $this->getAllUsers($users);
         if ($users->count() == 0) {
             return false;
@@ -436,5 +441,19 @@ trait GroupsTrait
                 'isset_column' => Schema::hasColumn($table, 'email'),
             ],
         ];
+    }
+
+    /**
+     * Determine which type of parameter is being used.
+     * @param $param
+     * @return array
+     */
+    public function getCorrectParameter($param)
+    {
+        if (is_array($param[0])) {
+            return $param[0];
+        }
+
+        return $param;
     }
 }

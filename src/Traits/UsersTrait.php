@@ -299,6 +299,7 @@ trait UsersTrait
      */
     public function assignPermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
             return false;
@@ -317,6 +318,7 @@ trait UsersTrait
      */
     public function syncPermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
         if ($permissions->count() == 0) {
             return false;
@@ -324,6 +326,20 @@ trait UsersTrait
         $this->permissions()->sync($permissions);
 
         return $this;
+    }
+
+    /**
+     * Determine which type of parameter is being used.
+     * @param $param
+     * @return array
+     */
+    public function getCorrectParameter(array $param)
+    {
+        if (is_array($param[0])) {
+            return $param[0];
+        }
+
+        return $param;
     }
 
     /**
@@ -335,6 +351,7 @@ trait UsersTrait
      */
     public function revokePermissions(...$permissions)
     {
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
 
@@ -350,6 +367,7 @@ trait UsersTrait
      */
     public function assignGroup(...$groups)
     {
+        $groups = $this->getCorrectParameter($groups);
         $groups = $this->convertToGroupIds($groups);
         if ($groups->count() == 0) {
             return false;
@@ -368,6 +386,7 @@ trait UsersTrait
      */
     public function revokeGroup(...$groups)
     {
+        $groups = $this->getCorrectParameter($groups);
         $groups = $this->getGroupIds($groups);
         if ($groups->count() == 0) {
             return false;

@@ -35,4 +35,13 @@ class GroupUsersTest extends TestCase
             $this->testUser3->id
         ));
     }
+
+    public function test_if_a_user_can_be_attached_to_group_with_array_params()
+    {
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->assignUser([
+            $this->testUser,
+            $this->testUser2->name,
+            $this->testUser3->id,
+        ]));
+    }
 }
