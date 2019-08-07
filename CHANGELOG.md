@@ -1,13 +1,16 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+## 2.0.2
+- Add option to use array as parameter for `syncPermissions()` method
+
 
 ## 2.0.1
 - Update composer.json for laravel 6.0
 
 ## 2.0.0
 #### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
-- `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions`, `revokePermissions()`,
+- `hasAnyPermissions()`, `assignPermissions()`, `syncPermissions()`, `revokePermissions()`,
 `assignGroup()`, `revokeGroup`, `hasAnyGroup()`, `hasAllGroups()` and `hasAllPermissions()`
 methods now works with non array params. You can [read the docs here](https://github.com/jungessolutions/laravel-acl#checking-for-permissions);
 
