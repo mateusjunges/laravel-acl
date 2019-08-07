@@ -335,8 +335,10 @@ trait UsersTrait
      */
     public function getCorrectParameter(array $param)
     {
-        if (is_array($param[0]))
+        if (is_array($param[0])) {
             return $param[0];
+        }
+
         return $param;
     }
 
@@ -349,7 +351,7 @@ trait UsersTrait
      */
     public function revokePermissions(...$permissions)
     {
-        $permissions =  $this->getCorrectParameter($permissions);
+        $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
         $this->permissions()->detach($permissions);
 

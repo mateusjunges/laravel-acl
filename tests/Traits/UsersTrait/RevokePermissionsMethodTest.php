@@ -57,7 +57,7 @@ class RevokePermissionsMethodTest extends TestCase
         self::assertInstanceOf(User::class, $this->testUser->revokePermissions([
             $this->testUserPermission->id,
             $this->testUserPermission2->id,
-            $this->testUserPermission3->id
+            $this->testUserPermission3->id,
         ]));
 
         self::assertFalse($this->testUser->hasPermission($this->testUserPermission));
