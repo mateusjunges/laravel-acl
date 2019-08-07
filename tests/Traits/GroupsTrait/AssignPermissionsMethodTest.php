@@ -44,7 +44,7 @@ class AssignPermissionsMethodTest extends TestCase
     {
         $this->assertInstanceOf(Group::class, $this->testUserGroup->assignPermissions([
            $this->testUserPermission->id,
-           $this->testeUserPermission2->id,
+           $this->testUserPermission2->id,
         ]));
 
         self::assertTrue($this->testUserGroup->hasPermission($this->testUserPermission));
