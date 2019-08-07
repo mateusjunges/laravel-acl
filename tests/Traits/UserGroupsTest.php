@@ -42,7 +42,7 @@ class UserGroupsTest extends TestCase
         $this->assertInstanceOf(User::class, $this->testUser->assignGroup([
             $this->testUserGroup->id,
             $this->testAdminGroup->slug,
-            $this->testUserGroup2
+            $this->testUserGroup2,
         ]));
     }
 }
