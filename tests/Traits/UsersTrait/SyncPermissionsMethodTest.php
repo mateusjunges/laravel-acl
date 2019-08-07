@@ -55,4 +55,18 @@ class SyncPermissionsMethodTest extends TestCase
 
         self::assertCount(4, $this->testUser->permissions()->get());
     }
+
+    public function test_if_it_can_sync_permissions_using_array_as_parameter()
+    {
+        $this->testUser->assignPermissions(1, 2);
+
+        self::assertCount(2, $this->testUser->permissions()->get());
+
+        self::assertTrue($this->testUser->hasPermission(1));
+        self::assertTrue($this->testUser->hasPermission(2));
+
+        $this->testUser->syncPermissions([1, 2, 3, 4]);
+
+        self::assertCount(4, $this->testUser->permissions()->get());
+    }
 }
