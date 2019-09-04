@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+
+## 2.0.3
+- Fix composer.json dependencies for laravel 6.0
+
 ## 2.0.2
 #### In [UsersTrait.php](https://github.com/jungessolutions/laravel-acl/blob/master/src/Traits/UsersTrait.php):
 - Add option to use array as parameter for `syncPermissions()` method;
