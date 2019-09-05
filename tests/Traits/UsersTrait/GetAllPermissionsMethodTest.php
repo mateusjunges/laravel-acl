@@ -6,7 +6,7 @@ use Junges\ACL\Tests\TestCase;
 
 class GetAllPermissionsMethodTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

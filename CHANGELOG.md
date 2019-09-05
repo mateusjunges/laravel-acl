@@ -2,6 +2,11 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.1.0
+- Update dependencies for Laravel 6
+- Drop support for Laravel 5.5 and older, and PHP 7.1 and older. (They can use v2.0 of this package until they upgrade.)
+- Version 2.1.0 and greater of this package require PHP 7.2 and higher.
+
 ## 2.0.3
 - Fix composer.json dependencies for laravel 6.0
 

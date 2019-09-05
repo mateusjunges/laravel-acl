@@ -7,7 +7,7 @@ use Junges\ACL\Tests\Permission;
 
 class HasAnyGroupMethodTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

@@ -9,7 +9,7 @@ use Junges\ACL\Exceptions\GroupDoesNotExistException;
 
 class ScopeGroupTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

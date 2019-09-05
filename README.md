@@ -52,10 +52,20 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ``` json
 {
     "require": {
-        "mateusjunges/laravel-acl": "2.0.*",
+        "mateusjunges/laravel-acl": "2.1.*",
     }
 }
 ```
+
+> For Laravel v5.5 or lower, use the version 2.0 of this package:
+>``` json
+>{
+>    "require": {
+>        "mateusjunges/laravel-acl": "2.0.*",
+>    }
+>}
+>```
+
 then run ` composer install `
 
 After installing the laravel-acl package, register the service provider in

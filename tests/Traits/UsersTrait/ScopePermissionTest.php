@@ -9,7 +9,7 @@ use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 class ScopePermissionTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

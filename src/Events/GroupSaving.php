@@ -15,7 +15,7 @@ class GroupSaving
     /**
      * Create a new event instance.
      *
-     * @param $attributes
+     * @param $group
      */
     public function __construct($group)
     {

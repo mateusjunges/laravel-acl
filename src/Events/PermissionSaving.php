@@ -15,7 +15,7 @@ class PermissionSaving
     /**
      * Create a new event instance.
      *
-     * @param $attributes
+     * @param $permission
      */
     public function __construct($permission)
     {
