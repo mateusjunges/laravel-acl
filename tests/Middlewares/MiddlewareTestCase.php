@@ -33,7 +33,7 @@ class MiddlewareTestCase extends TestCase
      */
     protected $hierarchicalMiddleware;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
         $this->permissionMiddleware = new PermissionMiddleware($this->app);

@@ -7,7 +7,7 @@ use Junges\ACL\Tests\TestCase;
 
 class RevokeAllPermissionsTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WildcardPermissionsTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

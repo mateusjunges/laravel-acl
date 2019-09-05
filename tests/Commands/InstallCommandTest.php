@@ -8,7 +8,7 @@ class InstallCommandTest extends TestCase
 {
     private $migrationsPath = 'migrations/vendor/junges/acl';
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

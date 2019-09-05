@@ -9,7 +9,7 @@ use Illuminate\Database\QueryException;
 
 class ExceptionsTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

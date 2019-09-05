@@ -7,7 +7,7 @@ use Junges\ACL\Tests\Permission;
 
 class HasDirectPermissionsMethodTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }
