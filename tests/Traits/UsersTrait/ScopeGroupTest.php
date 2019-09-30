@@ -23,6 +23,7 @@ class ScopeGroupTest extends TestCase
     {
         $this->testUser->assignGroup('test-user-group');
         $this->testUser2->assignGroup('test-user-group');
+        $this->testUser3->assignGroup($this->testUserGroup2);
         self::assertFalse(
             User::group('test-user-group')
                 ->get()
@@ -38,6 +39,8 @@ class ScopeGroupTest extends TestCase
                 ->get()
                 ->contains('name', $this->testUser2->name)
         );
+        self::assertCount(2, User::group('test-user-group')->get());
+        self::assertCount(1, User::group($this->testUserGroup2)->get());
     }
 
     public function test_if_it_thrown_an_exception_if_the_group_does_not_exist_using_group_slug()

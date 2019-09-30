@@ -512,7 +512,7 @@ trait UsersTrait
         return $query->whereHas('groups', function ($query) use ($groups) {
             $query->where(function ($query) use ($groups) {
                 foreach ($groups as $group) {
-                    if (is_null($group)) {
+                    if (! is_null($group)) {
                         $query->orWhere(config('acl.tables.groups').'.id', $group->id);
                     }
                 }
