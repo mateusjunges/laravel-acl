@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.1.1
+- Fixed bug with the `group` scope. See [#133](https://github.com/mateusjunges/laravel-acl/issues/133)
+
 ## 2.1.0
 - Update dependencies for Laravel 6
 - Drop support for Laravel 5.5 and older, and PHP 7.1 and older. (They can use v2.0 of this package until they upgrade.)
