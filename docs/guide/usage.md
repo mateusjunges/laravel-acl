@@ -797,12 +797,6 @@ Just include the view on you form:
 </form>
 ```
 
-## Entity Relationship Model
-
-This is the entity relationship model for this package:
-
-![github-large](database-model.png)
-
 ## Translations
 
 This package also provides translations for some messages. To use them is easy:

@@ -1,4 +1,6 @@
-# Installation
+# Getting started
+
+## Installation
  
 To get started with laravel-acl, use Composer to add the package to your project's dependencies:
 
@@ -25,7 +27,11 @@ Or add this line in your `composer.json`, inside of the `require` section:
 >}
 >```
 
-then run ` composer install `
+then run `composer install`.
+
+
+## Setup
+
 
 After installing the laravel-acl package, register the service provider in
 `config/app.php` configuration file:
@@ -40,7 +46,7 @@ After installing the laravel-acl package, register the service provider in
 ];
 ```
 
-## Install using `acl:install` command
+### Install using `acl:install` command
 
 You can install this package by running the provided install command:
 ```bash
@@ -49,7 +55,7 @@ php artisan acl:install
 
 After run this command, the package installation is done. Proceed to the [usage](#usage) section.
 
-## Step by step installation
+### Step by step installation
 
 All migrations required for this package are already included. If you
 need to customize the tables, you can publish [the migrations](https://github.com/mateusjunges/laravel-acl/tree/master/src/database/migrations)
@@ -143,3 +149,7 @@ When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-a
 
     ];
 ```
+
+## Tests
+
+Run `composer test` to test this package.
