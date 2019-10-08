@@ -61,7 +61,7 @@ php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl
 and set the `config` for `custom_migrations` to `true`, which is false by default. 
 
 ```php
-custom_migrations' => true,
+'custom_migrations' => true,
 ```
 
 After the migrations has been published you can create the tables on your database by running the migrations:

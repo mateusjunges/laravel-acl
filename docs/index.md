@@ -5,7 +5,7 @@ This package allows you to manage user permissions and groups in a database.
 * [Installation](installation.md)
     * [Using install command](installation.md#install-using-aclinstall-command)
     * [Step by step installation](installation.md#step-by-step-installation)
-* [Usage](#usage)
+* [Usage](#usage.md)
     * [Check for permissions](usage.md#checking-for-permissions)
     * [Check for permissions using wildcards](usage.md#checking-for-permissions-using-wildcards)
     * [Syncing user permissions](usage.md#syncing-user-permissions)
