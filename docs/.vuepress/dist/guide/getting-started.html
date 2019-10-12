@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Getting started | Laravel ACL</title>
+    <meta name="description" content="Manage user permissions and groups">
+    <link rel="shortcut icon" href="/laravel-acl/favicon.ico">
+    
+    <link rel="preload" href="/laravel-acl/assets/css/0.styles.3694aef9.css" as="style"><link rel="preload" href="/laravel-acl/assets/js/app.4c294497.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/2.f9d9dcdc.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/7.8e37ca2e.js" as="script"><link rel="prefetch" href="/laravel-acl/assets/js/3.1badbc7d.js"><link rel="prefetch" href="/laravel-acl/assets/js/4.ceb2a02a.js"><link rel="prefetch" href="/laravel-acl/assets/js/5.80287245.js"><link rel="prefetch" href="/laravel-acl/assets/js/6.013f20f4.js"><link rel="prefetch" href="/laravel-acl/assets/js/8.03a49f7b.js"><link rel="prefetch" href="/laravel-acl/assets/js/9.629285f3.js">
+    <link rel="stylesheet" href="/laravel-acl/assets/css/0.styles.3694aef9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/laravel-acl/" class="home-link router-link-active"><!----> <span class="site-name">Laravel ACL</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Guide</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/laravel-acl/guide/" class="sidebar-link">Introduction</a></li><li><a href="/laravel-acl/guide/getting-started.html" class="active sidebar-link">Getting started</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/laravel-acl/guide/getting-started.html#installation" class="sidebar-link">Installation</a></li><li class="sidebar-sub-header"><a href="/laravel-acl/guide/getting-started.html#setup" class="sidebar-link">Setup</a></li><li class="sidebar-sub-header"><a href="/laravel-acl/guide/getting-started.html#tests" class="sidebar-link">Tests</a></li></ul></li><li><a href="/laravel-acl/guide/usage.html" class="sidebar-link">Usage</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="getting-started"><a href="#getting-started" aria-hidden="true" class="header-anchor">#</a> Getting started</h1> <h2 id="installation"><a href="#installation" aria-hidden="true" class="header-anchor">#</a> Installation</h2> <p>To get started with laravel-acl, use Composer to add the package to your project's dependencies:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>composer require mateusjunges/laravel-acl
+</code></pre></div><p>Or add this line in your <code>composer.json</code>, inside of the <code>require</code> section:</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;require&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;mateusjunges/laravel-acl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2.1.*&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>For Laravel v5.5 or lower, use the version 2.0 of this package:</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+   <span class="token property">&quot;require&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+       <span class="token property">&quot;mateusjunges/laravel-acl&quot;</span><span class="token operator">:</span> <span class="token string">&quot;2.0.*&quot;</span><span class="token punctuation">,</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></blockquote> <p>then run <code>composer install</code>.</p> <h2 id="setup"><a href="#setup" aria-hidden="true" class="header-anchor">#</a> Setup</h2> <p>After installing the laravel-acl package, register the service provider in
+<code>config/app.php</code> configuration file:</p> <blockquote><p>Optional in Laravel 5.5 or above</p></blockquote> <div class="language-php extra-class"><pre class="language-php"><code><span class="token single-quoted-string string">'providers'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+    Junges\<span class="token package">ACL<span class="token punctuation">\</span>ACLServiceProvider</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+    Junges\<span class="token package">ACL<span class="token punctuation">\</span>ACLAuthServiceProvider</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+    Junges\<span class="token package">ACL<span class="token punctuation">\</span>ACLEventsServiceProvider</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="install-using-acl-install-command"><a href="#install-using-acl-install-command" aria-hidden="true" class="header-anchor">#</a> Install using <code>acl:install</code> command</h3> <p>You can install this package by running the provided install command:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>php artisan acl:install
+</code></pre></div><p>After run this command, the package installation is done. Proceed to the <a href="#usage">usage</a> section.</p> <h3 id="step-by-step-installation"><a href="#step-by-step-installation" aria-hidden="true" class="header-anchor">#</a> Step by step installation</h3> <p>All migrations required for this package are already included. If you
+need to customize the tables, you can publish <a href="https://github.com/mateusjunges/laravel-acl/tree/master/src/database/migrations" target="_blank" rel="noopener noreferrer">the migrations<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>
+with:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>php artisan vendor:publish --provider<span class="token operator">=</span><span class="token string">&quot;Junges\ACL\ACLServiceProvider&quot;</span> --tag<span class="token operator">=</span><span class="token string">&quot;acl-migrations&quot;</span>
+</code></pre></div><p>and set the <code>config</code> for <code>custom_migrations</code> to <code>true</code>, which is false by default.</p> <div class="language-php extra-class"><pre class="language-php"><code><span class="token single-quoted-string string">'custom_migrations'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean constant">true</span><span class="token punctuation">,</span>
+</code></pre></div><p>After the migrations has been published you can create the tables on your database by running the migrations:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>php artisan migrate
+</code></pre></div><p>If you change the table names on migrations, please
+publish the config file and update the tables array.
+You can publish the config file with:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>php artisan vendor:publish --provider<span class="token operator">=</span><span class="token string">&quot;Junges\ACL\ACLServiceProvider&quot;</span> --tag<span class="token operator">=</span><span class="token string">&quot;acl-config&quot;</span>
+</code></pre></div><p>When published, the <a href="https://github.com/mateusjunges/laravel-acl/blob/master/config/acl.php" target="_blank" rel="noopener noreferrer"><code>config/acl.php</code><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> config file contains:</p> <div class="language-php extra-class"><pre class="language-php"><code><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>
+
+        <span class="token comment">/*
+        |--------------------------------------------------------------------------
+        |  Models
+        |--------------------------------------------------------------------------
+        |
+        | When using this package, we need to know which
+        | Eloquent Model should be used
+        | to retrieve your groups and permissions.
+        | Of course, it is just the basics models
+        | needed, but you can use whatever you like.
+        |
+        */</span>
+
+        <span class="token single-quoted-string string">'models'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+            <span class="token comment">/*
+             | The model you want to use as User Model must use \Junges\ACL\Traits\UsersTrait
+             */</span>
+            <span class="token single-quoted-string string">'user'</span>  <span class="token operator">=</span><span class="token operator">&gt;</span> \<span class="token package">App<span class="token punctuation">\</span>User</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+
+            <span class="token comment">/*
+             | The model you want to use as Permission model must use the \Junges\ACL\Traits\PermissionsTrait
+             */</span>
+            <span class="token single-quoted-string string">'permission'</span>  <span class="token operator">=</span><span class="token operator">&gt;</span> Junges\<span class="token package">ACL<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Models<span class="token punctuation">\</span>Permission</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+
+            <span class="token comment">/*
+             | The model you want to use as Group model must use the \Junges\ACL\Traits\GroupsTrait
+             */</span>
+            <span class="token single-quoted-string string">'group'</span>  <span class="token operator">=</span><span class="token operator">&gt;</span> Junges\<span class="token package">ACL<span class="token punctuation">\</span>Http<span class="token punctuation">\</span>Models<span class="token punctuation">\</span>Group</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token keyword">class</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+        <span class="token comment">/*
+        |--------------------------------------------------------------------------
+        | Tables
+        |--------------------------------------------------------------------------
+        | Specify the basics authentication tables that you are using.
+        | Once you required this package, the following tables are
+        | created by default when you run the command
+        |
+        | php artisan migrate
+        |
+        | If you want to change this tables, please keep the basic structure unchanged.
+        |
+         */</span>
+        <span class="token single-quoted-string string">'tables'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+            <span class="token single-quoted-string string">'groups'</span>                      <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'groups'</span><span class="token punctuation">,</span>
+            <span class="token single-quoted-string string">'permissions'</span>                 <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'permissions'</span><span class="token punctuation">,</span>
+            <span class="token single-quoted-string string">'users'</span>                       <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'users'</span><span class="token punctuation">,</span>
+            <span class="token single-quoted-string string">'group_has_permissions'</span>       <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'group_has_permissions'</span><span class="token punctuation">,</span>
+            <span class="token single-quoted-string string">'user_has_permissions'</span>        <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'user_has_permissions'</span><span class="token punctuation">,</span>
+            <span class="token single-quoted-string string">'user_has_groups'</span>             <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'user_has_groups'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        
+        <span class="token comment">/*
+         |
+         |If you want to customize your tables, set this flag to &quot;true&quot;
+         | */</span>
+        <span class="token single-quoted-string string">'custom_migrations'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token boolean constant">false</span><span class="token punctuation">,</span>
+
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+</span></code></pre></div><h2 id="tests"><a href="#tests" aria-hidden="true" class="header-anchor">#</a> Tests</h2> <p>Run <code>composer test</code> to test this package.</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/laravel-acl/guide/" class="prev router-link-active">Introduction</a></span> <span class="next"><a href="/laravel-acl/guide/usage.html">Usage</a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/laravel-acl/assets/js/app.4c294497.js" defer></script><script src="/laravel-acl/assets/js/2.f9d9dcdc.js" defer></script><script src="/laravel-acl/assets/js/7.8e37ca2e.js" defer></script>
+  </body>
+</html>
