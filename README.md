@@ -1,4 +1,7 @@
 <p align="center">
+    <img src="/docs/.vuepress/public/laravel-acl.png">
+</p>
+<p align="center">
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://codeclimate.com/github/mateusjunges/laravel-acl"><img src="https://codeclimate.com/github/mateusjunges/laravel-acl.svg"></a>
@@ -11,11 +14,6 @@
 
 This package allows you to manage user permissions and groups in a database.
 Please check the [documentations](https://mateusjunges.github.io/laravel-acl).
-
-## Entity Relationship Model
-
-This is the entity relationship model for this package:
-![github-large](docs/database-model.png)
 
 # Tests
 
