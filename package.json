@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev:docs": "vuepress dev docs",
+    "build:docs": "NODE_ENV=production vuepress build docs"
+  },
+  "devDependencies": {
+    "vuepress": "^1.2.0"
+  }
+}
