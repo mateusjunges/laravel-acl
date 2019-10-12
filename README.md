@@ -1,5 +1,5 @@
-<img src="/docs/.vuepress/public/laravel-acl.png">
 <p align="center">
+<img src="/docs/.vuepress/public/laravel-acl.png">
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://codeclimate.com/github/mateusjunges/laravel-acl"><img src="https://codeclimate.com/github/mateusjunges/laravel-acl.svg"></a>
