@@ -1,6 +1,6 @@
-<div style="text-align:center; align:center; display:block">
+<p align="center">
     <img src="/docs/.vuepress/public/laravel-acl.png">
-</div>
+</p>
 <p align="center">
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
