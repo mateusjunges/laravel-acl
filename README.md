@@ -1,4 +1,4 @@
-<div style="text-align:center; align:center">
+<div style="text-align:center; align:center; display:block">
     <img src="/docs/.vuepress/public/laravel-acl.png">
 </div>
 <p align="center">
