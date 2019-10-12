@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /hero.png
+heroImage: /laravel-acl.png
 actionText: Get Started →
 actionLink: /guide/
 footer: MIT Licensed | Laravel ACL
