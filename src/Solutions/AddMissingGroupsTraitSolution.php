@@ -62,5 +62,4 @@ class AddMissingGroupsTraitSolution implements RunnableSolution
             'class' => $this->class,
         ];
     }
-
 }

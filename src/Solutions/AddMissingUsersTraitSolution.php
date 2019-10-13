@@ -62,5 +62,4 @@ class AddMissingUsersTraitSolution implements RunnableSolution
             'class' => $this->class,
         ];
     }
-
 }

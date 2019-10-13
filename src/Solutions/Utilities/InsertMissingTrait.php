@@ -6,6 +6,7 @@ use Junges\ACL\Traits\UsersTrait;
 use Junges\ACL\Traits\GroupsTrait;
 use Junges\ACL\Traits\PermissionsTrait;
 use Junges\ACL\Traits\ACLWildcardsTrait;
+
 class InsertMissingTrait
 {
     private const TRAITS = [
@@ -27,7 +28,7 @@ class InsertMissingTrait
             if (\Illuminate\Support\Str::contains($class, 'User')) {
                 return $class === $userClass;
             }
-            
+
             return false;
         }, ARRAY_FILTER_USE_KEY);
 

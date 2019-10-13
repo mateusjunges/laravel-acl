@@ -62,5 +62,4 @@ class AddMissingPermissionsTraitSolution implements RunnableSolution
             'class' => $this->class,
         ];
     }
-
 }

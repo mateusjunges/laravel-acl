@@ -7,7 +7,6 @@ use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 
 class PermissionDoesNotExistSolution implements RunnableSolution
 {
-
     /**
      * The slug to build the permission off of.
      *
@@ -68,6 +67,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
     public function getRunParameters(): array
     {
         $name = ucwords(str_replace('-', ' ', $this->slug));
+
         return [
             'name' => $name,
             'slug' => $this->slug,

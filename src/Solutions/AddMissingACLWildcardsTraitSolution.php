@@ -62,5 +62,4 @@ class AddMissingACLWildcardsTraitSolution implements RunnableSolution
             'class' => $this->class,
         ];
     }
-
 }

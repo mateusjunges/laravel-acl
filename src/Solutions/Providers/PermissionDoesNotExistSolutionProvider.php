@@ -24,7 +24,7 @@ class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
      */
     public function canSolve(Throwable $throwable): bool
     {
-        if(! $throwable instanceof PermissionDoesNotExistException) {
+        if (! $throwable instanceof PermissionDoesNotExistException) {
             return false;
         }
         $pattern = '/'.trans('acl::acl.permission_does_not_exist_with_slug').' ([^\s]+)/m';

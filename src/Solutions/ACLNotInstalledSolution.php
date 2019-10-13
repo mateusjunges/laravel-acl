@@ -9,7 +9,6 @@ use Facade\IgnitionContracts\RunnableSolution;
 
 class ACLNotInstalledSolution implements RunnableSolution
 {
-
     public function getSolutionTitle(): string
     {
         return 'You Haven\'t Installed laravel-acl fully';
