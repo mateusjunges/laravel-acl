@@ -2,6 +2,7 @@
 
 namespace Junges\ACL;
 
+use Facade\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
@@ -40,6 +41,9 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load translations
         $this->loadTranslations();
+
+        //load solution providers
+        $this->registerSolutionProviders();
     }
 
     /**
@@ -107,6 +111,16 @@ class ACLServiceProvider extends ServiceProvider
         ], 'acl-translations');
     }
 
+    /**
+     * Register the solution providers for package
+     */
+    public function registerSolutionProviders()
+    {
+        $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
+            \Junges\ACL\Solutions\MissingUsersTraitSolutionProvider::class
+        ]);
+    }
+    
     /**
      * Register any application services.
      *
