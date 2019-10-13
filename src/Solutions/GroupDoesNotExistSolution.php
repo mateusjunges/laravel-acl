@@ -11,7 +11,7 @@ class GroupDoesNotExistSolution implements RunnableSolution
     /**
      * The slug to build the group off of.
      * 
-     * @var string $slug
+     * @var string
      */
     private $slug;
 
@@ -71,7 +71,7 @@ class GroupDoesNotExistSolution implements RunnableSolution
         return [
             'name' => $name,
             'slug' => $this->slug,
-            'description' => $name.' group'
+            'description' => $name.' group',
         ];
     }
 }

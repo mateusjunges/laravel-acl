@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Solutions;
 
-use Facade\IgnitionContracts\RunnableSolution;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
+use Facade\IgnitionContracts\RunnableSolution;
 
 class ACLNotInstalledSolution implements RunnableSolution
 {
@@ -43,7 +43,7 @@ class ACLNotInstalledSolution implements RunnableSolution
             Artisan::call('vendor:publish', ['--tag' => 'acl-migrations']);
             Artisan::call('vendor:publish', ['--tag' => 'acl-config']);
         }
-        
+
         Artisan::call('migrate');
     }
 
@@ -56,9 +56,9 @@ class ACLNotInstalledSolution implements RunnableSolution
     {
         $filesystem = new Filesystem();
         $files = $filesystem->glob(__DIR__.'/../database/migrations/*.php');
-        
-        $filesExist = Collection::make($files)->filter(function($file) use($filesystem){
-            return $filesystem->exists(app()->databasePath('/migrations').$file);
+
+        $filesExist = Collection::make($files)->filter(function ($file) use ($filesystem) {
+            return $filesystem->exists(app()->databasePath('/migrations') . $file);
         })->count();
 
         return $filesExist;

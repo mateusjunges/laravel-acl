@@ -1,10 +1,11 @@
 <?php
 
 namespace Junges\ACL\Solutions\Utilities;
+
 use Junges\ACL\Traits\UsersTrait;
-use Junges\ACL\Traits\ACLWildcardsTrait;
 use Junges\ACL\Traits\GroupsTrait;
 use Junges\ACL\Traits\PermissionsTrait;
+use Junges\ACL\Traits\ACLWildcardsTrait;
 class InsertMissingTrait
 {
     private const TRAITS = [
@@ -15,7 +16,7 @@ class InsertMissingTrait
     ];
 
     /**
-     * Replace the missing trait in the given class with given trait
+     * Replace the missing trait in the given class with given trait.
      */
     public static function insert($class, $trait)
     {
@@ -30,9 +31,9 @@ class InsertMissingTrait
         }, ARRAY_FILTER_USE_KEY);
 
         $originalFile = file_get_contents($classes[$userClass]);
-        $newFile = preg_replace('/use /', 'use ' . self::TRAITS[$trait] . ";\nuse ", $originalFile, 1);
-        $newFile = preg_replace("/{\n/", "{\n".'    use ' . $trait . ";\n", $newFile, 1);
-        
+        $newFile = preg_replace('/use /', 'use '.self::TRAITS[$trait].";\nuse ", $originalFile, 1);
+        $newFile = preg_replace("/{\n/", "{\n".'    use '.$trait.";\n", $newFile, 1);
+
         file_put_contents($classes[$userClass], $newFile);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Junges\ACL;
 
-use Facade\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Config\Repository;
@@ -12,6 +11,7 @@ use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
+use Facade\IgnitionContracts\SolutionProviderRepository;
 
 class ACLServiceProvider extends ServiceProvider 
 {
@@ -112,7 +112,7 @@ class ACLServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the solution providers for package
+     * Register the solution providers for package.
      */
     public function registerSolutionProviders(): void
     {

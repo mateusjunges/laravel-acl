@@ -3,23 +3,23 @@
 namespace Junges\ACL\Solutions\Providers;
 
 use Throwable;
-use Facade\IgnitionContracts\BaseSolution;
 use ReflectionClass;
+use Junges\ACL\Traits\ACLWildcardsTrait;
+use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Solutions\AddMissingACLWildcardsTraitSolution;
-use Junges\ACL\Traits\ACLWildcardsTrait;
 
 class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowable
 {
     /**
-     * The class method is called on
+     * The class method is called on.
      * 
-     * @var string $class
+     * @var string
      */
     private $class;
 
     /**
-     * Can the exception be solved
+     * Can the exception be solved.
      * 
      * @param \Throwable $throwable
      * @return bool
@@ -34,7 +34,7 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
         $class = $matches[1];
         
         $this->class = $class;
-        $method = explode("::", $class) ?? [];
+        $method = explode('::', $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
 
@@ -44,7 +44,7 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
     }
 
     /**
-     * The solutions for the missing traits
+     * The solutions for the missing traits.
      * 
      * @param \Throwable $throwable
      * @return array
@@ -52,7 +52,7 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
     public function getSolutions(Throwable $throwable): array
     {
         $model = explode('::', $this->class)[0];
-        
+
         return [
             new AddMissingACLWildcardsTraitSolution($this->class),
             BaseSolution::create('The ACLWildcardsTrait is missing.')

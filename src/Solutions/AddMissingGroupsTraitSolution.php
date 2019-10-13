@@ -10,12 +10,12 @@ class AddMissingGroupsTraitSolution implements RunnableSolution
     /**
      * The class which the method is called from.
      * 
-     * @var string $class
+     * @var string
      */
     private $class;
 
     /**
-     * Construct new Solution
+     * Construct new Solution.
      */
     public function __construct(string $class = null)
     {
@@ -59,7 +59,7 @@ class AddMissingGroupsTraitSolution implements RunnableSolution
     public function getRunParameters(): array
     {
         return [
-            'class' => $this->class 
+            'class' => $this->class,
         ];
     }
 

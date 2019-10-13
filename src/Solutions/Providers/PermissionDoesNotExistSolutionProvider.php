@@ -3,23 +3,21 @@
 namespace Junges\ACL\Solutions\Providers;
 
 use Throwable;
-use Facade\IgnitionContracts\BaseSolution;
-use ReflectionClass;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Solutions\PermissionDoesNotExistSolution;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 {
     /**
      * The slug to create for the permission.
      * 
-     * @var string $slug
+     * @var string
      */
     private $slug;
 
     /**
-     * Can the exception be solved
+     * Can the exception be solved.
      * 
      * @param \Throwable $throwable
      * @return bool
@@ -30,18 +28,18 @@ class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
             return false;
         }
         $pattern = '/'.trans('acl::acl.permission_does_not_exist_with_slug').' ([^\s]+)/m';
-    
-        if (! preg_match($pattern, $throwable->getMessage(), $matches)) {
+
+        if (!preg_match($pattern, $throwable->getMessage(), $matches)) {
             return false;
         }
-        
+
         $this->slug = $matches[1];
 
         return true;
     }
 
     /**
-     * The solutions for the missing traits
+     * The solutions for the missing traits.
      * 
      * @param \Throwable $throwable
      * @return array

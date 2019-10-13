@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions;
 
+use InvalidArgumentException;
+use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
 class GroupDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
@@ -44,7 +44,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
     }
 
     /**
-     * Offers a text based solution for the permissions
+     * Offers a text based solution for the permissions.
      * 
      * @return \Facade\IgnitionContracts\Solution
      */
