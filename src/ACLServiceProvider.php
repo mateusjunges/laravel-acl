@@ -13,7 +13,7 @@ use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
 
-class ACLServiceProvider extends ServiceProvider
+class ACLServiceProvider extends ServiceProvider 
 {
     /**
      * Bootstrap any application services.
@@ -114,16 +114,19 @@ class ACLServiceProvider extends ServiceProvider
     /**
      * Register the solution providers for package
      */
-    public function registerSolutionProviders()
+    public function registerSolutionProviders(): void
     {
         $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
             \Junges\ACL\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
             \Junges\ACL\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
             \Junges\ACL\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
             \Junges\ACL\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\NotInstalledSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
         ]);
     }
-    
+
     /**
      * Register any application services.
      *
