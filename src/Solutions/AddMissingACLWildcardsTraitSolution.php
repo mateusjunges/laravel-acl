@@ -43,7 +43,7 @@ class AddMissingACLWildcardsTraitSolution implements RunnableSolution
 
     public function getSolutionActionDescription(): string
     {
-        return 'Pressing add trait will try to add the missing trait to your ACLWildcards model automatically';
+        return "Pressing the button will try to add the missing trait to your `{$this->class}` model automatically";
     }
 
     public function getRunButtonText(): string
