@@ -117,7 +117,10 @@ class ACLServiceProvider extends ServiceProvider
     public function registerSolutionProviders()
     {
         $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
-            \Junges\ACL\Solutions\MissingUsersTraitSolutionProvider::class
+            \Junges\ACL\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
+            \Junges\ACL\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
         ]);
     }
     
