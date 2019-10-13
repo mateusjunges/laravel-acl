@@ -26,7 +26,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
 
     public function getSolutionDescription(): string
     {
-        return 'Did you forget to create the permission with `php artisan permission:create`';
+        return 'Did you forget to create the permission `'.$this->slug.'` with `php artisan permission:create`?';
     }
 
     public function getDocumentationLinks(): array

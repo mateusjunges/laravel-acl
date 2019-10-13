@@ -50,7 +50,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
      */
     public function getSolution(): Solution
     {
-        return BaseSolution::create('Did you forget to create the group')
+        return BaseSolution::create('Did you forget to create the group?')
             ->setSolutionDescription('You can run `php artisan group:create` with the name, slug and description in that order.')
             ->setDocumentationLinks([
                 'Usage' => 'https://mateusjunges.github.io/laravel-acl/guide/usage.html#using-artisan-commands',

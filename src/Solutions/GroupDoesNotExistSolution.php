@@ -26,7 +26,7 @@ class GroupDoesNotExistSolution implements RunnableSolution
 
     public function getSolutionDescription(): string
     {
-        return 'Did you forget to create '.$this->slug.' with `php artisan group:create`';
+        return 'Did you forget to create the group `'.$this->slug.'` with `php artisan group:create`?';
     }
 
     public function getDocumentationLinks(): array

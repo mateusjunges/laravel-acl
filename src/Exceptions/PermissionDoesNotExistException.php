@@ -51,7 +51,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
      */
     public function getSolution(): Solution
     {
-        return BaseSolution::create('Did you forget to create the permission')
+        return BaseSolution::create('Did you forget to create the permission?')
             ->setSolutionDescription('You can run `php artisan permission:create` with the name, slug and description in that order.')
             ->setDocumentationLinks([
                 'Usage' => 'https://mateusjunges.github.io/laravel-acl/guide/usage.html#using-artisan-commands',

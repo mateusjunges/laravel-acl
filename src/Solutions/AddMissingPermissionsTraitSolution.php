@@ -31,7 +31,7 @@ class AddMissingPermissionsTraitSolution implements RunnableSolution
 
     public function getSolutionDescription(): string
     {
-        return "You can add the missing trait yourself by putting the `use PermissionsTrait` on you `{$this->class}`, or run the below solution.";
+        return "You can add the missing trait yourself by putting the `use PermissionsTrait` on your `{$this->class}`, or run the below solution.";
     }
 
     public function getDocumentationLinks(): array

@@ -31,7 +31,7 @@ class AddMissingACLWildcardsTraitSolution implements RunnableSolution
 
     public function getSolutionDescription(): string
     {
-        return "You can add the missing trait yourself by putting the `use ACLWildcardsTrait` on you `{$this->class}`, or run the below solution.";
+        return "You can add the missing trait yourself by putting the `use ACLWildcardsTrait` on your `{$this->class}`, or run the below solution.";
     }
 
     public function getDocumentationLinks(): array
