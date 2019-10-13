@@ -37,7 +37,10 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
         $method = explode("::", $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
-        return (new ReflectionClass(ACLWildcardsTrait::class))->hasMethod($method);
+
+        $reflectedClass = new ReflectionClass(ACLWildcardsTrait::class);
+
+        return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }
 
     /**

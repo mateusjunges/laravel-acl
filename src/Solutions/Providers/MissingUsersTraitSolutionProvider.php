@@ -37,7 +37,10 @@ class MissingUsersTraitSolutionProvider implements HasSolutionsForThrowable
         $method = explode("::", $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
-        return (new ReflectionClass(UsersTrait::class))->hasMethod($method);
+
+        $reflectedClass = new ReflectionClass(UsersTrait::class);
+
+        return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }
 
     /**

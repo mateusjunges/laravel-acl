@@ -32,12 +32,15 @@ class MissingGroupsTraitSolutionProvider implements HasSolutionsForThrowable
             return false;
         }
         $class = $matches[1];
-        
         $this->class = $class;
+
         $method = explode("::", $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
-        return (new ReflectionClass(GroupsTrait::class))->hasMethod($method);
+
+        $reflectedClass = new ReflectionClass(GroupsTrait::class);
+        
+        return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }
 
     /**
