@@ -11,25 +11,25 @@ class GroupDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 {
     /**
      * The slug to create for the group.
-     * 
+     *
      * @var string
      */
     private $slug;
 
     /**
      * Can the exception be solved.
-     * 
+     *
      * @param \Throwable $throwable
      * @return bool
      */
     public function canSolve(Throwable $throwable): bool
     {
-        if (!$throwable instanceof GroupDoesNotExistException) {
+        if (! $throwable instanceof GroupDoesNotExistException) {
             return false;
         }
         $pattern = '/'.trans('acl::acl.group_does_not_exist_with_slug').' ([^\s]+)/m';
 
-        if (!preg_match($pattern, $throwable->getMessage(), $matches)) {
+        if (! preg_match($pattern, $throwable->getMessage(), $matches)) {
             return false;
         }
 
@@ -40,7 +40,7 @@ class GroupDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 
     /**
      * The solutions for the missing traits.
-     * 
+     *
      * @param \Throwable $throwable
      * @return array
      */

@@ -13,14 +13,14 @@ class MissingPermissionsTraitSolutionProvider implements HasSolutionsForThrowabl
 {
     /**
      * The class method is called on.
-     * 
+     *
      * @var string
      */
     private $class;
 
     /**
      * Can the exception be solved.
-     * 
+     *
      * @param \Throwable $throwable
      * @return bool
      */
@@ -40,12 +40,12 @@ class MissingPermissionsTraitSolutionProvider implements HasSolutionsForThrowabl
 
         $reflectedClass = new ReflectionClass(PermissionsTrait::class);
 
-        return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope' . ucfirst($method));
+        return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }
 
     /**
      * The solutions for the missing traits.
-     * 
+     *
      * @param \Throwable $throwable
      * @return array
      */

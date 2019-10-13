@@ -10,7 +10,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
 
     /**
      * The slug to build the permission off of.
-     * 
+     *
      * @var string
      */
     private $slug;
@@ -56,7 +56,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
             throw PermissionAlreadyExistsException::create();
         }
 
-        $permissionModel->create($parameters); 
+        $permissionModel->create($parameters);
     }
 
     /*

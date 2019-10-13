@@ -12,7 +12,7 @@ class NotInstalledSolutionProvider implements HasSolutionsForThrowable
 {
     /**
      * Can the exception be solved.
-     * 
+     *
      * @param \Throwable $throwable
      * @return bool
      */
@@ -22,12 +22,12 @@ class NotInstalledSolutionProvider implements HasSolutionsForThrowable
             return false;
         }
 
-        return !Schema::hasTable(config('acl.tables.permissions', 'permissions'));
+        return ! Schema::hasTable(config('acl.tables.permissions', 'permissions'));
     }
 
     /**
      * The solutions for the missing traits.
-     * 
+     *
      * @param \Throwable $throwable
      * @return array
      */

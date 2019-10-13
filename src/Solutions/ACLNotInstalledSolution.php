@@ -39,7 +39,7 @@ class ACLNotInstalledSolution implements RunnableSolution
 
     public function run(array $parameters = [])
     {
-        if (!$this->determineRunAction()) {
+        if (! $this->determineRunAction()) {
             Artisan::call('vendor:publish', ['--tag' => 'acl-migrations']);
             Artisan::call('vendor:publish', ['--tag' => 'acl-config']);
         }
@@ -58,7 +58,7 @@ class ACLNotInstalledSolution implements RunnableSolution
         $files = $filesystem->glob(__DIR__.'/../database/migrations/*.php');
 
         $filesExist = Collection::make($files)->filter(function ($file) use ($filesystem) {
-            return $filesystem->exists(app()->databasePath('/migrations') . $file);
+            return $filesystem->exists(app()->databasePath('/migrations').$file);
         })->count();
 
         return $filesExist;

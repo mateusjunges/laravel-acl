@@ -13,14 +13,14 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
 {
     /**
      * The class method is called on.
-     * 
+     *
      * @var string
      */
     private $class;
 
     /**
      * Can the exception be solved.
-     * 
+     *
      * @param \Throwable $throwable
      * @return bool
      */
@@ -32,7 +32,7 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
             return false;
         }
         $class = $matches[1];
-        
+
         $this->class = $class;
         $method = explode('::', $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
@@ -45,7 +45,7 @@ class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowab
 
     /**
      * The solutions for the missing traits.
-     * 
+     *
      * @param \Throwable $throwable
      * @return array
      */

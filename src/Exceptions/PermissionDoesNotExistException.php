@@ -46,7 +46,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
 
     /**
      * Offers a text based solution for the permissions.
-     * 
+     *
      * @return \Facade\IgnitionContracts\Solution
      */
     public function getSolution(): Solution

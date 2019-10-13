@@ -22,11 +22,12 @@ class InsertMissingTrait
     {
         $userClass = $class;
         $composer = require base_path('/vendor/autoload.php');
-        
+
         $classes = array_filter($composer->getClassMap(), function ($class) use ($userClass) {
             if (\Illuminate\Support\Str::contains($class, 'User')) {
                 return $class === $userClass;
             }
+            
             return false;
         }, ARRAY_FILTER_USE_KEY);
 

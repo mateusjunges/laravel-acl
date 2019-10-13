@@ -13,7 +13,7 @@ use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
 use Facade\IgnitionContracts\SolutionProviderRepository;
 
-class ACLServiceProvider extends ServiceProvider 
+class ACLServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.

@@ -45,7 +45,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
 
     /**
      * Offers a text based solution for the permissions.
-     * 
+     *
      * @return \Facade\IgnitionContracts\Solution
      */
     public function getSolution(): Solution

@@ -11,14 +11,14 @@ class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 {
     /**
      * The slug to create for the permission.
-     * 
+     *
      * @var string
      */
     private $slug;
 
     /**
      * Can the exception be solved.
-     * 
+     *
      * @param \Throwable $throwable
      * @return bool
      */
@@ -29,7 +29,7 @@ class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
         }
         $pattern = '/'.trans('acl::acl.permission_does_not_exist_with_slug').' ([^\s]+)/m';
 
-        if (!preg_match($pattern, $throwable->getMessage(), $matches)) {
+        if (! preg_match($pattern, $throwable->getMessage(), $matches)) {
             return false;
         }
 
@@ -40,7 +40,7 @@ class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 
     /**
      * The solutions for the missing traits.
-     * 
+     *
      * @param \Throwable $throwable
      * @return array
      */
