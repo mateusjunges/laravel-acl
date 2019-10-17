@@ -11,6 +11,7 @@ use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
+use Facade\IgnitionContracts\SolutionProviderRepository;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,9 @@ class ACLServiceProvider extends ServiceProvider
 
         //Load translations
         $this->loadTranslations();
+
+        //load solution providers
+        $this->registerSolutionProviders();
     }
 
     /**
@@ -105,6 +109,24 @@ class ACLServiceProvider extends ServiceProvider
         $this->publishes([
             $translationsPath => base_path('resources/lang/vendor/acl'),
         ], 'acl-translations');
+    }
+
+    /**
+     * Register the solution providers for package.
+     */
+    public function registerSolutionProviders(): void
+    {
+        if (! $this->app->runningUnitTests()) {
+            $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\NotInstalledSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
+            ]);
+        }
     }
 
     /**
