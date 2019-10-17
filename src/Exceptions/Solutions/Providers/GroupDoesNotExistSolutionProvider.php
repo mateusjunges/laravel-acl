@@ -1,9 +1,9 @@
 <?php
 
-namespace Junges\ACL\Solutions\Providers;
+namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Throwable;
-use Junges\ACL\Solutions\GroupDoesNotExistSolution;
+use Junges\ACL\Exceptions\Solutions\GroupDoesNotExistSolution;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 

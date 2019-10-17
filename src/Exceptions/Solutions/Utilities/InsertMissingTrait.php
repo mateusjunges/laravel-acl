@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Solutions\Utilities;
+namespace Junges\ACL\Exceptions\Solutions\Utilities;
 
 use Junges\ACL\Traits\UsersTrait;
 use Junges\ACL\Traits\GroupsTrait;

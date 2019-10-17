@@ -118,13 +118,13 @@ class ACLServiceProvider extends ServiceProvider
     {
         if (! $this->app->runningUnitTests()) {
             $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
-                \Junges\ACL\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\NotInstalledSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
-                \Junges\ACL\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\NotInstalledSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
             ]);
         }
     }

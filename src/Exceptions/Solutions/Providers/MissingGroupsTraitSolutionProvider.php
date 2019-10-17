@@ -1,15 +1,15 @@
 <?php
 
-namespace Junges\ACL\Solutions\Providers;
+namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Throwable;
 use ReflectionClass;
-use Junges\ACL\Traits\UsersTrait;
+use Junges\ACL\Traits\GroupsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Solutions\AddMissingUsersTraitSolution;
+use Junges\ACL\Exceptions\Solutions\AddMissingGroupsTraitSolution;
 
-class MissingUsersTraitSolutionProvider implements HasSolutionsForThrowable
+class MissingGroupsTraitSolutionProvider implements HasSolutionsForThrowable
 {
     /**
      * The class method is called on.
@@ -32,13 +32,13 @@ class MissingUsersTraitSolutionProvider implements HasSolutionsForThrowable
             return false;
         }
         $class = $matches[1];
-
         $this->class = $class;
+
         $method = explode('::', $class) ?? [];
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
 
-        $reflectedClass = new ReflectionClass(UsersTrait::class);
+        $reflectedClass = new ReflectionClass(GroupsTrait::class);
 
         return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }
@@ -54,9 +54,9 @@ class MissingUsersTraitSolutionProvider implements HasSolutionsForThrowable
         $model = explode('::', $this->class)[0];
 
         return [
-            new AddMissingUsersTraitSolution($this->class),
-            BaseSolution::create('The UsersTrait is missing.')
-                ->setSolutionDescription("You have to add the `UsersTrait` trait to your `{$model}` model to be able to access the acl methods")
+            new AddMissingGroupsTraitSolution($this->class),
+            BaseSolution::create('The GroupsTrait is missing.')
+                ->setSolutionDescription("You have to add the `GroupsTrait` trait to your `{$model}` model to be able to access the acl methods")
                 ->setDocumentationLinks([
                     'Usage' => 'https://mateusjunges.github.io/laravel-acl/guide/usage.html#usage',
                 ]),

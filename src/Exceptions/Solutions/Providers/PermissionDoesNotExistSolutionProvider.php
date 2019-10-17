@@ -1,10 +1,10 @@
 <?php
 
-namespace Junges\ACL\Solutions\Providers;
+namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Throwable;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Solutions\PermissionDoesNotExistSolution;
+use Junges\ACL\Exceptions\Solutions\PermissionDoesNotExistSolution;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 class PermissionDoesNotExistSolutionProvider implements HasSolutionsForThrowable

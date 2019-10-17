@@ -1,9 +1,9 @@
 <?php
 
-namespace Junges\ACL\Solutions;
+namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
-use Junges\ACL\Solutions\Utilities\InsertMissingTrait;
+use Junges\ACL\Exceptions\Solutions\Utilities\InsertMissingTrait;
 
 class AddMissingUsersTraitSolution implements RunnableSolution
 {

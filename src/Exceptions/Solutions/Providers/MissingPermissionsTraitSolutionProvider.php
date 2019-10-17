@@ -1,13 +1,13 @@
 <?php
 
-namespace Junges\ACL\Solutions\Providers;
+namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Throwable;
 use ReflectionClass;
 use Junges\ACL\Traits\PermissionsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Solutions\AddMissingPermissionsTraitSolution;
+use Junges\ACL\Exceptions\Solutions\AddMissingPermissionsTraitSolution;
 
 class MissingPermissionsTraitSolutionProvider implements HasSolutionsForThrowable
 {

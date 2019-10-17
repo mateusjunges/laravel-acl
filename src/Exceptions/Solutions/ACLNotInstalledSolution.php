@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Solutions;
+namespace Junges\ACL\Exceptions\Solutions;
 
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;

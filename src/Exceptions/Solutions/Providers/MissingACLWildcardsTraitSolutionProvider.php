@@ -1,13 +1,13 @@
 <?php
 
-namespace Junges\ACL\Solutions\Providers;
+namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Throwable;
 use ReflectionClass;
 use Junges\ACL\Traits\ACLWildcardsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Solutions\AddMissingACLWildcardsTraitSolution;
+use Junges\ACL\Exceptions\Solutions\AddMissingACLWildcardsTraitSolution;
 
 class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowable
 {

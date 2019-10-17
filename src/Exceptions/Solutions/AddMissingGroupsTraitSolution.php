@@ -1,11 +1,11 @@
 <?php
 
-namespace Junges\ACL\Solutions;
+namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
-use Junges\ACL\Solutions\Utilities\InsertMissingTrait;
+use Junges\ACL\Exceptions\Solutions\Utilities\InsertMissingTrait;
 
-class AddMissingACLWildcardsTraitSolution implements RunnableSolution
+class AddMissingGroupsTraitSolution implements RunnableSolution
 {
     /**
      * The class which the method is called from.
@@ -26,12 +26,12 @@ class AddMissingACLWildcardsTraitSolution implements RunnableSolution
 
     public function getSolutionTitle(): string
     {
-        return "You forgot to use ACLWildcardsTrait on `{$this->class}`";
+        return "You forgot to use GroupsTrait on `{$this->class}`";
     }
 
     public function getSolutionDescription(): string
     {
-        return "You can add the missing trait yourself by putting the `use ACLWildcardsTrait` on your `{$this->class}`, or run the below solution.";
+        return "You can add the missing trait yourself by putting the `use GroupsTrait` on your `{$this->class}`, or run the below solution.";
     }
 
     public function getDocumentationLinks(): array
@@ -48,12 +48,12 @@ class AddMissingACLWildcardsTraitSolution implements RunnableSolution
 
     public function getRunButtonText(): string
     {
-        return 'Add ACLWildcardsTrait';
+        return 'Add GroupsTrait';
     }
 
     public function run(array $parameters = [])
     {
-        InsertMissingTrait::insert($parameters['class'], 'ACLWildcardsTrait');
+        InsertMissingTrait::insert($parameters['class'], 'GroupsTrait');
     }
 
     public function getRunParameters(): array

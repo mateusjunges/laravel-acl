@@ -1,11 +1,11 @@
 <?php
 
-namespace Junges\ACL\Solutions;
+namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
-use Junges\ACL\Solutions\Utilities\InsertMissingTrait;
+use Junges\ACL\Exceptions\Solutions\Utilities\InsertMissingTrait;
 
-class AddMissingGroupsTraitSolution implements RunnableSolution
+class AddMissingPermissionsTraitSolution implements RunnableSolution
 {
     /**
      * The class which the method is called from.
@@ -26,12 +26,12 @@ class AddMissingGroupsTraitSolution implements RunnableSolution
 
     public function getSolutionTitle(): string
     {
-        return "You forgot to use GroupsTrait on `{$this->class}`";
+        return "You forgot to use PermissionsTrait on `{$this->class}`";
     }
 
     public function getSolutionDescription(): string
     {
-        return "You can add the missing trait yourself by putting the `use GroupsTrait` on your `{$this->class}`, or run the below solution.";
+        return "You can add the missing trait yourself by putting the `use PermissionsTrait` on your `{$this->class}`, or run the below solution.";
     }
 
     public function getDocumentationLinks(): array
@@ -48,12 +48,12 @@ class AddMissingGroupsTraitSolution implements RunnableSolution
 
     public function getRunButtonText(): string
     {
-        return 'Add GroupsTrait';
+        return 'Add PermissionsTrait';
     }
 
     public function run(array $parameters = [])
     {
-        InsertMissingTrait::insert($parameters['class'], 'GroupsTrait');
+        InsertMissingTrait::insert($parameters['class'], 'PermissionsTrait');
     }
 
     public function getRunParameters(): array

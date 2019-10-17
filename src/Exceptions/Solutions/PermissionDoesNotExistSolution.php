@@ -1,14 +1,14 @@
 <?php
 
-namespace Junges\ACL\Solutions;
+namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
-use Junges\ACL\Exceptions\GroupAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 
-class GroupDoesNotExistSolution implements RunnableSolution
+class PermissionDoesNotExistSolution implements RunnableSolution
 {
     /**
-     * The slug to build the group off of.
+     * The slug to build the permission off of.
      *
      * @var string
      */
@@ -21,12 +21,12 @@ class GroupDoesNotExistSolution implements RunnableSolution
 
     public function getSolutionTitle(): string
     {
-        return 'The Group '.$this->slug.' does not exist';
+        return 'The Permission does not exist';
     }
 
     public function getSolutionDescription(): string
     {
-        return 'Did you forget to create the group `'.$this->slug.'` with `php artisan group:create`?';
+        return 'Did you forget to create the permission `'.$this->slug.'` with `php artisan permission:create`?';
     }
 
     public function getDocumentationLinks(): array
@@ -36,26 +36,26 @@ class GroupDoesNotExistSolution implements RunnableSolution
 
     public function getSolutionActionDescription(): string
     {
-        return 'Pressing the button below will try to create the missing group for you.';
+        return 'Pressing the button below will try to create the missing permission for you.';
     }
 
     public function getRunButtonText(): string
     {
-        return 'Create Group';
+        return 'Create Permission';
     }
 
     public function run(array $parameters = [])
     {
-        $groupModel = app(config('acl.models.group'));
-        $group = $groupModel->where('slug', $parameters['slug'])
-                            ->orWhere('name', $parameters['name'])
-                            ->first();
+        $permissionModel = app(config('acl.models.permission'));
 
-        if (! is_null($group)) {
-            throw GroupAlreadyExistsException::create();
+        $permission = $permissionModel->where('slug', $parameters['slug'])
+                                        ->orWhere('name', $parameters['name'])
+                                        ->first();
+        if (! is_null($permission)) {
+            throw PermissionAlreadyExistsException::create();
         }
 
-        $groupModel->create($parameters);
+        $permissionModel->create($parameters);
     }
 
     /*
@@ -71,7 +71,7 @@ class GroupDoesNotExistSolution implements RunnableSolution
         return [
             'name' => $name,
             'slug' => $this->slug,
-            'description' => $name.' group',
+            'description' => $name.' permission',
         ];
     }
 }
