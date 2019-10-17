@@ -18,6 +18,9 @@ Please check the [documentations](https://mateusjunges.github.io/laravel-acl).
 # Tests
 
 Run `composer test` to test this package.
+
+# Contributing
+Thank you for considering contributing for the Laravel ACL package! The contribution guide can be found [here](https://github.com/mateusjunges/laravel-acl/blob/master/CONTRIBUTING.md).
  
 # Changelog
 
@@ -29,4 +32,5 @@ Please see [changelog](https://github.com/mateusjunges/laravel-acl/blob/master/C
 - [All Contributors](https://github.com/mateusjunges/laravel-acl/graphs/contributors)
 
 # License
-The MIT License. Please see the [License File](https://github.com/mateusjunges/laravel-acl/blob/master/LICENSE) for more information.
+The Laravel ACL package is open-sourced software licenced under the [MIT License](https://opensource.org/licenses/MIT). 
+Please see the [License File](https://github.com/mateusjunges/laravel-acl/blob/master/LICENSE) for more information.
