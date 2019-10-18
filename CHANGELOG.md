@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.2.1
+- Fix [#143](https://github.com/mateusjunges/laravel-acl/issues/143)
+
 ## 2.2.0
 - Add Ignition Solutions for Laravel ACL exceptions [#141](https://github.com/mateusjunges/laravel-acl/pull/141)
 
