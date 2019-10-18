@@ -21,7 +21,8 @@
     "require-dev": {
         "orchestra/testbench": "^3.6|^3.7|^3.8",
         "phpunit/phpunit": "^7.0|^8.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "facade/ignition": "^1.4"
     },
     "license": "MIT",
     "authors": [
