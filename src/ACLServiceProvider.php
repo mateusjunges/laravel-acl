@@ -12,6 +12,8 @@ use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Console\Commands\CreatePermission;
 use Facade\IgnitionContracts\SolutionProviderRepository;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -113,18 +115,28 @@ class ACLServiceProvider extends ServiceProvider
 
     /**
      * Register the solution providers for package.
+     *
+     * This will only register with Ignition if it's installed. 
      */
     public function registerSolutionProviders(): void
     {
-        $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
-            \Junges\ACL\Exceptions\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\NotInstalledSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
-            \Junges\ACL\Exceptions\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
-        ]);
+        if (!config('acl.offer_solutions', false)) {
+            return;
+        }
+
+        try {
+            $this->app->make(SolutionProviderRepository::class)->registerSolutionProviders([
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingUsersTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingGroupsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingPermissionsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\MissingACLWildcardsTraitSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\NotInstalledSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\GroupDoesNotExistSolutionProvider::class,
+                \Junges\ACL\Exceptions\Solutions\Providers\PermissionDoesNotExistSolutionProvider::class,
+            ]);
+        } catch (BindingResolutionException $error) {
+            throw new IgnitionNotInstalledException();
+        }
     }
 
     /**
