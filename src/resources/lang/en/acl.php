@@ -14,4 +14,5 @@
         'user_does_not_exist_with_name'       => 'There is no user with this name:',
         'user_does_not_exist'                 => 'There is no user with this id:',
         'null_model'                          => 'You are passing a null model as parameter',
+        'ignition_not_installed'              => 'Ignition is not installed, please install to use solutions. composer require --dev facade/ignition',
     ];
