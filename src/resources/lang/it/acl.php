@@ -14,4 +14,5 @@
         'user_does_not_exist_with_name'       => "Non c'è nessun utente con questo nome:",
         'user_does_not_exist'                 => 'Non ci sono utenti con questo ID:',
         'null_model'                          => 'Si sta utilizzando un modello null come parametro.',
+        'ignition_not_installed'              => "L'accensione non è installata, installare per utilizzare le soluzioni. composer require --dev facade/ignition",
     ];

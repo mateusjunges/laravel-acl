@@ -24,6 +24,9 @@
         "predis/predis": "^1.1",
         "facade/ignition": "^1.4"
     },
+    "suggest": {
+        "facade/igntion": "Needed to be able to use the ignition solutions for laravel-acl"
+    },
     "license": "MIT",
     "authors": [
         {

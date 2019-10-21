@@ -14,4 +14,5 @@
         'user_does_not_exist_with_name'       => 'Es gibt keinen Benutzer mit diesem Namen:',
         'user_does_not_exist'                 => 'Es gibt keinen Benutzer mit dieser ID:',
         'null_model'                          => 'Sie verwenden ein Nullmodell als Parameter.',
+        'ignition_not_installed'              => 'Die Zündung ist nicht installiert, bitte installieren, um Lösungen zu verwenden. composer require --dev facade/ignition',
     ];
