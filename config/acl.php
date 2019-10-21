@@ -55,7 +55,7 @@ return [
      |If you want to customize your tables, set this flag to "true"
      | */
     'custom_migrations' => false,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Ignition Solution Suggestions

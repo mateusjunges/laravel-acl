@@ -116,11 +116,11 @@ class ACLServiceProvider extends ServiceProvider
     /**
      * Register the solution providers for package.
      *
-     * This will only register with Ignition if it's installed. 
+     * This will only register with Ignition if it's installed.
      */
     public function registerSolutionProviders(): void
     {
-        if (!config('acl.offer_solutions', false)) {
+        if (! config('acl.offer_solutions', false)) {
             return;
         }
 
