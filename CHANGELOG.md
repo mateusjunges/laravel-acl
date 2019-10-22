@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+## 2.2.2
+- Fix [#146]
+- Make Ignition Solutions an opt-in thing via the configuration file.
+
 ## 2.2.1
 - Fix [#143](https://github.com/mateusjunges/laravel-acl/issues/143)
 
