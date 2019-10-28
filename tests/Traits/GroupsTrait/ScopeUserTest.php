@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Tests\Traits\GroupsTrait;
 
-use Junges\ACL\Tests\User;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
 
