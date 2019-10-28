@@ -804,9 +804,19 @@ This package also provides translations for some messages. To use them is easy:
 * Change your `config/app.php` file locale for your corresponding locale, like `en` or `pt-br` .
 * Publish the translation files with 
 
- 
-
 ``` bash
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-translations"
  ```
+
+## Ignition Solutions
+
+This package ships with a lot of useful [Ignition Solutions](https://flareapp.io/docs/solutions/introduction) out of the box. To use it, you just need to change the `offer_solutions` flag, within the `config/acl.php` file to `true`.
+
+After changing the `offer_solutions` flag to `true`, you need to install the `facade/ignition` package as a dev dependency:
+
+```sh
+composer require facade/ignition --dev
+```
+
+> Remember to set the `APP_DEBUG` environment variable to `false`, when in production environment.
 
