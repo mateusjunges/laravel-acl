@@ -334,6 +334,36 @@ $user->syncPermissions(1, 'permission-slug', Permission::find(3));
 $user->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 ```
 
+## Syncing user groups
+
+The user groups can synced using this method:
+
+```php
+//With group ids:
+$user->syncGroups(1, 2, 3, 4);
+
+//Using array:
+$user->syncGroups([1, 2, 3, 4]);
+
+//Using group slugs:
+$user->syncGroups('group-1', 'group-2');
+
+//Using arrays of group slugs:
+$user->syncGroups(['group-1', 'group-2']);
+
+//Using group models:
+$user->syncGroups(Group::find(1), Group::find(2));
+
+//Using array of group models:
+$user->syncGroups([Group::find(1), Group::find(2)]);
+
+//Combining the three ways:
+$user->syncGroups(1, 'group-2', Group::find(3));
+
+//Or with arrays:
+$user->syncGroups([1, 'group-2', Group::find(3)]);
+```
+
 ## Syncing group permissions
 
 The groups permissions can synced with this method:
