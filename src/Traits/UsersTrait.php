@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Traits;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
@@ -329,6 +329,26 @@ trait UsersTrait
     }
 
     /**
+     * Sync user groups on database.
+     *
+     * @param mixed ...$groups
+     * @return $this|bool
+     */
+    public function syncGroups(...$groups)
+    {
+        $groups = $this->getCorrectParameter($groups);
+        $groups = $this->convertToGroupIds($groups);
+
+        if ($groups->count() == 0) {
+            return false;
+        }
+
+        $this->groups()->sync($groups);
+
+        return $this;
+    }
+
+    /**
      * Determine which type of parameter is being used.
      * @param $param
      * @return array
@@ -476,7 +496,7 @@ trait UsersTrait
      *
      * @return Builder
      */
-    public function scopeGroup(Builder $query, $groups) : Builder
+    public function scopeGroup(Builder $query, $groups): Builder
     {
         $groupModel = app(config('acl.models.group'));
         if ($groups instanceof Collection) {
@@ -566,7 +586,7 @@ trait UsersTrait
      *
      * @return Builder
      */
-    public function scopePermission(Builder $query, $permissions) : Builder
+    public function scopePermission(Builder $query, $permissions): Builder
     {
         $permissions = $this->convertToPermissionModels($permissions);
 

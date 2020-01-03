@@ -10,7 +10,7 @@ trait ACLWildcardsTrait
      * @param $permissionSlug
      * @return bool
      */
-    public function hasPermissionWithWildcards(string $permissionSlug) : bool
+    public function hasPermissionWithWildcards(string $permissionSlug): bool
     {
         $permissionSlug = str_replace('*', '%', $permissionSlug);
 

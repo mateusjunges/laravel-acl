@@ -2,11 +2,11 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Providers;
 
-use Throwable;
-use Illuminate\Support\Facades\Schema;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\Solutions\ACLNotInstalledSolution;
+use Throwable;
 
 class NotInstalledSolutionProvider implements HasSolutionsForThrowable
 {

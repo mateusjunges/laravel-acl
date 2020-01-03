@@ -2,12 +2,12 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Providers;
 
-use Throwable;
-use ReflectionClass;
-use Junges\ACL\Traits\PermissionsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Exceptions\Solutions\AddMissingPermissionsTraitSolution;
+use Junges\ACL\Traits\PermissionsTrait;
+use ReflectionClass;
+use Throwable;
 
 class MissingPermissionsTraitSolutionProvider implements HasSolutionsForThrowable
 {

@@ -2,12 +2,12 @@
 
 namespace Junges\Tests\Traits\UsersTrait;
 
-use Junges\ACL\Tests\User;
 use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\User;
 
 class RevokeAllPermissionsTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

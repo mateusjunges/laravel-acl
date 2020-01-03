@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 2.3.0
+- Added `syncGroups()` method on users trait. [#155](https://github.com/mateusjunges/laravel-acl/issues/155)
+
 ## 2.2.1
 - Fix [#143](https://github.com/mateusjunges/laravel-acl/issues/143)
 

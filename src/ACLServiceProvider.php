@@ -2,17 +2,17 @@
 
 namespace Junges\ACL;
 
+use Facade\IgnitionContracts\SolutionProviderRepository;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Junges\ACL\Console\Commands\CreateGroup;
+use Junges\ACL\Console\Commands\CreatePermission;
 use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
-use Junges\ACL\Console\Commands\CreatePermission;
-use Facade\IgnitionContracts\SolutionProviderRepository;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
 
 class ACLServiceProvider extends ServiceProvider

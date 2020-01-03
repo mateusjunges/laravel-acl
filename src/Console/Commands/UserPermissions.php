@@ -71,10 +71,10 @@ class UserPermissions extends Command
             }
             $permissions = $user->permissions->map(function ($permission) {
                 return [
-                   'name'        => $permission->name,
-                   'slug'        => $permission->slug,
-                   'description' => $permission->description,
-               ];
+                    'name'        => $permission->name,
+                    'slug'        => $permission->slug,
+                    'description' => $permission->description,
+                ];
             });
             $this->info('Displaying '.$user->name.'\'s permissions:');
             if ($permissions->count() == 0) {

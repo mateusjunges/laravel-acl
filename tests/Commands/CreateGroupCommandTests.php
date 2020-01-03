@@ -2,9 +2,9 @@
 
 namespace Junges\ACL\Tests\Commands;
 
+use Illuminate\Support\Facades\Artisan;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
-use Illuminate\Support\Facades\Artisan;
 
 class CreateGroupCommandTests extends TestCase
 {

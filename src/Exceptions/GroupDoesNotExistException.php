@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions;
 
-use InvalidArgumentException;
-use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
+use Facade\IgnitionContracts\Solution;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
 class GroupDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
@@ -15,7 +15,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
      *
      * @return GroupDoesNotExistException
      */
-    public static function withId($id) : self
+    public static function withId($id): self
     {
         $message = trans('acl::acl.group_does_not_exist');
 
@@ -26,7 +26,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
      * @param $slug
      * @return GroupDoesNotExistException
      */
-    public static function withSlug($slug) : self
+    public static function withSlug($slug): self
     {
         $message = trans('acl::acl.group_does_not_exist_with_slug');
 
@@ -36,7 +36,7 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
     /**
      * @return GroupDoesNotExistException
      */
-    public static function nullGroup() : self
+    public static function nullGroup(): self
     {
         $message = trans('acl::acl.null_model');
 
