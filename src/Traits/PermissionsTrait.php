@@ -2,8 +2,8 @@
 
 namespace Junges\ACL\Traits;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 
 trait PermissionsTrait
 {
@@ -49,7 +49,7 @@ trait PermissionsTrait
      *
      * @return Builder
      */
-    public function scopeUser(Builder $query, $user) : Builder
+    public function scopeUser(Builder $query, $user): Builder
     {
         $user = $this->convertToUserModel($user);
 

@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Providers;
 
-use Throwable;
-use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
+use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\Solutions\GroupDoesNotExistSolution;
+use Throwable;
 
 class GroupDoesNotExistSolutionProvider implements HasSolutionsForThrowable
 {

@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions;
 
-use InvalidArgumentException;
-use Facade\IgnitionContracts\Solution;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\ProvidesSolution;
+use Facade\IgnitionContracts\Solution;
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
 class PermissionDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
@@ -15,7 +15,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
      *
      * @return PermissionDoesNotExistException
      */
-    public static function withId($id) : self
+    public static function withId($id): self
     {
         $message = trans('acl::acl.permission_does_not_exist');
 
@@ -27,7 +27,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
      *
      * @return PermissionDoesNotExistException
      */
-    public static function withSlug($slug) : self
+    public static function withSlug($slug): self
     {
         $message = trans('acl::acl.permission_does_not_exist_with_slug');
 
@@ -37,7 +37,7 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
     /**
      * @return PermissionDoesNotExistException
      */
-    public static function nullPermission() : self
+    public static function nullPermission(): self
     {
         $message = trans('acl::acl.null_model');
 

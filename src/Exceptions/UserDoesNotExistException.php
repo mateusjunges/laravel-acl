@@ -12,7 +12,7 @@ class UserDoesNotExistException extends InvalidArgumentException
      *
      * @return UserDoesNotExistException
      */
-    public static function named($name) : self
+    public static function named($name): self
     {
         $message = trans('acl::acl.user_does_not_exist_with_name');
 
@@ -24,7 +24,7 @@ class UserDoesNotExistException extends InvalidArgumentException
      *
      * @return UserDoesNotExistException
      */
-    public static function withId($id) : self
+    public static function withId($id): self
     {
         $message = trans('acl::acl.user_does_not_exist');
 

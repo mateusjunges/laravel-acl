@@ -2,14 +2,14 @@
 
 namespace Junges\ACL\Tests\Exceptions;
 
-use Junges\ACL\Tests\Group;
-use Junges\ACL\Tests\TestCase;
-use Junges\ACL\Tests\Permission;
 use Illuminate\Database\QueryException;
+use Junges\ACL\Tests\Group;
+use Junges\ACL\Tests\Permission;
+use Junges\ACL\Tests\TestCase;
 
 class ExceptionsTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

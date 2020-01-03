@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Tests;
 
-use Junges\ACL\ACLServiceProvider;
-use Junges\ACL\ACLAuthServiceProvider;
-use Illuminate\Database\Schema\Blueprint;
 use Facade\Ignition\IgnitionServiceProvider;
+use Illuminate\Database\Schema\Blueprint;
+use Junges\ACL\ACLAuthServiceProvider;
+use Junges\ACL\ACLServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -68,7 +68,7 @@ class TestCase extends Orchestra
     /**
      * Set up the tests.
      */
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -107,9 +107,9 @@ class TestCase extends Orchestra
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-           'driver'   => 'sqlite',
-           'database' => ':memory:',
-           'prefix'   => '',
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
@@ -176,8 +176,8 @@ class TestCase extends Orchestra
             'email' => 'user@user.com',
         ]);
         User::create([
-             'name' => 'User 2',
-             'email' => 'admin@admin.com',
+            'name' => 'User 2',
+            'email' => 'admin@admin.com',
         ]);
         User::create([
             'name' => 'User 3',
@@ -191,9 +191,9 @@ class TestCase extends Orchestra
          * Create some groups
          */
         Group::create([
-           'name' => 'Test User Group',
-           'slug' => 'test-user-group',
-           'description' => 'This is the test user group',
+            'name' => 'Test User Group',
+            'slug' => 'test-user-group',
+            'description' => 'This is the test user group',
         ]);
         Group::create([
             'name' => 'Test Admin Group',
@@ -201,9 +201,9 @@ class TestCase extends Orchestra
             'description' => 'This is the test admin user group',
         ]);
         Group::create([
-           'name' => 'Test User Group 2',
-           'slug' => 'test-user-group-2',
-           'description' => 'This is the test user group 2',
+            'name' => 'Test User Group 2',
+            'slug' => 'test-user-group-2',
+            'description' => 'This is the test user group 2',
         ]);
 
         /*
@@ -215,9 +215,9 @@ class TestCase extends Orchestra
             'description' => 'This permission give you all access to the system',
         ]);
         Permission::create([
-           'name' => 'Edit Posts',
-           'slug' => 'edit-posts',
-           'description' => 'This permission allows you to edit posts',
+            'name' => 'Edit Posts',
+            'slug' => 'edit-posts',
+            'description' => 'This permission allows you to edit posts',
         ]);
         Permission::create([
             'name' => 'Edit Articles',
