@@ -2,14 +2,14 @@
 
 namespace Junges\Tests\Traits\UsersTrait;
 
-use Junges\ACL\Tests\User;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
-use Junges\ACL\Exceptions\PermissionDoesNotExistException;
+use Junges\ACL\Tests\User;
 
 class ScopePermissionTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

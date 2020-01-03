@@ -3,9 +3,9 @@
 namespace Junges\ACL\Tests;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Junges\ACL\Events\PermissionSaving;
 use Junges\ACL\Traits\PermissionsTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
 {

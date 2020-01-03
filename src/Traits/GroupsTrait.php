@@ -2,11 +2,11 @@
 
 namespace Junges\ACL\Traits;
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Junges\ACL\Exceptions\UserDoesNotExistException;
+use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
+use Junges\ACL\Exceptions\UserDoesNotExistException;
 
 trait GroupsTrait
 {
@@ -316,7 +316,7 @@ trait GroupsTrait
      *
      * @return Builder
      */
-    public function scopeUser(Builder $query, $user) : Builder
+    public function scopeUser(Builder $query, $user): Builder
     {
         $user = $this->convertToUserModel($user);
 

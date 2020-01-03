@@ -6,7 +6,7 @@ use Junges\ACL\Tests\TestCase;
 
 class SyncPermissionsMethodTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

@@ -2,12 +2,12 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Providers;
 
-use Throwable;
-use ReflectionClass;
-use Junges\ACL\Traits\ACLWildcardsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Exceptions\Solutions\AddMissingACLWildcardsTraitSolution;
+use Junges\ACL\Traits\ACLWildcardsTrait;
+use ReflectionClass;
+use Throwable;
 
 class MissingACLWildcardsTraitSolutionProvider implements HasSolutionsForThrowable
 {

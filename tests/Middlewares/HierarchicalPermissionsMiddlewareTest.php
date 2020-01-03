@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HierarchicalPermissionsMiddlewareTest extends MiddlewareTestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

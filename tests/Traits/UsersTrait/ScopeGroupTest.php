@@ -2,14 +2,14 @@
 
 namespace Junges\ACL\Tests\Traits\UsersTrait;
 
-use Junges\ACL\Tests\User;
+use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\TestCase;
-use Junges\ACL\Exceptions\GroupDoesNotExistException;
+use Junges\ACL\Tests\User;
 
 class ScopeGroupTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

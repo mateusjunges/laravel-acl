@@ -7,7 +7,7 @@ use Junges\ACL\Tests\TestCase;
 
 class HasAllGroupsMethodTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

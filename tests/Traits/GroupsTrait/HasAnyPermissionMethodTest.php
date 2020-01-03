@@ -2,12 +2,12 @@
 
 namespace Junges\Tests\Traits\GroupsTrait;
 
-use Junges\ACL\Tests\TestCase;
 use Junges\ACL\Tests\Permission;
+use Junges\ACL\Tests\TestCase;
 
 class HasAnyPermissionMethodTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

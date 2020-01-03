@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions\Solutions;
 
-use Illuminate\Support\Collection;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
 use Facade\IgnitionContracts\RunnableSolution;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 
 class ACLNotInstalledSolution implements RunnableSolution
 {
