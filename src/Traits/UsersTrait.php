@@ -329,6 +329,26 @@ trait UsersTrait
     }
 
     /**
+     * Sync user groups on database.
+     *
+     * @param mixed ...$groups
+     * @return $this|bool
+     */
+    public function syncGroups(...$groups)
+    {
+        $groups = $this->getCorrectParameter($groups);
+        $groups = $this->convertToGroupIds($groups);
+
+        if ($groups->count() == 0) {
+            return false;
+        }
+
+        $this->groups()->sync($groups);
+
+        return $this;
+    }
+
+    /**
      * Determine which type of parameter is being used.
      * @param $param
      * @return array
