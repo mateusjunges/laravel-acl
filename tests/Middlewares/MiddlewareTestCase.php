@@ -4,12 +4,12 @@ namespace Junges\ACL\Tests\Middlewares;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Junges\ACL\Tests\TestCase;
-use Junges\ACL\Middlewares\GroupMiddleware;
 use Junges\ACL\Exceptions\UnauthorizedException;
+use Junges\ACL\Middlewares\GroupMiddleware;
+use Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware;
 use Junges\ACL\Middlewares\PermissionMiddleware;
 use Junges\ACL\Middlewares\PermissionOrGroupMiddleware;
-use Junges\ACL\Middlewares\HierarchicalPermissionsMiddleware;
+use Junges\ACL\Tests\TestCase;
 
 class MiddlewareTestCase extends TestCase
 {
@@ -33,7 +33,7 @@ class MiddlewareTestCase extends TestCase
      */
     protected $hierarchicalMiddleware;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->permissionMiddleware = new PermissionMiddleware($this->app);

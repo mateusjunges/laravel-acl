@@ -2,12 +2,12 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Providers;
 
-use Throwable;
-use ReflectionClass;
-use Junges\ACL\Traits\GroupsTrait;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Exceptions\Solutions\AddMissingGroupsTraitSolution;
+use Junges\ACL\Traits\GroupsTrait;
+use ReflectionClass;
+use Throwable;
 
 class MissingGroupsTraitSolutionProvider implements HasSolutionsForThrowable
 {

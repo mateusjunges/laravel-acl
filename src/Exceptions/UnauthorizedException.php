@@ -12,7 +12,7 @@ class UnauthorizedException extends HttpException
      *
      * @return UnauthorizedException
      */
-    public static function forGroups() : self
+    public static function forGroups(): self
     {
         $message = trans('acl::acl.forGroups');
 
@@ -24,7 +24,7 @@ class UnauthorizedException extends HttpException
      *
      * @return UnauthorizedException
      */
-    public static function forPermissions() : self
+    public static function forPermissions(): self
     {
         $message = trans('acl::acl.forPermissions');
 
@@ -36,7 +36,7 @@ class UnauthorizedException extends HttpException
      *
      * @return UnauthorizedException
      */
-    public static function notLoggedIn() : self
+    public static function notLoggedIn(): self
     {
         $message = trans('acl::acl.notLoggedIn');
 
@@ -48,7 +48,7 @@ class UnauthorizedException extends HttpException
      *
      * @return UnauthorizedException
      */
-    public static function forGroupsOrPermissions() : self
+    public static function forGroupsOrPermissions(): self
     {
         $message = trans('acl::acl.forGroupsOrPermissions');
 

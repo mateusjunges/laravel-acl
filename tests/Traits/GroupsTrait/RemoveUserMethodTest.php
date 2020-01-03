@@ -2,12 +2,12 @@
 
 namespace Junges\ACL\Tests\Traits\GroupsTrait;
 
-use Junges\ACL\Tests\User;
 use Junges\ACL\Tests\TestCase;
+use Junges\ACL\Tests\User;
 
 class RemoveUserMethodTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }

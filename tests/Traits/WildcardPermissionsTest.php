@@ -2,12 +2,12 @@
 
 namespace Junges\ACL\Tests\Traits;
 
-use Junges\ACL\Tests\TestCase;
 use Illuminate\Support\Facades\Auth;
+use Junges\ACL\Tests\TestCase;
 
 class WildcardPermissionsTest extends TestCase
 {
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
     }
