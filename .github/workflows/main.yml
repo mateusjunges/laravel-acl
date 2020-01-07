@@ -22,7 +22,7 @@ jobs:
             testbench: 3.7.*
           - laravel: 5.6.*
             testbench: 3.6.*
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ atrix.os
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
