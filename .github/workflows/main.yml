@@ -12,7 +12,7 @@ jobs:
         php: [7.4, 7.3, 7.2]
         laravel: [6.*, 5.8.*, 5.7.*, 5.6.*]
         dependency-version: [prefer-lowest, prefer-stable]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         include: 
           - laravel: 6.*
             testbench: 4.*
@@ -34,9 +34,9 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
           coverage: none
       - name: Install dependencies
-        run: 
-            composer/composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
-            composer/composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
     
       - name: Execute tests
         run: vendor/bin/phpunit
