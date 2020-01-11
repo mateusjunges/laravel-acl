@@ -222,6 +222,22 @@ $user->hasAnyPermission(1, 'permission-slug' Permission::find(3));
 
 If the user has any of the permissions passed, the function return `true` . Otherwise, returns `false` .
 
+### Checking if user has group:
+
+To check if some user has a specific group, you can use the `hasGroup` method. This method accept a `Group` model, 
+the group id or the group slug:
+
+```php
+// With group model:
+$user->hasGroup(Group::find(1));
+
+// With group id:
+$user->hasGroup(1);
+
+// With group slug:
+$user->hasGroup('some-group-slug');
+```
+
 ### Checking if user has permission trough group:
 
 You can check if one user is associated with a group which has the required permission:
@@ -236,6 +252,23 @@ $user->hasPermissionThroughGroup(Permission::find(1));
 //With permission slug:
 $user->hasPermissionThroughGroup('admin');
 ```
+
+### Checking if user has permission direct assigned (not trough groups): 
+Sometimes you need to check if one of your users has a permission assigned directly, and not trough group.
+For example: the `$user` has the permission `$permission` assigned via group, but the `$permission2` is assigned
+directly. The `hasPermission` method returns `true` for both permissions. If you want to check for direct permissions,
+just use the `hasDirectPermission` method:
+
+```php
+// With permission model:
+$user->hasDirectPermission(Permission::find(1));
+
+// With permission slugs:
+$user->hasDirectPermission('some-permission-slug');
+
+// With permission ids:
+$user->hasDirectPermission(1);
+``` 
 
 ### Checking if group has permissions:
 
@@ -428,8 +461,8 @@ $group->assignAllPermissions();
 //Attach all users to a group:
 $group->attachAllUsers();
 
-//Dettach all users from a group:
-$group->dettachAllUsers();
+//Detach all users from a group:
+$group->detachAllUsers();
 ```
 
 ## Local scopes
@@ -466,6 +499,25 @@ With this scope, only permissions granted to the given user will be returned.
 ```php
 //Return only permissions granted to the 'Test' user:
 $permissions = Permission::user('Test')->get();
+```
+
+### Retrieving user permissions
+
+If you want to get all user permissions (directly assigned), you can use the  `permissions` method:
+```php
+$permissions = $user->permissions()->get();
+```
+
+To also get permission assigned to the user via a group, you can use the `getAllPermissions` method:
+```php
+$user->getAllPermissions();
+```
+
+### Retrieving user groups
+
+To get all user groups you just need to use the `groups` method:
+```php
+$groups = $user->groups()->get();
 ```
 
 The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id` .
@@ -568,6 +620,7 @@ Check for any group:
 ```
 
 <b>NOTE</b>: You can only use custom blade directives with group/permission id or slug.
+
 # Using a Middleware
 
 If you want to use the middleware provided by this package
