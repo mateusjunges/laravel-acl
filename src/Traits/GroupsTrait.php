@@ -448,7 +448,7 @@ trait GroupsTrait
      * @param $param
      * @return array
      */
-    public function getCorrectParameter($param)
+    private function getCorrectParameter($param)
     {
         if (is_array($param[0])) {
             return $param[0];
