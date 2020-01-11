@@ -353,7 +353,7 @@ trait UsersTrait
      * @param $param
      * @return array
      */
-    public function getCorrectParameter(array $param)
+    private function getCorrectParameter(array $param)
     {
         if (is_array($param[0])) {
             return $param[0];
