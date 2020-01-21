@@ -22,6 +22,13 @@ jobs:
             testbench: 3.7.*
           - laravel: 5.6.*
             testbench: 3.6.*
+        exclude:  
+          - laravel: 5.7
+            php: 7.4
+          - laravel: 5.6
+            php: 7.4
+          - laravel: 5.5
+            php: 7.4
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }} - ${{ matrix.os }}
     steps:
       - name: Checkout code
