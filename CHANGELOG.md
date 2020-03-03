@@ -2,10 +2,11 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
-# **Not Released**
+ 
+# 2.4.0
+- Add compatibility with Laravel v7.x
 - Changed public method `getCorrectParameter` to `private` on `GroupsTrait` and `UsersTrait`
 - Improved documentations
- 
 
 # 2.3.0
 - Added `syncGroups()` method on users trait. [#155](https://github.com/mateusjunges/laravel-acl/issues/155)
