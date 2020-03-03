@@ -14,7 +14,6 @@ module.exports = {
               title: 'Guide',
               collapsable: false,
               children: [
-                '',
                 'getting-started',
                 'usage',
               ]
