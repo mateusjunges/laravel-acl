@@ -10,7 +10,7 @@
         "permissions",
         "access-control-list"
     ],
-    "support" {
+    "support": {
         "issues": "https://github.com/mateusjunges/laravel-acl/issues",
         "source": "https://github.com/mateusjunges/laravel-acl"
     },
