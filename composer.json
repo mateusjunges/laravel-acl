@@ -22,7 +22,7 @@
         "orchestra/testbench": "^3.6|^3.7|^3.8|^5.0",
         "phpunit/phpunit": "^7.0|^8.0",
         "predis/predis": "^1.1",
-        "facade/ignition": "^1.4"
+        "facade/ignition": "^2.0"
     },
     "suggest": {
         "facade/igntion": "Needed to be able to use the ignition solutions for laravel-acl"
