@@ -4,41 +4,31 @@ matrix:
   fast_finish: true
   include:
     - php: 7.2
-      env: LARAVEL='5.6.*' TESTBENCH='3.6.*' COMPOSER_FLAGS='--prefer-lowest'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
     - php: 7.2
-      env: LARAVEL='5.6.*' TESTBENCH='3.6.*' COMPOSER_FLAGS='--prefer-stable'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
     - php: 7.2
-      env: LARAVEL='5.7.*' TESTBENCH='3.7.*' COMPOSER_FLAGS='--prefer-stable'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
     - php: 7.2
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
-    - php: 7.2
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
+      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='2.*'
     - php: 7.3
-      env: LARAVEL='5.6.*' TESTBENCH='3.6.*' COMPOSER_FLAGS='--prefer-stable'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
     - php: 7.3
-      env: LARAVEL='5.7.*' TESTBENCH='3.7.*' COMPOSER_FLAGS='--prefer-stable'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
     - php: 7.3
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
     - php: 7.3
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
-    - php: 7.3
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-lowest'
-    - php: 7.3
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable'
-    - php: 7.4snapshot
-      env: LARAVEL='5.6.*' TESTBENCH='3.6.*' COMPOSER_FLAGS='--prefer-stable'
-    - php: 7.4snapshot
-      env: LARAVEL='5.7.*' TESTBENCH='3.7.*' COMPOSER_FLAGS='--prefer-stable'
-    - php: 7.4snapshot
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
-    - php: 7.4snapshot
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable'
-
-  allow_failures:
-    - php: 7.4snapshot
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+    - php: 7.4
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+    - php: 7.4
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+    - php: 7.4
+      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='2.*'
 
 before_install:
   - travis_retry composer self-update
+  - travis_retry composer require --no-update --no-interaction "facade/ignition:${IGNITION}" --dev
   - travis_retry composer require --no-update --no-interaction "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:

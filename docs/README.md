@@ -2,7 +2,7 @@
 home: true
 heroImage: /laravel-acl.png
 actionText: Get Started →
-actionLink: /guide/
+actionLink: /guide/getting-started/
 footer: MIT Licensed | Laravel ACL
 ---
 <p align="center">
@@ -14,7 +14,6 @@ footer: MIT Licensed | Laravel ACL
 </p>
 
 ## Changelog
-
 Please see [changelog](https://github.com/mateusjunges/laravel-acl/blob/master/CHANGELOG.md) for more information about the changes on this package.
 
 ## Credits

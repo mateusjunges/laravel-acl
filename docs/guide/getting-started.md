@@ -13,7 +13,7 @@ Or add this line in your `composer.json`, inside of the `require` section:
 ```json
 {
     "require": {
-        "mateusjunges/laravel-acl": "2.3.*"
+        "mateusjunges/laravel-acl": "2.4.*"
     }
 }
 ```
