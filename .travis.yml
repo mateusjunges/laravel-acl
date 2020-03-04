@@ -28,7 +28,7 @@ matrix:
 
 before_install:
   - travis_retry composer self-update
-  - travis_retry composer require --no-update --no-interaction "facade/ignition:${IGNITION}"
+  - travis_retry composer require --no-update --no-interaction "facade/ignition:${IGNITION}" --dev
   - travis_retry composer require --no-update --no-interaction "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
