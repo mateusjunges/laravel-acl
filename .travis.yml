@@ -4,31 +4,30 @@ matrix:
   fast_finish: true
   include:
     - php: 7.2
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
     - php: 7.2
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.2
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.2
-      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='2.*'
+      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.3
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-lowest'
     - php: 7.3
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.3
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-lowest' IGNITION='1.*'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-lowest'
     - php: 7.3
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.4
-      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='5.8.*' TESTBENCH='3.8.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.4
-      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='1.*'
+      env: LARAVEL='6.*' TESTBENCH='4.*' COMPOSER_FLAGS='--prefer-stable'
     - php: 7.4
-      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable' IGNITION='2.*'
+      env: LARAVEL='7.*' TESTBENCH='5.*' COMPOSER_FLAGS='--prefer-stable'
 
 before_install:
   - travis_retry composer self-update
-  - travis_retry composer require --no-update --no-interaction "facade/ignition:${IGNITION}" --dev
   - travis_retry composer require --no-update --no-interaction "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}"
 
 install:
