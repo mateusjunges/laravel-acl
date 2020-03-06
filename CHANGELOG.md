@@ -2,7 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
- 
+# 2.4.1
+- Fixed `facade/ignition` dependency for laravel 7.x
+
 # 2.4.0
 - Changed public method `getCorrectParameter` to `private` on `GroupsTrait` and `UsersTrait`
 - Improved documentations
