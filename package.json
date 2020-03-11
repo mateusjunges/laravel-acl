@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev:docs": "vuepress dev docs",
-    "build:docs": "NODE_ENV=production vuepress build docs"
+    "docs:build": "vuepress dev docs",
+    "docs:dev": "NODE_ENV=production vuepress build docs"
   },
   "devDependencies": {
     "vuepress": "^1.2.0"

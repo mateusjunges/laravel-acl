@@ -5,9 +5,7 @@ actionText: Get Started →
 actionLink: /guide/getting-started/
 footer: MIT Licensed | Laravel ACL
 ---
-<p align="center">
-    <img src="/docs/.vuepress/public/laravel-acl.png">
-</p>
+
 <p align="center">
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
