@@ -10,7 +10,7 @@ jobs:
       matrix:
         php: [7.2, 7.3, 7.4]
         laravel: [7.*, 6.*, 5.8.*]
-        dependency-version: [prefer-stable]
+        dependency-version: [prefer-stable, prefer-lowest]
         include:
           - laravel: 7.*
             testbench: 5.*
