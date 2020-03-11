@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
-        laravel: [5.8, 6.*, 7.*]
+        laravel: [7.*]
         dependency-version: [prefer-stable]
         include:
           - laravel: 7.*
