@@ -25,6 +25,6 @@ class Permission extends Model
 
     public function getRouteKeyName()
     {
-        return config('acl.route_model_binding_keys.permission_model','slug');
+        return config('acl.route_model_binding_keys.permission_model', 'slug');
     }
 }
