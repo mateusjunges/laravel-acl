@@ -27,12 +27,12 @@ class RouteModelBindingTest extends TestCase
         // Test the default key:
         $this->assertEquals('slug', $permission->getRouteKeyName());
 
-        $this->app['config']->set('acl.route_model_binding_keys.group_model', 'slug');
+        $this->app['config']->set('acl.route_model_binding_keys.permission_model', 'slug');
         $this->assertEquals('slug', $permission->getRouteKeyName());
-        $this->app['config']->set('acl.route_model_binding_keys.group_model', 'id');
+        $this->app['config']->set('acl.route_model_binding_keys.permission_model', 'id');
         $this->assertEquals('id', $permission->getRouteKeyName());
 
-        $this->app['config']->set('acl.route_model_binding_keys.group_model', '');
+        $this->app['config']->set('acl.route_model_binding_keys.permission_model', '');
         $this->assertEquals('', $permission->getRouteKeyName());
     }
 }
