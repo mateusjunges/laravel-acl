@@ -36,4 +36,9 @@ class Group extends Model
         parent::__construct($attributes);
         $this->setTable(config('acl.tables.groups'));
     }
+
+    public function getRouteKeyName()
+    {
+        return config('acl.route_model_binding_keys.group_model', 'slug');
+    }
 }

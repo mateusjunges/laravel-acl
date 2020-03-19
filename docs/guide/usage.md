@@ -857,6 +857,20 @@ in the configuration.
 
 To do this you must update the `models.group` and `models.permission` values in the configuration file.
 
+### Route model key
+If you would like model binding to use a database column other than id when
+retrieving a given model class, you may override the getRouteKeyName method
+on the Eloquent model with yours. The default key used for route model binding
+in this package is the `slug` database column. You can modify it by changing the
+`route_model_binding_keys` configuration, in `config/acl.php` file:
+
+```php
+'route_model_binding_keys' => [
+    'group_model' => 'slug',
+    'permission_model' => 'slug'
+],
+```
+
 ### Basic form templates
 
 This package provides form to add a group or permission to the user, and permissions to groups.
