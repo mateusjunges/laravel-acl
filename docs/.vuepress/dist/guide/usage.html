@@ -8,7 +8,7 @@
     <meta name="generator" content="VuePress 1.3.1">
     <link rel="shortcut icon" href="/laravel-acl/favicon.ico">
     
-    <link rel="preload" href="/laravel-acl/assets/css/0.styles.8095ea24.css" as="style"><link rel="preload" href="/laravel-acl/assets/js/app.9b8d383f.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/2.303f5113.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/7.869ae31f.js" as="script"><link rel="prefetch" href="/laravel-acl/assets/js/3.e977176a.js"><link rel="prefetch" href="/laravel-acl/assets/js/4.b2c0328d.js"><link rel="prefetch" href="/laravel-acl/assets/js/5.75941ce9.js"><link rel="prefetch" href="/laravel-acl/assets/js/6.f89567bb.js"><link rel="prefetch" href="/laravel-acl/assets/js/8.0152cbfd.js">
+    <link rel="preload" href="/laravel-acl/assets/css/0.styles.8095ea24.css" as="style"><link rel="preload" href="/laravel-acl/assets/js/app.e50979f0.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/2.303f5113.js" as="script"><link rel="preload" href="/laravel-acl/assets/js/7.1c303bad.js" as="script"><link rel="prefetch" href="/laravel-acl/assets/js/3.e977176a.js"><link rel="prefetch" href="/laravel-acl/assets/js/4.b2c0328d.js"><link rel="prefetch" href="/laravel-acl/assets/js/5.75941ce9.js"><link rel="prefetch" href="/laravel-acl/assets/js/6.f89567bb.js"><link rel="prefetch" href="/laravel-acl/assets/js/8.0152cbfd.js">
     <link rel="stylesheet" href="/laravel-acl/assets/css/0.styles.8095ea24.css">
   </head>
   <body>
@@ -451,7 +451,15 @@ with the <code>user id</code> , the user's <code>username</code> , the user <cod
 </code></pre></div><p>and with the user's email:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>php artisan user:permissions <span class="token string">&quot;email@domain.com&quot;</span>
 </code></pre></div><h2 id="extending-and-replacing-models"><a href="#extending-and-replacing-models" class="header-anchor">#</a> Extending and replacing models</h2> <p>If you need to EXTEND the existing <code>Group</code> or <code>Permission</code> models note that:</p> <ul><li>Your <code>Group</code> model needs to extend the <code>\Junges\ACL\Http\Models\Group</code> model</li> <li>Your <code>Permission</code> model needs to extend the <code>\Junges\ACL\Http\Models\Permission</code> model</li></ul> <p>If you need to REPLACE the existing <code>Group</code> or <code>Permission</code> models you need to keep the
 following things in mind:</p> <ul><li>Your <code>Group</code> model needs to use the <code>\Junges\ACL\Traits\GroupTrait</code> trait</li> <li>Your <code>Permission</code> model needs to implement the <code>\Junges\ACL\Traits\PermissionTrait</code> trait</li></ul> <p>In both cases, whether extending or replacing, you will need to specify your new models
-in the configuration.</p> <p>To do this you must update the <code>models.group</code> and <code>models.permission</code> values in the configuration file.</p> <h3 id="basic-form-templates"><a href="#basic-form-templates" class="header-anchor">#</a> Basic form templates</h3> <p>This package provides form to add a group or permission to the user, and permissions to groups.
+in the configuration.</p> <p>To do this you must update the <code>models.group</code> and <code>models.permission</code> values in the configuration file.</p> <h3 id="route-model-key"><a href="#route-model-key" class="header-anchor">#</a> Route model key</h3> <p>If you would like model binding to use a database column other than id when
+retrieving a given model class, you may override the getRouteKeyName method
+on the Eloquent model with yours. The default key used for route model binding
+in this package is the <code>slug</code> database column. You can modify it by changing the
+<code>route_model_binding_keys</code> configuration, in <code>config/acl.php</code> file:</p> <div class="language-php extra-class"><pre class="language-php"><code><span class="token single-quoted-string string">'route_model_binding_keys'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">[</span>
+    <span class="token single-quoted-string string">'group_model'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'slug'</span><span class="token punctuation">,</span>
+    <span class="token single-quoted-string string">'permission_model'</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token single-quoted-string string">'slug'</span>
+<span class="token punctuation">]</span><span class="token punctuation">,</span>
+</code></pre></div><h3 id="basic-form-templates"><a href="#basic-form-templates" class="header-anchor">#</a> Basic form templates</h3> <p>This package provides form to add a group or permission to the user, and permissions to groups.
 Just include the view on you form:</p> <div class="language-php extra-class"><pre class="language-php"><code><span class="token operator">&lt;</span>form action<span class="token operator">=</span><span class="token double-quoted-string string">&quot;&quot;</span> method<span class="token operator">=</span><span class="token double-quoted-string string">&quot;&quot;</span><span class="token operator">&gt;</span>
     @<span class="token keyword">include</span><span class="token punctuation">(</span><span class="token single-quoted-string string">'acl::_forms.groups.group'</span><span class="token punctuation">)</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">&gt;</span>
@@ -468,6 +476,6 @@ Just include the view on you form:</p> <div class="language-php extra-class"><pr
       <a href="/laravel-acl/guide/getting-started.html" class="prev">
         Getting started
       </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/laravel-acl/assets/js/app.9b8d383f.js" defer></script><script src="/laravel-acl/assets/js/2.303f5113.js" defer></script><script src="/laravel-acl/assets/js/7.869ae31f.js" defer></script>
+    <script src="/laravel-acl/assets/js/app.e50979f0.js" defer></script><script src="/laravel-acl/assets/js/2.303f5113.js" defer></script><script src="/laravel-acl/assets/js/7.1c303bad.js" defer></script>
   </body>
 </html>

@@ -25,4 +25,9 @@ class Group extends Model
     protected $dispatchesEvents = [
         'creating' => GroupSaving::class,
     ];
+
+    public function getRouteKeyName()
+    {
+        return config('acl.route_model_binding_keys.group_model', 'slug');
+    }
 }

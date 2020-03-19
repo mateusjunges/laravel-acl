@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 2.4.3
+- Add support for route model key bindings (#170)
+
 # 2.4.2
 - Change test suite to run on GitHub Actions instead of Travis CI.
 

@@ -33,4 +33,9 @@ class Permission extends Model
         parent::__construct($attributes);
         $this->setTable(config('acl.tables.permissions'));
     }
+
+    public function getRouteKeyName()
+    {
+        return config('acl.route_model_binding_keys.permission_model', 'slug');
+    }
 }
