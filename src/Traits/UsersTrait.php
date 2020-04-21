@@ -252,7 +252,9 @@ trait UsersTrait
      */
     public function isAdmin()
     {
-        return $this->hasPermission('admin');
+        $admin = config('acl.admin_permission', 'admin');
+
+        return $this->hasPermission($admin);
     }
 
     /**

@@ -5,17 +5,15 @@ actionText: Get Started →
 actionLink: /guide/getting-started/
 footer: MIT Licensed | Laravel ACL
 ---
-
 <p align="center">
-<a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/mateusjunges/laravel-acl" target="_blank"><img src="https://poser.pugx.org/mateusjunges/laravel-acl/license.svg" alt="License"></a>
-<a href="https://github.styleci.io/repos/175907190" target="_blank"><img src="https://github.styleci.io/repos/175907190/shield?style=flat"></a>    
-<a href="https://github.com/mateusjunges/laravel-acl/actions?query=workflow%3A%22Continuous+Integration%22" target="_blank">
-    <img src="https://github.com/mateusjunges/laravel-acl/workflows/Continuous%20Integration/badge.svg">
-</a>
-</p>
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
+[![Total Downloads](https://img.shields.io/packagist/dt/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
+[![StyleCI](https://styleci.io/repos/175907190/shield)](https://styleci.io/repos/175907190)
+![](https://github.com/mateusjunges/laravel-acl/workflows/Continuous%20Integration/badge.svg)
+
+</p>
 
 ## Changelog
 Please see [changelog](https://github.com/mateusjunges/laravel-acl/blob/master/CHANGELOG.md) for more information about the changes on this package.

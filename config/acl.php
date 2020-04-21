@@ -75,6 +75,13 @@ return [
     'custom_migrations' => false,
 
     /*
+    |
+    | If you want to customize the admin-permission, you can change it here.
+    | By default, it is set to 'admin'.
+    */
+    'admin_permission' => 'admin',
+
+    /*
     |--------------------------------------------------------------------------
     | Ignition Solution Suggestions
     |--------------------------------------------------------------------------
