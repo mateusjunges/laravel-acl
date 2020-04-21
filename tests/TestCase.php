@@ -118,6 +118,9 @@ class TestCase extends Orchestra
 
         // Make sure the ignition integration does register correctly
         $app['config']->set('acl.offer_solutions', true);
+
+        // Set the default admin permission
+        $app['config']->set('acl.admin_permission', 'admin');
     }
 
     /**
