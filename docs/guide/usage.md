@@ -137,6 +137,16 @@ $group->assignUser(User::find(1), 'User name', 3);
 $group->assignUser([User::find(1), 'User name', 3]);
 ```
 
+## Customize the `admin` permission
+
+This package allows you to customize the name of your `admin` permission. 
+All you have to do is publish the configuation file and change the `admin_permission` to the slug you want to use.
+If this key is no present in the `config/acl.php` file, the `admin` slug will be used:
+
+```php
+'admin_permission' => 'admin',
+```
+
 ## Revoke permissions
 
 ### 1 - Revoke permissions from user
@@ -501,7 +511,20 @@ With this scope, only permissions granted to the given user will be returned.
 $permissions = Permission::user('Test')->get();
 ```
 
-### Retrieving user permissions
+### The `user` scope (on `\Junges\ACL\Traits\GroupsTrait` )
+
+The `GroupsTrait` adds a `user` scope to the query to certain users.
+With this scope, only groups granted to the given user will be returned.
+
+```php
+//Returns only groups granted to the 'Test' named user:
+$groups = Group::user('Test')->get();
+```
+
+The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id` .
+
+
+## Retrieving user permissions
 
 If you want to get all user permissions (directly assigned), you can use the  `permissions` method:
 ```php
@@ -513,23 +536,11 @@ To also get permission assigned to the user via a group, you can use the `getAll
 $user->getAllPermissions();
 ```
 
-### Retrieving user groups
+## Retrieving user groups
 
 To get all user groups you just need to use the `groups` method:
 ```php
 $groups = $user->groups()->get();
-```
-
-The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id` .
-
-### The `user` scope (on `\Junges\ACL\Traits\GroupsTrait` )
-
-The `GroupsTrait` adds a `user` scope to the query to certain users.
-With this scope, only groups granted to the given user will be returned.
-
-```php
-//Returns only groups granted to the 'Test' named user:
-$groups = Group::user('Test')->get();
 ```
 
 The `user` scope can accept a string (user name, username, user email), a `App\User::class` instance or the user `id` .
@@ -551,7 +562,7 @@ directive and `can()` method:
 @endcan
 ```
 
-### Using package custom blade directives
+## Using package custom blade directives
 
 This package also adds Blade directives to verify whether
 the currently logged in user has a given list of groups/permissions.
@@ -734,7 +745,7 @@ If the user has any of the above permissions, the access is granted.
 
 In positive case, both middleware guarantee access to the route.
 
-## Handling group and permission exceptions
+# Handling group and permission exceptions
 
 If you want to override the default `403` response, you can catch the `Unauthorized` exception using the 
 laravel exception handler:
@@ -779,7 +790,7 @@ The same is valid for the `Junges\ACL\Exceptions\PermissionAlreadyExistsExceptio
 
 The same is valid for `PermissionDoesNotExistException` , `GroupDoesNotExistException` and `UserDoesNotExistException.` 
 
-## Using artisan commands
+# Using artisan commands
 
 You can create a group or a permission from a console with artisan commands:
 
@@ -839,7 +850,7 @@ and with the user's email:
 php artisan user:permissions "email@domain.com"
 ```
 
-## Extending and replacing models
+# Extending and replacing models
 
 If you need to EXTEND the existing `Group` or `Permission` models note that:
 
@@ -857,7 +868,7 @@ in the configuration.
 
 To do this you must update the `models.group` and `models.permission` values in the configuration file.
 
-### Route model key
+# Route model key
 If you would like model binding to use a database column other than id when
 retrieving a given model class, you may override the getRouteKeyName method
 on the Eloquent model with yours. The default key used for route model binding
@@ -871,7 +882,7 @@ in this package is the `slug` database column. You can modify it by changing the
 ],
 ```
 
-### Basic form templates
+# Basic form templates
 
 This package provides form to add a group or permission to the user, and permissions to groups.
 Just include the view on you form:
@@ -894,7 +905,7 @@ Just include the view on you form:
 </form>
 ```
 
-## Translations
+# Translations
 
 This package also provides translations for some messages. To use them is easy:
 
@@ -905,7 +916,7 @@ This package also provides translations for some messages. To use them is easy:
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-translations"
  ```
 
-## Ignition Solutions
+# Ignition Solutions
 
 This package ships with a lot of useful [Ignition Solutions](https://flareapp.io/docs/solutions/introduction) out of the box. To use it, you just need to change the `offer_solutions` flag, within the `config/acl.php` file to `true`.
 
