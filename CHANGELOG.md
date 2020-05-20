@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 2.4.5
+- Add support for spanish translations
+
 # 2.4.4
 - Makes the `admin` permission configurable. Now you can change the slug used as `admin` permission by this package.
 Check [#174](https://github.com/mateusjunges/laravel-acl/pull/174)
