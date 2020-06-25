@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 class CreatePermissionsTable extends Migration
 {
@@ -13,7 +14,7 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        $permissionsTable = config('acl.tables.permissions', 'permissions');
+        $permissionsTable = Config::get('tables.permissions', 'permissions');
         Schema::create($permissionsTable, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique()->nullable(false);
@@ -31,7 +32,7 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        $tables = config('acl.tables');
+        $tables = Config::get('tables');
         Schema::dropIfExists($tables['permissions']);
     }
 }

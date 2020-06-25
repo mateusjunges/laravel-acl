@@ -4,6 +4,7 @@ namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class GroupDoesNotExistSolution implements RunnableSolution
 {
@@ -46,7 +47,7 @@ class GroupDoesNotExistSolution implements RunnableSolution
 
     public function run(array $parameters = [])
     {
-        $groupModel = app(config('acl.models.group'));
+        $groupModel = app(Config::get('models.group'));
         $group = $groupModel->where('slug', $parameters['slug'])
                             ->orWhere('name', $parameters['name'])
                             ->first();

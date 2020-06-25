@@ -3,6 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
+use Junges\ACL\Helpers\Config;
 
 class InstallCommand extends Command
 {
@@ -48,7 +49,7 @@ class InstallCommand extends Command
 
         $this->comment('Remember to use the <info>UsersTrait</info> inside your User model.');
 
-        if (! config('acl.offer_solutions', false)) {
+        if (! Config::get('offer_solutions', false)) {
             $this->line("\n<options=bold>".str_repeat('=', 70).'</>');
 
             $this->comment('Ignition Solutions are disabled by default.');

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 class CreateGroupHasPermissionsTable extends Migration
 {
@@ -13,9 +14,9 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function up()
     {
-        $groupHasPermissionTable = config('acl.tables.group_has_permissions', 'group_has_permissions');
-        $groupsTable = config('acl.tables.groups', 'groups');
-        $permissionsTable = config('acl.tables.permissions', 'permissions');
+        $groupHasPermissionTable = Config::get('tables.group_has_permissions', 'group_has_permissions');
+        $groupsTable = Config::get('tables.groups', 'groups');
+        $permissionsTable = Config::get('tables.permissions', 'permissions');
 
         Schema::create($groupHasPermissionTable,
             function (Blueprint $table) use ($groupsTable, $permissionsTable) {
@@ -40,7 +41,7 @@ class CreateGroupHasPermissionsTable extends Migration
      */
     public function down()
     {
-        $groupHasPermissionsTable = config('acl.tables.group_has_permissions', 'group_has_permissions');
+        $groupHasPermissionsTable = Config::get('tables.group_has_permissions', 'group_has_permissions');
         Schema::dropIfExists($groupHasPermissionsTable);
     }
 }

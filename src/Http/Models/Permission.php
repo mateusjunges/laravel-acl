@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Junges\ACL\Events\PermissionSaving;
 use Junges\ACL\Traits\PermissionsTrait;
+use Junges\ACL\Helpers\Config;
 
 class Permission extends Model
 {
@@ -31,11 +32,11 @@ class Permission extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->setTable(config('acl.tables.permissions'));
+        $this->setTable(Config::get('tables.permissions'));
     }
 
     public function getRouteKeyName()
     {
-        return config('acl.route_model_binding_keys.permission_model', 'slug');
+        return Config::get('route_model_binding_keys.permission_model', 'slug');
     }
 }

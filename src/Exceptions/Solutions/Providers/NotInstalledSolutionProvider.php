@@ -6,6 +6,7 @@ use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\Solutions\ACLNotInstalledSolution;
+use Junges\ACL\Helpers\Config;
 use Throwable;
 
 class NotInstalledSolutionProvider implements HasSolutionsForThrowable
@@ -22,7 +23,7 @@ class NotInstalledSolutionProvider implements HasSolutionsForThrowable
             return false;
         }
 
-        return ! Schema::hasTable(config('acl.tables.permissions', 'permissions'));
+        return ! Schema::hasTable(Config::get('tables.permissions', 'permissions'));
     }
 
     /**

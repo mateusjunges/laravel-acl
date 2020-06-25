@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {
@@ -22,13 +23,13 @@ class ACLAuthServiceProvider extends ServiceProvider
         /*
          * Define the system permission gates
          */
-        config('acl.models.permission') !== null
-        ? $permissionModel = app(config('acl.models.permission'))
+        Config::get('models.permission') !== null
+        ? $permissionModel = app(Config::get('models.permission'))
         : $permissionModel = app(\Junges\ACL\Http\Models\Permission::class);
 
         if ($this->checkConnectionStatus()) {
-            if (config('acl.tables.permissions') !== null) {
-                if (Schema::hasTable(config('acl.tables.permissions'))) {
+            if (Config::get('tables.permissions') !== null) {
+                if (Schema::hasTable(Config::get('tables.permissions'))) {
                     $permissionModel->all()->map(function ($permission) {
                         Gate::define($permission->slug, function ($user) use ($permission) {
                             return $user->hasPermission($permission) || $user->isAdmin();

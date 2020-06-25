@@ -5,6 +5,7 @@ namespace Junges\ACL\Console\Commands;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 class UserPermissions extends Command
 {
@@ -44,7 +45,7 @@ class UserPermissions extends Command
             if (is_numeric($userParameter)) {
                 $user = User::find((int) $userParameter);
             } elseif (is_string($userParameter)) {
-                $table = config('acl.tables.users');
+                $table = Config::get('tables.users');
                 $columns = $this->verifyColumns($table);
 
                 $columns = collect($columns)->map(function ($item) {
@@ -55,7 +56,7 @@ class UserPermissions extends Command
                 $columns = array_unique($columns);
                 $columns = array_filter($columns, 'strlen');
 
-                $userModel = app(config('acl.models.user'));
+                $userModel = app(Config::get('models.user'));
 
                 $user = $userModel->where(function ($query) use ($userParameter, $columns) {
                     foreach ($columns as $column) {

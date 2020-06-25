@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Exceptions\UserDoesNotExistException;
+use Junges\ACL\Helpers\Config;
 
 trait GroupsTrait
 {
@@ -19,7 +20,7 @@ trait GroupsTrait
      */
     public function permissions()
     {
-        return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.group_has_permissions'));
+        return $this->belongsToMany(Config::get('models.permission'), Config::get('tables.group_has_permissions'));
     }
 
     /**
@@ -32,7 +33,7 @@ trait GroupsTrait
     public function hasPermission($permission)
     {
         $where = null;
-        $model = app(config('acl.models.permission'));
+        $model = app(Config::get('models.permission'));
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
@@ -54,7 +55,7 @@ trait GroupsTrait
      */
     public function users()
     {
-        return $this->belongsToMany(config('acl.models.user'), config('acl.tables.user_has_groups'));
+        return $this->belongsToMany(Config::get('models.user'), Config::get('tables.user_has_groups'));
     }
 
     /**
@@ -120,7 +121,7 @@ trait GroupsTrait
      */
     protected function getPermissionIds(array $permissions)
     {
-        $model = app(config('acl.models.permission'));
+        $model = app(Config::get('models.permission'));
 
         return collect(array_map(function ($permission) use ($model) {
             if (is_numeric($permission)) {
@@ -149,7 +150,7 @@ trait GroupsTrait
      */
     private function convertToPermissionIds($permissions)
     {
-        $model = app(config('acl.models.permission'));
+        $model = app(Config::get('models.permission'));
         $permissions = is_array($permissions) ? $permissions : [$permissions];
 
         return collect(array_map(function ($permission) use ($model) {
@@ -182,7 +183,7 @@ trait GroupsTrait
      */
     protected function getAllUsers(array $users)
     {
-        $model = app(config('acl.models.user'));
+        $model = app(Config::get('models.user'));
 
         return collect(
             array_map(function ($user) use ($model) {
@@ -210,7 +211,7 @@ trait GroupsTrait
      */
     private function convertToUserId($users)
     {
-        $model = app(config('acl.models.user'));
+        $model = app(Config::get('models.user'));
         $users = is_array($users) ? $users : [$users];
 
         return collect(array_map(function ($user) use ($model) {
@@ -322,7 +323,7 @@ trait GroupsTrait
 
         return $query->whereHas('users', function ($query) use ($user) {
             $query->where(function ($query) use ($user) {
-                $query->orWhere(config('acl.tables.users').'.id', $user->id);
+                $query->orWhere(Config::get('tables.users').'.id', $user->id);
             });
         });
     }
@@ -346,7 +347,7 @@ trait GroupsTrait
      */
     public function assignAllPermissions()
     {
-        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel = app(Config::get('models.permission'));
         $permissionModel->all()->map(function ($permission) {
             return $this->assignPermissions([$permission]);
         });
@@ -361,7 +362,7 @@ trait GroupsTrait
      */
     public function attachAllUsers()
     {
-        $userModel = app(config('acl.models.user'));
+        $userModel = app(Config::get('models.user'));
         $userModel->all()->map(function ($user) {
             return $this->assignUser([$user]);
         });
@@ -390,9 +391,9 @@ trait GroupsTrait
      */
     private function convertToUserModel($user)
     {
-        $userModel = app(config('acl.models.user'));
+        $userModel = app(Config::get('models.user'));
 
-        $columns = $this->verifyColumns(config('acl.tables.users'));
+        $columns = $this->verifyColumns(Config::get('tables.users'));
         $columns = collect($columns)->map(function ($item) {
             if ($item['isset_column']) {
                 return $item['column'];

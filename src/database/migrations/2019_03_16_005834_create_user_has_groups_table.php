@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 class CreateUserHasGroupsTable extends Migration
 {
@@ -13,9 +14,9 @@ class CreateUserHasGroupsTable extends Migration
      */
     public function up()
     {
-        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
-        $usersTable = config('acl.tables.users', 'users');
-        $groupsTable = config('acl.tables.groups', 'groups');
+        $userHasGroupsTable = Config::get('tables.user_has_groups', 'user_has_groups');
+        $usersTable = Config::get('tables.users', 'users');
+        $groupsTable = Config::get('tables.groups', 'groups');
         Schema::create($userHasGroupsTable,
             function (Blueprint $table) use ($usersTable, $groupsTable) {
                 $table->bigInteger('user_id', false, true);
@@ -39,7 +40,7 @@ class CreateUserHasGroupsTable extends Migration
      */
     public function down()
     {
-        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
+        $userHasGroupsTable = Config::get('tables.user_has_groups', 'user_has_groups');
         Schema::dropIfExists($userHasGroupsTable);
     }
 }

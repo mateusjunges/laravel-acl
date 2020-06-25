@@ -14,6 +14,7 @@ use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
+use Junges\ACL\Helpers\Config;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -90,7 +91,7 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function loadMigrations()
     {
-        $customMigrations = config('acl.custom_migrations');
+        $customMigrations = Config::get('custom_migrations');
         if ($customMigrations) {
             $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
         } else {
@@ -120,7 +121,7 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function registerSolutionProviders(): void
     {
-        if (! config('acl.offer_solutions', false)) {
+        if (! Config::get('offer_solutions', false)) {
             return;
         }
 

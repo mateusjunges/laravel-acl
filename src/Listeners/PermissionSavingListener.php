@@ -4,6 +4,7 @@ namespace Junges\ACL\Listeners;
 
 use Junges\ACL\Events\PermissionSaving;
 use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class PermissionSavingListener
 {
@@ -27,7 +28,7 @@ class PermissionSavingListener
     public function handle(PermissionSaving $event)
     {
         $permission = $event->permission;
-        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel = app(Config::get('models.permission'));
         $permissionAlreadyExists = $permissionModel
             ->where('slug', $permission->slug)
             ->orWhere('name', $permission->name)

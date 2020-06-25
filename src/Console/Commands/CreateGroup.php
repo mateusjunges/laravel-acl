@@ -4,6 +4,7 @@ namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class CreateGroup extends Command
 {
@@ -39,7 +40,7 @@ class CreateGroup extends Command
     public function handle()
     {
         try {
-            $groupModel = app(config('acl.models.group'));
+            $groupModel = app(Config::get('models.group'));
             try {
                 $group = $groupModel->where('slug', $this->argument('slug'))
                     ->orWhere('name', $this->argument('name'))

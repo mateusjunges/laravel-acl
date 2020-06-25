@@ -4,6 +4,7 @@ namespace Junges\ACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Helpers\Config;
 
 trait PermissionsTrait
 {
@@ -14,11 +15,11 @@ trait PermissionsTrait
      */
     public function users()
     {
-        $model = config('acl.models.user') != ''
-            ? config('acl.models.user')
+        $model = Config::get('models.user') != ''
+            ? Config::get('models.user')
             : '\App\User::class';
-        $table = config('acl.tables.user_has_permissions') != ''
-            ? config('acl.tables.user_has_permissions')
+        $table = Config::get('tables.user_has_permissions') != ''
+            ? Config::get('tables.user_has_permissions')
             : 'user_has_permissions';
 
         return $this->belongsToMany($model, $table);
@@ -31,11 +32,11 @@ trait PermissionsTrait
      */
     public function groups()
     {
-        $model = config('acl.models.user') != ''
-            ? config('acl.models.group')
+        $model = Config::get('models.user') != ''
+            ? Config::get('models.group')
             : '\Junges\ACL\Http\Models';
-        $table = config('acl.tables.group_has_permissions') != ''
-            ? config('acl.tables.group_has_permissions')
+        $table = Config::get('tables.group_has_permissions') != ''
+            ? Config::get('tables.group_has_permissions')
             : 'group_has_permissions';
 
         return $this->belongsToMany($model, $table);
@@ -55,7 +56,7 @@ trait PermissionsTrait
 
         return $query->whereHas('users', function ($query) use ($user) {
             $query->where(function ($query) use ($user) {
-                $query->orWhere(config('acl.tables.users').'.id', $user->id);
+                $query->orWhere(Config::get('tables.users').'.id', $user->id);
             });
         });
     }
@@ -69,9 +70,9 @@ trait PermissionsTrait
      */
     private function convertToUserModel($user)
     {
-        $userModel = app(config('acl.models.user'));
+        $userModel = app(Config::get('models.user'));
 
-        $columns = $this->verifyColumns(config('acl.tables.users'));
+        $columns = $this->verifyColumns(Config::get('tables.users'));
         $columns = collect($columns)->map(function ($item) {
             if ($item['isset_column']) {
                 return $item['column'];

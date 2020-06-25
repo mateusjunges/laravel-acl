@@ -4,6 +4,7 @@ namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
 use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class PermissionDoesNotExistSolution implements RunnableSolution
 {
@@ -46,7 +47,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
 
     public function run(array $parameters = [])
     {
-        $permissionModel = app(config('acl.models.permission'));
+        $permissionModel = app(Config::get('models.permission'));
 
         $permission = $permissionModel->where('slug', $parameters['slug'])
                                         ->orWhere('name', $parameters['name'])

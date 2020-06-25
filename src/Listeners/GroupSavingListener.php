@@ -4,6 +4,7 @@ namespace Junges\ACL\Listeners;
 
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class GroupSavingListener
 {
@@ -27,7 +28,7 @@ class GroupSavingListener
     public function handle(GroupSaving $event)
     {
         $group = $event->group;
-        $groupModel = app(config('acl.models.group'));
+        $groupModel = app(Config::get('models.group'));
         $groupAlreadyExists = $groupModel
            ->where('slug', $group->slug)
            ->orWhere('name', $group->name)

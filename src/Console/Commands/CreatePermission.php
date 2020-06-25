@@ -4,6 +4,7 @@ namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
 use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Helpers\Config;
 
 class CreatePermission extends Command
 {
@@ -39,7 +40,7 @@ class CreatePermission extends Command
     public function handle()
     {
         try {
-            $permissionModel = app(config('acl.models.permission'));
+            $permissionModel = app(Config::get('models.permission'));
 
             try {
                 $permission = $permissionModel->where('slug', $this->argument('slug'))
