@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Traits\ACLWildcardsTrait;
 use Junges\ACL\Traits\GroupsTrait;
-use Junges\ACL\Helpers\Config;
 
 class Group extends Model
 {
@@ -29,6 +28,6 @@ class Group extends Model
 
     public function getRouteKeyName()
     {
-        return Config::get('route_model_binding_keys.group_model', 'slug');
+        return config('acl.route_model_binding_keys.group_model', 'slug');
     }
 }
