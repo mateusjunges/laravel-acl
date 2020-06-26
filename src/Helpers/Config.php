@@ -12,7 +12,11 @@ class Config
 
         if (file_exists($aclFilename)) {
             $acl = include($aclFilename);
-            return Arr::get($acl, $keys);
         }
+        else {
+            $acl = include(__DIR__ . '/../../config/acl.php');
+        }
+
+        return Arr::get($acl, $keys);
     }
 }
