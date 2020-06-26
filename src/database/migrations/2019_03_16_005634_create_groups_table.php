@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Junges\ACL\Helpers\Config;
 
 class CreateGroupsTable extends Migration
 {
@@ -14,7 +13,7 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        $groupsTable = Config::get('tables.groups', 'groups');
+        $groupsTable = config('acl.tables.groups', 'groups');
         Schema::create($groupsTable, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique()->nullable(false);
@@ -32,7 +31,7 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-        $groupsTable = Config::get('tables.groups', 'groups');
+        $groupsTable = config('acl.tables.groups', 'groups');
         Schema::dropIfExists($groupsTable);
     }
 }
