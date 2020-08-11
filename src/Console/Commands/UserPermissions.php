@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Console\Commands;
 
-use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Schema;
 
