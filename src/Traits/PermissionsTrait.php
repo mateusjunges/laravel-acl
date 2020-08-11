@@ -85,7 +85,7 @@ trait PermissionsTrait
         } elseif (is_numeric($user)) {
             return $userModel->find($user);
         } elseif (is_string($user)) {
-            $user = $userModel->where(function ($query) use ($userModel, $columns, $user) {
+            $user = $userModel->where(function ($query) use ($columns, $user) {
                 foreach ($columns as $column) {
                     $query->orWhere($column, $user);
                 }
