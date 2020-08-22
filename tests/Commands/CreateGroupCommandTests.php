@@ -8,7 +8,7 @@ use Junges\ACL\Tests\TestCase;
 
 class CreateGroupCommandTests extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }

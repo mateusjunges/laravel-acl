@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class GroupMiddlewareTests extends MiddlewareTestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
     }
