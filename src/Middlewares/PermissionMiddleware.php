@@ -23,7 +23,7 @@ class PermissionMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        $denied_permissions = array();
+        $denied_permissions = [];
 
         $permissions = is_array($permissions)
             ? $permissions

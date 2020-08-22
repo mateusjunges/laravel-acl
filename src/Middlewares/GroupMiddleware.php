@@ -23,7 +23,7 @@ class GroupMiddleware
             throw UnauthorizedException::notLoggedIn();
         }
 
-        $denied_groups = array();
+        $denied_groups = [];
 
         $groups = is_array($groups)
             ? $groups
