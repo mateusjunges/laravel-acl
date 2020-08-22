@@ -3,6 +3,7 @@
 namespace Junges\ACL\Tests\Middlewares;
 
 use Illuminate\Support\Facades\Auth;
+use Junges\ACL\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
 class GroupMiddlewareTests extends MiddlewareTestCase
@@ -51,5 +52,32 @@ class GroupMiddlewareTests extends MiddlewareTestCase
             ),
             ResponseCode::HTTP_FORBIDDEN
         );
+    }
+
+    public function test_it_throws_unauthorized_exception()
+    {
+        Auth::login($this->testUser);
+
+        $this->expectException(UnauthorizedException::class);
+
+        $this->execMiddlewareWithException(
+            $this->groupMiddleware,
+            $this->testUserGroup->slug
+        );
+    }
+
+    public function test_it_can_catch_denied_permissions()
+    {
+        Auth::login($this->testUser);
+
+        $slug = $this->testUserGroup->slug;
+
+        $headers = $this->execMiddlewareReturningExceptionHeaders(
+            $this->groupMiddleware,
+            $slug
+        );
+
+        $this->assertCount(1, $headers);
+        $this->assertEquals($slug, $headers[0]);
     }
 }
