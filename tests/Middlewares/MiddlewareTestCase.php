@@ -58,4 +58,33 @@ class MiddlewareTestCase extends TestCase
             return $exception->getStatusCode();
         }
     }
+
+    /**
+     * @param $middleware
+     * @param $parameter
+     * @return mixed
+     */
+    protected function execMiddlewareWithException($middleware, $parameter)
+    {
+        return $middleware->handle(new Request(), function () {
+            return (new Response())->setContent('<html></html>');
+        }, $parameter)->headers();
+    }
+
+    /**
+     * @param $middleware
+     * @param $parameter
+     * @return array
+     */
+    protected function execMiddlewareReturningExceptionHeaders($middleware, $parameter)
+    {
+        try {
+            return $middleware->handle(new Request(), function () {
+                return (new Response())->setContent('<html></html>');
+            }, $parameter)->headers();
+        } catch (UnauthorizedException $exception) {
+            return $exception->getHeaders();
+        }
+    }
+
 }
