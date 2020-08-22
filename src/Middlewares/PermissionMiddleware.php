@@ -22,15 +22,20 @@ class PermissionMiddleware
         if (Auth::guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
+
+        $denied_permissions = array();
+
         $permissions = is_array($permissions)
             ? $permissions
             : explode('|', $permissions);
         foreach ($permissions as $permission) {
             if (Auth::user()->can($permission)) {
                 return $next($request);
+            } else {
+                array_push($denied_permissions, $permission);
             }
         }
 
-        throw UnauthorizedException::forPermissions();
+        throw UnauthorizedException::forPermissions($denied_permissions);
     }
 }

@@ -22,6 +22,9 @@ class GroupMiddleware
         if (Auth::guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
+
+        $denied_groups = array();
+
         $groups = is_array($groups)
             ? $groups
             : explode('|', $groups);
@@ -29,9 +32,11 @@ class GroupMiddleware
         foreach ($groups as $group) {
             if (Auth::user()->hasGroup($group)) {
                 return $next($request);
+            } else {
+                array_push($denied_groups, $group);
             }
         }
 
-        throw UnauthorizedException::forGroups();
+        throw UnauthorizedException::forGroups($denied_groups);
     }
 }
