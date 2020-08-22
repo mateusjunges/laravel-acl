@@ -86,5 +86,4 @@ class MiddlewareTestCase extends TestCase
             return $exception->getHeaders();
         }
     }
-
 }
