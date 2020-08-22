@@ -2,6 +2,13 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 2.4.7
+- Permission and group middleware now trhows UnauthorizedException with denied permissions and groups in exception headers (#175)
+
+# 2.4.6
+- Merge some dependabot dependencies PR
+- Fixes #185
+
 # 2.4.5
 - Add support for spanish translations
 
