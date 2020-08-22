@@ -8,7 +8,7 @@ use Junges\ACL\Tests\TestCase;
 
 class CreatePermissionCommandTests extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
     }

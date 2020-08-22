@@ -10,25 +10,27 @@ class UnauthorizedException extends HttpException
     /**
      * Exception used when user does not have the required groups to access some route.
      *
+     * @param array $groups
      * @return UnauthorizedException
      */
-    public static function forGroups(): self
+    public static function forGroups(array $groups = []): self
     {
         $message = trans('acl::acl.forGroups');
 
-        return  new static(Response::HTTP_FORBIDDEN, $message, null, []);
+        return  new static(Response::HTTP_FORBIDDEN, $message, null, $groups);
     }
 
     /**
      * Exception used when user does not have the required permissions to access some route.
      *
+     * @param array $permissions
      * @return UnauthorizedException
      */
-    public static function forPermissions(): self
+    public static function forPermissions(array $permissions = []): self
     {
         $message = trans('acl::acl.forPermissions');
 
-        return new static(Response::HTTP_FORBIDDEN, $message, null, []);
+        return new static(Response::HTTP_FORBIDDEN, $message, null, $permissions);
     }
 
     /**
