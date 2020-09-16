@@ -16,7 +16,7 @@ return [
         /*
          | The model you want to use as User Model must use MateusJunges\ACL\Traits\UsersTrait
          */
-        'user'       => \App\User::class,
+        'user'       => \App\Models\User::class,
 
         /*
          | The model you want to use as Permission model must use the MateusJunges\ACL\Traits\PermissionsTrait
