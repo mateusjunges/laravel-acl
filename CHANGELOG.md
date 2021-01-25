@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 2.6.0
+- Add support for PHP v8.0
+- Drop support for Laravel v5.8.x
+
 # 2.5.1
 - Fix user model namespace for laravel v8.x
 
