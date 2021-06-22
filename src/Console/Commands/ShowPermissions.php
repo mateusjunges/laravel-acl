@@ -14,7 +14,6 @@ class ShowPermissions extends Command
      * @var string
      */
     protected $signature = 'permission:show {--group=}';
-
     /**
      * The console command description.
      *
@@ -35,49 +34,48 @@ class ShowPermissions extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
-        try {
-            $groupParameter = $this->option('group');
+        $groupParameter = $this->option('group');
 
-            if ($groupParameter) {
-                if (is_numeric($groupParameter)) {
-                    $group = Group::find((int) $groupParameter);
-                } elseif (is_string($groupParameter)) {
-                    $group = Group::where('slug', $groupParameter)->first();
-                }
-
-                if (is_null($group)) {
-                    $this->error('Group does not exist!');
-
-                    return;
-                }
-
-                $permissions = $group->permissions->map(function ($permission) {
-                    return [
-                        'permission'  => $permission->name,
-                        'slug'        => $permission->slug,
-                        'description' => $permission->description,
-                    ];
-                });
-                $this->info('Showing '.$group->name.' permissions:');
-            } else {
-                $this->info('Displaying all permissions:');
-                $permissions = Permission::all(['name', 'slug', 'description']);
+        if ($groupParameter) {
+            if (is_numeric($groupParameter)) {
+                $group = Group::find((int)$groupParameter);
+            } elseif (is_string($groupParameter)) {
+                $group = Group::where('slug', $groupParameter)->first();
             }
 
-            $headers = ['Permission', 'Slug', 'Description'];
+            if (is_null($group)) {
+                $this->error('Group does not exist!');
 
-            if ($permissions->count() == 0) {
-                $this->alert('No permissions found.');
-
-                return;
+                return 0;
             }
-            $this->table($headers, $permissions->toArray());
-        } catch (\Exception $exception) {
-            $this->error('Something went wrong.');
+
+            $permissions = $group->permissions->map(function($permission) {
+                return [
+                    'permission' => $permission->name,
+                    'slug' => $permission->slug,
+                    'description' => $permission->description,
+                ];
+            });
+            $this->info('Showing ' . $group->name . ' permissions:');
+        } else {
+            $this->info('Displaying all permissions:');
+            $permissions = Permission::all(['name', 'slug', 'description']);
         }
+
+        $headers = ['Permission', 'Slug', 'Description'];
+
+        if ($permissions->count() == 0) {
+            $this->alert('No permissions found.');
+
+            return 0;
+        }
+
+        $this->table($headers, $permissions->toArray());
+
+        return 0;
     }
 }
