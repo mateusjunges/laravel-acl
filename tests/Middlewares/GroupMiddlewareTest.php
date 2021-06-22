@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
-class GroupMiddlewareTests extends MiddlewareTestCase
+class GroupMiddlewareTest extends MiddlewareTestCase
 {
     public function setUp(): void
     {
@@ -78,6 +78,7 @@ class GroupMiddlewareTests extends MiddlewareTestCase
         );
 
         $this->assertCount(1, $headers);
+
         $this->assertEquals($slug, $headers[0]);
     }
 }

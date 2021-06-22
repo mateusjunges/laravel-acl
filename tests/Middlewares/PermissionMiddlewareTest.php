@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
-class PermissionMiddlewareTests extends MiddlewareTestCase
+class PermissionMiddlewareTest extends MiddlewareTestCase
 {
     public function setUp(): void
     {

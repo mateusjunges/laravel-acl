@@ -5,7 +5,7 @@ namespace Junges\ACL\Tests\Middlewares;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response as ResponseCode;
 
-class PermissionOrGroupMiddlewareTests extends MiddlewareTestCase
+class PermissionOrGroupMiddlewareTest extends MiddlewareTestCase
 {
     public function setUp(): void
     {

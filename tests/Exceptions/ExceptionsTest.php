@@ -28,6 +28,7 @@ class ExceptionsTest extends TestCase
             'name' => 'Test duplicate Permision one',
             'description' => 'This is a test description',
         ]);
+
         Permission::create([
             'slug' => 'test-duplicate-permission-one',
             'name' => 'Test duplicate Permision one',
@@ -47,6 +48,7 @@ class ExceptionsTest extends TestCase
             'slug' => 'test-group',
             'description' => 'This is a test group',
         ]);
+
         Group::create([
             'name' => 'Test Group',
             'slug' => 'test-group',
