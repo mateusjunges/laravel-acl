@@ -5,6 +5,7 @@ namespace Junges\ACL\Tests;
 use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Junges\ACL\ACLAuthServiceProvider;
+use Junges\ACL\ACLEventsServiceProvider;
 use Junges\ACL\ACLServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -94,6 +95,7 @@ class TestCase extends Orchestra
         return [
             ACLServiceProvider::class,
             ACLAuthServiceProvider::class,
+            ACLEventsServiceProvider::class,
             IgnitionServiceProvider::class,
         ];
     }

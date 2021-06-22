@@ -3,6 +3,8 @@
 namespace Junges\ACL\Tests\Exceptions;
 
 use Illuminate\Database\QueryException;
+use Junges\ACL\Exceptions\GroupAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
@@ -19,7 +21,8 @@ class ExceptionsTest extends TestCase
      */
     public function throws_exception_when_creating_duplicate_permissions()
     {
-        $this->expectException(QueryException::class);
+        $this->expectException(PermissionAlreadyExistsException::class);
+
         Permission::create([
             'slug' => 'test-duplicate-permission-one',
             'name' => 'Test duplicate Permision one',
@@ -37,7 +40,8 @@ class ExceptionsTest extends TestCase
      */
     public function throws_an_exception_when_the_group_already_exists()
     {
-        $this->expectException(QueryException::class);
+        $this->expectException(GroupAlreadyExistsException::class);
+
         Group::create([
             'name' => 'Test Group',
             'slug' => 'test-group',
