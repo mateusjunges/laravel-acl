@@ -73,6 +73,9 @@ trait UsersTrait
         }
 
         if ($permission != null && $where != null) {
+            if (is_null($this->permissions)) {
+			 	return $this->hasPermissionThroughGroup($permission);
+			}
             return (bool) ($this->permissions->where(...$where)->count())
                 || $this->hasPermissionThroughGroup($permission);
         }
