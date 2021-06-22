@@ -13,6 +13,14 @@
             <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
+    <coverage cacheDirectory="/tmp">
+        <report>
+            <clover outputFile="./tests/reports/clover.xml"/>
+            <html outputDirectory="./tests/reports/" lowUpperBound="35" highLowerBound="70"/>
+            <text outputFile="php://stdout"/>
+        </report>
+    </coverage>
+
     <filter>
         <whitelist>
             <directory suffix=".php">src/</directory>

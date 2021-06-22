@@ -38,27 +38,24 @@ class CreatePermission extends Command
      */
     public function handle()
     {
-        try {
-            $permissionModel = app(config('acl.models.permission'));
+        $permissionModel = app(config('acl.models.permission'));
 
-            try {
-                $permission = $permissionModel->where('slug', $this->argument('slug'))
-                    ->orWhere('name', $this->argument('name'))
-                    ->first();
-                if (! is_null($permission)) {
-                    throw PermissionAlreadyExistsException::create();
-                }
-                $permissionModel->create([
-                    'name'        => $this->argument('name'),
-                    'slug'        => $this->argument('slug'),
-                    'description' => $this->argument('description'),
-                ]);
-                $this->info('Permission created successfully!');
-            } catch (\Exception $exception) {
-                $this->error('Permission was not created!');
-            }
-        } catch (\Exception $exception) {
-            $this->error($exception->getMessage());
+        $permission = $permissionModel->where('slug', $this->argument('slug'))
+            ->orWhere('name', $this->argument('name'))
+            ->first();
+
+        if (!is_null($permission)) {
+            throw PermissionAlreadyExistsException::create();
         }
+
+        $permissionModel->create([
+            'name' => $this->argument('name'),
+            'slug' => $this->argument('slug'),
+            'description' => $this->argument('description'),
+        ]);
+
+        $this->info('Permission created successfully!');
+
+        return 0;
     }
 }

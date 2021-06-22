@@ -13,6 +13,6 @@ class GroupAlreadyExistsException extends InvalidArgumentException
     {
         $message = trans('acl::acl.group_already_exists');
 
-        throw new static($message);
+        return new static($message);
     }
 }
