@@ -21,12 +21,4 @@ class PermissionSaving
     {
         $this->permission = $permission;
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     */
-    public function broadcastOn()
-    {
-        //
-    }
 }

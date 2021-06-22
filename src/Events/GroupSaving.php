@@ -21,12 +21,4 @@ class GroupSaving
     {
         $this->group = $group;
     }
-
-    /**
-     * Get the channels the event should broadcast on.
-     */
-    public function broadcastOn()
-    {
-        //
-    }
 }
