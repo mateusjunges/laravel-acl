@@ -2,6 +2,7 @@
 
 namespace Junges\ACL\Tests\Traits\UsersTrait;
 
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Tests\TestCase;
 
 class SyncPermissionsMethodTest extends TestCase
@@ -68,5 +69,37 @@ class SyncPermissionsMethodTest extends TestCase
         $this->testUser->syncPermissions([1, 2, 3, 4]);
 
         self::assertCount(4, $this->testUser->permissions()->get());
+    }
+
+    public function test_it_throws_exception_if_syncing_with_nonexistent_permission_ids()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+
+        $this->testUser->assignPermissions(1, 2);
+
+        $this->assertCount(2, $this->testUser->permissions()->get());
+
+        $this->assertTrue($this->testUser->hasPermission(1));
+        $this->assertTrue($this->testUser->hasPermission(2));
+
+        $this->testUser->syncPermissions([1, 2, 3, 4, 123456789]);
+    }
+
+    public function test_it_throws_exception_if_syncing_with_nonexistent_permission_slugs()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+
+        $this->testUser->assignPermissions(1, 2);
+
+        $this->assertCount(2, $this->testUser->permissions()->get());
+
+        $this->assertTrue($this->testUser->hasPermission(1));
+        $this->assertTrue($this->testUser->hasPermission(2));
+
+        $this->testUser->syncPermissions(
+            $this->testUserPermission->slug,
+            $this->testUserPermission2->slug,
+            'some-nonexistent-slug'
+        );
     }
 }

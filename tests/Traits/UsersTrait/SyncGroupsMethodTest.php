@@ -2,6 +2,7 @@
 
 namespace Junges\ACL\Tests\Traits\UsersTrait;
 
+use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Tests\TestCase;
 
 class SyncGroupsMethodTest extends TestCase
@@ -67,5 +68,50 @@ class SyncGroupsMethodTest extends TestCase
         $this->testUser->syncGroups([1, 2, 3]);
 
         self::assertCount(3, $this->testUser->groups()->get());
+    }
+
+    public function test_it_can_sync_groups_using_group_models()
+    {
+        $this->testUser->assignGroup(1, 2);
+
+        self::assertCount(2, $this->testUser->groups()->get());
+
+        self::assertTrue($this->testUser->hasGroup(1));
+        self::assertTrue($this->testUser->hasGroup(2));
+
+        $this->testUser->syncGroups($this->testUserGroup, $this->testUserGroup2);
+
+        self::assertCount(2, $this->testUser->groups()->get());
+    }
+
+    public function test_it_throws_exception_if_syncing_non_existing_group_id()
+    {
+        $this->expectException(GroupDoesNotExistException::class);
+
+        $this->testUser->assignGroup(1, 2);
+
+        self::assertCount(2, $this->testUser->groups()->get());
+
+        self::assertTrue($this->testUser->hasGroup(1));
+        self::assertTrue($this->testUser->hasGroup(2));
+
+        $this->testUser->syncGroups(1, 2, 123456789);
+    }
+
+    public function test_it_throws_exception_if_syncing_non_existing_group_slug()
+    {
+        $this->expectException(GroupDoesNotExistException::class);
+
+        $this->testUser->assignGroup(1, 2);
+
+        self::assertCount(2, $this->testUser->groups()->get());
+
+        self::assertTrue($this->testUser->hasGroup(1));
+        self::assertTrue($this->testUser->hasGroup(2));
+
+        $this->testUser->syncGroups(
+            $this->testUserGroup->slug,
+            $this->testUserGroup2->slug,
+            'some-nonexistent-slug');
     }
 }

@@ -59,4 +59,10 @@ class HasDirectPermissionsMethodTest extends TestCase
         $this->testUser->assignPermissions(2);
         $this->assertTrue($this->testUser->hasDirectPermission(Permission::find(2)));
     }
+
+    public function test_it_returns_false_if_using_wrong_arguments()
+    {
+        $this->testUser->assignPermissions(2);
+        $this->assertFalse($this->testUser->hasDirectPermission([Permission::find(2)]));
+    }
 }

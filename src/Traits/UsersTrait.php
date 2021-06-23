@@ -219,7 +219,7 @@ trait UsersTrait
      *
      * @return Collection
      */
-    private function convertToGroupIds($groups)
+    private function convertToGroupIds($groups): Collection
     {
         $model = app(config('acl.models.group'));
         $groups = ! is_array($groups) ? [$groups] : $groups;
@@ -227,20 +227,26 @@ trait UsersTrait
         return collect(array_map(function ($group) use ($model) {
             if ($group instanceof $model) {
                 return $group->id;
-            } elseif (is_numeric($group)) {
+            }
+
+            if (is_numeric($group)) {
                 $_group = $model->find($group);
+
                 if ($_group instanceof $model) {
                     return $_group->id;
-                } else {
-                    throw GroupDoesNotExistException::withId($group);
                 }
-            } elseif (is_string($group)) {
+
+                throw GroupDoesNotExistException::withId($group);
+            }
+
+            if (is_string($group)) {
                 $_group = $model->where('slug', $group)->first();
+
                 if ($_group instanceof $model) {
                     return $_group->id;
-                } else {
-                    throw GroupDoesNotExistException::withSlug($group);
                 }
+
+                throw GroupDoesNotExistException::withSlug($group);
             }
         }, $groups));
     }
@@ -250,7 +256,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         $admin = config('acl.admin_permission', 'admin');
 
@@ -266,7 +272,7 @@ trait UsersTrait
      *
      * @return Collection
      */
-    private function convertToPermissionIds($permissions)
+    private function convertToPermissionIds($permissions): Collection
     {
         $model = app(config('acl.models.permission'));
         $permissions = ! is_array($permissions) ? [$permissions] : $permissions;
@@ -274,20 +280,25 @@ trait UsersTrait
         return collect(array_map(function ($permission) use ($model) {
             if ($permission instanceof $model) {
                 return $permission->id;
-            } elseif (is_numeric($permission)) {
+            }
+
+            if (is_numeric($permission)) {
                 $_permission = $model->find($permission);
+
                 if ($_permission instanceof $model) {
                     return $_permission->id;
-                } else {
-                    throw PermissionDoesNotExistException::withId($permission);
                 }
-            } elseif (is_string($permission)) {
+
+                throw PermissionDoesNotExistException::withId($permission);
+            }
+
+            if (is_string($permission)) {
                 $_permission = $model->where('slug', $permission)->first();
+
                 if ($_permission instanceof $model) {
                     return $_permission->id;
-                } else {
-                    throw PermissionDoesNotExistException::withSlug($permission);
                 }
+                throw PermissionDoesNotExistException::withSlug($permission);
             }
         }, $permissions));
     }
@@ -303,9 +314,11 @@ trait UsersTrait
     {
         $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
+
         if ($permissions->count() == 0) {
             return false;
         }
+
         $this->permissions()->syncWithoutDetaching($permissions);
 
         return $this;
@@ -322,9 +335,11 @@ trait UsersTrait
     {
         $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->convertToPermissionIds($permissions);
+
         if ($permissions->count() == 0) {
             return false;
         }
+
         $this->permissions()->sync($permissions);
 
         return $this;
@@ -352,10 +367,10 @@ trait UsersTrait
 
     /**
      * Determine which type of parameter is being used.
-     * @param $param
+     * @param array $param
      * @return array
      */
-    private function getCorrectParameter(array $param)
+    private function getCorrectParameter(array $param): array
     {
         if (is_array($param[0])) {
             return $param[0];
@@ -371,10 +386,11 @@ trait UsersTrait
      *
      * @return $this
      */
-    public function revokePermissions(...$permissions)
+    public function revokePermissions(...$permissions): self
     {
         $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
+
         $this->permissions()->detach($permissions);
 
         return $this;
@@ -391,9 +407,11 @@ trait UsersTrait
     {
         $groups = $this->getCorrectParameter($groups);
         $groups = $this->convertToGroupIds($groups);
+
         if ($groups->count() == 0) {
             return false;
         }
+
         $this->groups()->syncWithoutDetaching($groups);
 
         return $this;
@@ -410,9 +428,11 @@ trait UsersTrait
     {
         $groups = $this->getCorrectParameter($groups);
         $groups = $this->getGroupIds($groups);
+
         if ($groups->count() == 0) {
             return false;
         }
+
         $this->groups()->detach($groups);
 
         return $this;
@@ -425,7 +445,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyPermission(...$permissions)
+    public function hasAnyPermission(...$permissions): bool
     {
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
@@ -443,7 +463,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAnyGroup(...$groups)
+    public function hasAnyGroup(...$groups): bool
     {
         foreach ($groups as $group) {
             if ($this->hasGroup($group)) {
@@ -461,7 +481,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllGroups(...$groups)
+    public function hasAllGroups(...$groups): bool
     {
         foreach ($groups as $group) {
             if (! $this->hasGroup($group)) {
@@ -479,7 +499,7 @@ trait UsersTrait
      *
      * @return bool
      */
-    public function hasAllPermissions(...$permissions)
+    public function hasAllPermissions(...$permissions): bool
     {
         foreach ($permissions as $permission) {
             if (! $this->hasPermission($permission)) {
@@ -513,13 +533,16 @@ trait UsersTrait
             if ($group instanceof $groupModel) {
                 $_group = $group;
             }
+
             if (is_numeric($group)) {
                 $_group = $groupModel->find($group);
+
                 if (is_null($_group)) {
                     throw GroupDoesNotExistException::withId($group);
                 }
             } elseif (is_string($group)) {
                 $_group = $groupModel->where('slug', $group)->first();
+
                 if (is_null($_group)) {
                     throw GroupDoesNotExistException::withSlug($group);
                 }
@@ -561,17 +584,22 @@ trait UsersTrait
             $_permission = null;
             if ($permission instanceof $permissionModel) {
                 $_permission = $permission;
-            } elseif (is_numeric($permission)) {
+            }
+
+            if (is_numeric($permission)) {
                 $_permission = $permissionModel->find($permission);
+
                 if (is_null($_permission)) {
                     throw PermissionDoesNotExistException::withId($permission);
                 }
             } elseif (is_string($permission)) {
                 $_permission = $permissionModel->where('slug', $permission)->first();
+
                 if (is_null($_permission)) {
                     throw PermissionDoesNotExistException::withSlug($permission);
                 }
             }
+
             if (is_null($_permission)) {
                 throw PermissionDoesNotExistException::nullPermission();
             }
@@ -648,6 +676,7 @@ trait UsersTrait
     public function assignAllGroups()
     {
         $groupModel = app(config('acl.models.group'));
+
         $groupModel->all()->map(function ($group) {
             return $this->assignGroup([$group]);
         });
@@ -663,6 +692,7 @@ trait UsersTrait
     public function assignAllPermissions()
     {
         $permissionModel = app(config('acl.models.permission'));
+
         $permissionModel->all()->map(function ($permission) {
             return $this->assignPermissions([$permission]);
         });
