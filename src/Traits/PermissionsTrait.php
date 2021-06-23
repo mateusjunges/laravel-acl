@@ -4,6 +4,7 @@ namespace Junges\ACL\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\Exceptions\UserDoesNotExistException;
 
 trait PermissionsTrait
 {
@@ -17,6 +18,7 @@ trait PermissionsTrait
         $model = config('acl.models.user') != ''
             ? config('acl.models.user')
             : '\App\User::class';
+
         $table = config('acl.tables.user_has_permissions') != ''
             ? config('acl.tables.user_has_permissions')
             : 'user_has_permissions';
@@ -77,24 +79,41 @@ trait PermissionsTrait
                 return $item['column'];
             }
         })->toArray();
+
         $columns = array_unique($columns);
         $columns = array_filter($columns, 'strlen');
 
         if ($user instanceof $userModel) {
             return $user;
-        } elseif (is_numeric($user)) {
-            return $userModel->find($user);
-        } elseif (is_string($user)) {
+        }
+
+        if (is_numeric($user)) {
+            $user = $userModel->find($user);
+
+            if (! $user) {
+                throw new UserDoesNotExistException();
+            }
+
+            return $user;
+        }
+
+        if (is_string($user)) {
             $user = $userModel->where(function ($query) use ($columns, $user) {
                 foreach ($columns as $column) {
                     $query->orWhere($column, $user);
                 }
             });
 
-            return $user->first();
-        } else {
-            return;
+            $user = $user->first();
+
+            if (! $user) {
+                throw new UserDoesNotExistException();
+            }
+
+            return $user;
         }
+
+        throw new UserDoesNotExistException();
     }
 
     /**
@@ -104,7 +123,7 @@ trait PermissionsTrait
      *
      * @return array
      */
-    private function verifyColumns($table)
+    private function verifyColumns($table): array
     {
         return [
             [
