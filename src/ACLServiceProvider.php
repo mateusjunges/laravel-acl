@@ -96,7 +96,7 @@ class ACLServiceProvider extends ServiceProvider
         if ($customMigrations) {
             $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
         } else {
-            $this->loadMigrationsFrom(__DIR__."/../database/migrations");
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
 
         $this->publishes([

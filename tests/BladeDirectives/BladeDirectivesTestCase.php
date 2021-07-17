@@ -36,7 +36,7 @@ class BladeDirectivesTestCase extends TestCase
         ob_start();
         extract($variables);
 
-        eval(' ?>' . $compiled . '<?php ');
+        eval(' ?>'.$compiled.'<?php ');
 
         $output = ob_get_clean();
 

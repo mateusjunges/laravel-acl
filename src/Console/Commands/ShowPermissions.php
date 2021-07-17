@@ -42,7 +42,7 @@ class ShowPermissions extends Command
 
         if ($groupParameter) {
             if (is_numeric($groupParameter)) {
-                $group = Group::find((int)$groupParameter);
+                $group = Group::find((int) $groupParameter);
             } elseif (is_string($groupParameter)) {
                 $group = Group::where('slug', $groupParameter)->first();
             }
@@ -53,14 +53,14 @@ class ShowPermissions extends Command
                 return 0;
             }
 
-            $permissions = $group->permissions->map(function($permission) {
+            $permissions = $group->permissions->map(function ($permission) {
                 return [
                     'permission' => $permission->name,
                     'slug' => $permission->slug,
                     'description' => $permission->description,
                 ];
             });
-            $this->info('Showing ' . $group->name . ' permissions:');
+            $this->info('Showing '.$group->name.' permissions:');
         } else {
             $this->info('Displaying all permissions:');
             $permissions = Permission::all(['name', 'slug', 'description']);

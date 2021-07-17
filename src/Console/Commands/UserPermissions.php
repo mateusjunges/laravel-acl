@@ -41,12 +41,12 @@ class UserPermissions extends Command
         $userModel = app(config('acl.models.user'));
 
         if (is_numeric($userParameter)) {
-            $user = $userModel->find((int)$userParameter);
+            $user = $userModel->find((int) $userParameter);
         } elseif (is_string($userParameter)) {
             $table = config('acl.tables.users');
             $columns = $this->verifyColumns($table);
 
-            $columns = collect($columns)->map(function($item) {
+            $columns = collect($columns)->map(function ($item) {
                 if ($item['isset_column']) {
                     return $item['column'];
                 }
@@ -55,7 +55,7 @@ class UserPermissions extends Command
             $columns = array_unique($columns);
             $columns = array_filter($columns, 'strlen');
 
-            $user = $userModel->where(function($query) use ($userParameter, $columns) {
+            $user = $userModel->where(function ($query) use ($userParameter, $columns) {
                 foreach ($columns as $column) {
                     $query->orWhere($column, $userParameter);
                 }
@@ -69,7 +69,7 @@ class UserPermissions extends Command
             return;
         }
 
-        $permissions = $user->permissions->map(function($permission) {
+        $permissions = $user->permissions->map(function ($permission) {
             return [
                 'name' => $permission->name,
                 'slug' => $permission->slug,
@@ -77,7 +77,7 @@ class UserPermissions extends Command
             ];
         });
 
-        $this->info('Displaying ' . $user->name . '\'s permissions:');
+        $this->info('Displaying '.$user->name.'\'s permissions:');
 
         if ($permissions->count() == 0) {
             $this->alert('No permissions found');

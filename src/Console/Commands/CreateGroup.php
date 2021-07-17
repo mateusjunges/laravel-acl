@@ -43,7 +43,7 @@ class CreateGroup extends Command
             ->orWhere('name', $this->argument('name'))
             ->first();
 
-        if (!is_null($group)) {
+        if (! is_null($group)) {
             throw GroupAlreadyExistsException::create();
         }
 

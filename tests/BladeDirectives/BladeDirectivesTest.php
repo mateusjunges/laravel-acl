@@ -65,7 +65,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@group($group)<h1>test</h1>@elsegroup($elseGroup)<h1>test else</h1>@endgroup',
             [
                 'group' => 'some-group',
-                'elseGroup' => 'another-group'
+                'elseGroup' => 'another-group',
             ],
             'Expected to return ""'
         );
@@ -82,7 +82,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@group($group)<h1>test</h1>@elsegroup($elseGroup)<h1>test else</h1>@endgroup',
             [
                 'group' => 'groupname',
-                'elseGroup' => $this->testUserGroup2
+                'elseGroup' => $this->testUserGroup2,
             ],
             'Expected to return "<h1>test else</h1>"'
         );
@@ -99,7 +99,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@permission($permission)<h1>test</h1>@elsepermission($elsePermission)<h1>test else</h1>@endpermission',
             [
                 'permission' => 'some-permission',
-                'elsePermission' => $this->testUserPermission
+                'elsePermission' => $this->testUserPermission,
             ],
             'Expected to return "<h1>test else</h1>"'
         );
@@ -114,7 +114,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@permission($permission)<h1>test</h1>@elsepermission($elsePermission)<h1>test else</h1>@endpermission',
             [
                 'permission' => 'some-permission',
-                'elsePermission' => 'another-permission'
+                'elsePermission' => 'another-permission',
             ],
             'Expected to return ""'
         );
@@ -131,7 +131,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@allpermission($permission, $permission2)<h1>test</h1>@endallpermission',
             [
                 'permission' => $this->testUserPermission,
-                'permission2' => $this->testUserPermission2
+                'permission2' => $this->testUserPermission2,
             ],
             'Expected to return "<h1>test</h1>"'
         );
@@ -148,7 +148,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@allpermission($permission, $permission2)<h1>test</h1>@endallpermission',
             [
                 'permission' => $this->testUserPermission,
-                'permission2' => $this->testUserPermission2
+                'permission2' => $this->testUserPermission2,
             ],
             'Expected to return ""'
         );
@@ -165,7 +165,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@anypermission($permission, $permission2)<h1>test</h1>@endanypermission',
             [
                 'permission' => $this->testUserPermission,
-                'permission2' => $this->testUserPermission2
+                'permission2' => $this->testUserPermission2,
             ],
             'Expected to return "<h1>test</h1>"'
         );
@@ -180,7 +180,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@anypermission($permission, $permission2)<h1>test</h1>@endanypermission',
             [
                 'permission' => $this->testUserPermission,
-                'permission2' => $this->testUserPermission2
+                'permission2' => $this->testUserPermission2,
             ],
             'Expected to return ""'
         );
@@ -197,7 +197,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@anygroup($group, $group2)<h1>test</h1>@endanygroup',
             [
                 'group' => $this->testUserGroup,
-                'group2' => $this->testUserGroup2
+                'group2' => $this->testUserGroup2,
             ],
             'Expected to return "<h1>test</h1>"'
         );
@@ -212,7 +212,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@anygroup($group, $group2)<h1>test</h1>@endanygroup',
             [
                 'group' => $this->testUserPermission,
-                'group2' => $this->testUserPermission2
+                'group2' => $this->testUserPermission2,
             ],
             'Expected to return ""'
         );
@@ -229,7 +229,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@allgroups($group, $group2)<h1>test</h1>@endallgroups',
             [
                 'group' => $this->testUserGroup,
-                'group2' => $this->testUserGroup2
+                'group2' => $this->testUserGroup2,
             ],
             'Expected to return "<h1>test</h1>"'
         );
@@ -246,7 +246,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
             '@allgroups($group, $group2)<h1>test</h1>@endallgroups',
             [
                 'group' => $this->testUserGroup,
-                'group2' => $this->testUserGroup2
+                'group2' => $this->testUserGroup2,
             ],
             'Expected to return ""'
         );

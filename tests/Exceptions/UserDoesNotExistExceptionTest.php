@@ -11,7 +11,7 @@ class UserDoesNotExistExceptionTest extends TestCase
     {
         $this->expectException(UserDoesNotExistException::class);
 
-        $this->expectExceptionMessage("There is no user with this name: Test not found user");
+        $this->expectExceptionMessage('There is no user with this name: Test not found user');
 
         $this->testUserGroup->assignUser('Test not found user');
     }
@@ -20,9 +20,8 @@ class UserDoesNotExistExceptionTest extends TestCase
     {
         $this->expectException(UserDoesNotExistException::class);
 
-        $this->expectExceptionMessage("There is no user with this id: 123456789");
+        $this->expectExceptionMessage('There is no user with this id: 123456789');
 
         $this->testUserGroup->assignUser(123456789);
     }
-
 }

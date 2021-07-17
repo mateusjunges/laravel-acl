@@ -14,21 +14,21 @@ class ShowPermissionsCommandTest extends TestCase
     public function test_it_can_show_permissions_specifying_group_as_string()
     {
         $this->artisan('permission:show', [
-            '--group' => 'test-user-group'
+            '--group' => 'test-user-group',
         ])->assertExitCode(0);
     }
 
     public function test_it_can_show_permissions_specifying_group_as_int()
     {
         $this->artisan('permission:show', [
-            '--group' => 1
+            '--group' => 1,
         ])->assertExitCode(0);
     }
 
     public function test_it_returns_error_if_the_group_does_not_exist()
     {
         $this->artisan('permission:show', [
-            '--group' => 'group-does-not-exist'
+            '--group' => 'group-does-not-exist',
         ])->expectsOutput('Group does not exist!');
     }
 
@@ -45,7 +45,7 @@ class ShowPermissionsCommandTest extends TestCase
         });
 
         $this->artisan('permission:show', [
-            '--group' => 'test-user-group'
+            '--group' => 'test-user-group',
         ])->assertExitCode(0)->expectsTable(['Permission', 'Slug', 'Description'], $expected);
     }
 }

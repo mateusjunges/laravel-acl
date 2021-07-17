@@ -25,39 +25,39 @@ class PermissionsTraitTest extends TestCase
 
     public function test_user_scope_can_get_only_permissions_belonging_to_the_given_user_via_name()
     {
-        $permissions =  Permission::user($this->testUser->name)->get();
+        $permissions = Permission::user($this->testUser->name)->get();
 
         $this->assertCount(1, $permissions);
 
         $this->testUser->assignPermissions($this->testUserPermission2);
 
-        $permissions =  Permission::user($this->testUser->name)->get();
+        $permissions = Permission::user($this->testUser->name)->get();
 
         $this->assertCount(2, $permissions);
     }
 
     public function test_user_scope_can_get_only_permissions_belonging_to_the_given_user_via_model_instance()
     {
-        $permissions =  Permission::user($this->testUser)->get();
+        $permissions = Permission::user($this->testUser)->get();
 
         $this->assertCount(1, $permissions);
 
         $this->testUser->assignPermissions($this->testUserPermission2);
 
-        $permissions =  Permission::user($this->testUser->name)->get();
+        $permissions = Permission::user($this->testUser->name)->get();
 
         $this->assertCount(2, $permissions);
     }
 
     public function test_user_scope_can_get_only_permissions_belonging_to_the_given_user_via_id()
     {
-        $permissions =  Permission::user($this->testUser->id)->get();
+        $permissions = Permission::user($this->testUser->id)->get();
 
         $this->assertCount(1, $permissions);
 
         $this->testUser->assignPermissions($this->testUserPermission2);
 
-        $permissions =  Permission::user($this->testUser->name)->get();
+        $permissions = Permission::user($this->testUser->name)->get();
 
         $this->assertCount(2, $permissions);
     }
@@ -66,7 +66,7 @@ class PermissionsTraitTest extends TestCase
     {
         $this->expectException(UserDoesNotExistException::class);
 
-        Permission::user("Non existing user")->get();
+        Permission::user('Non existing user')->get();
     }
 
     public function test_user_scope_throws_exception_if_the_user_does_not_exist_with_the_given_id()

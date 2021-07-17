@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Tests\Exceptions;
 
-use Illuminate\Database\QueryException;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 use Junges\ACL\Tests\Group;
