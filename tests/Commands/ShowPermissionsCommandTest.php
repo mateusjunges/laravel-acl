@@ -38,8 +38,8 @@ class ShowPermissionsCommandTest extends TestCase
 
         $expected = $this->testUserGroup->permissions->map(function ($permission) {
             return [
-                'permission'  => $permission->name,
-                'slug'        => $permission->slug,
+                'permission' => $permission->name,
+                'slug' => $permission->slug,
                 'description' => $permission->description,
             ];
         });

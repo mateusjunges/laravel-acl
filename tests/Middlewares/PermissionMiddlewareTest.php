@@ -17,7 +17,9 @@ class PermissionMiddlewareTest extends MiddlewareTestCase
     {
         $this->assertEquals(
             $this->execMiddleware(
-                $this->permissionMiddleware, $this->testUserPermission->slug),
+                $this->permissionMiddleware,
+                $this->testUserPermission->slug
+            ),
             ResponseCode::HTTP_FORBIDDEN
         );
     }
