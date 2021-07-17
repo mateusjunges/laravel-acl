@@ -40,8 +40,8 @@ After installing the laravel-acl package, register the service provider in
 
 ```php
 'providers' => [
-    Junges\ACL\ACLServiceProvider::class,
-    Junges\ACL\ACLAuthServiceProvider::class,
+    \Junges\ACL\Providers\ACLServiceProvider::class,
+    \Junges\ACL\Providers\ACLAuthServiceProvider::class,
     Junges\ACL\ACLEventsServiceProvider::class,
 ];
 ```

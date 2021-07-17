@@ -1,12 +1,13 @@
 <?php
 
-namespace Junges\ACL\Traits;
+namespace Junges\ACL\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Exceptions\UserDoesNotExistException;
+use Junges\ACL\Http\Models\Permission;
 
 trait GroupsTrait
 {
@@ -29,17 +30,20 @@ trait GroupsTrait
      *
      * @return bool
      */
-    public function hasPermission($permission)
+    public function hasPermission($permission): bool
     {
         $where = null;
         $model = app(config('acl.models.permission'));
+
         if (is_numeric($permission)) {
             $where = ['id', $permission];
         } elseif (is_string($permission)) {
             $where = ['slug', $permission];
         } elseif ($permission instanceof $model) {
+            /** @var Permission $permission */
             $where = ['slug', $permission->slug];
         }
+
         if ($permission != null && $where != null) {
             return null !== $this->permissions->where(...$where)->first();
         }
@@ -102,7 +106,7 @@ trait GroupsTrait
      *
      * @return $this
      */
-    public function revokePermissions(...$permissions)
+    public function revokePermissions(...$permissions): self
     {
         $permissions = $this->getCorrectParameter($permissions);
         $permissions = $this->getPermissionIds($permissions);
@@ -120,6 +124,7 @@ trait GroupsTrait
      */
     protected function getPermissionIds(array $permissions)
     {
+        /** @var Permission $model */
         $model = app(config('acl.models.permission'));
 
         return collect(array_map(function ($permission) use ($model) {
@@ -130,6 +135,7 @@ trait GroupsTrait
             } elseif ($permission instanceof $model) {
                 $_permission = $permission;
             }
+
             if (isset($_permission)) {
                 if (! is_null($_permission)) {
                     return $_permission->id;

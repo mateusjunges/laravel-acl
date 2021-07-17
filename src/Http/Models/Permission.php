@@ -5,7 +5,7 @@ namespace Junges\ACL\Http\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Junges\ACL\Events\PermissionSaving;
-use Junges\ACL\Traits\PermissionsTrait;
+use Junges\ACL\Concerns\PermissionsTrait;
 
 class Permission extends Model
 {

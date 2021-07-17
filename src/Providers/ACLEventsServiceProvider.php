@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL;
+namespace Junges\ACL\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Junges\ACL\Events\GroupSaving;

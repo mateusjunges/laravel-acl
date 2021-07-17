@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Traits;
+namespace Junges\ACL\Concerns;
 
 trait ACLWildcardsTrait
 {

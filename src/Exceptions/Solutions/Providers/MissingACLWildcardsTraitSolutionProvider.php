@@ -5,7 +5,7 @@ namespace Junges\ACL\Exceptions\Solutions\Providers;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Exceptions\Solutions\AddMissingACLWildcardsTraitSolution;
-use Junges\ACL\Traits\ACLWildcardsTrait;
+use Junges\ACL\Concerns\ACLWildcardsTrait;
 use ReflectionClass;
 use Throwable;
 

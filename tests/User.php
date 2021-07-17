@@ -4,8 +4,8 @@ namespace Junges\ACL\Tests;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Junges\ACL\Traits\ACLWildcardsTrait;
-use Junges\ACL\Traits\UsersTrait;
+use Junges\ACL\Concerns\ACLWildcardsTrait;
+use Junges\ACL\Concerns\UsersTrait;
 
 class User extends Authenticatable
 {

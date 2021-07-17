@@ -23,6 +23,7 @@
         "facade/ignition-contracts": "^1.0"
     },
     "require-dev": {
+        "orchestra/testbench": "^5.0|^6.0",
         "phpunit/phpunit": "^9.0",
         "predis/predis": "^1.1",
         "facade/ignition": "^1.4|^2.3.6"
@@ -52,9 +53,9 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Junges\\ACL\\ACLServiceProvider",
-                "Junges\\ACL\\ACLAuthServiceProvider",
-                "Junges\\ACL\\ACLEventsServiceProvider"
+                "Junges\\ACL\\Providers\\ACLServiceProvider",
+                "Junges\\ACL\\Providers\\ACLAuthServiceProvider",
+                "Junges\\ACL\\Providers\\ACLEventsServiceProvider"
             ]
         }
     },

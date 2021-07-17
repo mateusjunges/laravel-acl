@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Traits;
+namespace Junges\ACL\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;

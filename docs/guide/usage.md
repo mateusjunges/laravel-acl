@@ -4,7 +4,7 @@ First of all, use the `UsersTrait.php` on your `User` model:
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Junges\ACL\Traits\UsersTrait;
+use Junges\ACL\Concerns\UsersTrait;
 
 class User extends Authenticatable
 {
@@ -322,8 +322,8 @@ Add the `ACLWildcardsTrait` to your `user` model:
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Junges\ACL\Traits\UsersTrait;
-use Junges\ACL\Traits\ACLWildcardsTrait;
+use Junges\ACL\Concerns\UsersTrait;
+use Junges\ACL\Concerns\ACLWildcardsTrait;
 
 class User extends Authenticatable
 {

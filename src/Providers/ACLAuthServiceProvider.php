@@ -1,8 +1,8 @@
 <?php
 
-namespace Junges\ACL;
+namespace Junges\ACL\Providers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;

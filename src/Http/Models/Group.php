@@ -4,8 +4,8 @@ namespace Junges\ACL\Http\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Junges\ACL\Events\GroupSaving;
-use Junges\ACL\Traits\ACLWildcardsTrait;
-use Junges\ACL\Traits\GroupsTrait;
+use Junges\ACL\Concerns\ACLWildcardsTrait;
+use Junges\ACL\Concerns\GroupsTrait;
 
 class Group extends Model
 {

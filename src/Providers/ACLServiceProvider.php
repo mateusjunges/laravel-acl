@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL;
+namespace Junges\ACL\Providers;
 
 use Facade\IgnitionContracts\SolutionProviderRepository;
 use Illuminate\Contracts\Config\Repository;
@@ -22,9 +22,10 @@ class ACLServiceProvider extends ServiceProvider
      *
      * @param Dispatcher $events
      * @param Repository $config
-     * @param Factory    $view
+     * @param Factory $view
      *
      * @return void
+     * @throws IgnitionNotInstalledException
      */
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
@@ -109,7 +110,7 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function loadTranslations()
     {
-        $translationsPath = __DIR__.'/../resources/lang';
+        $translationsPath = __DIR__.'/../../resources/lang';
 
         $this->loadTranslationsFrom($translationsPath, 'acl');
 

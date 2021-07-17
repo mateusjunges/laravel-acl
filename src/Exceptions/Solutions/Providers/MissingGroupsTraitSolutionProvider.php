@@ -5,7 +5,7 @@ namespace Junges\ACL\Exceptions\Solutions\Providers;
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
 use Junges\ACL\Exceptions\Solutions\AddMissingGroupsTraitSolution;
-use Junges\ACL\Traits\GroupsTrait;
+use Junges\ACL\Concerns\GroupsTrait;
 use ReflectionClass;
 use Throwable;
 
