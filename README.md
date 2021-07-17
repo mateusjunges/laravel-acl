@@ -5,7 +5,7 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
 [![Total Downloads](https://img.shields.io/packagist/dt/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
-[![StyleCI](https://styleci.io/repos/175907190/shield)](https://styleci.io/repos/175907190)
+[![Check & fix styling](https://github.com/mateusjunges/laravel-acl/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/mateusjunges/laravel-acl/actions/workflows/php-cs-fixer.yml)
 ![](https://github.com/mateusjunges/laravel-acl/workflows/Continuous%20Integration/badge.svg)
 
 # Laravel ACL
