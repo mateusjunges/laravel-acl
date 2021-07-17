@@ -158,11 +158,11 @@ class TestCase extends Orchestra
         /**
          * Include de migration files.
          */
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005237_create_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005634_create_groups_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005237_create_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005634_create_groups_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
 
         /*
          * Create the tables on the database
