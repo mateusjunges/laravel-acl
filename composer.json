@@ -35,9 +35,9 @@
     "authors": [
         {
             "name": "Mateus Junges",
-            "email": "contato@mateusjunges.com",
-            "homepage": "https://mateusjunges.com",
-            "role": "Developer"
+            "email": "mateus@junges.dev",
+            "homepage": "https://twitter.com/mateusjungess",
+            "role": "Backend Software Engineer"
         }
     ],
     "autoload": {
