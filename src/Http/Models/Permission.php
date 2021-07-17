@@ -9,7 +9,8 @@ use Junges\ACL\Traits\PermissionsTrait;
 
 class Permission extends Model
 {
-    use SoftDeletes, PermissionsTrait;
+    use SoftDeletes;
+    use PermissionsTrait;
 
     protected $table;
 

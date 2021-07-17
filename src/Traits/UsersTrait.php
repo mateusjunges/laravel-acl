@@ -298,6 +298,7 @@ trait UsersTrait
                 if ($_permission instanceof $model) {
                     return $_permission->id;
                 }
+
                 throw PermissionDoesNotExistException::withSlug($permission);
             }
         }, $permissions));

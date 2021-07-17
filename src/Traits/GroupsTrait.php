@@ -198,7 +198,8 @@ trait GroupsTrait
                         return $_user->id;
                     }
                 }
-            }, $users));
+            }, $users)
+        );
     }
 
     /**
@@ -429,15 +430,15 @@ trait GroupsTrait
     {
         return [
             [
-                'column'       => 'username',
+                'column' => 'username',
                 'isset_column' => Schema::hasColumn($table, 'username'),
             ],
             [
-                'column'       => 'name',
+                'column' => 'name',
                 'isset_column' => Schema::hasColumn($table, 'name'),
             ],
             [
-                'column'       => 'email',
+                'column' => 'email',
                 'isset_column' => Schema::hasColumn($table, 'email'),
             ],
         ];
