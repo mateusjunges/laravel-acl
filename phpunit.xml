@@ -8,24 +8,24 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false">
-    <testsuites>
-        <testsuite name="Laravel ACL Tests">
-            <directory suffix="Test.php">tests</directory>
-        </testsuite>
-    </testsuites>
     <coverage cacheDirectory="/tmp">
+        <include>
+            <directory suffix=".php">src/</directory>
+        </include>
+        <exclude>
+            <directory suffix=".php">src/Exceptions/Solutions</directory>
+        </exclude>
         <report>
             <clover outputFile="./tests/reports/clover.xml"/>
             <html outputDirectory="./tests/reports/" lowUpperBound="35" highLowerBound="70"/>
             <text outputFile="php://stdout"/>
         </report>
     </coverage>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-        </whitelist>
-    </filter>
+    <testsuites>
+        <testsuite name="Laravel ACL Unit Tests">
+            <directory suffix="Test.php">tests</directory>
+        </testsuite>
+    </testsuites>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="DB_CONNECTION" value="sqlite"/>
