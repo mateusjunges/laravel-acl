@@ -1,5 +1,5 @@
 
-![Readme banner](https://banners.beyondco.de/Laravel%20ACL.png?theme=dark&packageName=mateusjunges%2Flaravel-acl&pattern=architect&style=style_1&description=Easily+associate+users+with+permissions+and+permission+groups+in+your+laravel+app&md=1&fontSize=150px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg)
+![Readme banner](docs/readme-banner.png)
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
