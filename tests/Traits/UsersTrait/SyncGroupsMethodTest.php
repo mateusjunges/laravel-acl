@@ -112,6 +112,7 @@ class SyncGroupsMethodTest extends TestCase
         $this->testUser->syncGroups(
             $this->testUserGroup->slug,
             $this->testUserGroup2->slug,
-            'some-nonexistent-slug');
+            'some-nonexistent-slug'
+        );
     }
 }
