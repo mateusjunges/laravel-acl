@@ -4,8 +4,8 @@ namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Exceptions\Solutions\AddMissingUsersTraitSolution;
 use Junges\ACL\Concerns\UsersTrait;
+use Junges\ACL\Exceptions\Solutions\AddMissingUsersTraitSolution;
 use ReflectionClass;
 use Throwable;
 
