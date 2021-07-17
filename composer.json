@@ -20,10 +20,11 @@
         "illuminate/auth": "^7.0|^8.0",
         "illuminate/support": "^7.0|^8.0",
         "illuminate/database": "^7.0|^8.0",
-        "facade/ignition-contracts": "^1.0"
+        "facade/ignition-contracts": "^1.0",
+        "laravel/framework": "7.*",
+        "orchestra/testbench": "5.*"
     },
     "require-dev": {
-        "orchestra/testbench": "^5.0|^6.0",
         "phpunit/phpunit": "^9.0",
         "predis/predis": "^1.1",
         "facade/ignition": "^1.4|^2.3.6"
