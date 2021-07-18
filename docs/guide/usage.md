@@ -1,5 +1,6 @@
 # Usage
 
+## Adding `UsersTrait` to the `User` model:
 First of all, use the `UsersTrait.php` on your `User` model:
 
 ```php
@@ -14,6 +15,7 @@ class User extends Authenticatable
 }
 ```
 
+## Assigning permissions to users
 You can add permissions to a user using the function below, 
 using as parameter permissions slugs, permissions ids or instance of permissions model.
 Beside that, you can also combine this 3 ways, using a permission id, 
@@ -47,6 +49,7 @@ $user->assignPermissions(1, 'permission-slug', Permission::find(1));
 $user->assignPermissions([1, 'permission-slug', Permission::find(1)]);
 ```
 
+## Assigning permissions to groups
 Like as add permissions to user, you can add permissions to groups.
 To do this, you have the same method, and they can be used by the same way:
 
@@ -355,7 +358,7 @@ $group->hasPermissionWithWildcards('users.*');
 
 ## Syncing user permissions
 
-The user permissions can synced with this method:
+The user permissions can be synced with this method:
 
 ```php
 //With permission id:
@@ -385,7 +388,7 @@ $user->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 
 ## Syncing user groups
 
-The user groups can synced using this method:
+The user groups can be synced using this method:
 
 ```php
 //With group ids:
@@ -415,7 +418,7 @@ $user->syncGroups([1, 'group-2', Group::find(3)]);
 
 ## Syncing group permissions
 
-The groups permissions can synced with this method:
+The groups permissions can be synced with this method:
 
 ```php
 //With permission id:
@@ -445,7 +448,7 @@ $group->syncPermissions([1, 'permission-slug', Permission::find(3)]);
 
 ## Some "shortcuts"
 
-The version `1.7.0` of this package provides some new methods to handle with groups and permissions.
+All versions above `1.7.0` of this package provides some new methods to handle with groups and permissions.
 From now, you can use the `assignAllPermissions` method to assign all your system permissions to your users, 
 instead of doing this manually.
 Similarly, the `revokeAllPermissions` , `assignAllGroups` and `revokeAllGroups` have similar functions.
@@ -483,7 +486,7 @@ $group->detachAllUsers();
 
 ## Local scopes
 
-### The `group` scope
+## The `group` scope
 The `UserTrait.php` trait also adds a `group` scope to the query to certain groups
 or permissions:
 
@@ -492,10 +495,10 @@ or permissions:
 $users = User::group('admin')->get();
 ```
 
-The `group` scope can accept a `\Junges\ACL\Http\Models\Group::class` object or an
+The `group` scope can accept a `\Junges\ACL\Models\Group::class` object or an
 `\Illuminate\Support\Collection` object.
 
-### The `permission` scope
+## The `permission` scope
 
 The same trait also adds a scope to only get users who have a certain permission.
 
@@ -504,10 +507,10 @@ The same trait also adds a scope to only get users who have a certain permission
 $users = User::permission('edit-post')->get();
 ```
 
-The `permission` scope can accept a string (permission slug), a `\Junges\ACL\Http\Models\Permission::class` or an
+The `permission` scope can accept a string (permission slug), a `\Junges\ACL\Models\Permission::class` or an
 `\Illuminate\Support\Collection` object.
 
-### The `user` scope (on `\Junges\ACL\Traits\PermissionsTrait` )
+## The `user` scope for permissions
 
 The `PermissionsTrait` adds a `user` scope to the query to certain users.
 With this scope, only permissions granted to the given user will be returned.
@@ -517,7 +520,7 @@ With this scope, only permissions granted to the given user will be returned.
 $permissions = Permission::user('Test')->get();
 ```
 
-### The `user` scope (on `\Junges\ACL\Traits\GroupsTrait` )
+## The `user` scope for groups
 
 The `GroupsTrait` adds a `user` scope to the query to certain users.
 With this scope, only groups granted to the given user will be returned.
@@ -556,13 +559,13 @@ The `user` scope can accept a string (user name, username, user email), a `App\U
 To check for permissions with this package, you can still using laravel built in `@can` blade
 directive and `can()` method:
 
-```php
+```html
 @can('edit-post')
     I can edit the post
 @endcan
 ```
 
-```php
+```html
 @if(auth()->user()->can('edit-post'))
     I can edit the post!
 @endcan
@@ -586,7 +589,7 @@ The custom blade directives provided by this package are:
 
 For groups:
 
-```php
+```html
 @group('admin')
     I have the admin group!
 @elsegroup('editor')
@@ -596,7 +599,7 @@ For groups:
 
 For permissions:
 
-```php
+```html
 @permission('admin')
     I have the admin permission!
 @elsepermission('writer')
@@ -606,7 +609,7 @@ For permissions:
 
 Check for all permissions:
 
-```php
+```html
 @allpermissions('permission-1', 'permission-2')
     I have permission 1 and permission 2!
 @endallpermissions
@@ -614,7 +617,7 @@ Check for all permissions:
 
 Check for any permission:
 
-```php
+```html
 @anypermission('permission-1', 'permission-2')
     I have at least one of these permissions!
 @endanypermission
@@ -622,7 +625,7 @@ Check for any permission:
 
 Check for all groups:
 
-```php
+```html
 @allgroups('group-1', 'group-2')
     I have group 1 and group 2!
 @endallgroups
@@ -630,15 +633,14 @@ Check for all groups:
 
 Check for any group:
 
-```php
+```html
 @anygroup('group-1', 'group-2')
     I have at least one of these groups!
 @endanygroup
 ```
+><b>NOTE</b>: You can only use custom blade directives with group/permission id or slug.
 
-<b>NOTE</b>: You can only use custom blade directives with group/permission id or slug.
-
-# Using a Middleware
+## Using Middlewares
 
 If you want to use the middleware provided by this package
 ( `PermissionMiddleware` , `GroupMiddleware` , `HierarchicalPermissions` e `PermissionOrGroupMiddleware` ), 
@@ -751,7 +753,7 @@ If the user has any of the above permissions, the access is granted.
 
 In positive case, both middleware guarantee access to the route.
 
-# Handling group and permission exceptions
+## Handling group and permission exceptions
 
 If you want to override the default `403` response, you can catch the `Unauthorized` exception using the 
 laravel exception handler:
@@ -796,9 +798,9 @@ The same is valid for the `Junges\ACL\Exceptions\PermissionAlreadyExistsExceptio
 
 The same is valid for `PermissionDoesNotExistException` , `GroupDoesNotExistException` and `UserDoesNotExistException.` 
 
-# Using artisan commands
+## Using artisan commands
 
-You can create a group or a permission from a console with artisan commands:
+You can create a group or permission from a console with artisan commands:
 
 ``` bash
 php artisan group:create name slug description
@@ -856,25 +858,25 @@ and with the user's email:
 php artisan user:permissions "email@domain.com"
 ```
 
-# Extending and replacing models
+## Extending and replacing models
 
 If you need to EXTEND the existing `Group` or `Permission` models note that:
 
-* Your `Group` model needs to extend the `\Junges\ACL\Http\Models\Group` model
-* Your `Permission` model needs to extend the `\Junges\ACL\Http\Models\Permission` model
+* Your `Group` model needs to extend the `Junges\ACL\Models\Group` model
+* Your `Permission` model needs to extend the `Junges\ACL\Models\Permission` model
 
 If you need to REPLACE the existing `Group` or `Permission` models you need to keep the
 following things in mind:
 
-* Your `Group` model needs to use the `\Junges\ACL\Traits\GroupTrait` trait
-* Your `Permission` model needs to implement the `\Junges\ACL\Traits\PermissionTrait` trait
+* Your `Group` model needs to use the `\Junges\ACL\Concerns\GroupTrait` trait
+* Your `Permission` model needs to implement the `\Junges\ACL\Concerns\PermissionTrait` trait
 
 In both cases, whether extending or replacing, you will need to specify your new models
 in the configuration.
 
 To do this you must update the `models.group` and `models.permission` values in the configuration file.
 
-# Route model key
+## Route model key
 If you would like model binding to use a database column other than id when
 retrieving a given model class, you may override the getRouteKeyName method
 on the Eloquent model with yours. The default key used for route model binding
@@ -888,30 +890,30 @@ in this package is the `slug` database column. You can modify it by changing the
 ],
 ```
 
-# Basic form templates
+## Basic form templates
 
 This package provides form to add a group or permission to the user, and permissions to groups.
 Just include the view on you form:
 
-```php
+```html
 <form action="" method="">
     @include('acl::_forms.groups.group')
 </form>
 ```
 
-```php
+```html
 <form action="" method="">
     @include('acl::_forms.users.add-group')
 </form>
 ```
 
-```php
+```html
 <form action="" method="">
     @include('acl::_forms.users.add-permission')
 </form>
 ```
 
-# Translations
+## Translations
 
 This package also provides translations for some messages. To use them is easy:
 
@@ -922,7 +924,7 @@ This package also provides translations for some messages. To use them is easy:
 php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-translations"
  ```
 
-# Ignition Solutions
+## Ignition Solutions
 
 This package ships with a lot of useful [Ignition Solutions](https://flareapp.io/docs/solutions/introduction) out of the box. To use it, you just need to change the `offer_solutions` flag, within the `config/acl.php` file to `true`.
 
