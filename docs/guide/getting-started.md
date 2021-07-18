@@ -2,30 +2,21 @@
 
 ## Installation
  
-To get started with laravel-acl, use Composer to add the package to your project's dependencies:
+To get started with `laravel-acl`, use Composer to add the package to your project's dependencies:
 
 ```bash
 composer require mateusjunges/laravel-acl
 ```
 
-Or add this line in your `composer.json`, inside of the `require` section:
+Or add this line in your `composer.json`, inside the `require` section:
 
 ```json
 {
     "require": {
-        "mateusjunges/laravel-acl": "2.5.*"
+        "mateusjunges/laravel-acl": "^3.0"
     }
 }
 ```
-
-> For Laravel v5.5 or lower, use the version 2.0 of this package:
->```json
->{
->    "require": {
->        "mateusjunges/laravel-acl": "2.0.*"
->    }
->}
->```
 
 then run `composer install`.
 
@@ -40,13 +31,13 @@ After installing the laravel-acl package, register the service provider in
 
 ```php
 'providers' => [
-    Junges\ACL\ACLServiceProvider::class,
-    Junges\ACL\ACLAuthServiceProvider::class,
-    Junges\ACL\ACLEventsServiceProvider::class,
+    \Junges\ACL\Providers\ACLServiceProvider::class,
+    \Junges\ACL\Providers\ACLAuthServiceProvider::class,
+    \Junges\ACL\Providers\ACLEventsServiceProvider::class,
 ];
 ```
 
-### Install using `acl:install` command
+## Install using `acl:install` command
 
 You can install this package by running the provided install command:
 ```bash
@@ -55,14 +46,14 @@ php artisan acl:install
 
 After run this command, the package installation is done. Proceed to the [usage](#usage) section.
 
-### Step by step installation
+## Step by step installation
 
-All migrations required for this package are already included. If you
+All migrations required for this package are included. If you
 need to customize the tables, you can publish [the migrations](https://github.com/mateusjunges/laravel-acl/tree/master/src/database/migrations)
 with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-migrations"
+php artisan vendor:publish --provider="Junges\ACL\Providers\ACLServiceProvider" --tag="acl-migrations"
 ```
 and set the `config` for `custom_migrations` to `true`, which is false by default. 
 
@@ -79,7 +70,7 @@ publish the config file and update the tables array.
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --provider="Junges\ACL\ACLServiceProvider" --tag="acl-config"
+php artisan vendor:publish --provider="Junges\ACL\Providers\ACLServiceProvider" --tag="acl-config"
 ```
 
 When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-acl/blob/master/config/acl.php) config file contains:
@@ -111,12 +102,12 @@ When published, the [`config/acl.php`](https://github.com/mateusjunges/laravel-a
             /*
              | The model you want to use as Permission model must use the \Junges\ACL\Traits\PermissionsTrait
              */
-            'permission'  => Junges\ACL\Http\Models\Permission::class,
+            'permission'  => Junges\ACL\Models\Permission::class,
 
             /*
              | The model you want to use as Group model must use the \Junges\ACL\Traits\GroupsTrait
              */
-            'group'  => Junges\ACL\Http\Models\Group::class,
+            'group'  => Junges\ACL\Models\Group::class,
         ],
 
         /*

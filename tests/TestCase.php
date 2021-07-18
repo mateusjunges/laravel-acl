@@ -4,8 +4,9 @@ namespace Junges\ACL\Tests;
 
 use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
-use Junges\ACL\ACLAuthServiceProvider;
-use Junges\ACL\ACLServiceProvider;
+use Junges\ACL\Providers\ACLAuthServiceProvider;
+use Junges\ACL\Providers\ACLEventsServiceProvider;
+use Junges\ACL\Providers\ACLServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -89,11 +90,12 @@ class TestCase extends Orchestra
         (new ACLAuthServiceProvider($this->app))->boot();
     }
 
-    public function getPackageProviders($app)
+    public function getPackageProviders($app): array
     {
         return [
             ACLServiceProvider::class,
             ACLAuthServiceProvider::class,
+            ACLEventsServiceProvider::class,
             IgnitionServiceProvider::class,
         ];
     }
@@ -107,9 +109,9 @@ class TestCase extends Orchestra
     {
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
-            'driver'   => 'sqlite',
+            'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix'   => '',
+            'prefix' => '',
         ]);
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
 
@@ -156,11 +158,11 @@ class TestCase extends Orchestra
         /**
          * Include de migration files.
          */
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005237_create_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005634_create_groups_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
-        include_once __DIR__.'/../src/database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005237_create_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005634_create_groups_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
+        include_once __DIR__.'/../database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
 
         /*
          * Create the tables on the database

@@ -58,5 +58,7 @@ class InstallCommand extends Command
 
             $this->line('<options=bold>'.str_repeat('=', 70)."</>\n");
         }
+
+        return 0;
     }
 }

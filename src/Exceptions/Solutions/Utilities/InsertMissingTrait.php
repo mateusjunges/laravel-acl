@@ -2,10 +2,10 @@
 
 namespace Junges\ACL\Exceptions\Solutions\Utilities;
 
-use Junges\ACL\Traits\ACLWildcardsTrait;
-use Junges\ACL\Traits\GroupsTrait;
-use Junges\ACL\Traits\PermissionsTrait;
-use Junges\ACL\Traits\UsersTrait;
+use Junges\ACL\Concerns\ACLWildcardsTrait;
+use Junges\ACL\Concerns\GroupsTrait;
+use Junges\ACL\Concerns\PermissionsTrait;
+use Junges\ACL\Concerns\UsersTrait;
 
 class InsertMissingTrait
 {

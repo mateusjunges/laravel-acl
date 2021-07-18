@@ -8,7 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class GroupSaving
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $group;
 
@@ -20,13 +22,5 @@ class GroupSaving
     public function __construct($group)
     {
         $this->group = $group;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     */
-    public function broadcastOn()
-    {
-        //
     }
 }
