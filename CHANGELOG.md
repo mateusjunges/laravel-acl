@@ -4,7 +4,7 @@ All notable changes to `mateusjunges/laravel-acl` will be documented in this fil
 # 3.0.0
 - Move namespace `Junges\ACL\Traits` to `Junges\ACL\Concerns`
 - Move namespace `Junges\ACL\Http\Models` to `Junges\ACL\Models`
-- Drop support for Laravel below 7.27
+- Drop support for Laravel below 7.28
 - Drop support for PHP 7.3
 - Fix styling using PHP CS Fixer  
 - Improve test coverage
