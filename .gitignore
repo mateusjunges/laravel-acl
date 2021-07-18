@@ -5,3 +5,5 @@ composer.lock
 yarn.lock
 node_modules
 tests/reports/*
+.phpunit.result.cache
+.php-cs-fixer.cache
