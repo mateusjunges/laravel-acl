@@ -90,7 +90,7 @@ class TestCase extends Orchestra
         (new ACLAuthServiceProvider($this->app))->boot();
     }
 
-    public function getPackageProviders($app)
+    public function getPackageProviders($app): array
     {
         return [
             ACLServiceProvider::class,

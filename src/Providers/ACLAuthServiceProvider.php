@@ -2,6 +2,7 @@
 
 namespace Junges\ACL\Providers;
 
+use Illuminate\Database\ConnectionInterface;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
@@ -145,7 +146,7 @@ class ACLAuthServiceProvider extends ServiceProvider
      * Check for database connection.
      * @return bool
      */
-    private function checkConnectionStatus()
+    protected function checkConnectionStatus(): bool
     {
         try {
             DB::connection()->getPdo();
