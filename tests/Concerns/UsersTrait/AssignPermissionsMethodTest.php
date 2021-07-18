@@ -10,19 +10,19 @@ class AssignPermissionsMethodTest extends TestCase
     public function test_if_a_permission_can_be_assigned_to_a_user()
     {
         $this->assertInstanceOf(User::class, $this->testUser->assignPermissions($this->testUserPermission));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission));
     }
 
     public function test_if_a_permission_can_be_assigned_to_user_with_mixed_parameters()
     {
-        self::assertInstanceOf(User::class, $this->testUser->assignPermissions(
+        $this->assertInstanceOf(User::class, $this->testUser->assignPermissions(
             $this->testUserPermission->id,
             $this->testUserPermission2->slug,
             $this->testUserPermission3
         ));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission3));
     }
 
     public function test_if_a_permission_can_be_assigned_to_user_with_permission_ids()
@@ -33,9 +33,9 @@ class AssignPermissionsMethodTest extends TestCase
             $this->testUserPermission3->id
         ));
 
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission3));
     }
 
     public function test_it_can_assign_permissions_using_array_as_parameter()
@@ -46,8 +46,8 @@ class AssignPermissionsMethodTest extends TestCase
             $this->testUserPermission3->id,
         ]));
 
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertTrue($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertTrue($this->testUser->hasPermission($this->testUserPermission3));
     }
 }

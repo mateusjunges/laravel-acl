@@ -14,8 +14,8 @@ class RevokeAllPermissionsTest extends TestCase
 
     public function test_if_it_can_revoke_all_the_user_permissions()
     {
-        self::assertInstanceOf(User::class, $this->testUser->revokeAllPermissions());
-        self::assertCount(0, $this->testUser->permissions()->get());
+        $this->assertInstanceOf(User::class, $this->testUser->revokeAllPermissions());
+        $this->assertCount(0, $this->testUser->permissions()->get());
     }
 
     public function test_if_it_only_removes_direct_associated_permissions()
@@ -26,12 +26,12 @@ class RevokeAllPermissionsTest extends TestCase
 
         $this->testUser->revokeAllPermissions();
 
-        self::assertCount(3, $this->testUser->permissionViaGroups());
-        self::assertFalse($this->testUser->hasPermission(1));
-        self::assertFalse($this->testUser->hasPermission(2));
-        self::assertFalse($this->testUser->hasPermission(3));
-        self::assertTrue($this->testUser->hasPermission(4));
-        self::assertTrue($this->testUser->hasPermission(5));
-        self::assertTrue($this->testUser->hasPermission(6));
+        $this->assertCount(3, $this->testUser->permissionViaGroups());
+        $this->assertFalse($this->testUser->hasPermission(1));
+        $this->assertFalse($this->testUser->hasPermission(2));
+        $this->assertFalse($this->testUser->hasPermission(3));
+        $this->assertTrue($this->testUser->hasPermission(4));
+        $this->assertTrue($this->testUser->hasPermission(5));
+        $this->assertTrue($this->testUser->hasPermission(6));
     }
 }

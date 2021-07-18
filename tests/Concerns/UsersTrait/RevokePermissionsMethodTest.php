@@ -10,8 +10,8 @@ class RevokePermissionsMethodTest extends TestCase
     public function test_if_a_permission_can_be_revoked_from_user()
     {
         $this->testUser->assignPermissions($this->testUserPermission);
-        self::assertInstanceOf(User::class, $this->testUser->revokePermissions($this->testUserPermission));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertInstanceOf(User::class, $this->testUser->revokePermissions($this->testUserPermission));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission));
     }
 
     public function test_if_a_permission_can_be_revoked_from_user_with_mixed_parameters()
@@ -20,15 +20,15 @@ class RevokePermissionsMethodTest extends TestCase
         $this->testUser->assignPermissions($this->testUserPermission2);
         $this->testUser->assignPermissions($this->testUserPermission3);
 
-        self::assertInstanceOf(User::class, $this->testUser->revokePermissions(
+        $this->assertInstanceOf(User::class, $this->testUser->revokePermissions(
             $this->testUserPermission->id,
             $this->testUserPermission2->slug,
             $this->testUserPermission3
         ));
 
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission3));
     }
 
     public function test_if_a_permission_can_be_revoked_from_user_with_permission_ids()
@@ -37,15 +37,15 @@ class RevokePermissionsMethodTest extends TestCase
         $this->testUser->assignPermissions($this->testUserPermission2);
         $this->testUser->assignPermissions($this->testUserPermission3);
 
-        self::assertInstanceOf(User::class, $this->testUser->revokePermissions(
+        $this->assertInstanceOf(User::class, $this->testUser->revokePermissions(
             $this->testUserPermission->id,
             $this->testUserPermission2->id,
             $this->testUserPermission3->id
         ));
 
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission3));
     }
 
     public function test_if_it_can_revoke_permissions_using_array_as_parameter()
@@ -54,14 +54,14 @@ class RevokePermissionsMethodTest extends TestCase
         $this->testUser->assignPermissions($this->testUserPermission2);
         $this->testUser->assignPermissions($this->testUserPermission3);
 
-        self::assertInstanceOf(User::class, $this->testUser->revokePermissions([
+        $this->assertInstanceOf(User::class, $this->testUser->revokePermissions([
             $this->testUserPermission->id,
             $this->testUserPermission2->id,
             $this->testUserPermission3->id,
         ]));
 
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission2));
-        self::assertFalse($this->testUser->hasPermission($this->testUserPermission3));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission2));
+        $this->assertFalse($this->testUser->hasPermission($this->testUserPermission3));
     }
 }

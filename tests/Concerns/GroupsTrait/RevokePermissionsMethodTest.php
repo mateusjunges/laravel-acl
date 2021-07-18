@@ -10,8 +10,8 @@ class RevokePermissionsMethodTest extends TestCase
     public function test_if_a_permission_can_be_revoked_from_group()
     {
         $this->testUserGroup->assignPermissions($this->testUserPermission);
-        self::assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions($this->testUserPermission));
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions($this->testUserPermission));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
     }
 
     public function test_if_a_permission_can_be_revoked_from_group_with_mixed_parameters()
@@ -20,15 +20,15 @@ class RevokePermissionsMethodTest extends TestCase
         $this->testUserGroup->assignPermissions($this->testUserPermission2);
         $this->testUserGroup->assignPermissions($this->testUserPermission3);
 
-        self::assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions(
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions(
             $this->testUserPermission->id,
             $this->testUserPermission2->slug,
             $this->testUserPermission3
         ));
 
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission2));
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission3));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission2));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission3));
     }
 
     public function test_if_a_permission_can_be_revoked_from_group_with_permission_ids()
@@ -37,14 +37,14 @@ class RevokePermissionsMethodTest extends TestCase
         $this->testUserGroup->assignPermissions($this->testUserPermission2);
         $this->testUserGroup->assignPermissions($this->testUserPermission3);
 
-        self::assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions(
+        $this->assertInstanceOf(Group::class, $this->testUserGroup->revokePermissions(
             $this->testUserPermission->id,
             $this->testUserPermission2->id,
             $this->testUserPermission3->id
         ));
 
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission2));
-        self::assertFalse($this->testUserGroup->hasPermission($this->testUserPermission3));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission2));
+        $this->assertFalse($this->testUserGroup->hasPermission($this->testUserPermission3));
     }
 }

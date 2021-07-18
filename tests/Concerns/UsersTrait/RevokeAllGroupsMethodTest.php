@@ -16,10 +16,10 @@ class RevokeAllGroupsMethodTest extends TestCase
     {
         $this->testUser2->assignGroup('test-user-group');
 
-        self::assertTrue($this->testUser2->hasGroup('test-user-group'));
+        $this->assertTrue($this->testUser2->hasGroup('test-user-group'));
 
-        self::assertInstanceOf(User::class, $this->testUser2->revokeAllGroups());
+        $this->assertInstanceOf(User::class, $this->testUser2->revokeAllGroups());
 
-        self::assertCount(0, $this->testUser2->groups()->get());
+        $this->assertCount(0, $this->testUser2->groups()->get());
     }
 }

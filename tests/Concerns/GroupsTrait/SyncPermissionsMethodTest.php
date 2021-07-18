@@ -15,55 +15,55 @@ class SyncPermissionsMethodTest extends TestCase
     {
         $this->testUserGroup->assignPermissions(1, 2, 3, 4);
 
-        self::assertCount(4, $this->testUserGroup->permissions()->get());
+        $this->assertCount(4, $this->testUserGroup->permissions()->get());
 
-        self::assertTrue($this->testUserGroup->hasPermission(1));
-        self::assertTrue($this->testUserGroup->hasPermission(2));
-        self::assertTrue($this->testUserGroup->hasPermission(3));
-        self::assertTrue($this->testUserGroup->hasPermission(4));
+        $this->assertTrue($this->testUserGroup->hasPermission(1));
+        $this->assertTrue($this->testUserGroup->hasPermission(2));
+        $this->assertTrue($this->testUserGroup->hasPermission(3));
+        $this->assertTrue($this->testUserGroup->hasPermission(4));
 
         $this->testUserGroup->syncPermissions(1, 2);
 
-        self::assertFalse(
+        $this->assertFalse(
             $this->testUserGroup
                 ->permissions()
                 ->get()
                 ->contains('id', 3)
         );
-        self::assertFalse(
+        $this->assertFalse(
             $this->testUserGroup
                 ->permissions()
                 ->get()
                 ->contains('id', 4)
         );
-        self::assertTrue($this->testUserGroup->hasPermission(1));
-        self::assertTrue($this->testUserGroup->hasPermission(2));
+        $this->assertTrue($this->testUserGroup->hasPermission(1));
+        $this->assertTrue($this->testUserGroup->hasPermission(2));
 
-        self::assertCount(2, $this->testUserGroup->permissions()->get());
+        $this->assertCount(2, $this->testUserGroup->permissions()->get());
     }
 
     public function test_it_can_assign_permissions_which_the_group_does_not_have_previously()
     {
         $this->testUserGroup->assignPermissions(1, 2);
 
-        self::assertCount(2, $this->testUserGroup->permissions()->get());
+        $this->assertCount(2, $this->testUserGroup->permissions()->get());
 
-        self::assertTrue($this->testUserGroup->hasPermission(1));
-        self::assertTrue($this->testUserGroup->hasPermission(2));
+        $this->assertTrue($this->testUserGroup->hasPermission(1));
+        $this->assertTrue($this->testUserGroup->hasPermission(2));
 
         $this->testUserGroup->syncPermissions(1, 2, 3, 4);
 
-        self::assertCount(4, $this->testUserGroup->permissions()->get());
+        $this->assertCount(4, $this->testUserGroup->permissions()->get());
     }
 
     public function test_it_can_assign_permissions_using_array_as_parameter()
     {
         $this->testUserGroup->assignPermissions([1, 2]);
 
-        self::assertCount(2, $this->testUserGroup->permissions()->get());
+        $this->assertCount(2, $this->testUserGroup->permissions()->get());
 
-        self::assertTrue($this->testUserGroup->hasPermission(1));
-        self::assertTrue($this->testUserGroup->hasPermission(2));
+        $this->assertTrue($this->testUserGroup->hasPermission(1));
+        $this->assertTrue($this->testUserGroup->hasPermission(2));
 
         $this->testUserGroup->syncPermissions([1, 2, 3, 4]);
 
