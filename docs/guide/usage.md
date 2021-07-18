@@ -20,6 +20,8 @@ Beside that, you can also combine this 3 ways, using a permission id,
 one instance of permission model and a permission slug too.
 
 ```php
+use Junges\ACL\Models\Permission;
+
 //With permission slugs:
 $user->assignPermissions('permission-slug-1', 'permission-slug-2');
 
@@ -49,6 +51,8 @@ Like as add permissions to user, you can add permissions to groups.
 To do this, you have the same method, and they can be used by the same way:
 
 ```php
+use Junges\ACL\Models\Permission;
+
 //With permission slugs:
 $group->assignPermissions('permission-slug-1', 'permission-slug-2');
 
@@ -82,6 +86,8 @@ This can be done in two different ways:
 You can add a group to a user, and use 4 different types of parameters:
 
 ```php
+use Junges\ACL\Models\Group;
+
 //Assign a group to a user, using group slugs:
 $user->assignGroup('group-slug-1', 'group-slug-2');
 

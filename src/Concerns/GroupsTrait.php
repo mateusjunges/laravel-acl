@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Exceptions\UserDoesNotExistException;
-use Junges\ACL\Http\Models\Permission;
+use Junges\ACL\Models\Permission;
 
 trait GroupsTrait
 {

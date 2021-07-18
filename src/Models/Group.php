@@ -1,6 +1,6 @@
 <?php
 
-namespace Junges\ACL\Http\Models;
+namespace Junges\ACL\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Junges\ACL\Concerns\ACLWildcardsTrait;

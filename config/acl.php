@@ -21,12 +21,12 @@ return [
         /*
          | The model you want to use as Permission model must use the MateusJunges\ACL\Traits\PermissionsTrait
          */
-        'permission' => Junges\ACL\Http\Models\Permission::class,
+        'permission' => Junges\ACL\Models\Permission::class,
 
         /*
          | The model you want to use as Group model must use the MateusJunges\ACL\Traits\GroupsTrait
          */
-        'group'      => Junges\ACL\Http\Models\Group::class,
+        'group'      => Junges\ACL\Models\Group::class,
     ],
 
     /*

@@ -24,7 +24,7 @@ class ACLAuthServiceProvider extends ServiceProvider
          */
         config('acl.models.permission') !== null
         ? $permissionModel = app(config('acl.models.permission'))
-        : $permissionModel = app(\Junges\ACL\Http\Models\Permission::class);
+        : $permissionModel = app(\Junges\ACL\Models\Permission::class);
 
         if ($this->checkConnectionStatus()) {
             if (config('acl.tables.permissions') !== null) {
