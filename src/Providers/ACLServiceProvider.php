@@ -54,10 +54,10 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function loadViews()
     {
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'acl');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'acl');
 
         $this->publishes([
-            __DIR__.'/resources/views' => resource_path('views/vendor/junges/acl'),
+            __DIR__.'/../../resources/views' => resource_path('views/vendor/junges/acl'),
         ], 'acl-views');
     }
 
@@ -67,7 +67,7 @@ class ACLServiceProvider extends ServiceProvider
     public function publishConfig()
     {
         $this->publishes([
-            __DIR__.'/../config/acl.php' => config_path('acl.php'),
+            __DIR__.'/../../config/acl.php' => config_path('acl.php'),
         ], 'acl-config');
     }
 
@@ -97,11 +97,11 @@ class ACLServiceProvider extends ServiceProvider
         if ($customMigrations) {
             $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
         } else {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         }
 
         $this->publishes([
-            __DIR__.'/database/migrations' => database_path('migrations/vendor/junges/acl'),
+            __DIR__.'/../../database/migrations' => database_path('migrations/vendor/junges/acl'),
         ], 'acl-migrations');
     }
 
