@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+# 3.0.1
+- Fix paths on `ACLServiceProvider`
+
 # 3.0.0
 - Move namespace `Junges\ACL\Traits` to `Junges\ACL\Concerns`
 - Move namespace `Junges\ACL\Http\Models` to `Junges\ACL\Models`
