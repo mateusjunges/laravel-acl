@@ -8,16 +8,6 @@ use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 class GroupSavingListener
 {
     /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * Handle the event.
      *
      * @param GroupSaving $event
@@ -28,10 +18,12 @@ class GroupSavingListener
     {
         $group = $event->group;
         $groupModel = app(config('acl.models.group'));
+
         $groupAlreadyExists = $groupModel
            ->where('slug', $group->slug)
            ->orWhere('name', $group->name)
            ->first();
+
         if (! is_null($groupAlreadyExists)) {
             throw GroupAlreadyExistsException::create();
         }

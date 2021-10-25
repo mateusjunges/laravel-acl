@@ -16,15 +16,15 @@
     },
     "homepage": "https://github.com/mateusjunges/laravel-acl",
     "require": {
-        "php": "^7.3||^8.0",
-        "illuminate/auth": "^6.0|^7.0|^8.0",
-        "illuminate/support": "^6.0|^7.0|^8.0",
-        "illuminate/database": "^6.0|^7.0|^8.0",
+        "php": "^7.4|^8.0",
+        "illuminate/auth": "^7.28|^8.0",
+        "illuminate/support": "^7.28|^8.0",
+        "illuminate/database": "^7.28|^8.0",
         "facade/ignition-contracts": "^1.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0|^5.0|^6.0",
-        "phpunit/phpunit": "^8.0|^9.0",
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpunit/phpunit": "^9.0",
         "predis/predis": "^1.1",
         "facade/ignition": "^1.4|^2.3.6"
     },
@@ -35,9 +35,9 @@
     "authors": [
         {
             "name": "Mateus Junges",
-            "email": "contato@mateusjunges.com",
-            "homepage": "https://mateusjunges.com",
-            "role": "Developer"
+            "email": "mateus@junges.dev",
+            "homepage": "https://twitter.com/mateusjungess",
+            "role": "Backend Software Engineer"
         }
     ],
     "autoload": {
@@ -53,13 +53,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Junges\\ACL\\ACLServiceProvider",
-                "Junges\\ACL\\ACLAuthServiceProvider",
-                "Junges\\ACL\\ACLEventsServiceProvider"
+                "Junges\\ACL\\Providers\\ACLServiceProvider",
+                "Junges\\ACL\\Providers\\ACLAuthServiceProvider",
+                "Junges\\ACL\\Providers\\ACLEventsServiceProvider"
             ]
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit tests"
+        "test": "vendor/bin/phpunit tests",
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
     }
 }

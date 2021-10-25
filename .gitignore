@@ -4,3 +4,6 @@ composer.lock
 .phpunit.result.cache
 yarn.lock
 node_modules
+tests/reports/*
+.phpunit.result.cache
+.php-cs-fixer.cache

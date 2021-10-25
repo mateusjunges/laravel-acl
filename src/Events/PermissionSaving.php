@@ -8,7 +8,9 @@ use Illuminate\Queue\SerializesModels;
 
 class PermissionSaving
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $permission;
 
@@ -20,13 +22,5 @@ class PermissionSaving
     public function __construct($permission)
     {
         $this->permission = $permission;
-    }
-
-    /**
-     * Get the channels the event should broadcast on.
-     */
-    public function broadcastOn()
-    {
-        //
     }
 }
