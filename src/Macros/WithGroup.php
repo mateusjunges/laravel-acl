@@ -11,7 +11,7 @@ class WithGroup
 {
     public function __invoke(): callable
     {
-        return function($groups = []) {
+        return function ($groups = []) {
             if (! is_array($groups)) {
                 $groups = [$groups];
             }

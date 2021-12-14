@@ -7,6 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -18,7 +19,6 @@ use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
 use Junges\ACL\Macros\WithGroup;
 use Junges\ACL\Macros\WithPermission;
-use Illuminate\Filesystem\Filesystem;
 
 class ACLServiceProvider extends ServiceProvider
 {
@@ -56,7 +56,7 @@ class ACLServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/../../config/acl.php'
+            __DIR__.'/../../config/acl.php',
         ], 'acl-config');
 
         $this->publishes([
@@ -66,7 +66,6 @@ class ACLServiceProvider extends ServiceProvider
             __DIR__.'/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php'),
         ], 'acl-migrations');
     }
-
 
     /**
      * Register the package's commands.
