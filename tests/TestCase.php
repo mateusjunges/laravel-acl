@@ -98,7 +98,7 @@ class TestCase extends Orchestra
             ACLAuthServiceProvider::class,
             ACLEventsServiceProvider::class,
             IgnitionServiceProvider::class,
-            ACLViewServiceProvider::class
+            ACLViewServiceProvider::class,
         ];
     }
 

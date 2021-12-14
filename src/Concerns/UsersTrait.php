@@ -538,6 +538,7 @@ trait UsersTrait
 
         $groups = array_map(function ($group) use ($groupModel) {
             $_group = null;
+
             if ($group instanceof $groupModel) {
                 $_group = $group;
             }
@@ -584,6 +585,7 @@ trait UsersTrait
     protected function convertToPermissionModels($permissions)
     {
         $permissionModel = app(config('acl.models.permission'));
+
         if ($permissions instanceof Collection) {
             $permissions = $permissions->all();
         }
@@ -591,6 +593,7 @@ trait UsersTrait
 
         return array_map(function ($permission) use ($permissionModel) {
             $_permission = null;
+
             if ($permission instanceof $permissionModel) {
                 $_permission = $permission;
             }
