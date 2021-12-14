@@ -4,13 +4,13 @@ namespace Junges\ACL\Tests;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Junges\ACL\Concerns\PermissionsTrait;
+use Junges\ACL\Concerns\HasGroups;
 use Junges\ACL\Events\PermissionSaving;
 
 class Permission extends Model
 {
     use SoftDeletes;
-    use PermissionsTrait;
+    use HasGroups;
 
     protected $table = 'test_permissions';
 

@@ -64,8 +64,14 @@ return [
         'permissions'                 => 'permissions',
         'users'                       => 'users',
         'group_has_permissions'       => 'group_has_permissions',
-        'user_has_permissions'        => 'user_has_permissions',
-        'user_has_groups'             => 'user_has_groups',
+        'model_has_permissions'        => 'model_has_permissions',
+        'model_has_groups'             => 'model_has_groups',
+    ],
+
+    'column_names' => [
+        'group_pivot_key' => null,
+        'permission_pivot_key' => null,
+        'model_morph_key' => 'model_id',
     ],
 
     /*

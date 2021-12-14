@@ -7,18 +7,11 @@ use Junges\ACL\Exceptions\UnauthorizedException;
 
 class PermissionOrGroupMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param $request
-     * @param Closure $next
-     * @param $groupOrPermissions
-     *
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $groupOrPermissions)
+    public function handle($request, Closure $next, $groupOrPermissions, string $guard = null)
     {
-        if (auth()->guest()) {
+        $authGuard = app('auth')->guard($guard);
+
+        if ($authGuard->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -26,43 +19,10 @@ class PermissionOrGroupMiddleware
             ? $groupOrPermissions
             : explode('|', $groupOrPermissions);
 
-        if (! $this->hasAnyPermission(auth()->user(), $permissions)
-            && ! $this->hasAnyGroup(auth()->user(), $permissions)) {
+        if (! $authGuard->user()->hasAnyGroup($groupOrPermissions) && ! $authGuard->user()->hasAnyPermission($groupOrPermissions)) {
             throw UnauthorizedException::forGroupsOrPermissions();
         }
 
         return $next($request);
-    }
-
-    /**
-     * @param $user
-     * @param array $permissions
-     * @return bool
-     */
-    private function hasAnyPermission($user, array $permissions)
-    {
-        foreach ($permissions as $permission) {
-            if ($user->hasPermission($permission)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param $user
-     * @param array $groups
-     * @return bool
-     */
-    private function hasAnyGroup($user, array $groups)
-    {
-        foreach ($groups as $group) {
-            if ($user->hasGroup($group)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

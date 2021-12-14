@@ -23,7 +23,7 @@ class PermissionViaGroupsMethodTest extends TestCase
     {
         $this->testUserGroup->assignPermissions(1, 2, 3);
         $this->testUser->assignGroup($this->testUserGroup);
-        $this->testUser->assignPermissions(4, 5, 6);
+        $this->testUser->assignPermission(4, 5, 6);
         $this->assertTrue($this->testUser->hasGroup($this->testUserGroup));
         $this->assertTrue($this->testUser->hasPermission(4));
         $this->assertTrue($this->testUser->hasPermission(5));

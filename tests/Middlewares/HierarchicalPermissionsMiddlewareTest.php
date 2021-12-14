@@ -24,7 +24,7 @@ class HierarchicalPermissionsMiddlewareTest extends MiddlewareTestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions('admin.auth');
+        Auth::user()->assignPermission('admin.auth');
         $this->assertEquals(
             $this->execMiddleware($this->hierarchicalMiddleware, 'admin.auth.users'),
             Response::HTTP_OK

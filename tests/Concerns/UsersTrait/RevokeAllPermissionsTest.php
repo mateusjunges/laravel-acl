@@ -20,7 +20,7 @@ class RevokeAllPermissionsTest extends TestCase
 
     public function test_if_it_only_removes_direct_associated_permissions()
     {
-        $this->testUser->assignPermissions(1, 2, 3);
+        $this->testUser->assignPermission(1, 2, 3);
         $this->testUserGroup->assignPermissions(4, 5, 6);
         $this->testUser->assignGroup($this->testUserGroup);
 

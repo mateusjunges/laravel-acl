@@ -18,7 +18,7 @@ class WildcardPermissionsTest extends TestCase
     public function it_can_check_for_permissions_using_wildcards()
     {
         Auth::login($this->testUser);
-        $this->testUser->assignPermissions(6, 7);
+        $this->testUser->assignPermission(6, 7);
         $this->assertCount(2, Auth::user()->permissions);
         $this->assertTrue(
             Auth::user()->hasPermissionWithWildcards('admin.*.users')
@@ -40,7 +40,7 @@ class WildcardPermissionsTest extends TestCase
     public function test_if_star_only_always_give_permission_if_the_user_has_at_least_one_permission()
     {
         Auth::login($this->testUser);
-        Auth::user()->assignPermissions(1);
+        Auth::user()->assignPermission(1);
         $this->assertTrue(Auth::user()->hasPermissionWithWildcards('*'));
     }
 

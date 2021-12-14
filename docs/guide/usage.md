@@ -5,11 +5,11 @@ First of all, use the `UsersTrait.php` on your `User` model:
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Junges\ACL\Concerns\UsersTrait;
+use Junges\ACL\Concerns\HasPermissions;
 
 class User extends Authenticatable
 {
-    use UsersTrait;
+    use HasPermissions;
 
     //
 }
@@ -331,12 +331,12 @@ Add the `ACLWildcardsTrait` to your `user` model:
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Junges\ACL\Concerns\UsersTrait;
+use Junges\ACL\Concerns\HasPermissions;
 use Junges\ACL\Concerns\ACLWildcardsTrait;
 
 class User extends Authenticatable
 {
-    use UsersTrait;
+    use HasPermissions;
     use ACLWildcardsTrait;
 
     //

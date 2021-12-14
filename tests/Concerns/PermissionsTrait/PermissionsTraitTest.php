@@ -12,8 +12,8 @@ class PermissionsTraitTest extends TestCase
     {
         parent::setUp();
 
-        $this->testUser->assignPermissions($this->testUserPermission);
-        $this->testUser2->assignPermissions($this->testUserPermission);
+        $this->testUser->assignPermission($this->testUserPermission);
+        $this->testUser2->assignPermission($this->testUserPermission);
     }
 
     public function test_it_can_get_all_users_who_has_a_permission()
@@ -29,7 +29,7 @@ class PermissionsTraitTest extends TestCase
 
         $this->assertCount(1, $permissions);
 
-        $this->testUser->assignPermissions($this->testUserPermission2);
+        $this->testUser->assignPermission($this->testUserPermission2);
 
         $permissions = Permission::user($this->testUser->name)->get();
 
@@ -42,7 +42,7 @@ class PermissionsTraitTest extends TestCase
 
         $this->assertCount(1, $permissions);
 
-        $this->testUser->assignPermissions($this->testUserPermission2);
+        $this->testUser->assignPermission($this->testUserPermission2);
 
         $permissions = Permission::user($this->testUser->name)->get();
 
@@ -55,7 +55,7 @@ class PermissionsTraitTest extends TestCase
 
         $this->assertCount(1, $permissions);
 
-        $this->testUser->assignPermissions($this->testUserPermission2);
+        $this->testUser->assignPermission($this->testUserPermission2);
 
         $permissions = Permission::user($this->testUser->name)->get();
 

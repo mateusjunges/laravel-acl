@@ -6,29 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 class CreatePermissionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         $permissionsTable = config('acl.tables.permissions', 'permissions');
         Schema::create($permissionsTable, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique()->nullable(false);
-            $table->string('slug')->unique()->nullable(false);
+            $table->string('name')->unique();
+            $table->string('guard_name');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['name', 'guard_name']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         $tables = config('acl.tables');

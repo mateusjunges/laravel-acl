@@ -20,7 +20,7 @@ class GetAllPermissionsMethodTest extends TestCase
         $this->assertTrue($this->testUserGroup->hasPermission(3));
 
         $this->testUser->assignGroup($this->testUserGroup);
-        $this->testUser->assignPermissions(4, 5, 6);
+        $this->testUser->assignPermission(4, 5, 6);
 
         $this->assertTrue($this->testUser->hasPermission(4));
         $this->assertTrue($this->testUser->hasPermission(5));

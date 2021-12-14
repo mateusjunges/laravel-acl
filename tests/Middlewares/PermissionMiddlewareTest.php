@@ -28,7 +28,7 @@ class PermissionMiddlewareTest extends MiddlewareTestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions($this->testUserPermission);
+        Auth::user()->assignPermission($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -43,7 +43,7 @@ class PermissionMiddlewareTest extends MiddlewareTestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions($this->testUserPermission);
+        Auth::user()->assignPermission($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(
@@ -58,7 +58,7 @@ class PermissionMiddlewareTest extends MiddlewareTestCase
     {
         Auth::login($this->testUser);
 
-        Auth::user()->assignPermissions($this->testUserPermission);
+        Auth::user()->assignPermission($this->testUserPermission);
 
         $this->assertEquals(
             $this->execMiddleware(

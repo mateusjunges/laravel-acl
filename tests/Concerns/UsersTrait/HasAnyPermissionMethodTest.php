@@ -34,13 +34,13 @@ class HasAnyPermissionMethodTest extends TestCase
 
     public function test_if_it_returns_false_if_the_user_permission_does_not_match_the_specified_permissions()
     {
-        $this->testUser->assignPermissions(2);
+        $this->testUser->assignPermission(2);
         $this->assertFalse($this->testUser->hasAnyPermission('admin'));
     }
 
     public function test_if_it_returns_true_if_the_user_has_at_least_one_of_the_specified_permissions()
     {
-        $this->testUser->assignPermissions(2);
+        $this->testUser->assignPermission(2);
         $this->assertTrue($this->testUser->hasAnyPermission(1, 'edit-posts'));
     }
 

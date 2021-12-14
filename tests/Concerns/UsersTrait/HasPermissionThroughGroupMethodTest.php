@@ -61,7 +61,7 @@ class HasPermissionThroughGroupMethodTest extends TestCase
 
     public function test_if_it_returns_false_if_the_user_has_the_permission_directly_associated()
     {
-        $this->testUser->assignPermissions(1);
+        $this->testUser->assignPermission(1);
         $this->assertFalse($this->testUser->hasPermissionThroughGroup(Permission::find(1)));
         $this->assertFalse($this->testUser->hasPermissionThroughGroup('admin'));
         $this->assertFalse($this->testUser->hasPermissionThroughGroup(Permission::find(1)));

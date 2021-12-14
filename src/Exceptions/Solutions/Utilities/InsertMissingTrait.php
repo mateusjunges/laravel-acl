@@ -4,16 +4,16 @@ namespace Junges\ACL\Exceptions\Solutions\Utilities;
 
 use Junges\ACL\Concerns\ACLWildcardsTrait;
 use Junges\ACL\Concerns\GroupsTrait;
-use Junges\ACL\Concerns\PermissionsTrait;
-use Junges\ACL\Concerns\UsersTrait;
+use Junges\ACL\Concerns\HasGroups;
+use Junges\ACL\Concerns\HasPermissions;
 
 class InsertMissingTrait
 {
     private const TRAITS = [
-        'UsersTrait' => UsersTrait::class,
+        'UsersTrait' => HasPermissions::class,
         'ACLWildcardsTrait' => ACLWildcardsTrait::class,
         'GroupsTrait' => GroupsTrait::class,
-        'PermissionsTrait' => PermissionsTrait::class,
+        'PermissionsTrait' => HasGroups::class,
     ];
 
     /**

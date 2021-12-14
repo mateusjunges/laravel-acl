@@ -14,7 +14,7 @@ class HasPermissionMethodTest extends TestCase
 
     public function test_if_it_returns_false_if_the_user_does_not_have_the_specified_permission()
     {
-        $this->testUser->assignPermissions('edit-posts');
+        $this->testUser->assignPermission('edit-posts');
         $this->assertFalse($this->testUser->hasPermission('admin'));
     }
 
@@ -25,19 +25,19 @@ class HasPermissionMethodTest extends TestCase
 
     public function test_if_it_returns_true_if_the_user_has_the_specified_permission_with_id()
     {
-        $this->testUser->assignPermissions('admin');
+        $this->testUser->assignPermission('admin');
         $this->assertTrue($this->testUser->hasPermission(1));
     }
 
     public function test_if_it_returns_true_if_the_user_has_the_specified_permission_with_model()
     {
-        $this->testUser->assignPermissions('admin');
+        $this->testUser->assignPermission('admin');
         $this->assertTrue($this->testUser->hasPermission(Permission::find(1)));
     }
 
     public function test_if_it_returns_true_if_the_user_has_the_specified_permission_with_slug()
     {
-        $this->testUser->assignPermissions('admin');
+        $this->testUser->assignPermission('admin');
         $this->assertTrue($this->testUser->hasPermission('admin'));
     }
 

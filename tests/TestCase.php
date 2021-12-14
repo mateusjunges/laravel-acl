@@ -163,8 +163,8 @@ class TestCase extends Orchestra
         include_once __DIR__.'/../database/migrations/2019_03_16_005237_create_permissions_table.php';
         include_once __DIR__.'/../database/migrations/2019_03_16_005634_create_groups_table.php';
         include_once __DIR__.'/../database/migrations/2019_03_16_005759_create_group_has_permissions_table.php';
-        include_once __DIR__.'/../database/migrations/2019_03_16_005538_create_user_has_permissions_table.php';
-        include_once __DIR__.'/../database/migrations/2019_03_16_005834_create_user_has_groups_table.php';
+        include_once __DIR__ . '/../database/migrations/2019_03_16_005538_create_model_has_permissions_table.php';
+        include_once __DIR__ . '/../database/migrations/2019_03_16_005834_create_model_has_groups_table.php';
 
         /*
          * Create the tables on the database
@@ -172,8 +172,8 @@ class TestCase extends Orchestra
         (new \CreatePermissionsTable())->up();
         (new \CreateGroupsTable())->up();
         (new \CreateGroupHasPermissionsTable())->up();
-        (new \CreateUserHasPermissionsTable())->up();
-        (new \CreateUserHasGroupsTable())->up();
+        (new \CreateModelHasPermissionsTable())->up();
+        (new \CreateModelHasGroupsTable())->up();
 
         /*
          * Create some new users

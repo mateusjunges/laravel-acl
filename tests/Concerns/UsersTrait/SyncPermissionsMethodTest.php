@@ -14,7 +14,7 @@ class SyncPermissionsMethodTest extends TestCase
 
     public function test_it_can_revoke_permissions_that_are_not_in_the_sync_permissions_function_params()
     {
-        $this->testUser->assignPermissions(1, 2, 3, 4);
+        $this->testUser->assignPermission(1, 2, 3, 4);
 
         $this->assertCount(4, $this->testUser->permissions()->get());
 
@@ -45,7 +45,7 @@ class SyncPermissionsMethodTest extends TestCase
 
     public function test_it_can_assign_permissions_which_the_user_does_not_have_previously()
     {
-        $this->testUser->assignPermissions(1, 2);
+        $this->testUser->assignPermission(1, 2);
 
         $this->assertCount(2, $this->testUser->permissions()->get());
 
@@ -59,7 +59,7 @@ class SyncPermissionsMethodTest extends TestCase
 
     public function test_if_it_can_sync_permissions_using_array_as_parameter()
     {
-        $this->testUser->assignPermissions(1, 2);
+        $this->testUser->assignPermission(1, 2);
 
         $this->assertCount(2, $this->testUser->permissions()->get());
 
@@ -75,7 +75,7 @@ class SyncPermissionsMethodTest extends TestCase
     {
         $this->expectException(PermissionDoesNotExistException::class);
 
-        $this->testUser->assignPermissions(1, 2);
+        $this->testUser->assignPermission(1, 2);
 
         $this->assertCount(2, $this->testUser->permissions()->get());
 
@@ -89,7 +89,7 @@ class SyncPermissionsMethodTest extends TestCase
     {
         $this->expectException(PermissionDoesNotExistException::class);
 
-        $this->testUser->assignPermissions(1, 2);
+        $this->testUser->assignPermission(1, 2);
 
         $this->assertCount(2, $this->testUser->permissions()->get());
 

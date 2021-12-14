@@ -21,8 +21,8 @@ class ScopePermissionTest extends TestCase
 
     public function test_it_should_return_only_users_with_the_specified_permissions()
     {
-        $this->testUser->assignPermissions('edit-posts');
-        $this->testUser2->assignPermissions('edit-posts');
+        $this->testUser->assignPermission('edit-posts');
+        $this->testUser2->assignPermission('edit-posts');
         $this->assertFalse(
             User::permission('edit-posts')
                 ->get()

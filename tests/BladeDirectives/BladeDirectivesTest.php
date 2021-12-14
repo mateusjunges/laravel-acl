@@ -44,7 +44,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
 
     public function test_permission_directive_returning_true()
     {
-        $this->testUser->assignPermissions($this->testUserPermission);
+        $this->testUser->assignPermission($this->testUserPermission);
 
         auth()->login($this->testUser);
 
@@ -90,7 +90,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
 
     public function test_else_permission_directive_returning_true()
     {
-        $this->testUser->assignPermissions($this->testUserPermission);
+        $this->testUser->assignPermission($this->testUserPermission);
 
         auth()->login($this->testUser);
 
@@ -122,7 +122,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
 
     public function test_all_permissions_directive_returning_true()
     {
-        $this->testUser->assignPermissions($this->testUserPermission, $this->testUserPermission2);
+        $this->testUser->assignPermission($this->testUserPermission, $this->testUserPermission2);
 
         auth()->login($this->testUser);
 
@@ -139,7 +139,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
 
     public function test_all_permissions_directive_returning_false()
     {
-        $this->testUser->assignPermissions($this->testUserPermission);
+        $this->testUser->assignPermission($this->testUserPermission);
 
         auth()->login($this->testUser);
 
@@ -156,7 +156,7 @@ class BladeDirectivesTest extends BladeDirectivesTestCase
 
     public function test_any_permission_directive_returning_true()
     {
-        $this->testUser->assignPermissions($this->testUserPermission);
+        $this->testUser->assignPermission($this->testUserPermission);
 
         auth()->login($this->testUser);
 

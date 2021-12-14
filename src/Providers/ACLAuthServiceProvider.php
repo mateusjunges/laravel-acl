@@ -7,29 +7,29 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Schema;
+use Junges\ACL\AclRegistrar;
 use Junges\ACL\Models\Permission;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(AclRegistrar $permissionLoader)
     {
         $this->registerPolicies();
 
-        config('acl.models.permission') !== null
-        ? $permissionModel = app(config('acl.models.permission'))
-        : $permissionModel = app(Permission::class);
-
-        if ($this->checkConnectionStatus()) {
-            if (config('acl.tables.permissions') !== null) {
-                if (Schema::hasTable(config('acl.tables.permissions'))) {
-                    $permissionModel->all()->map(function ($permission) {
-                        Gate::define($permission->slug, function ($user) use ($permission) {
-                            return $user->hasPermission($permission) || $user->isAdmin();
-                        });
-                    });
-                }
-            }
+        if ($this->app->config['acl.register_permission_check_method']) {
+            $permissionLoader->forgetPermissionClass();
+            $permissionLoader->registerPermissions();
         }
+
+        $this->app->singleton(AclRegistrar::class, fn ($app) => $permissionLoader);
+    }
+
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/acl.php',
+            'acl'
+        );
     }
 
     /**
