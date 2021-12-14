@@ -7,38 +7,14 @@ use Illuminate\Support\Facades\Schema;
 
 class UserPermissions extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'user:permissions {user}';
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Show user permissions';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): int
     {
         $userParameter = $this->argument('user');
         $userModel = app(config('acl.models.user'));
+        $user = null;
 
         if (is_numeric($userParameter)) {
             $user = $userModel->find((int) $userParameter);
@@ -46,11 +22,10 @@ class UserPermissions extends Command
             $table = config('acl.tables.users');
             $columns = $this->verifyColumns($table);
 
-            $columns = collect($columns)->map(function ($item) {
-                if ($item['isset_column']) {
-                    return $item['column'];
-                }
-            })->toArray();
+            $columns = collect($columns)
+                ->filter(fn (array $item) => $item['isset_column'])
+                ->map(fn (array $item) => $item['column'])
+                ->toArray();
 
             $columns = array_unique($columns);
             $columns = array_filter($columns, 'strlen');
@@ -66,7 +41,7 @@ class UserPermissions extends Command
         if (is_null($user)) {
             $this->error('User not found');
 
-            return;
+            return Command::SUCCESS;
         }
 
         $permissions = $user->permissions->map(function ($permission) {
@@ -82,12 +57,14 @@ class UserPermissions extends Command
         if ($permissions->count() == 0) {
             $this->alert('No permissions found');
 
-            return;
+            return Command::SUCCESS;
         }
 
         $headers = ['Name', 'Slug', 'Description'];
 
         $this->table($headers, $permissions);
+
+        return Command::SUCCESS;
     }
 
     /**

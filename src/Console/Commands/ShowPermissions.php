@@ -8,34 +8,9 @@ use Junges\ACL\Models\Permission;
 
 class ShowPermissions extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'permission:show {--group=}';
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Show all database permissions or the permissions for a specific group';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle(): int
     {
         $groupParameter = $this->option('group');
@@ -71,11 +46,11 @@ class ShowPermissions extends Command
         if ($permissions->count() == 0) {
             $this->alert('No permissions found.');
 
-            return 0;
+            return Command::SUCCESS;
         }
 
         $this->table($headers, $permissions->toArray());
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
