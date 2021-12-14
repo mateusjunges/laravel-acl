@@ -7,6 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Junges\ACL\Providers\ACLAuthServiceProvider;
 use Junges\ACL\Providers\ACLEventsServiceProvider;
 use Junges\ACL\Providers\ACLServiceProvider;
+use Junges\ACL\Providers\ACLViewServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -97,6 +98,7 @@ class TestCase extends Orchestra
             ACLAuthServiceProvider::class,
             ACLEventsServiceProvider::class,
             IgnitionServiceProvider::class,
+            ACLViewServiceProvider::class
         ];
     }
 

@@ -3,7 +3,6 @@
 namespace Junges\ACL\Middlewares;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 
 class HierarchicalPermissionsMiddleware
@@ -18,7 +17,7 @@ class HierarchicalPermissionsMiddleware
      */
     public function handle($request, Closure $next, $permissions)
     {
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -30,7 +29,7 @@ class HierarchicalPermissionsMiddleware
             foreach ($parts as $part) {
                 $ability .= $ability ? '.'.$part : $part;
 
-                if (Auth::user()->can($ability)) {
+                if (auth()->user()->can($ability)) {
                     // Grant access on the first match
                     return $next($request);
                 }

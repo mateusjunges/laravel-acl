@@ -3,7 +3,6 @@
 namespace Junges\ACL\Middlewares;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 
 class PermissionMiddleware
@@ -19,7 +18,7 @@ class PermissionMiddleware
      */
     public function handle($request, Closure $next, $permissions)
     {
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -29,11 +28,11 @@ class PermissionMiddleware
             ? $permissions
             : explode('|', $permissions);
         foreach ($permissions as $permission) {
-            if (Auth::user()->can($permission)) {
+            if (auth()->user()->can($permission)) {
                 return $next($request);
-            } else {
-                array_push($denied_permissions, $permission);
             }
+
+            array_push($denied_permissions, $permission);
         }
 
         throw UnauthorizedException::forPermissions($denied_permissions);

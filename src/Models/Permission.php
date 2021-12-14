@@ -16,26 +16,19 @@ class Permission extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = [
-        'name', 'description', 'slug',
-    ];
+    protected $guarded = ['id'];
 
     protected $dispatchesEvents = [
         'creating' => PermissionSaving::class,
     ];
 
-    /**
-     * Permission constructor.
-     *
-     * @param array $attributes
-     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->setTable(config('acl.tables.permissions'));
     }
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return config('acl.route_model_binding_keys.permission_model', 'slug');
     }
