@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     |  Models
@@ -75,19 +74,6 @@ return [
     ],
 
     /*
-     |
-     |If you want to customize your tables, set this flag to "true"
-     | */
-    'custom_migrations' => false,
-
-    /*
-    |
-    | If you want to customize the admin-permission, you can change it here.
-    | By default, it is set to 'admin'.
-    */
-    'admin_permission' => 'admin',
-
-    /*
     |--------------------------------------------------------------------------
     | Ignition Solution Suggestions
     |--------------------------------------------------------------------------
@@ -98,4 +84,23 @@ return [
     |
     */
     'offer_solutions' => false,
+
+    'cache' => [
+        /*
+         * All permissions are cached for 24 hours by default. If permissions or groups are updated,
+         * then the cache is flushed automatically.
+         */
+        'expiration_time' => DateInterval::createFromDateString('24 hours'),
+
+        /*
+         * The cache key used to store permissions.
+         */
+        'key' => 'junges.acl.cache',
+
+        /*
+         * You can optionally specify a cache driver to use for permissions caching using
+         * store drivers listed in config/cache.php.
+         */
+        'store' => 'default'
+    ]
 ];
