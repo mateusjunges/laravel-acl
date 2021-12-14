@@ -6,12 +6,7 @@ use InvalidArgumentException;
 
 class PermissionAlreadyExistsException extends InvalidArgumentException
 {
-    /**
-     * Exception thrown when the permission already exists on database.
-     *
-     * @return PermissionAlreadyExistsException
-     */
-    public static function create()
+    public static function create(): self
     {
         $message = trans('acl::acl.permission_already_exists');
 
