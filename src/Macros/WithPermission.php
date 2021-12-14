@@ -11,7 +11,7 @@ class WithPermission
 {
     public function __invoke(): callable
     {
-        return function($permissions = []) {
+        return function ($permissions = []) {
             if (! is_array($permissions)) {
                 $permissions = [$permissions];
             }
