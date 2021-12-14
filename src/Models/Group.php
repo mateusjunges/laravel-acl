@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Concerns\ACLWildcardsTrait;
-use Junges\ACL\Concerns\GroupsTrait;
-use Junges\ACL\Concerns\HasGroups;
 use Junges\ACL\Concerns\HasPermissions;
 use Junges\ACL\Contracts\Group as GroupContract;
 use Junges\ACL\Events\GroupSaving;
@@ -106,7 +104,6 @@ class Group extends Model implements GroupContract
         return $group;
     }
 
-
     public static function findOrCreate(string $name, $guardName = null): GroupContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
@@ -119,8 +116,6 @@ class Group extends Model implements GroupContract
 
         return $group;
     }
-
-
 
     public function getRouteKeyName(): string
     {
@@ -147,20 +142,20 @@ class Group extends Model implements GroupContract
      */
     public function hasPermission($permission): bool
     {
-       $permissionClass = $this->getPermissionClass();
+        $permissionClass = $this->getPermissionClass();
 
-       if (is_string($permission)) {
-           $permission = $permissionClass->findByName($permission, $this->getDefaultGuardName());
-       }
+        if (is_string($permission)) {
+            $permission = $permissionClass->findByName($permission, $this->getDefaultGuardName());
+        }
 
-       if (is_int($permission)) {
-           $permission = $permissionClass->findById($permission, $this->getDefaultGuardName());
-       }
+        if (is_int($permission)) {
+            $permission = $permissionClass->findById($permission, $this->getDefaultGuardName());
+        }
 
-       if (! $this->getGuardNames()->contains($permission->guard_name)) {
-           throw GuardDoesNotMatch::create($permission->guard_name, $this->getGuardNames());
-       }
+        if (! $this->getGuardNames()->contains($permission->guard_name)) {
+            throw GuardDoesNotMatch::create($permission->guard_name, $this->getGuardNames());
+        }
 
-       return $this->permissions->contains('id', $permission->id);
+        return $this->permissions->contains('id', $permission->id);
     }
 }

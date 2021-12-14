@@ -98,7 +98,6 @@ class Permission extends Model implements PermissionContract
         return $permission;
     }
 
-
     public static function findById(int $id, $guardName = null): PermissionContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);

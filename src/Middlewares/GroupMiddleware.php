@@ -23,6 +23,6 @@ class GroupMiddleware
             throw UnauthorizedException::forGroups($groups);
         }
 
-      return $next($request);
+        return $next($request);
     }
 }

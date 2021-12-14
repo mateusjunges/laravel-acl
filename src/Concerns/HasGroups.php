@@ -250,10 +250,10 @@ trait HasGroups
         });
 
         return $groups->intersect(
-                $guard
+            $guard
                     ? $this->groups->where('guard_name', $guard)->pluck('name')
                     : $this->getGroupNames()
-            ) == $groups;
+        ) == $groups;
     }
 
     /**
