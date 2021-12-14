@@ -7,6 +7,8 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Junges\ACL\Console\Commands\CreateGroup;
 use Junges\ACL\Console\Commands\CreatePermission;
@@ -14,44 +16,29 @@ use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
+use Junges\ACL\Macros\WithGroup;
+use Junges\ACL\Macros\WithPermission;
+use League\Flysystem\Filesystem;
 
 class ACLServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @param Dispatcher $events
-     * @param Repository $config
-     * @param Factory $view
-     *
-     * @return void
-     * @throws IgnitionNotInstalledException
-     */
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
-
-        //Publishes migrations:
-        $this->loadMigrations();
-
-        //Publishes config
-        $this->publishConfig();
-
-        //Publishes views
+        $this->packagePublishables();
         $this->loadViews();
-
-        //Load commands
         $this->loadCommands();
-
-        //Load translations
         $this->loadTranslations();
-
-        //load solution providers
         $this->registerSolutionProviders();
+
+        $this->registerMacroHelpers();
     }
 
-    /**
-     * Load and publishes the views folder.
-     */
+    protected function registerMacroHelpers()
+    {
+        Route::macro('withGroup', app(WithGroup::class)());
+        Route::macro('withPermission', app(WithPermission::class)());
+    }
+
     public function loadViews()
     {
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'acl');
@@ -61,15 +48,25 @@ class ACLServiceProvider extends ServiceProvider
         ], 'acl-views');
     }
 
-    /**
-     * Load and publishes the configuration file.
-     */
-    public function publishConfig()
+    protected function packagePublishables()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/acl.php',
+            'acl'
+        );
+
         $this->publishes([
-            __DIR__.'/../../config/acl.php' => config_path('acl.php'),
+            __DIR__.'/../../config/acl.php'
         ], 'acl-config');
+
+        $this->publishes([
+            __DIR__.'/../../database/migrations/create_permissions_table.php' => $this->getMigrationFilename('create_permissions_table.php'),
+            __DIR__.'/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_groups_table.php'),
+            __DIR__.'/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php'),
+            __DIR__.'/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php'),
+        ], 'acl-migrations');
     }
+
 
     /**
      * Register the package's commands.
@@ -85,24 +82,6 @@ class ACLServiceProvider extends ServiceProvider
                 InstallCommand::class,
             ]);
         }
-    }
-
-    /**
-     * Register the package's migrations.
-     */
-    public function loadMigrations()
-    {
-        $customMigrations = config('acl.custom_migrations');
-
-        if ($customMigrations) {
-            $this->loadMigrationsFrom(database_path('migrations/vendor/junges/acl'));
-        } else {
-            $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
-        }
-
-        $this->publishes([
-            __DIR__.'/../../database/migrations' => database_path('migrations/vendor/junges/acl'),
-        ], 'acl-migrations');
     }
 
     /**
@@ -145,13 +124,15 @@ class ACLServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    protected function getMigrationFilename(string $filename): string
     {
-        //
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
+            ->flatMap(fn ($path) => $filesystem->glob($path.'*_'.$filename))
+            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$filename}")
+            ->first();
     }
 }

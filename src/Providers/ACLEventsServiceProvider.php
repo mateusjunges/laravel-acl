@@ -18,9 +18,4 @@ class ACLEventsServiceProvider extends ServiceProvider
             PermissionSavingListener::class,
         ],
     ];
-
-    public function boot()
-    {
-        parent::boot();
-    }
 }

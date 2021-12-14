@@ -2,19 +2,23 @@
 
 namespace Junges\ACL\Providers;
 
-use Exception;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Schema;
 use Junges\ACL\AclRegistrar;
-use Junges\ACL\Models\Permission;
+use Junges\ACL\Contracts\Group as GroupContract;
+use Junges\ACL\Contracts\Permission as PermissionContract;
 
 class ACLAuthServiceProvider extends ServiceProvider
 {
     public function boot(AclRegistrar $permissionLoader)
     {
-        $this->registerPolicies();
+        $config = $this->app->config['acl.models'];
+
+        if (! $config) {
+            return;
+        }
+
+        $this->app->bind(PermissionContract::class, $config['permission']);
+        $this->app->bind(GroupContract::class, $config['group']);
 
         if ($this->app->config['acl.register_permission_check_method']) {
             $permissionLoader->forgetPermissionClass();
@@ -22,29 +26,5 @@ class ACLAuthServiceProvider extends ServiceProvider
         }
 
         $this->app->singleton(AclRegistrar::class, fn ($app) => $permissionLoader);
-    }
-
-    public function register()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../../config/acl.php',
-            'acl'
-        );
-    }
-
-    /**
-     * Check for database connection.
-     *
-     * @return bool
-     */
-    protected function checkConnectionStatus(): bool
-    {
-        try {
-            DB::connection()->getPdo();
-
-            return true;
-        } catch (Exception $exception) {
-            return false;
-        }
     }
 }
