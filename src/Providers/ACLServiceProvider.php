@@ -18,7 +18,7 @@ use Junges\ACL\Console\Commands\UserPermissions;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
 use Junges\ACL\Macros\WithGroup;
 use Junges\ACL\Macros\WithPermission;
-use League\Flysystem\Filesystem;
+use Illuminate\Filesystem\Filesystem;
 
 class ACLServiceProvider extends ServiceProvider
 {

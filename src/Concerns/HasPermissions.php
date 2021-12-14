@@ -5,7 +5,6 @@ namespace Junges\ACL\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Permission;
@@ -130,7 +129,7 @@ trait HasPermissions
     {
         try {
             return $this->hasPermission($permission, $guardName);
-        } catch(PermissionDoesNotExistException $exception) {
+        } catch (PermissionDoesNotExistException $exception) {
             return false;
         }
     }
@@ -157,9 +156,9 @@ trait HasPermissions
      */
     public function syncPermissions(...$permissions)
     {
-       $this->getPermissionsRelation()->detach();
+        $this->getPermissionsRelation()->detach();
 
-       return $this->assignPermission($permissions);
+        return $this->assignPermission($permissions);
     }
 
     /**
@@ -355,7 +354,7 @@ trait HasPermissions
     public function getPermissionsThroughGroups(): Collection
     {
         return $this->loadMissing('groups', 'groups.permissions')
-            ->groups->flatMap(fn ($group)  => $group->permissions)
+            ->groups->flatMap(fn ($group) => $group->permissions)
             ->sort()->values();
     }
 
@@ -574,7 +573,6 @@ trait HasPermissions
         return Guard::getDefaultName($this);
     }
 
-
     protected function ensureModelSharesGuard($groupOrPermission)
     {
         if (! $this->getGuardNames()->contains($groupOrPermission->guard_name)) {
@@ -597,7 +595,7 @@ trait HasPermissions
 
         $permissions = is_array($permissions) ? $permissions : [$permissions];
 
-        return array_map(function($permission) {
+        return array_map(function ($permission) {
             if ($permission instanceof Permission) {
                 return $permission;
             }
@@ -607,5 +605,4 @@ trait HasPermissions
             return $this->getPermissionClass()->{$method}($permission, $this->getDefaultGuardName());
         }, $permissions);
     }
-
 }
