@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Tests;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Junges\ACL\Concerns\HasGroups;
 use Junges\ACL\Contracts\Permission as PermissionContract;
@@ -17,7 +16,7 @@ class Permission extends \Junges\ACL\Models\Permission implements PermissionCont
 
     protected $dates = ['deleted_at'];
 
-   protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
     protected $dispatchesEvents = [
         'creating' => PermissionSaving::class,

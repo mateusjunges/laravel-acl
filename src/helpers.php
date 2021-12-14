@@ -1,6 +1,5 @@
 <?php
 
-use Junges\ACL\AclRegistrar;
 
 if (! function_exists('getModelForGuard')) {
     /**

@@ -49,7 +49,7 @@ class ACLServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__ . '/../../config/acl.php'
+            __DIR__ . '/../../config/acl.php',
         ], 'acl-config');
 
         $this->publishes([
@@ -67,7 +67,7 @@ class ACLServiceProvider extends ServiceProvider
         $filesystem = $this->app->make(Filesystem::class);
 
         return Collection::make($this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR)
-            ->flatMap(fn($path) => $filesystem->glob($path . '*_' . $filename))
+            ->flatMap(fn ($path) => $filesystem->glob($path . '*_' . $filename))
             ->push($this->app->databasePath() . "/migrations/{$timestamp}_{$filename}")
             ->first();
     }
@@ -118,7 +118,7 @@ class ACLServiceProvider extends ServiceProvider
      */
     protected function registerSolutionProviders(): void
     {
-        if (!config('acl.offer_solutions', false)) {
+        if (! config('acl.offer_solutions', false)) {
             return;
         }
 
@@ -141,7 +141,7 @@ class ACLServiceProvider extends ServiceProvider
     {
         $config = $this->app->config['acl.models'];
 
-        if (!$config) {
+        if (! $config) {
             return;
         }
 
