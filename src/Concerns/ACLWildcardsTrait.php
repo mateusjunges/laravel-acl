@@ -7,7 +7,7 @@ trait ACLWildcardsTrait
     /**
      * Check if the user has a permission, but only if this permission is directly associated to the user.
      *
-     * @param $permissionSlug
+     * @param  string  $permissionSlug
      * @return bool
      */
     public function hasPermissionWithWildcards(string $permissionSlug): bool

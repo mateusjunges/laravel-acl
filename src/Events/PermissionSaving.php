@@ -3,6 +3,7 @@
 namespace Junges\ACL\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -12,13 +13,8 @@ class PermissionSaving
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $permission;
+    public Model $permission;
 
-    /**
-     * Create a new event instance.
-     *
-     * @param $permission
-     */
     public function __construct($permission)
     {
         $this->permission = $permission;

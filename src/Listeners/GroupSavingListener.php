@@ -7,13 +7,6 @@ use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 
 class GroupSavingListener
 {
-    /**
-     * Handle the event.
-     *
-     * @param GroupSaving $event
-     *
-     * @return void
-     */
     public function handle(GroupSaving $event)
     {
         $group = $event->group;

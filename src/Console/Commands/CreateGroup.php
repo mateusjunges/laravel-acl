@@ -11,11 +11,6 @@ class CreateGroup extends Command
 
     protected $description = 'Create a new group on groups table';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function handle(): int
     {
         $groupModel = app(config('acl.models.group'));
@@ -36,6 +31,6 @@ class CreateGroup extends Command
 
         $this->info('Group created successfully!');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

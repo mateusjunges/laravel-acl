@@ -3,6 +3,8 @@
 namespace Junges\ACL\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\Exceptions\UserDoesNotExistException;
 
@@ -11,9 +13,9 @@ trait PermissionsTrait
     /**
      * Return all users who has a permission.
      *
-     * @return mixed
+     * @return BelongsToMany
      */
-    public function users()
+    public function users(): BelongsToMany
     {
         $model = config('acl.models.user') != ''
             ? config('acl.models.user')
@@ -29,9 +31,9 @@ trait PermissionsTrait
     /**
      * Return all groups which has a permission.
      *
-     * @return mixed
+     * @return BelongsToMany
      */
-    public function groups()
+    public function groups(): BelongsToMany
     {
         $model = config('acl.models.user') != ''
             ? config('acl.models.group')
@@ -65,20 +67,19 @@ trait PermissionsTrait
     /**
      * Convert user's id, user's name, user's username or user's email to instance of User model.
      *
-     * @param $user
+     * @param  int|string|Model  $user
      *
-     * @return mixed
+     * @return ?Model
      */
-    private function convertToUserModel($user)
+    private function convertToUserModel($user): ?Model
     {
         $userModel = app(config('acl.models.user'));
 
         $columns = $this->verifyColumns(config('acl.tables.users'));
-        $columns = collect($columns)->map(function ($item) {
-            if ($item['isset_column']) {
-                return $item['column'];
-            }
-        })->toArray();
+        $columns = collect($columns)
+            ->filter(fn (array $item) => $item['isset_column'])
+            ->map(fn (array $item) => $item['column'])
+            ->toArray();
 
         $columns = array_unique($columns);
         $columns = array_filter($columns, 'strlen');
@@ -119,7 +120,7 @@ trait PermissionsTrait
     /**
      * Verify if a given table has some columns.
      *
-     * @param $table
+     * @param  string  $table
      *
      * @return array
      */

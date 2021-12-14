@@ -7,36 +7,10 @@ use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
 
 class CreatePermission extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
     protected $signature = 'permission:create {name} {slug} {description}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create a new system permission on permissions table';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
+    public function handle(): int
     {
         $permissionModel = app(config('acl.models.permission'));
 
@@ -56,6 +30,6 @@ class CreatePermission extends Command
 
         $this->info('Permission created successfully!');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

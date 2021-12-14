@@ -3,7 +3,6 @@
 namespace Junges\ACL\Middlewares;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Junges\ACL\Exceptions\UnauthorizedException;
 
 class GroupMiddleware
@@ -19,7 +18,7 @@ class GroupMiddleware
      */
     public function handle($request, Closure $next, $groups)
     {
-        if (Auth::guest()) {
+        if (auth()->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -30,11 +29,11 @@ class GroupMiddleware
             : explode('|', $groups);
 
         foreach ($groups as $group) {
-            if (Auth::user()->hasGroup($group)) {
+            if (auth()->user()->hasGroup($group)) {
                 return $next($request);
-            } else {
-                array_push($denied_groups, $group);
             }
+
+            array_push($denied_groups, $group);
         }
 
         throw UnauthorizedException::forGroups($denied_groups);

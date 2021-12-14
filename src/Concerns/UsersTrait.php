@@ -3,6 +3,8 @@
 namespace Junges\ACL\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
@@ -12,9 +14,9 @@ trait UsersTrait
     /**
      * Return all user groups.
      *
-     * @return mixed
+     * @return BelongsToMany
      */
-    public function groups()
+    public function groups(): BelongsToMany
     {
         return $this->belongsToMany(config('acl.models.group'), config('acl.tables.user_has_groups'));
     }
@@ -22,9 +24,9 @@ trait UsersTrait
     /**
      * Return all user permissions.
      *
-     * @return mixed
+     * @return BelongsToMany
      */
-    public function permissions()
+    public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(config('acl.models.permission'), config('acl.tables.user_has_permissions'));
     }
@@ -56,10 +58,11 @@ trait UsersTrait
 
     /**
      * Determine if a user has a permission, regardless of whether it is direct or via group.
-     * @param $permission
+     *
+     * @param  int|string|Model  $permission
      * @return bool
      */
-    public function hasPermission($permission)
+    public function hasPermission($permission): bool
     {
         $model = app(config('acl.models.permission'));
         $where = null;
@@ -73,8 +76,7 @@ trait UsersTrait
         }
 
         if ($permission != null && $where != null) {
-            return (bool) ($this->permissions->where(...$where)->count())
-                || $this->hasPermissionThroughGroup($permission);
+            return $this->permissions->where(...$where)->count() || $this->hasPermissionThroughGroup($permission);
         }
 
         return false;
@@ -82,10 +84,11 @@ trait UsersTrait
 
     /**
      * Determine if a user has a permission directly associated.
-     * @param $permission
+     *
+     * @param  int|string|Model  $permission
      * @return bool
      */
-    public function hasDirectPermission($permission)
+    public function hasDirectPermission($permission): bool
     {
         $model = app(config('acl.models.permission'));
         $where = null;
@@ -99,7 +102,7 @@ trait UsersTrait
         }
 
         if ($permission != null && $where != null) {
-            return (bool) ($this->permissions->where(...$where)->count());
+            return (bool) $this->permissions->where(...$where)->count();
         }
 
         return false;
@@ -107,10 +110,11 @@ trait UsersTrait
 
     /**
      * Determine if the user has a group which has the required permission.
-     * @param $permission
+     *
+     * @param  int|string|Model  $permission
      * @return bool
      */
-    public function hasPermissionThroughGroup($permission)
+    public function hasPermissionThroughGroup($permission): bool
     {
         $model = app(config('acl.models.permission'));
         $where = null;
@@ -137,9 +141,9 @@ trait UsersTrait
     /**
      * Retrieves all permissions a user has via groups.
      *
-     * @return mixed
+     * @return Collection
      */
-    public function permissionViaGroups()
+    public function permissionViaGroups(): Collection
     {
         return $this->load('groups', 'groups.permissions')
             ->groups->flatMap(function ($group) {
@@ -149,10 +153,13 @@ trait UsersTrait
 
     /**
      * Return all the permissions a user has, both directly and via groups.
+     *
+     * @return Collection
      */
-    public function getAllPermissions()
+    public function getAllPermissions(): Collection
     {
         $permissions = $this->permissions;
+
         if ($this->groups) {
             $permissions = $permissions->merge($this->permissionViaGroups());
         }
@@ -163,9 +170,9 @@ trait UsersTrait
     /**
      * @param array $permissions
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function getPermissionIds(array $permissions)
+    protected function getPermissionIds(array $permissions): Collection
     {
         $model = app(config('acl.models.permission'));
 
@@ -177,10 +184,9 @@ trait UsersTrait
             } elseif ($permission instanceof $model) {
                 $_permission = $permission;
             }
+
             if (isset($_permission)) {
-                if (! is_null($_permission)) {
-                    return $_permission->id;
-                }
+                return $_permission->id;
             }
         }, $permissions));
     }
@@ -188,9 +194,9 @@ trait UsersTrait
     /**
      * @param array $groups
      *
-     * @return mixed
+     * @return Collection
      */
-    protected function getGroupIds(array $groups)
+    protected function getGroupIds(array $groups): Collection
     {
         $model = app(config('acl.models.group'));
 
@@ -202,10 +208,9 @@ trait UsersTrait
             } elseif (is_string($group)) {
                 $_group = $model->where('slug', $group)->first();
             }
+
             if (isset($_group)) {
-                if (! is_null($_group)) {
-                    return $_group->id;
-                }
+                return $_group->id;
             }
         }, $groups));
     }
@@ -309,7 +314,7 @@ trait UsersTrait
      *
      * @param mixed $permissions
      *
-     * @return mixed
+     * @return self|bool
      */
     public function assignPermissions(...$permissions)
     {
@@ -522,15 +527,18 @@ trait UsersTrait
     public function scopeGroup(Builder $query, $groups): Builder
     {
         $groupModel = app(config('acl.models.group'));
+
         if ($groups instanceof Collection) {
             $groups = $groups->all();
         }
+
         if (! is_array($groups)) {
             $groups = [$groups];
         }
 
         $groups = array_map(function ($group) use ($groupModel) {
             $_group = null;
+
             if ($group instanceof $groupModel) {
                 $_group = $group;
             }
@@ -548,6 +556,7 @@ trait UsersTrait
                     throw GroupDoesNotExistException::withSlug($group);
                 }
             }
+
             if (is_null($_group)) {
                 throw GroupDoesNotExistException::nullGroup();
             }
@@ -576,6 +585,7 @@ trait UsersTrait
     protected function convertToPermissionModels($permissions)
     {
         $permissionModel = app(config('acl.models.permission'));
+
         if ($permissions instanceof Collection) {
             $permissions = $permissions->all();
         }
@@ -583,6 +593,7 @@ trait UsersTrait
 
         return array_map(function ($permission) use ($permissionModel) {
             $_permission = null;
+
             if ($permission instanceof $permissionModel) {
                 $_permission = $permission;
             }
@@ -633,6 +644,7 @@ trait UsersTrait
                     }
                 });
             });
+
             if (count($groupsWithPermissions) > 0) {
                 $query->orWhereHas('groups', function ($query) use ($groupsWithPermissions) {
                     $query->where(function ($query) use ($groupsWithPermissions) {
@@ -648,9 +660,9 @@ trait UsersTrait
     /**
      * Revoke all directly associated user permissions.
      *
-     * @return mixed
+     * @return self
      */
-    public function revokeAllPermissions()
+    public function revokeAllPermissions(): self
     {
         $this->permissions()->detach();
 
@@ -660,9 +672,9 @@ trait UsersTrait
     /**
      * Revoke all user groups.
      *
-     * @return mixed
+     * @return self
      */
-    public function revokeAllGroups()
+    public function revokeAllGroups(): self
     {
         $this->groups()->detach();
 
@@ -672,9 +684,9 @@ trait UsersTrait
     /**
      *  Assign all system groups to the user.
      *
-     * @return mixed
+     * @return self
      */
-    public function assignAllGroups()
+    public function assignAllGroups(): self
     {
         $groupModel = app(config('acl.models.group'));
 
@@ -690,7 +702,7 @@ trait UsersTrait
      *
      * @return $this
      */
-    public function assignAllPermissions()
+    public function assignAllPermissions(): self
     {
         $permissionModel = app(config('acl.models.permission'));
 

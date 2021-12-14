@@ -51,6 +51,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
         $permission = $permissionModel->where('slug', $parameters['slug'])
                                         ->orWhere('name', $parameters['name'])
                                         ->first();
+
         if (! is_null($permission)) {
             throw PermissionAlreadyExistsException::create();
         }

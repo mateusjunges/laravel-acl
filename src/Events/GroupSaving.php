@@ -3,6 +3,7 @@
 namespace Junges\ACL\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
@@ -12,13 +13,8 @@ class GroupSaving
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $group;
+    public Model $group;
 
-    /**
-     * Create a new event instance.
-     *
-     * @param $group
-     */
     public function __construct($group)
     {
         $this->group = $group;
