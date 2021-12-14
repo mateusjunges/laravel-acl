@@ -4,6 +4,7 @@ namespace Junges\ACL\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Concerns\ACLWildcardsTrait;
 use Junges\ACL\Concerns\HasPermissions;
@@ -35,8 +36,6 @@ class Group extends Model implements GroupContract
         parent::__construct($attributes);
 
         $this->guarded[] = $this->primaryKey;
-
-        $this->setTable(config('acl.tables.groups'));
     }
 
     public function getTable()
@@ -55,6 +54,11 @@ class Group extends Model implements GroupContract
         }
 
         return static::query()->create($attributes);
+    }
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = Str::slug($this->attributes['name']);
     }
 
     public function permissions(): BelongsToMany

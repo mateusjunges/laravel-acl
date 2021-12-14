@@ -775,7 +775,7 @@ You can catch the exception using default laravel handler:
 ```php
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \Junges\ACL\Exceptions\PermissionAlreadyExistsException) {
+        if ($exception instanceof \Junges\ACL\Exceptions\PermissionAlreadyExists) {
             // Your code here
         }
     

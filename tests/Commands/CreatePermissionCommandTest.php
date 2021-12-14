@@ -3,7 +3,7 @@
 namespace Junges\ACL\Tests\Commands;
 
 use Illuminate\Support\Facades\Artisan;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
 
@@ -36,7 +36,7 @@ class CreatePermissionCommandTest extends TestCase
 
         $this->assertCount(1, Permission::where('slug', 'command-test-permission')->get());
 
-        $this->expectException(PermissionAlreadyExistsException::class);
+        $this->expectException(PermissionAlreadyExists::class);
 
         $this->artisan('permission:create', [
             'name' => 'Command test permission',

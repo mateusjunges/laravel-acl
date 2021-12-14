@@ -27,5 +27,5 @@ class User extends Authenticatable
     /**
      * @var string
      */
-    protected $table = 'test_users';
+    protected $table = 'users';
 }

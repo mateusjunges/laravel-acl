@@ -3,9 +3,9 @@
 namespace Junges\ACL;
 
 use DateInterval;
-use Illuminate\Auth\Access\Gate;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Collection;

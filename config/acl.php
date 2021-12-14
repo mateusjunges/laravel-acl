@@ -85,6 +85,8 @@ return [
     */
     'offer_solutions' => false,
 
+    'register_permission_check_method' => true,
+
     'cache' => [
         /*
          * All permissions are cached for 24 hours by default. If permissions or groups are updated,

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
@@ -15,22 +16,69 @@ use Junges\ACL\Console\Commands\CreatePermission;
 use Junges\ACL\Console\Commands\InstallCommand;
 use Junges\ACL\Console\Commands\ShowPermissions;
 use Junges\ACL\Console\Commands\UserPermissions;
+use Junges\ACL\Contracts\Group as GroupContract;
+use Junges\ACL\Contracts\Permission as PermissionContract;
 use Junges\ACL\Exceptions\Solutions\IgnitionNotInstalledException;
 use Junges\ACL\Macros\WithGroup;
 use Junges\ACL\Macros\WithPermission;
-use Illuminate\Filesystem\Filesystem;
 
 class ACLServiceProvider extends ServiceProvider
 {
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
         $this->packagePublishables();
+
         $this->loadViews();
-        $this->loadCommands();
-        $this->loadTranslations();
-        $this->registerSolutionProviders();
 
         $this->registerMacroHelpers();
+
+        $this->registerCommands();
+
+        $this->registerModelBindings();
+
+        $this->loadTranslations();
+
+        $this->registerSolutionProviders();
+    }
+
+    protected function packagePublishables()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../../config/acl.php',
+            'acl'
+        );
+
+        $this->publishes([
+            __DIR__ . '/../../config/acl.php'
+        ], 'acl-config');
+
+        $this->publishes([
+            __DIR__ . '/../../database/migrations/create_permissions_table.php' => $this->getMigrationFilename('create_permissions_table.php'),
+            __DIR__ . '/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_groups_table.php'),
+            __DIR__ . '/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php'),
+            __DIR__ . '/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php'),
+        ], 'acl-migrations');
+    }
+
+    protected function getMigrationFilename(string $filename): string
+    {
+        $timestamp = date('Y_m_d_His');
+
+        $filesystem = $this->app->make(Filesystem::class);
+
+        return Collection::make($this->app->databasePath() . DIRECTORY_SEPARATOR . 'migrations' . DIRECTORY_SEPARATOR)
+            ->flatMap(fn($path) => $filesystem->glob($path . '*_' . $filename))
+            ->push($this->app->databasePath() . "/migrations/{$timestamp}_{$filename}")
+            ->first();
+    }
+
+    public function loadViews()
+    {
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'acl');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/junges/acl'),
+        ], 'acl-views');
     }
 
     protected function registerMacroHelpers()
@@ -39,39 +87,7 @@ class ACLServiceProvider extends ServiceProvider
         Route::macro('withPermission', app(WithPermission::class)());
     }
 
-    public function loadViews()
-    {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'acl');
-
-        $this->publishes([
-            __DIR__.'/../../resources/views' => resource_path('views/vendor/junges/acl'),
-        ], 'acl-views');
-    }
-
-    protected function packagePublishables()
-    {
-        $this->mergeConfigFrom(
-            __DIR__.'/../../config/acl.php',
-            'acl'
-        );
-
-        $this->publishes([
-            __DIR__.'/../../config/acl.php'
-        ], 'acl-config');
-
-        $this->publishes([
-            __DIR__.'/../../database/migrations/create_permissions_table.php' => $this->getMigrationFilename('create_permissions_table.php'),
-            __DIR__.'/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_groups_table.php'),
-            __DIR__.'/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php'),
-            __DIR__.'/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php'),
-        ], 'acl-migrations');
-    }
-
-
-    /**
-     * Register the package's commands.
-     */
-    public function loadCommands()
+    protected function registerCommands()
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -84,12 +100,9 @@ class ACLServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Register the package's migrations.
-     */
-    public function loadTranslations()
+    protected function loadTranslations()
     {
-        $translationsPath = __DIR__.'/../../resources/lang';
+        $translationsPath = __DIR__ . '/../../resources/lang';
 
         $this->loadTranslationsFrom($translationsPath, 'acl');
 
@@ -103,9 +116,9 @@ class ACLServiceProvider extends ServiceProvider
      *
      * This will only register with Ignition if it's installed.
      */
-    public function registerSolutionProviders(): void
+    protected function registerSolutionProviders(): void
     {
-        if (! config('acl.offer_solutions', false)) {
+        if (!config('acl.offer_solutions', false)) {
             return;
         }
 
@@ -124,15 +137,15 @@ class ACLServiceProvider extends ServiceProvider
         }
     }
 
-    protected function getMigrationFilename(string $filename): string
+    protected function registerModelBindings()
     {
-        $timestamp = date('Y_m_d_His');
+        $config = $this->app->config['acl.models'];
 
-        $filesystem = $this->app->make(Filesystem::class);
+        if (!$config) {
+            return;
+        }
 
-        return Collection::make($this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR)
-            ->flatMap(fn ($path) => $filesystem->glob($path.'*_'.$filename))
-            ->push($this->app->databasePath()."/migrations/{$timestamp}_{$filename}")
-            ->first();
+        $this->app->bind(PermissionContract::class, $config['permission']);
+        $this->app->bind(GroupContract::class, $config['group']);
     }
 }

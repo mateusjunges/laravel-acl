@@ -7,7 +7,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="true">
     <coverage cacheDirectory="/tmp">
         <include>
             <directory suffix=".php">src/</directory>

@@ -12,6 +12,8 @@ class BladeDirectivesTestCase extends TestCase
     {
         parent::setUp();
 
+        $this->markTestSkipped();
+
         $this->blade = resolve('blade.compiler');
     }
 

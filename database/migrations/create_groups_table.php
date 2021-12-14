@@ -9,10 +9,11 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         $groupsTable = config('acl.tables.groups', 'groups');
+
         Schema::create($groupsTable, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('guard_name')->unique();
+            $table->string('name');
+            $table->string('guard_name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->softDeletes();

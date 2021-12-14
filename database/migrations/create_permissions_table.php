@@ -11,14 +11,14 @@ class CreatePermissionsTable extends Migration
         $permissionsTable = config('acl.tables.permissions', 'permissions');
         Schema::create($permissionsTable, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('guard_name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->unique(['name', 'guard_name']);
+            $table->unique(['slug', 'guard_name']);
         });
     }
 

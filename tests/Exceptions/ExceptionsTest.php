@@ -3,7 +3,7 @@
 namespace Junges\ACL\Tests\Exceptions;
 
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 use Junges\ACL\Tests\Group;
 use Junges\ACL\Tests\Permission;
 use Junges\ACL\Tests\TestCase;
@@ -20,7 +20,7 @@ class ExceptionsTest extends TestCase
      */
     public function throws_exception_when_creating_duplicate_permissions()
     {
-        $this->expectException(PermissionAlreadyExistsException::class);
+        $this->expectException(PermissionAlreadyExists::class);
 
         Permission::create([
             'slug' => 'test-duplicate-permission-one',

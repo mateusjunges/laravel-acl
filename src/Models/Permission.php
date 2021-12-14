@@ -5,14 +5,15 @@ namespace Junges\ACL\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Concerns\HasGroups;
 use Junges\ACL\Contracts\Permission as PermissionContract;
 use Junges\ACL\Events\PermissionSaving;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Guard;
-use Ramsey\Collection\Collection;
 
 class Permission extends Model implements PermissionContract
 {
@@ -37,17 +38,19 @@ class Permission extends Model implements PermissionContract
 
     public function getTable()
     {
-        return config('acl.tables.groups', parent::getTable());
+        return config('acl.tables.permissions', parent::getTable());
     }
 
     public static function create(array $attributes = [])
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $permission = static::getPermission(['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']]);
+        $attributes['slug'] = $attributes['slug'] ?? Str::slug($attributes['name']);
+
+        $permission = static::getPermission(['slug' => $attributes['slug'], 'guard_name' => $attributes['guard_name']]);
 
         if ($permission) {
-            throw PermissionAlreadyExistsException::create();
+            throw PermissionAlreadyExists::withSlugAndGuard($attributes['slug'], $attributes['guard_name']);
         }
 
         return static::query()->create($attributes);
@@ -119,7 +122,7 @@ class Permission extends Model implements PermissionContract
     {
         return app(AclRegistrar::class)
             ->setPermissionClass(static::class)
-            ->getPermission($params, $first);
+            ->getPermissions($params, $first);
     }
 
     protected static function getPermission(array $params = []): ?PermissionContract
