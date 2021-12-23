@@ -2,9 +2,15 @@
 
 namespace Junges\ACL\Tests;
 
+use CreateGroupHasPermissionsTable;
+use CreateGroupsTable;
+use CreateModelHasGroupsTable;
+use CreateModelHasPermissionsTable;
+use CreatePermissionsTable;
 use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Cache\DatabaseStore;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Cache;
@@ -83,7 +89,7 @@ class TestCase extends Orchestra
     /**
      * Set up the environment.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param Application $app
      */
     public function getEnvironmentSetUp($app)
     {
@@ -114,7 +120,7 @@ class TestCase extends Orchestra
         }
 
         // Use test model for users provider
-        $app['config']->set('auth.providers.users.model', \Junges\ACL\Tests\User::class);
+        $app['config']->set('auth.providers.users.model', User::class);
 
         // Make sure the ignition integration does register correctly
         $app['config']->set('acl.offer_solutions', true);
@@ -137,9 +143,13 @@ class TestCase extends Orchestra
         $app['config']->set('acl.tables.group_has_permissions', 'group_has_permissions');
         $app['config']->set('acl.tables.model_has_groups', 'model_has_groups');
 
-        $app['config']->set('acl.models.permission', \Junges\ACL\Tests\Permission::class);
-        $app['config']->set('acl.models.group', \Junges\ACL\Tests\Group::class);
-        $app['config']->set('acl.models.user', \Junges\ACL\Tests\User::class);
+        $app['config']->set('group_pivot_key', null);
+        $app['config']->set('permission_pivot_key', null);
+        $app['config']->set('model_morph_key', 'model_id');
+
+        $app['config']->set('acl.models.permission', Permission::class);
+        $app['config']->set('acl.models.group', Group::class);
+        $app['config']->set('acl.models.user', User::class);
 
         $app['db']->connection()->getSchemaBuilder()->create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -164,11 +174,11 @@ class TestCase extends Orchestra
         include_once __DIR__ . '/../database/migrations/create_model_has_permissions_table.php';
         include_once __DIR__ . '/../database/migrations/create_model_has_groups_table.php';
 
-        (new \CreatePermissionsTable())->up();
-        (new \CreateGroupsTable())->up();
-        (new \CreateGroupHasPermissionsTable())->up();
-        (new \CreateModelHasPermissionsTable())->up();
-        (new \CreateModelHasGroupsTable())->up();
+        (new CreatePermissionsTable())->up();
+        (new CreateGroupsTable())->up();
+        (new CreateGroupHasPermissionsTable())->up();
+        (new CreateModelHasPermissionsTable())->up();
+        (new CreateModelHasGroupsTable())->up();
 
         User::create(['email' => 'test@user.com',]);
         Admin::create(['email' => 'admin@user.com']);

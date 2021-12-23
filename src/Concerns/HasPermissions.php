@@ -47,7 +47,7 @@ trait HasPermissions
         return $this->morphToMany(
             config('acl.models.permission'),
             'model',
-            config('acl.table_names.model_has_permission'),
+            config('acl.tables.model_has_permission'),
             config('acl.column_names.model_morph_key'),
             AclRegistrar::$pivotPermission
         );
@@ -73,7 +73,7 @@ trait HasPermissions
             $query->whereHas('permissions', function ($query) use ($permissions) {
                 $permissionClass = $this->getPermissionClass();
                 $key = (new $permissionClass)->getKeyName();
-                $query->whereIn(config('acl.table_names.permissions').".$key", array_column($permissions, $key));
+                $query->whereIn(config('acl.tables.permissions').".$key", array_column($permissions, $key));
             });
 
             if (count($groupsWithPermissions) > 0) {

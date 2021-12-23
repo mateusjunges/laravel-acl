@@ -65,7 +65,7 @@ class Group extends Model implements GroupContract
     {
         return $this->belongsToMany(
             config('acl.models.permission'),
-            config('acl.table_names.group_has_permissions'),
+            config('acl.tables.group_has_permissions'),
             AclRegistrar::$pivotGroup,
             AclRegistrar::$pivotPermission
         );
@@ -76,7 +76,7 @@ class Group extends Model implements GroupContract
         return $this->morphedByMany(
             getModelForGuard($this->attributes['guard_name']),
             'model',
-            config('acl.table_names.model_has_groups'),
+            config('acl.tables.model_has_groups'),
             AclRegistrar::$pivotGroup,
             config('acl.column_names.model_morph_key')
         );

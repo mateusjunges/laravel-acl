@@ -153,7 +153,7 @@ class AclRegistrar
 
         $this->permissions = $this->cache->remember(self::$cacheKey, self::$cacheExpirationTime, function () {
             return $this->getPermissionClass()->select('id', 'id as i', 'name as n', 'guard_name as g')
-               ->with('groups:id,id as i, name as n, guard_name as g')->get()
+               ->with('groups:id,id as i,name as n,guard_name as g')->get()
                ->map(function ($permission) {
                    return $permission->only('i', 'n', 'g') +
                        ['gr' => $permission->groups->map->only('i', 'n', 'g')->all()];

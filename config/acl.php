@@ -63,8 +63,8 @@ return [
         'permissions'                 => 'permissions',
         'users'                       => 'users',
         'group_has_permissions'       => 'group_has_permissions',
-        'model_has_permissions'        => 'model_has_permissions',
-        'model_has_groups'             => 'model_has_groups',
+        'model_has_permissions'       => 'model_has_permissions',
+        'model_has_groups'            => 'model_has_groups',
     ],
 
     'column_names' => [
