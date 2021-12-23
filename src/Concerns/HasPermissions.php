@@ -47,7 +47,7 @@ trait HasPermissions
         return $this->morphToMany(
             config('acl.models.permission'),
             'model',
-            config('acl.tables.model_has_permission'),
+            config('acl.tables.model_has_permissions'),
             config('acl.column_names.model_morph_key'),
             AclRegistrar::$pivotPermission
         );
@@ -201,7 +201,7 @@ trait HasPermissions
         if (is_array($permissions)) {
             return $permissionClass
                 ->whereIn('name', $permissions)
-                ->whereIn('guard_name', $this->getDefaultGuardName())
+                ->whereIn('guard_name', $this->getGuardNames())
                 ->get();
         }
 

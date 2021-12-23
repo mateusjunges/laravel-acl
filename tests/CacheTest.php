@@ -51,6 +51,90 @@ class CacheTest extends TestCase
         $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
     }
 
+    public function testItFlushesCacheWhenUpdatingPermissions()
+    {
+        $permission = app(\Junges\ACL\Contracts\Permission::class)->create(['name' => 'new']);
+
+        $permission->name = 'other name';
+        $permission->save();
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
+    public function testItFlushesCacheWhenCreatingGroups()
+    {
+        app(\Junges\ACL\Contracts\Group::class)->create(['name' => 'new']);
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
+    public function testItFlushesCacheWhenUpdatingGroups()
+    {
+        $role = app(\Junges\ACL\Contracts\Group::class)->create(['name' => 'new']);
+
+        $role->name = 'other name';
+        $role->save();
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
+    public function testRevokingUserPermissionShouldNotFlushCache()
+    {
+        $this->testUser->assignPermission('edit-articles');
+
+        $this->registrar->getPermissions();
+
+        $this->testUser->revokePermission('edit-articles');
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount(0);
+    }
+
+    public function testRemovingGroupFromUserShouldNotFlushCache()
+    {
+        $this->testUser->assignGroup('testGroup');
+
+        $this->registrar->getPermissions();
+
+        $this->testUser->revokeGroup('testGroup');
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount(0);
+    }
+
+    public function testItFlushesCacheWhenRemovingAPermissionFromGroup()
+    {
+        $this->testUserPermission->assignGroup('testGroup');
+
+        $this->registrar->getPermissions();
+
+        $this->testUserPermission->revokeGroup('testGroup');
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
     protected static function assertQueryCount(int $expected)
     {
         self::assertCount($expected, DB::getQueryLog());

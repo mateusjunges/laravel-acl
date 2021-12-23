@@ -183,9 +183,9 @@ class TestCase extends Orchestra
         User::create(['email' => 'test@user.com',]);
         Admin::create(['email' => 'admin@user.com']);
 
-        $app[GroupContract::class]->create(['name' => 'testRole', 'slug' => 'test-role']);
-        $app[GroupContract::class]->create(['name' => 'testRole2', 'slug' => 'test-role-2']);
-        $app[GroupContract::class]->create(['name' => 'testAdminRole', 'guard_name' => 'admin', 'slug' => 'test-admin-role']);
+        $app[GroupContract::class]->create(['name' => 'testGroup']);
+        $app[GroupContract::class]->create(['name' => 'testGroup2']);
+        $app[GroupContract::class]->create(['name' => 'testAdminRole', 'guard_name' => 'admin']);
         $app[PermissionContract::class]->create(['name' => 'edit-articles']);
         $app[PermissionContract::class]->create(['name' => 'edit-news']);
         $app[PermissionContract::class]->create(['name' => 'edit-blog']);

@@ -11,11 +11,10 @@ class CreateModelHasGroupsTable extends Migration
     {
         $columnNames = config('acl.column_names');
 
-        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
-        $usersTable = config('acl.tables.users', 'users');
+        $modelHasGroups = config('acl.tables.model_has_groups', 'model_has_groups');
         $groupsTable = config('acl.tables.groups', 'groups');
 
-        Schema::create($userHasGroupsTable, function (Blueprint $table) use ($usersTable, $groupsTable, $columnNames) {
+        Schema::create($modelHasGroups, function (Blueprint $table) use ($groupsTable, $columnNames) {
             $table->unsignedBigInteger(AclRegistrar::$pivotGroup);
 
             $table->string('model_type');

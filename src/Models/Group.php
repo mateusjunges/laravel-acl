@@ -13,6 +13,7 @@ use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 use Junges\ACL\Guard;
 
 class Group extends Model implements GroupContract
@@ -38,22 +39,22 @@ class Group extends Model implements GroupContract
         $this->guarded[] = $this->primaryKey;
     }
 
-    public function getTable()
-    {
-        return config('acl.tables.groups', parent::getTable());
-    }
-
     public static function create(array $attributes = [])
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $params = ['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']];
+        $permission = static::findByParam(['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']]);
 
-        if (static::findByParam($params)) {
-            throw GroupAlreadyExistsException::create();
+        if ($permission) {
+            throw GroupAlreadyExistsException::create($attributes['name'], $attributes['guard_name']);
         }
 
         return static::query()->create($attributes);
+    }
+
+    public function getTable()
+    {
+        return config('acl.tables.groups', parent::getTable());
     }
 
     public function setSlugAttribute($value)

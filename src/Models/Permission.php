@@ -51,12 +51,10 @@ class Permission extends Model implements PermissionContract
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $attributes['slug'] = $attributes['slug'] ?? Str::slug($attributes['name']);
-
-        $permission = static::getPermission(['slug' => $attributes['slug'], 'guard_name' => $attributes['guard_name']]);
+        $permission = static::getPermission(['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']]);
 
         if ($permission) {
-            throw PermissionAlreadyExists::withSlugAndGuard($attributes['slug'], $attributes['guard_name']);
+            throw PermissionAlreadyExists::withNameAndGuard($attributes['name'], $attributes['guard_name']);
         }
 
         return static::query()->create($attributes);

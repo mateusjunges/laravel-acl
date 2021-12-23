@@ -13,8 +13,8 @@ class PermissionAlreadyExists extends InvalidArgumentException
         return new static($message);
     }
 
-    public static function withSlugAndGuard(string $slug, string $guardName): self
+    public static function withNameAndGuard(string $name, string $guardName): self
     {
-        return new static("A permission with slug `$slug` already exists for guard `$guardName` already exists");
+        return new static("A permission with name `$name` already exists for guard `$guardName` already exists");
     }
 }
