@@ -14,7 +14,6 @@ use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;
-use Junges\ACL\Exceptions\PermissionAlreadyExists;
 use Junges\ACL\Guard;
 
 class Group extends Model implements GroupContract

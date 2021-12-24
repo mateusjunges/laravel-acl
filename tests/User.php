@@ -6,7 +6,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Junges\ACL\Concerns\ACLWildcardsTrait;
 use Junges\ACL\Concerns\HasGroups;
-use Junges\ACL\Concerns\HasPermissions;
 
 class User extends Authenticatable
 {
