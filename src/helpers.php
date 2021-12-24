@@ -19,3 +19,25 @@ if (! function_exists('getModelForGuard')) {
             })->get($guard);
     }
 }
+
+if (! function_exists('setPermissionsTeamId')) {
+    /**
+     * @param int|string|\Illuminate\Database\Eloquent\Model $id
+     *
+     */
+    function setPermissionsTeamId($id)
+    {
+        app(\Junges\ACL\AclRegistrar::class)->setPermissionsTeamId($id);
+    }
+}
+
+if (! function_exists('getPermissionsTeamId')) {
+    /**
+     * @return int|string
+     */
+    function getPermissionsTeamId()
+    {
+        return app(\Junges\ACL\AclRegistrar::class)->getPermissionsTeamId();
+    }
+}
+

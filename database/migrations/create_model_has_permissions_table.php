@@ -11,8 +11,7 @@ class CreateModelHasPermissionsTable extends Migration
     {
         $columnNames = config('acl.column_names');
 
-        $modelHasPermissions = config('acl.tables.model_has_permissions',
-            'user_has_permissions');
+        $modelHasPermissions = config('acl.tables.model_has_permissions', 'model_has_permissions');
         $permissionsTable = config('acl.tables.permissions', 'permissions');
 
         Schema::create($modelHasPermissions, function (Blueprint $table) use ($permissionsTable, $columnNames) {

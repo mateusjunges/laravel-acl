@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Concerns\ACLWildcardsTrait;
 use Junges\ACL\Concerns\HasPermissions;
+use Junges\ACL\Concerns\RefreshesPermissionCache;
 use Junges\ACL\Contracts\Group as GroupContract;
 use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
@@ -19,12 +20,9 @@ use Junges\ACL\Guard;
 class Group extends Model implements GroupContract
 {
     use HasPermissions;
-    use ACLWildcardsTrait;
+    use RefreshesPermissionCache;
 
-    protected $dates = ['deleted_at'];
-    protected $table;
-
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     protected $dispatchesEvents = [
         'creating' => GroupSaving::class,
@@ -43,9 +41,17 @@ class Group extends Model implements GroupContract
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $permission = static::findByParam(['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']]);
+        $params = ['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']];
 
-        if ($permission) {
+        if (AclRegistrar::$teams) {
+            if (array_key_exists(AclRegistrar::$teamsKey, $attributes)) {
+                $params[AclRegistrar::$teamsKey] = $attributes[AclRegistrar::$teamsKey];
+            } else {
+                $attributes[AclRegistrar::$teamsKey] = app(AclRegistrar::class)->getPermissionsTeamId();
+            }
+        }
+
+        if (static::findByParam($params)) {
             throw GroupAlreadyExistsException::create($attributes['name'], $attributes['guard_name']);
         }
 
@@ -116,7 +122,7 @@ class Group extends Model implements GroupContract
         $group = static::findByParam(['name' => $name, 'guard_name' => $guardName]);
 
         if (! $group) {
-            return static::query()->create(['name' => $name, 'guard_name' => $guardName]);
+            return static::query()->create(['name' => $name, 'guard_name' => $guardName] + (AclRegistrar::$teams ? [AclRegistrar::$teamsKey => app(AclRegistrar::class)->getPermissionsTeamId()]: []));
         }
 
         return $group;
@@ -127,9 +133,16 @@ class Group extends Model implements GroupContract
         return config('acl.route_model_binding_keys.group_model', 'slug');
     }
 
-    protected static function findByParam(array $params = [])
+    protected static function findByParam(array $params = []): ?GroupContract
     {
         $query = static::query();
+
+        $query->when(AclRegistrar::$teams, fn ($q) => $q->where(function ($q) use ($params) {
+            $q->whereNull(AclRegistrar::$teamsKey)
+                ->orWhere(AclRegistrar::$teamsKey, $params[AclRegistrar::$teamsKey] ?? app(AclRegistrar::class)->getPermissionsTeamId());
+        }));
+
+        unset($params[AclRegistrar::$teamsKey]);
 
         foreach ($params as $key => $value) {
             $query->where($key, $value);

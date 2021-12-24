@@ -94,11 +94,11 @@ trait HasGroups
      * @param ...$groups
      * @return void
      */
-    public function assignGroup(...$groups): self
+    public function assignGroup($groups): self
     {
         $groupClass = $this->getGroupClass();
 
-        $groups = collect($groups)
+        $groups = collect(is_array($groups) ? $groups : func_get_args())
             ->flatten()
             ->map(function ($group) {
                 if (empty($group)) {
@@ -166,7 +166,7 @@ trait HasGroups
      * @param ...$groups
      * @return void
      */
-    public function syncGroups(...$groups)
+    public function syncGroups($groups)
     {
         $this->getGroupsRelation()->detach();
 
@@ -208,7 +208,11 @@ trait HasGroups
             return false;
         }
 
-        return $groups->intersect($guard ? $this->groups->where('guard_name', $guard) : $this->groups)->isNotEmpty();
+        /** @var Collection $groups */
+//        return $guard
+//            ? $this->groups->where('guard_name', $guard)->contains($groups->first()->getKeyName(), $groups->first()->getKey())
+//            : $this->groups->contains($groups->first()->getKeyName(), $groups->first()->getKey());
+        return $this->groups->intersect($guard ? $groups->where('guard_name', $guard) : $groups)->isNotEmpty();
     }
 
     /**

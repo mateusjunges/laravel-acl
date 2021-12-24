@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Junges\ACL\Contracts\Group;
 use Junges\ACL\Contracts\Permission;
@@ -19,10 +20,13 @@ class AclRegistrar
     protected string $permissionClass;
     protected string $groupClass;
     protected $permissions;
+    protected ?int $teamId = null;
     public static string $pivotGroup;
     public static string $pivotPermission;
     public static $cacheExpirationTime;
     public static string $cacheKey;
+    public static bool $teams = false;
+    public static ?string $teamsKey;
     private ?array $cachedGroups = [];
 
     public function __construct(CacheManager $cacheManager)
@@ -38,6 +42,9 @@ class AclRegistrar
     {
         self::$cacheExpirationTime = config('acl.cache.expiration_time') ?: DateInterval::createFromDateString('24 hours');
 
+        self::$teams = config('acl.teams');
+        self::$teamsKey = config('acl.column_names.team_foreign_key');
+
         self::$cacheKey = config('acl.cache.key');
 
         self::$pivotGroup = config('acl.column_names.group_pivot_key') ?: 'group_id';
@@ -49,8 +56,8 @@ class AclRegistrar
     public function registerPermissions(): bool
     {
         app(Gate::class)->before(function (Authorizable $user, string $ability) {
-            if (method_exists($user, 'hasPermission')) {
-                return $user->hasPermission($ability) ?: null;
+            if (method_exists($user, 'checkPermission')) {
+                return $user->checkPermission($ability) ?: null;
             }
 
             return null;
@@ -83,6 +90,19 @@ class AclRegistrar
         app()->bind(Permission::class, $permissionClass);
 
         return $this;
+    }
+
+    public function setPermissionsTeamId($id)
+    {
+        if ($id instanceof Model) {
+            $id = $id->getKey();
+        }
+        $this->teamId = $id;
+    }
+
+    public function getPermissionsTeamId()
+    {
+        return $this->teamId;
     }
 
     public function getGroupClass(): Group

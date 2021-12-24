@@ -3,7 +3,11 @@
 namespace Junges\ACL\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
+/**
+ * @property Collection permissions
+ */
 interface Group
 {
     public function permissions(): BelongsToMany;

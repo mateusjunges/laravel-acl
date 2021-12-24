@@ -2,6 +2,7 @@
 
 namespace Junges\ACL\Tests;
 
+use AddTeamsFields;
 use CreateGroupHasPermissionsTable;
 use CreateGroupsTable;
 use CreateModelHasGroupsTable;
@@ -58,6 +59,10 @@ class TestCase extends Orchestra
 
     protected $useCustomModels = false;
 
+    protected static bool $teams = false;
+
+    protected static string $teamsKey = 'team_id';
+
     public function setUp(): void
     {
         parent::setUp();
@@ -96,6 +101,9 @@ class TestCase extends Orchestra
         $app['config']->set('acl.register_permission_check_method', true);
         $app['config']->set('acl.testing', true);
         $app['config']->set('acl.column_names.model_morph_key', 'model_test_id');
+
+        $app['config']->set('acl.teams', self::$teams);
+        $app['config']->set('acl.column_names.team_foreign_key', self::$teamsKey);
 
 
         $app['config']->set('database.default', 'sqlite');
@@ -173,12 +181,14 @@ class TestCase extends Orchestra
         include_once __DIR__ . '/../database/migrations/create_group_has_permissions_table.php';
         include_once __DIR__ . '/../database/migrations/create_model_has_permissions_table.php';
         include_once __DIR__ . '/../database/migrations/create_model_has_groups_table.php';
+        include_once __DIR__ . '/../database/migrations/add_teams_fields.php';
 
         (new CreatePermissionsTable())->up();
         (new CreateGroupsTable())->up();
         (new CreateGroupHasPermissionsTable())->up();
         (new CreateModelHasPermissionsTable())->up();
         (new CreateModelHasGroupsTable())->up();
+        (new AddTeamsFields())->up();
 
         User::create(['email' => 'test@user.com',]);
         Admin::create(['email' => 'admin@user.com']);

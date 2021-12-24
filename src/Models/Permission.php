@@ -116,11 +116,6 @@ class Permission extends Model implements PermissionContract
         return $permission;
     }
 
-    public function getRouteKeyName(): string
-    {
-        return config('acl.route_model_binding_keys.permission_model', 'slug');
-    }
-
     protected static function getPermissions(array $params = [], bool $first = false): Collection
     {
         return app(AclRegistrar::class)

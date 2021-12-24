@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
+use Junges\ACL\Contracts\Group;
 use Junges\ACL\Contracts\Permission;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;
@@ -44,13 +45,17 @@ trait HasPermissions
      */
     public function permissions(): BelongsToMany
     {
-        return $this->morphToMany(
+        $relation = $this->morphToMany(
             config('acl.models.permission'),
             'model',
             config('acl.tables.model_has_permissions'),
             config('acl.column_names.model_morph_key'),
             AclRegistrar::$pivotPermission
         );
+
+        return AclRegistrar::$teams
+            ? $relation->wherePivot(AclRegistrar::$teamsKey, getPermissionsTeamId())
+            : $relation;
     }
 
     /**
@@ -94,6 +99,7 @@ trait HasPermissions
      */
     public function hasPermission($permission, string $guardName = null): bool
     {
+        /** @var Permission $permissionClass */
         $permissionClass = $this->getPermissionClass();
 
         if (is_string($permission)) {
@@ -139,12 +145,12 @@ trait HasPermissions
      *
      * @return Collection
      */
-    public function permissionViaGroups(): Collection
+    public function getPermissionsViaGroups(): Collection
     {
         return $this->load('groups', 'groups.permissions')
-            ->groups->flatMap(function ($group) {
-                return $group->permissions;
-            })->sort()->values();
+            ->groups->flatMap(fn (Group $group) => $group->permissions)
+            ->sort()
+            ->values();
     }
 
     /**
@@ -312,10 +318,10 @@ trait HasPermissions
     /**
      * Determine if the user has a group which has the required permission.
      *
-     * @param  int|string|Model  $permission
+     * @param  Permission  $permission
      * @return bool
      */
-    public function hasPermissionThroughGroup($permission): bool
+    public function hasPermissionThroughGroup(Permission $permission): bool
     {
         return $this->hasGroup($permission->groups);
     }
@@ -368,7 +374,7 @@ trait HasPermissions
         $permissions = $this->permissions;
 
         if ($this->groups) {
-            $permissions = $permissions->merge($this->permissionViaGroups());
+            $permissions = $permissions->merge($this->getPermissionsViaGroups());
         }
 
         return $permissions->sort()->values();
@@ -380,33 +386,40 @@ trait HasPermissions
     }
 
     /**
-     * Give the given permissions to the user.
+     * Give the given permissions to the model.
      *
      * @param mixed $permissions
      *
      * @return self|bool
      */
-    public function assignPermission(...$permissions): self
+    public function assignPermission($permissions): self
     {
         $permissionClass = $this->getPermissionClass();
-        $permissions = collect($permissions)
+        $permissions = collect(is_array($permissions) ? $permissions : func_get_args())
             ->flatten()
-            ->map(function ($permission) {
+            ->reduce(function ($array, $permission) {
                 if (empty($permission)) {
-                    return false;
+                    return $array;
                 }
 
-                return $this->getStoredPermission($permission);
-            })
-            ->filter(fn ($permission) => $permission instanceof Permission)
-            ->each(fn ($permission) => $this->ensureModelSharesGuard($permission))
-            ->map(fn ($permission) => [$permission->getKeyName() => $permission->getKey(), 'values' => []])
-            ->pluck('values', (new $permissionClass)->getKeyName())->toArray();
+                $permission =  $this->getStoredPermission($permission);
+
+                if (! $permission instanceof Permission) {
+                    return $array;
+                }
+
+                $this->ensureModelSharesGuard($permission);
+
+                $array[$permission->getKey()] = AclRegistrar::$teams && ! is_a($this, Group::class)
+                    ? [AclRegistrar::$teamsKey => getPermissionsTeamId()] : [];
+
+                return $array;
+            }, []);
 
         $model = $this->getModel();
 
         if ($model->exists) {
-            $this->getPermissionsRelation()->sync($permissions, false);
+            $this->permissions()->sync($permissions, false);
             $model->load('permissions');
         } else {
             /** @var Model $class */

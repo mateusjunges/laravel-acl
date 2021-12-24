@@ -5,6 +5,7 @@ namespace Junges\ACL\Tests;
 use Illuminate\Cache\DatabaseStore;
 use Illuminate\Support\Facades\DB;
 use Junges\ACL\AclRegistrar;
+use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 
 class CacheTest extends TestCase
 {
@@ -120,7 +121,7 @@ class CacheTest extends TestCase
         $this->assertQueryCount(0);
     }
 
-    public function testItFlushesCacheWhenRemovingAPermissionFromGroup()
+    public function testItFlushesCacheWhenRemovingPermissionFromGroup()
     {
         $this->testUserPermission->assignGroup('testGroup');
 
@@ -133,6 +134,85 @@ class CacheTest extends TestCase
         $this->registrar->getPermissions();
 
         $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
+    public function testItFlushesCacheWhenAddingPermissionsToGroups()
+    {
+        $this->testUserGroup->assignPermission('edit-articles');
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+    }
+
+    public function testItDoesNotFlushCacheWhenCreatingUsers()
+    {
+        $this->registrar->getPermissions();
+
+        User::create(['email' => 'new']);
+
+        $this->resetQueryCount();
+
+        $this->registrar->getPermissions();
+
+        // should all be in memory, so no init/load required
+        $this->assertQueryCount(0);
+    }
+
+    public function testHasPermissionUsesCache()
+    {
+        $this->testUserGroup->assignPermission('edit-articles', 'edit-news', 'Delete News');
+        $this->testUser->assignGroup('testGroup');
+
+        $this->resetQueryCount();
+        $this->assertTrue($this->testUser->hasPermission('edit-articles'));
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount + $this->cacheRelationsCount);
+
+        $this->resetQueryCount();
+        $this->assertTrue($this->testUser->hasPermission('edit-news'));
+        $this->assertQueryCount(0);
+
+        $this->resetQueryCount();
+        $this->assertTrue($this->testUser->hasPermission('edit-articles'));
+        $this->assertQueryCount(0);
+
+        $this->resetQueryCount();
+        $this->assertTrue($this->testUser->hasPermission('Delete News'));
+        $this->assertQueryCount(0);
+    }
+
+    public function testDifferentiatesByGuardName()
+    {
+        $this->expectException(PermissionDoesNotExistException::class);
+
+        $this->testUserGroup->assignPermission(['edit-articles', 'web']);
+        $this->testUser->assignGroup('testGroup');
+
+        $this->resetQueryCount();
+        $this->assertTrue($this->testUser->hasPermission('edit-articles', 'web'));
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount + $this->cacheRelationsCount);
+
+        $this->resetQueryCount();
+        $this->assertFalse($this->testUser->hasPermission('edit-articles', 'admin'));
+        $this->assertQueryCount(1); // 1 for first lookup of this permission with this guard
+    }
+
+    public function testGetAllPermissionsUsesCache()
+    {
+        $this->testUserGroup->assignPermission($expected = ['edit-articles', 'edit-news']);
+        $this->testUser->assignGroup('testGroup');
+
+        $this->resetQueryCount();
+        $this->registrar->getPermissions();
+        $this->assertQueryCount($this->cacheInitCount + $this->cacheLoadCount + $this->cacheRunCount);
+
+        $this->resetQueryCount();
+        $actual = $this->testUser->getAllPermissions()->pluck('name')->sort()->values();
+        $this->assertEquals(collect($expected), $actual);
+
+        $this->assertQueryCount(2);
     }
 
     protected static function assertQueryCount(int $expected)
