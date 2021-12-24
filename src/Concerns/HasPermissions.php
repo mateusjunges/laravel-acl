@@ -402,7 +402,7 @@ trait HasPermissions
                     return $array;
                 }
 
-                $permission =  $this->getStoredPermission($permission);
+                $permission = $this->getStoredPermission($permission);
 
                 if (! $permission instanceof Permission) {
                     return $array;

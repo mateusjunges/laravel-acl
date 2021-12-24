@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use Junges\ACL\AclRegistrar;
-use Junges\ACL\Concerns\ACLWildcardsTrait;
 use Junges\ACL\Concerns\HasPermissions;
 use Junges\ACL\Concerns\RefreshesPermissionCache;
 use Junges\ACL\Contracts\Group as GroupContract;
