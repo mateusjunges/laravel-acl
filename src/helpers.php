@@ -40,4 +40,3 @@ if (! function_exists('getPermissionsTeamId')) {
         return app(\Junges\ACL\AclRegistrar::class)->getPermissionsTeamId();
     }
 }
-
