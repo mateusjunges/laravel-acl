@@ -4,7 +4,7 @@ namespace Junges\ACL\Exceptions\Solutions\Providers;
 
 use Facade\IgnitionContracts\BaseSolution;
 use Facade\IgnitionContracts\HasSolutionsForThrowable;
-use Junges\ACL\Concerns\PermissionsTrait;
+use Junges\ACL\Concerns\HasGroups;
 use Junges\ACL\Exceptions\Solutions\AddMissingPermissionsTraitSolution;
 use ReflectionClass;
 use Throwable;
@@ -38,7 +38,7 @@ class MissingPermissionsTraitSolutionProvider implements HasSolutionsForThrowabl
         $method = explode(' ', end($method))[0] ?? '';
         $method = str_replace('()', '', $method);
 
-        $reflectedClass = new ReflectionClass(PermissionsTrait::class);
+        $reflectedClass = new ReflectionClass(HasGroups::class);
 
         return $reflectedClass->hasMethod($method) || $reflectedClass->hasMethod('scope'.ucfirst($method));
     }

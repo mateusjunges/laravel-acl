@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PermissionDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
 {
+    public static function create(string $name, string $guard = '')
+    {
+        return new static("There is no permission named `{$name}` for guard `{$guard}`");
+    }
+
     public static function withId($id): self
     {
         $message = trans('acl::acl.permission_does_not_exist');
