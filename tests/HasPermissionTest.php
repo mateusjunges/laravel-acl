@@ -108,7 +108,7 @@ class HasPermissionTest extends TestCase
 
         $this->assertEquals(2, $scopedUsers1->count());
         $this->assertEquals(1, $scopedUsers2->count());
-    }:
+    }
 
     public function testItCanScopeUsersUsingAnObject()
     {
