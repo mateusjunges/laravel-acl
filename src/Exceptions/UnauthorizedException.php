@@ -12,11 +12,11 @@ class UnauthorizedException extends HttpException
 
     public static function forGroups(array $groups = []): self
     {
-        $message = 'User does not have the right roles.';
+        $message = 'User does not have the right groups.';
 
         if (config('acl.display_permission_in_exception')) {
             $groupsStr = implode(', ', $groups);
-            $message = 'User does not have the right roles. Necessary roles are '.$groupsStr;
+            $message = 'User does not have the right groups. Necessary groups are '.$groupsStr;
         }
 
         $exception = new static(403, $message, null, []);

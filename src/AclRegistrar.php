@@ -124,6 +124,11 @@ class AclRegistrar
         return $this->cache->getStore();
     }
 
+    public function getCacheRepository(): Repository
+    {
+        return $this->cache;
+    }
+
     public function getPermissions(array $params = [], bool $first = false): Collection
     {
         $this->loadPermissions();
@@ -147,23 +152,6 @@ class AclRegistrar
         return $permissions;
     }
 
-    private function getHydratedGroup(array $item)
-    {
-        $groupId = $item['i'] ?? $item['id'];
-
-        if (isset($this->cachedGroups[$groupId])) {
-            return $this->cachedGroups[$groupId];
-        }
-
-        $groupClass = $this->getGroupClass();
-        $groupInstance = new $groupClass();
-
-        return $this->cachedGroups[$groupId] = $groupInstance->newFromBuilder([
-            'id' => $groupId,
-            'name' => $item['n'] ?? $item['name'],
-            'guard_name' => $item['g'] ?? $item['guard_name'],
-        ]);
-    }
 
     private function loadPermissions()
     {
@@ -172,34 +160,14 @@ class AclRegistrar
         }
 
         $this->permissions = $this->cache->remember(self::$cacheKey, self::$cacheExpirationTime, function () {
-            return $this->getPermissionClass()->select('id', 'id as i', 'name as n', 'guard_name as g')
-               ->with('groups:id,id as i,name as n,guard_name as g')->get()
-               ->map(function ($permission) {
-                   return $permission->only('i', 'n', 'g') +
-                       ['gr' => $permission->groups->map->only('i', 'n', 'g')->all()];
-               })->all();
+            return $this->getSerializedPermissionsForCache();
         });
 
-        if (is_array($this->permissions)) {
-            $this->permissions = $this->getPermissionClass()::hydrate(
-                collect($this->permissions)->map(function ($item) {
-                    return ['id' => $item['i'] ?? $item['id'], 'name' => $item['n'] ?? $item['name'], 'guard_name' => $item['g'] ?? $item['guard_name']];
-                })->all()
-            )
-            ->each(function ($permission, $i) {
-                $groups = Collection::make($this->permissions[$i]['gr'] ?? $this->permissions[$i]['groups'] ?? [])
-                    ->map(fn ($item) => $this->getHydratedGroup($item));
+       $this->hydrateGroupCache();
 
-                $permission->setRelation('groups', $groups);
-            });
+       $this->permissions = $this->getHydratedPermissionCollection();
 
-            $this->cachedGroups = [];
-        }
-    }
-
-    public function getCacheRepository(): Repository
-    {
-        return $this->cache;
+       $this->cachedGroups = [];
     }
 
     protected function getCacheStoreFromConfig(): Repository
@@ -215,5 +183,83 @@ class AclRegistrar
         }
 
         return $this->cacheManager->store($cacheDriver);
+    }
+
+    private function getSerializedPermissionsForCache(): array
+    {
+        $groupClass = $this->getGroupClass();
+        $groupKey = (new $groupClass())->getKeyName();
+
+        $permissionClass = $this->getPermissionClass();
+        $permissionKey = (new $permissionClass())->getKeyName();
+
+        $permissions = $permissionClass
+            ->select($permissionKey, "$permissionKey as i", 'name as n', 'guard_name as g')
+            ->with("groups:$groupKey,$groupKey as i,name as n,guard_name as g")->get()
+            ->map(function (Permission $permission) {
+                return $permission->only('i', 'n', 'g') + $this->getSerializedGroupRelation($permission);
+            })->all();
+
+        $groups = array_values($this->cachedGroups);
+
+        $this->cachedGroups = [];
+
+        return compact('permissions', 'groups');
+    }
+
+    private function getSerializedGroupRelation(Permission $permission): array
+    {
+        if (! $permission->groups->count()) {
+            return [];
+        }
+
+        return [
+            'gr' => $permission->groups->map(function ($group) {
+                if (! isset($this->cachedGroups[$group->i])) {
+                    $this->cachedGroups[$group->i] = $group->only('i', 'n', 'g');
+                }
+
+                return $group->i;
+            })->all(),
+        ];
+    }
+
+    private function getHydratedPermissionCollection(): Collection
+    {
+        $permissionClass = $this->getPermissionClass();
+        $permissionInstance = new $permissionClass();
+
+        return Collection::make(
+            array_map(function ($item) use ($permissionInstance) {
+                return $permissionInstance
+                    ->newFromBuilder([
+                        $permissionInstance->getKeyName() => $item['i'],
+                        'name' => $item['n'],
+                        'guard_name' => $item['g'],
+                    ])
+                    ->setRelation('groups', $this->getHydratedGroupCollection($item['gr'] ?? []));
+            }, $this->permissions['permissions'])
+        );
+    }
+
+    private function getHydratedGroupCollection(array $groups): Collection
+    {
+        return Collection::make(array_values(
+            array_intersect_key($this->cachedGroups, array_flip($groups))
+        ));
+    }
+
+    private function hydrateGroupCache()
+    {
+        $groupClass = $this->getGroupClass();
+        $groupInstance = new $groupClass();
+
+        array_map(function ($item) use ($groupInstance) {
+            $this->cachedGroups[$item['i']] = $groupInstance->newFromBuilder([
+                $groupInstance->getKeyName() => $item['i'],
+                'name' => $item['n'],
+                'guard_name' => $item['g']
+            ]);
+        }, $this->permissions['groups']);
     }
 }
