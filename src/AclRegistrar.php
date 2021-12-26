@@ -152,7 +152,6 @@ class AclRegistrar
         return $permissions;
     }
 
-
     private function loadPermissions()
     {
         if ($this->permissions !== null) {
@@ -163,11 +162,11 @@ class AclRegistrar
             return $this->getSerializedPermissionsForCache();
         });
 
-       $this->hydrateGroupCache();
+        $this->hydrateGroupCache();
 
-       $this->permissions = $this->getHydratedPermissionCollection();
+        $this->permissions = $this->getHydratedPermissionCollection();
 
-       $this->cachedGroups = [];
+        $this->cachedGroups = [];
     }
 
     protected function getCacheStoreFromConfig(): Repository
@@ -258,7 +257,7 @@ class AclRegistrar
             $this->cachedGroups[$item['i']] = $groupInstance->newFromBuilder([
                 $groupInstance->getKeyName() => $item['i'],
                 'name' => $item['n'],
-                'guard_name' => $item['g']
+                'guard_name' => $item['g'],
             ]);
         }, $this->permissions['groups']);
     }
