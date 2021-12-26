@@ -4,12 +4,10 @@ namespace Junges\ACL\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Str;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Concerns\HasPermissions;
 use Junges\ACL\Concerns\RefreshesPermissionCache;
 use Junges\ACL\Contracts\Group as GroupContract;
-use Junges\ACL\Events\GroupSaving;
 use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;

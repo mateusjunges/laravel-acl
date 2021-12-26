@@ -50,7 +50,7 @@ class PermissionTest extends TestCase
 
     public function testItIsRetrievableByName()
     {
-        $permission_by_name= app(PermissionContract::class)->findByName($this->testUserPermission->name);
+        $permission_by_name = app(PermissionContract::class)->findByName($this->testUserPermission->name);
 
         $this->assertEquals($this->testUserPermission->name, $permission_by_name->name);
     }

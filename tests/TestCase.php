@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Tests;
 
-use AddTeamsFields;
 use CreateGroupHasPermissionsTable;
 use CreateGroupsTable;
 use CreateModelHasGroupsTable;
