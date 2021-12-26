@@ -170,13 +170,19 @@ trait HasPermissions
     /**
      * Revoke permissions from the user.
      *
-     * @param array $permissions
+     * @param  mixed  $permissions
      *
      * @return $this
      */
-    public function revokePermission(...$permissions): self
+    public function revokePermission($permissions): self
     {
-        $this->getPermissionsRelation()->detach($this->getStoredPermission($permissions));
+        $permissions = is_array($permissions) || $permissions instanceof Collection
+            ? $permissions
+            : func_get_args();
+
+        foreach ($permissions as $permission) {
+            $this->permissions()->detach($this->getStoredPermission($permission));
+        }
 
         if (is_a($this, get_class(app(AclRegistrar::class)->getGroupClass()))) {
             $this->forgetCachedPermissions();
@@ -260,7 +266,7 @@ trait HasPermissions
     /**
      * Check if a user has any permission.
      *
-     * @param array ...$permissions
+     * @param ...$permissions
      *
      * @return bool
      */

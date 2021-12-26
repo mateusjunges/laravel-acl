@@ -96,7 +96,7 @@ class TestCase extends Orchestra
      *
      * @param Application $app
      */
-    public function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('acl.register_permission_check_method', true);
         $app['config']->set('acl.testing', true);

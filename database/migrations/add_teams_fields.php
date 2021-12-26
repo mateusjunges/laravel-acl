@@ -8,11 +8,6 @@ use Junges\ACL\AclRegistrar;
 
 class AddTeamsFields extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         $teams = config('acl.teams');
@@ -24,11 +19,11 @@ class AddTeamsFields extends Migration
         }
         
         if (empty($tableNames)) {
-            throw new \Exception('Error: config/acl.php not loaded. Run [php artisan config:clear] and try again.');
+            throw new Exception('Error: config/acl.php not loaded. Run [php artisan config:clear] and try again.');
         }
         
         if (empty($columnNames['team_foreign_key'] ?? null)) {
-            throw new \Exception('Error: team_foreign_key on config/acl.php not loaded. Run [php artisan config:clear] and try again.');
+            throw new Exception('Error: team_foreign_key on config/acl.php not loaded. Run [php artisan config:clear] and try again.');
         }
 
         if (! Schema::hasColumn($tableNames['groups'], $columnNames['team_foreign_key'])) {
@@ -79,15 +74,5 @@ class AddTeamsFields extends Migration
         app('cache')
             ->store(config('acl.cache.store') != 'default' ? config('acl.cache.store') : null)
             ->forget(config('acl.cache.key'));
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-
     }
 }
