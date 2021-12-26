@@ -7,18 +7,37 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UnauthorizedException extends HttpException
 {
+    protected array $requiredGroups = [];
+    protected array $requiredPermissions = [];
+
     public static function forGroups(array $groups = []): self
     {
-        $message = trans('acl::acl.forGroups');
+        $message = 'User does not have the right roles.';
 
-        return  new static(Response::HTTP_FORBIDDEN, $message, null, $groups);
+        if (config('acl.display_permission_in_exception')) {
+            $groupsStr = implode(', ', $groups);
+            $message = 'User does not have the right roles. Necessary roles are '.$groupsStr;
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredGroups = $groups;
+
+        return $exception;
     }
 
     public static function forPermissions(array $permissions = []): self
     {
-        $message = trans('acl::acl.forPermissions');
+        $message = 'User does not have the right permissions.';
 
-        return new static(Response::HTTP_FORBIDDEN, $message, null, $permissions);
+        if (config('permission.display_permission_in_exception')) {
+            $permissionsStr = implode(', ', $permissions);
+            $message = 'User does not have the right permissions. Necessary permissions are '.$permissionsStr;
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredPermissions = $permissions;
+
+        return $exception;
     }
 
     public static function notLoggedIn(): self
@@ -28,10 +47,28 @@ class UnauthorizedException extends HttpException
         return new static(Response::HTTP_FORBIDDEN, $message, null, []);
     }
 
-    public static function forGroupsOrPermissions(): self
+    public static function forGroupsOrPermissions(array $groupsOrPermissions = []): self
     {
-        $message = trans('acl::acl.forGroupsOrPermissions');
+        $message = 'User does not have any of the necessary access rights.';
 
-        return new static(Response::HTTP_FORBIDDEN, $message, null, []);
+        if (config('acl.display_permission_in_exception') && config('acl.display_role_in_exception')) {
+            $permStr = implode(', ', $groupsOrPermissions);
+            $message = 'User does not have the right permissions. Necessary permissions are '.$permStr;
+        }
+
+        $exception = new static(403, $message, null, []);
+        $exception->requiredPermissions = $groupsOrPermissions;
+
+        return $exception;
+    }
+
+    public function getRequiredPermissions(): array
+    {
+        return $this->requiredPermissions;
+    }
+
+    public function getRequiredGroups(): array
+    {
+        return $this->requiredGroups;
     }
 }

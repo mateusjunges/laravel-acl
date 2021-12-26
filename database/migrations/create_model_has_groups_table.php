@@ -10,11 +10,11 @@ class CreateModelHasGroupsTable extends Migration
     public function up()
     {
         $columnNames = config('acl.column_names');
-
         $modelHasGroups = config('acl.tables.model_has_groups', 'model_has_groups');
         $groupsTable = config('acl.tables.groups', 'groups');
+        $teams = config('acl.teams');
 
-        Schema::create($modelHasGroups, function (Blueprint $table) use ($groupsTable, $columnNames) {
+        Schema::create($modelHasGroups, function (Blueprint $table) use ($groupsTable, $columnNames, $teams) {
             $table->unsignedBigInteger(AclRegistrar::$pivotGroup);
 
             $table->string('model_type');
@@ -26,8 +26,16 @@ class CreateModelHasGroupsTable extends Migration
                 ->on($groupsTable)
                 ->cascadeOnDelete();
 
-            $table->primary([AclRegistrar::$pivotGroup, $columnNames['model_morph_key'], 'model_type'],
-                'model_has_groups_group_model_type_primary');
+            if ($teams) {
+                $table->unsignedBigInteger($columnNames['team_foreign_key']);
+                $table->index($columnNames['team_foreign_key'], 'model_has_groups_team_foreign_key_index');
+
+                $table->primary([$columnNames['team_foreign_key'], AclRegistrar::$pivotGroup, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_groups_group_model_type_primary');
+            } else {
+                $table->primary([AclRegistrar::$pivotGroup, $columnNames['model_morph_key'], 'model_type'],
+                    'model_has_groups_group_model_type_primary');
+            }
         });
     }
 

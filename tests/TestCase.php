@@ -25,7 +25,7 @@ use Junges\ACL\Providers\ACLServiceProvider;
 use Junges\ACL\Providers\ACLViewServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
-class TestCase extends Orchestra
+abstract class TestCase extends Orchestra
 {
     /**
      * @var User
@@ -57,9 +57,9 @@ class TestCase extends Orchestra
      */
     protected $testAdminPermission;
 
-    protected bool $useCustomModels = false;
+    protected bool $hasTeams = false;
 
-    protected static bool $teams = false;
+    protected bool $useCustomModels = false;
 
     protected static string $teamsKey = 'team_id';
 
@@ -68,6 +68,10 @@ class TestCase extends Orchestra
         parent::setUp();
 
         $this->configureDatabase($this->app);
+
+        if ($this->hasTeams) {
+            $this->setPermissionsTeamId(1);
+        }
 
         $this->testUser = User::first();
         $this->testUserGroup = app(GroupContract::class)->first();
@@ -102,7 +106,7 @@ class TestCase extends Orchestra
         $app['config']->set('acl.testing', true);
         $app['config']->set('acl.column_names.model_morph_key', 'model_test_id');
 
-        $app['config']->set('acl.teams', self::$teams);
+        $app['config']->set('acl.teams', $this->hasTeams);
         $app['config']->set('acl.column_names.team_foreign_key', self::$teamsKey);
 
 
@@ -181,14 +185,12 @@ class TestCase extends Orchestra
         include_once __DIR__ . '/../database/migrations/create_group_has_permissions_table.php';
         include_once __DIR__ . '/../database/migrations/create_model_has_permissions_table.php';
         include_once __DIR__ . '/../database/migrations/create_model_has_groups_table.php';
-        include_once __DIR__ . '/../database/migrations/add_teams_fields.php';
 
         (new CreatePermissionsTable())->up();
         (new CreateGroupsTable())->up();
         (new CreateGroupHasPermissionsTable())->up();
         (new CreateModelHasPermissionsTable())->up();
         (new CreateModelHasGroupsTable())->up();
-        (new AddTeamsFields())->up();
 
         User::create(['email' => 'test@user.com',]);
         Admin::create(['email' => 'admin@user.com']);
@@ -224,5 +226,10 @@ class TestCase extends Orchestra
     protected function reloadPermissions()
     {
         app(AclRegistrar::class)->forgetCachedPermissions();
+    }
+
+    protected function setPermissionsTeamId(int $id)
+    {
+        app(AclRegistrar::class)->setPermissionsTeamId($id);
     }
 }

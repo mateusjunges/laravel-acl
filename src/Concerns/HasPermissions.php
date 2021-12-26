@@ -53,9 +53,11 @@ trait HasPermissions
             AclRegistrar::$pivotPermission
         );
 
-        return AclRegistrar::$teams
-            ? $relation->wherePivot(AclRegistrar::$teamsKey, getPermissionsTeamId())
-            : $relation;
+        if (AclRegistrar::$teams) {
+            return $relation->wherePivot(AclRegistrar::$teamsKey, getPermissionsTeamId());
+        }
+
+        return $relation;
     }
 
     /**
@@ -147,8 +149,8 @@ trait HasPermissions
      */
     public function getPermissionsViaGroups(): Collection
     {
-        return $this->load('groups', 'groups.permissions')
-            ->groups->flatMap(fn (Group $group) => $group->permissions)
+        return $this->loadMissing('groups', 'groups.permissions')
+            ->groups->flatMap(fn ($group) => $group->permissions)
             ->sort()
             ->values();
     }
@@ -162,7 +164,7 @@ trait HasPermissions
      */
     public function syncPermissions(...$permissions)
     {
-        $this->getPermissionsRelation()->detach();
+        $this->permissions()->detach();
 
         return $this->assignPermission($permissions);
     }
@@ -266,13 +268,13 @@ trait HasPermissions
     /**
      * Check if a user has any permission.
      *
-     * @param ...$permissions
+     * @param  mixed  $permissions
      *
      * @return bool
      */
-    public function hasAnyPermission(...$permissions): bool
+    public function hasAnyPermission($permissions): bool
     {
-        $permissions = collect($permissions)->flatten();
+        $permissions = is_array($permissions) || $permissions instanceof Collection ? $permissions : func_get_args();
 
         foreach ($permissions as $permission) {
             if ($this->checkPermission($permission)) {
@@ -306,12 +308,13 @@ trait HasPermissions
     /**
      * Check if the user has any group.
      *
-     * @param array $groups
+     * @param  mixed  $groups
      *
      * @return bool
      */
-    public function hasAnyGroup(...$groups): bool
+    public function hasAnyGroup($groups): bool
     {
+        $groups = is_array($groups) || $groups instanceof Collection ? $groups : func_get_args();
         foreach ($groups as $group) {
             if ($this->hasGroup($group)) {
                 return true;
@@ -386,11 +389,6 @@ trait HasPermissions
         return $permissions->sort()->values();
     }
 
-    public function getPermissionsRelation(): BelongsToMany
-    {
-        return $this->permissions();
-    }
-
     /**
      * Give the given permissions to the model.
      *
@@ -400,8 +398,7 @@ trait HasPermissions
      */
     public function assignPermission($permissions): self
     {
-        $permissionClass = $this->getPermissionClass();
-        $permissions = collect(is_array($permissions) ? $permissions : func_get_args())
+        $permissions = collect(is_array($permissions) || $permissions instanceof Collection ? $permissions : func_get_args())
             ->flatten()
             ->reduce(function ($array, $permission) {
                 if (empty($permission)) {
@@ -533,7 +530,7 @@ trait HasPermissions
      */
     public function revokeAllPermissions(): self
     {
-        $this->getPermissionsRelation()->detach();
+        $this->permissions()->detach();
 
         return $this;
     }

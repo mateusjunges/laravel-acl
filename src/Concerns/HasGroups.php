@@ -8,14 +8,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Group;
+use Junges\ACL\Contracts\Permission;
 
+/**
+ * @method static Builder group(mixed $group)
+ */
 trait HasGroups
 {
     use HasPermissions;
 
     private $groupClass;
 
-    public static function bootHasRoles()
+    public static function bootHasGroups()
     {
         static::deleting(function ($model) {
             if (method_exists($model, 'isForceDeleting') && ! $model->isForceDeleting()) {
@@ -42,15 +46,24 @@ trait HasGroups
      */
     public function groups(): BelongsToMany
     {
-        $modelHasGroups = config('acl.tables.model_has_groups');
-
-        return $this->morphToMany(
+        $relation = $this->morphToMany(
             config('acl.models.group'),
             'model',
-            $modelHasGroups,
+            config('acl.tables.model_has_groups'),
             config('acl.column_names.model_morph_key'),
             AclRegistrar::$pivotGroup
         );
+
+        if (AclRegistrar::$teams) {
+            return $relation->wherePivot(AclRegistrar::$teamsKey, getPermissionsTeamId())
+                ->where(function ($query) {
+                    $teamField = config('acl.tables.groups').'.'.AclRegistrar::$teamsKey;
+                    $query->whereNull($teamField)
+                        ->orWhere($teamField, getPermissionsTeamId());
+                });
+        }
+
+        return $relation;
     }
 
     /**
@@ -91,32 +104,36 @@ trait HasGroups
     /**
      * Assign the given group to the model.
      *
-     * @param ...$groups
+     * @param $groups
      * @return void
      */
     public function assignGroup($groups): self
     {
-        $groupClass = $this->getGroupClass();
-
-        $groups = collect(is_array($groups) ? $groups : func_get_args())
+        $groups = collect(is_array($groups) || $groups instanceof Collection ? $groups : func_get_args())
             ->flatten()
-            ->map(function ($group) {
+            ->reduce(function ($array, $group) {
                 if (empty($group)) {
-                    return false;
+                    return $array;
                 }
 
-                return $this->getStoredGroup($group);
-            })
-            ->filter(fn ($group) => $group instanceof Group)
-            ->each(fn ($group) => $this->ensureModelSharesGuard($group))
-            ->map(fn ($group) => [$group->getKeyName() => $group->getKey(), 'values' => []])
-            ->pluck('values', (new $groupClass)->getKeyName())
-            ->toArray();
+                $group = $this->getStoredGroup($group);
+
+                if (! $group instanceof Group) {
+                    return $array;
+                }
+
+                $this->ensureModelSharesGuard($group);
+
+                $array[$group->getKey()] = AclRegistrar::$teams && ! is_a($this, Permission::class) ?
+                    [AclRegistrar::$teamsKey => getPermissionsTeamId()] : [];
+
+                return $array;
+            }, []);
 
         $model = $this->getModel();
 
         if ($model->exists) {
-            $this->getGroupsRelation()->sync($groups, false);
+            $this->groups()->sync($groups, false);
             $model->load('groups');
         } else {
             /** @var Model $class */
@@ -128,7 +145,7 @@ trait HasGroups
                         return;
                     }
 
-                    $model->roles()->sync($groups, false);
+                    $model->groups()->sync($groups, false);
                     $model->load('groups');
                 }
             );
@@ -144,12 +161,16 @@ trait HasGroups
     /**
      * Revoke the given group from the model.
      *
-     * @param $group
+     * @param  mixed  $groups
      * @return $this
      */
-    public function revokeGroup($group): self
+    public function revokeGroup($groups): self
     {
-        $this->getGroupsRelation()->detach($this->getStoredGroup($group));
+        $groups = is_array($groups) || $groups instanceof Collection ? $groups : func_get_args();
+
+        foreach ($groups as $group) {
+            $this->groups()->detach($this->getStoredGroup($group));
+        }
 
         $this->load('groups');
 
@@ -163,12 +184,14 @@ trait HasGroups
     /**
      * Remove all current groups and set the given ones.
      *
-     * @param ...$groups
+     * @param  mixed  $groups
      * @return void
      */
     public function syncGroups($groups)
     {
-        $this->getGroupsRelation()->detach();
+        $groups = is_array($groups) || $groups instanceof Collection ? $groups : func_get_args();
+
+        $this->groups()->detach();
 
         $this->assignGroup($groups);
     }
@@ -246,7 +269,7 @@ trait HasGroups
         }
 
         if ($groups instanceof Group) {
-            return $this->roles->contains($groups->getKeyName(), $groups->getKey());
+            return $this->groups->contains($groups->getKeyName(), $groups->getKey());
         }
 
         $groups = collect()->make($groups)->map(function ($group) {
@@ -316,11 +339,6 @@ trait HasGroups
         }
 
         return $group;
-    }
-
-    protected function getGroupsRelation(): BelongsToMany
-    {
-        return $this->groups();
     }
 
     protected function convertPipeToArray(string $pipeString)

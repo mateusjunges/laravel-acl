@@ -22,10 +22,6 @@ class Group extends Model implements GroupContract
 
     protected $guarded = [];
 
-    protected $dispatchesEvents = [
-        'creating' => GroupSaving::class,
-    ];
-
     public function __construct(array $attributes = [])
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? config('auth.defaults.guard');
@@ -59,11 +55,6 @@ class Group extends Model implements GroupContract
     public function getTable()
     {
         return config('acl.tables.groups', parent::getTable());
-    }
-
-    public function setSlugAttribute($value)
-    {
-        $this->attributes['slug'] = Str::slug($this->attributes['name']);
     }
 
     public function permissions(): BelongsToMany

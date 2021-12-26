@@ -2,12 +2,13 @@
 
 
 if (! function_exists('getModelForGuard')) {
+
     /**
      * @param string $guard
      *
      * @return string|null
      */
-    function getModelForGuard(string $guard)
+    function getModelForGuard(string $guard): ?string
     {
         return collect(config('auth.guards'))
             ->map(function ($guard) {
@@ -21,6 +22,7 @@ if (! function_exists('getModelForGuard')) {
 }
 
 if (! function_exists('setPermissionsTeamId')) {
+
     /**
      * @param int|string|\Illuminate\Database\Eloquent\Model $id
      *

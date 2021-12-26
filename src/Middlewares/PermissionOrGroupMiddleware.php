@@ -19,8 +19,8 @@ class PermissionOrGroupMiddleware
             ? $groupOrPermissions
             : explode('|', $groupOrPermissions);
 
-        if (! $authGuard->user()->hasAnyGroup($groupOrPermissions) && ! $authGuard->user()->hasAnyPermission($groupOrPermissions)) {
-            throw UnauthorizedException::forGroupsOrPermissions();
+        if (! $authGuard->user()->hasAnyGroup($permissions) && ! $authGuard->user()->hasAnyPermission($permissions)) {
+            throw UnauthorizedException::forGroupsOrPermissions($permissions);
         }
 
         return $next($request);

@@ -42,7 +42,7 @@ class AclRegistrar
     {
         self::$cacheExpirationTime = config('acl.cache.expiration_time') ?: DateInterval::createFromDateString('24 hours');
 
-        self::$teams = config('acl.teams');
+        self::$teams = config('acl.teams', false);
         self::$teamsKey = config('acl.column_names.team_foreign_key');
 
         self::$cacheKey = config('acl.cache.key');
