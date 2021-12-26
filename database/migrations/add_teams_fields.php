@@ -28,8 +28,11 @@ class AddTeamsFields extends Migration
 
         if (! Schema::hasColumn($tableNames['groups'], $columnNames['team_foreign_key'])) {
             Schema::table($tableNames['groups'], function (Blueprint $table) use ($columnNames) {
-                $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
+                $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable()->after('id');
                 $table->index($columnNames['team_foreign_key'], 'groups_team_foreign_key_index');
+
+                $table->dropUnique('groups_name_guard_name_unique');
+                $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);
             });
         }
 

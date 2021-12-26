@@ -203,6 +203,20 @@ class HasPermissionTest extends TestCase
         User::permission($this->testAdminPermission)->get();
     }
 
+    public function testItCanScopeGroupsWithId()
+    {
+        $user1 = User::create(['email' => 'user1@test.com']);
+        $user1->assignGroup($this->testUserGroup);
+
+        $scopedUsers1 = User::group($this->testUserGroup)->get();
+        $scopedUsers2 = User::group([$this->testUserGroup])->get();
+        $scopedUsers3 = User::group(collect([$this->testUserGroup]))->get();
+
+        $this->assertEquals(1, $scopedUsers1->count());
+        $this->assertEquals(1, $scopedUsers2->count());
+        $this->assertEquals(1, $scopedUsers3->count());
+    }
+
     public function testItDoesNotDetachPermissionsWhenSoftDeleting()
     {
         $user = SoftDeletingUser::create(['email' => 'test@example.com']);

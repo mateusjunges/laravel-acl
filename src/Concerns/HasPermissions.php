@@ -5,6 +5,7 @@ namespace Junges\ACL\Concerns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Group;
@@ -14,6 +15,11 @@ use Junges\ACL\Exceptions\GuardDoesNotMatch;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Guard;
 
+/**
+ * @method static Builder group(mixed $group);
+ * @method static Builder permission(mixed $permission);
+ * @mixin Model
+ */
 trait HasPermissions
 {
     private $permissionClass;
@@ -306,25 +312,6 @@ trait HasPermissions
     }
 
     /**
-     * Check if the user has any group.
-     *
-     * @param  mixed  $groups
-     *
-     * @return bool
-     */
-    public function hasAnyGroup($groups): bool
-    {
-        $groups = is_array($groups) || $groups instanceof Collection ? $groups : func_get_args();
-        foreach ($groups as $group) {
-            if ($this->hasGroup($group)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Determine if the user has a group which has the required permission.
      *
      * @param  Permission  $permission
@@ -359,18 +346,6 @@ trait HasPermissions
         }
 
         return $this->permissions->contains($permission->getKeyName(), $permission->getKey());
-    }
-
-    /**
-     * Return all the permissions the model has via groups.
-     *
-     * @return Collection
-     */
-    public function getPermissionsThroughGroups(): Collection
-    {
-        return $this->loadMissing('groups', 'groups.permissions')
-            ->groups->flatMap(fn ($group) => $group->permissions)
-            ->sort()->values();
     }
 
     /**
@@ -446,138 +421,6 @@ trait HasPermissions
         return $this;
     }
 
-    /**
-     * Check if the user has all specified groups.
-     *
-     * @param array $groups
-     *
-     * @return bool
-     */
-    public function hasAllGroups(...$groups): bool
-    {
-        foreach ($groups as $group) {
-            if (! $this->hasGroup($group)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Scope the model query to certain groups only.
-     *
-     * @param Builder $query
-     * @param $groups
-     *
-     * @return Builder
-     */
-    public function scopeGroup(Builder $query, $groups): Builder
-    {
-        $groupModel = app(config('acl.models.group'));
-
-        if ($groups instanceof Collection) {
-            $groups = $groups->all();
-        }
-
-        if (! is_array($groups)) {
-            $groups = [$groups];
-        }
-
-        $groups = array_map(function ($group) use ($groupModel) {
-            $_group = null;
-
-            if ($group instanceof $groupModel) {
-                $_group = $group;
-            }
-
-            if (is_numeric($group)) {
-                $_group = $groupModel->find($group);
-
-                if (is_null($_group)) {
-                    throw GroupDoesNotExistException::withId($group);
-                }
-            } elseif (is_string($group)) {
-                $_group = $groupModel->where('slug', $group)->first();
-
-                if (is_null($_group)) {
-                    throw GroupDoesNotExistException::withSlug($group);
-                }
-            }
-
-            if (is_null($_group)) {
-                throw GroupDoesNotExistException::nullGroup();
-            }
-
-            return $_group;
-        }, $groups);
-
-        return $query->whereHas('groups', function ($query) use ($groups) {
-            $query->where(function ($query) use ($groups) {
-                foreach ($groups as $group) {
-                    if (! is_null($group)) {
-                        $query->orWhere(config('acl.tables.groups').'.id', $group->id);
-                    }
-                }
-            });
-        });
-    }
-
-    /**
-     * Revoke all directly associated user permissions.
-     *
-     * @return self
-     */
-    public function revokeAllPermissions(): self
-    {
-        $this->permissions()->detach();
-
-        return $this;
-    }
-
-    /**
-     * Revoke all user groups.
-     *
-     * @return self
-     */
-    public function revokeAllGroups(): self
-    {
-        $this->groups()->detach();
-
-        return $this;
-    }
-
-    /**
-     *  Assign all system groups to the user.
-     *
-     * @return self
-     */
-    public function assignAllGroups(): self
-    {
-        $groupModel = app(config('acl.models.group'));
-
-        $groupModel->all()->map(function ($group) {
-            return $this->assignGroup([$group]);
-        });
-
-        return $this;
-    }
-
-    /**
-     * Assign all system permissions to the specified user.
-     *
-     * @return $this
-     */
-    public function assignAllPermissions(): self
-    {
-        $permissionModel = app(config('acl.models.permission'));
-
-        $permissionModel->all()->map(function ($permission) {
-            return $this->assignPermission([$permission]);
-        });
-
-        return $this;
-    }
 
     protected function getGuardNames(): Collection
     {
@@ -609,8 +452,6 @@ trait HasPermissions
             $permissions = $permissions->all();
         }
 
-        $permissions = is_array($permissions) ? $permissions : [$permissions];
-
         return array_map(function ($permission) {
             if ($permission instanceof Permission) {
                 return $permission;
@@ -619,6 +460,6 @@ trait HasPermissions
             $method = is_string($permission) ? 'findByName' : 'findById';
 
             return $this->getPermissionClass()->{$method}($permission, $this->getDefaultGuardName());
-        }, $permissions);
+        }, Arr::wrap($permissions));
     }
 }

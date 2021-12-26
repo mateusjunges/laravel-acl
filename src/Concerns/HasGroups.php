@@ -232,9 +232,6 @@ trait HasGroups
         }
 
         /** @var Collection $groups */
-//        return $guard
-//            ? $this->groups->where('guard_name', $guard)->contains($groups->first()->getKeyName(), $groups->first()->getKey())
-//            : $this->groups->contains($groups->first()->getKeyName(), $groups->first()->getKey());
         return $this->groups->intersect($guard ? $groups->where('guard_name', $guard) : $groups)->isNotEmpty();
     }
 
