@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Group;
 use Junges\ACL\Contracts\Permission;
-use Junges\ACL\Exceptions\GroupDoesNotExistException;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use Junges\ACL\Guard;
@@ -420,7 +419,6 @@ trait HasPermissions
 
         return $this;
     }
-
 
     protected function getGuardNames(): Collection
     {
