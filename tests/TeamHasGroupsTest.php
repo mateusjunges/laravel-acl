@@ -115,4 +115,31 @@ class TeamHasGroupsTest extends HasGroupsTest
             $this->testUser->getGroupNames()->sort()->values()
         );
     }
+
+    public function testItCanScopeUsersOnDifferentTeams()
+    {
+        $user1 = User::create(['email' => 'user1@test.com']);
+        $user2 = User::create(['email' => 'user2@test.com']);
+
+        setPermissionsTeamId(2);
+        $user1->assignGroup($this->testUserGroup);
+        $user2->assignGroup('testGroup2');
+
+        setPermissionsTeamId(1);
+        $user1->assignGroup('testGroup');
+
+        setPermissionsTeamId(2);
+        $scopedUsers1Team1 = User::group($this->testUserGroup)->get();
+        $scopedUsers2Team1 = User::group(['testGroup', 'testGroup2'])->get();
+
+        $this->assertEquals(1, $scopedUsers1Team1->count());
+        $this->assertEquals(2, $scopedUsers2Team1->count());
+
+        setPermissionsTeamId(1);
+        $scopedUsers1Team2 = User::group($this->testUserGroup)->get();
+        $scopedUsers2Team2 = User::group('testGroup2')->get();
+
+        $this->assertEquals(1, $scopedUsers1Team2->count());
+        $this->assertEquals(0, $scopedUsers2Team2->count());
+    }
 }
