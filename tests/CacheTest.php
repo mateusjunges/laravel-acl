@@ -79,10 +79,10 @@ class CacheTest extends TestCase
 
     public function testItFlushesCacheWhenUpdatingGroups()
     {
-        $role = app(\Junges\ACL\Contracts\Group::class)->create(['name' => 'new']);
+        $group = app(\Junges\ACL\Contracts\Group::class)->create(['name' => 'new']);
 
-        $role->name = 'other name';
-        $role->save();
+        $group->name = 'other name';
+        $group->save();
 
         $this->resetQueryCount();
 

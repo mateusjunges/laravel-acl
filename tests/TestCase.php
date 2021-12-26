@@ -13,8 +13,8 @@ use Illuminate\Cache\DatabaseStore;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Group as GroupContract;
@@ -57,7 +57,7 @@ class TestCase extends Orchestra
      */
     protected $testAdminPermission;
 
-    protected $useCustomModels = false;
+    protected bool $useCustomModels = false;
 
     protected static bool $teams = false;
 
@@ -113,7 +113,7 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        $app['config']->set('acl.column_names.role_pivot_key', 'role_test_id');
+        $app['config']->set('acl.column_names.group_pivot_key', 'group_test_id');
         $app['config']->set('acl.column_names.permission_pivot_key', 'permission_test_id');
 
         $app['config']->set('views.path', [__DIR__.'/resources/views']);
@@ -124,7 +124,7 @@ class TestCase extends Orchestra
 
         if ($this->useCustomModels) {
             $app['config']->set('acl.models.permission', Permission::class);
-            $app['config']->set('acl.models.role', Group::class);
+            $app['config']->set('acl.models.group', Group::class);
         }
 
         // Use test model for users provider
@@ -195,7 +195,7 @@ class TestCase extends Orchestra
 
         $app[GroupContract::class]->create(['name' => 'testGroup']);
         $app[GroupContract::class]->create(['name' => 'testGroup2']);
-        $app[GroupContract::class]->create(['name' => 'testAdminRole', 'guard_name' => 'admin']);
+        $app[GroupContract::class]->create(['name' => 'testAdminGroup', 'guard_name' => 'admin']);
         $app[PermissionContract::class]->create(['name' => 'edit-articles']);
         $app[PermissionContract::class]->create(['name' => 'edit-news']);
         $app[PermissionContract::class]->create(['name' => 'edit-blog']);
@@ -214,11 +214,11 @@ class TestCase extends Orchestra
 
     public function setUpRoutes(): void
     {
-//        Route::middleware('auth:api')->get('/check-api-guard-permission', function (Request $request) {
-//            return [
-//                'status' => $request->user()->hasPermission('do_that'),
-//            ];
-//        });
+        Route::middleware('auth:api')->get('/check-api-guard-permission', function (Request $request) {
+            return [
+                'status' => $request->user()->hasPermission('do_that'),
+            ];
+        });
     }
 
     protected function reloadPermissions()

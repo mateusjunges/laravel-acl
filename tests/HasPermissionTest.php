@@ -4,6 +4,7 @@ namespace Junges\ACL\Tests;
 
 use Illuminate\Support\Facades\DB;
 use Junges\ACL\Contracts\Group as GroupContract;
+use Junges\ACL\Contracts\Permission as PermissionContract;
 use Junges\ACL\Exceptions\GuardDoesNotMatch;
 use Junges\ACL\Exceptions\PermissionDoesNotExistException;
 use stdClass;
@@ -50,8 +51,11 @@ class HasPermissionTest extends TestCase
     {
         $user1 = User::create(['email' => 'user1@test.com']);
         $user2 = User::create(['email' => 'user2@test.com']);
+
         $user1->assignPermission(['edit-articles', 'edit-news']);
+
         $this->testUserGroup->assignPermission('edit-articles');
+
         $user2->assignGroup('testGroup');
 
         $scopedUsers1 = User::permission('edit-articles')->get();
@@ -343,8 +347,8 @@ class HasPermissionTest extends TestCase
 
     public function testItCanListAllPermissionsViaGroupsOfUser()
     {
-        $roleModel = app(GroupContract::class);
-        $roleModel->findByName('testGroup2')->assignPermission('edit-news');
+        $groupModel = app(GroupContract::class);
+        $groupModel->findByName('testGroup2')->assignPermission('edit-news');
 
         $this->testUserGroup->assignPermission('edit-articles');
         $this->testUser->assignGroup('testGroup', 'testGroup2');
@@ -385,7 +389,7 @@ class HasPermissionTest extends TestCase
     {
         $this->testUser->assignPermission('edit-news');
 
-        $ids = app(Permission::class)::whereIn('name', ['edit-articles', 'edit-blog'])->pluck($this->testUserPermission->getKeyName());
+        $ids = app(PermissionContract::class)::whereIn('name', ['edit-articles', 'edit-blog'])->pluck($this->testUserPermission->getKeyName());
 
         $this->testUser->syncPermissions($ids);
 
@@ -400,7 +404,7 @@ class HasPermissionTest extends TestCase
     {
         $this->testUser->assignPermission('edit-news');
 
-        $ids = app(Permission::class)::whereIn('name', ['edit-articles', 'edit-blog'])->pluck($this->testUserPermission->getKeyName());
+        $ids = app(PermissionContract::class)::whereIn('name', ['edit-articles', 'edit-blog'])->pluck($this->testUserPermission->getKeyName());
 
         $ids->push(null);
 
@@ -511,12 +515,12 @@ class HasPermissionTest extends TestCase
         $this->testUser->assignPermission(['edit-articles', 'edit-news']);
         $this->assertTrue($this->testUser->hasAnyDirectPermission(['edit-news', 'edit-blog']));
         $this->assertTrue($this->testUser->hasAnyDirectPermission('edit-news', 'edit-blog'));
-        $this->assertFalse($this->testUser->hasAnyDirectPermission('edit-blog', 'Edit News', ['Edit News']));
+        $this->assertFalse($this->testUser->hasAnyDirectPermission('edit-blog', 'Delete News', ['Delete News']));
     }
     
     public function testItCanCheckPermissionBasedOnLoggedInUserGuard()
     {
-        $this->testUser->assignPermission(app(Permission::class)::create([
+        $this->testUser->assignPermission(app(PermissionContract::class)::create([
             'name' => 'do_that',
             'guard_name' => 'api',
         ]));
@@ -530,12 +534,12 @@ class HasPermissionTest extends TestCase
     
     public function testItCanRejectPermissionBasedOnLoggedInUserGuard()
     {
-        $unassignedPermission = app(Permission::class)::create([
+        $unassignedPermission = app(PermissionContract::class)::create([
             'name' => 'do_that',
             'guard_name' => 'api',
         ]);
 
-        $assignedPermission = app(Permission::class)::create([
+        $assignedPermission = app(PermissionContract::class)::create([
             'name' => 'do_that',
             'guard_name' => 'web',
         ]);
