@@ -197,6 +197,11 @@ class AclRegistrar
         }
     }
 
+    public function getCacheRepository(): Repository
+    {
+        return $this->cache;
+    }
+
     protected function getCacheStoreFromConfig(): Repository
     {
         $cacheDriver = config('acl.cache.store', 'default');

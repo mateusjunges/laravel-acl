@@ -145,7 +145,7 @@ abstract class TestCase extends Orchestra
      * Set up the database for tests.
      * @param $app
      */
-    public function configureDatabase($app)
+    protected function configureDatabase($app)
     {
         $app['config']->set('acl.tables.users', 'users');
         $app['config']->set('acl.tables.groups', 'groups');

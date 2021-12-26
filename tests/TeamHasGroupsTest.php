@@ -57,7 +57,31 @@ class TeamHasGroupsTest extends HasGroupsTest
         $this->assertTrue($this->testUser->hasGroup($testGroup4NoTeam)); // global role team=null
     }
 
-    public function testItCanSycnOrRemoveGroupsWithoutDetachOnDifferentTeams()
+    public function testItDeletesPivotTablesEntriesWhenDeletingModels()
+    {
+        $user1 = User::create(['email' => 'user2@test.com']);
+        $user2 = User::create(['email' => 'user2@test.com']);
+
+        setPermissionsTeamId(1);
+        $user1->assignGroup('testGroup');
+        $user1->assignPermission('edit-articles');
+        $user2->assignGroup('testGroup');
+        $user2->assignPermission('edit-articles');
+
+        setPermissionsTeamId(2);
+        $user1->assignPermission('edit-news');
+
+        $this->assertDatabaseHas('model_has_permissions', [config('acl.column_names.model_morph_key') => $user1->id]);
+        $this->assertDatabaseHas('model_has_groups', [config('acl.column_names.model_morph_key') => $user1->id]);
+
+        $user1->delete();
+
+        setPermissionsTeamId(1);
+        $this->assertDatabaseHas('model_has_permissions', [config('acl.column_names.model_morph_key') => $user2->id]);
+        $this->assertDatabaseHas('model_has_groups', [config('acl.column_names.model_morph_key') => $user2->id]);
+    }
+
+    public function testItCanSyncOrRemoveGroupsWithoutDetachOnDifferentTeams()
     {
         app(GroupContract::class)->create(['name' => 'testGroup3', 'team_id' => 2]);
 
