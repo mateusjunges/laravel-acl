@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     |  Models
@@ -13,11 +12,6 @@ return [
     |
      */
     'models' => [
-        /*
-         | The model you want to use as User Model must use MateusJunges\ACL\Traits\UsersTrait
-         */
-        'user'       => \App\Models\User::class,
-
         /*
          | The model you want to use as Permission model must use the MateusJunges\ACL\Traits\PermissionsTrait
          */
@@ -64,22 +58,18 @@ return [
         'permissions'                 => 'permissions',
         'users'                       => 'users',
         'group_has_permissions'       => 'group_has_permissions',
-        'user_has_permissions'        => 'user_has_permissions',
-        'user_has_groups'             => 'user_has_groups',
+        'model_has_permissions'       => 'model_has_permissions',
+        'model_has_groups'            => 'model_has_groups',
     ],
 
-    /*
-     |
-     |If you want to customize your tables, set this flag to "true"
-     | */
-    'custom_migrations' => false,
+    'column_names' => [
+        'group_pivot_key'      => null,
+        'permission_pivot_key' => null,
+        'model_morph_key'      => 'model_id',
+        'team_foreign_key'     => 'team_id'
+    ],
 
-    /*
-    |
-    | If you want to customize the admin-permission, you can change it here.
-    | By default, it is set to 'admin'.
-    */
-    'admin_permission' => 'admin',
+    'teams' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -92,4 +82,25 @@ return [
     |
     */
     'offer_solutions' => false,
+
+    'register_permission_check_method' => true,
+
+    'cache' => [
+        /*
+         * All permissions are cached for 24 hours by default. If permissions or groups are updated,
+         * then the cache is flushed automatically.
+         */
+        'expiration_time' => DateInterval::createFromDateString('24 hours'),
+
+        /*
+         * The cache key used to store permissions.
+         */
+        'key' => 'junges.acl.cache',
+
+        /*
+         * You can optionally specify a cache driver to use for permissions caching using
+         * store drivers listed in config/cache.php.
+         */
+        'store' => 'default'
+    ]
 ];

@@ -44,7 +44,10 @@
     "autoload": {
         "psr-4": {
             "Junges\\ACL\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -3,7 +3,7 @@
 namespace Junges\ACL\Exceptions\Solutions;
 
 use Facade\IgnitionContracts\RunnableSolution;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 
 class PermissionDoesNotExistSolution implements RunnableSolution
 {
@@ -53,7 +53,7 @@ class PermissionDoesNotExistSolution implements RunnableSolution
                                         ->first();
 
         if (! is_null($permission)) {
-            throw PermissionAlreadyExistsException::create();
+            throw PermissionAlreadyExists::create();
         }
 
         $permissionModel->create($parameters);

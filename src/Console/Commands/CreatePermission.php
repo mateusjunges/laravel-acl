@@ -3,7 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
-use Junges\ACL\Exceptions\PermissionAlreadyExistsException;
+use Junges\ACL\Exceptions\PermissionAlreadyExists;
 
 class CreatePermission extends Command
 {
@@ -19,7 +19,7 @@ class CreatePermission extends Command
             ->first();
 
         if (! is_null($permission)) {
-            throw PermissionAlreadyExistsException::create();
+            throw PermissionAlreadyExists::create();
         }
 
         $permissionModel->create([

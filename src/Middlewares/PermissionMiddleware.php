@@ -7,18 +7,11 @@ use Junges\ACL\Exceptions\UnauthorizedException;
 
 class PermissionMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param $request
-     * @param Closure $next
-     * @param $permissions
-     *
-     * @return mixed
-     */
-    public function handle($request, Closure $next, $permissions)
+    public function handle($request, Closure $next, $permissions, string $guard = null)
     {
-        if (auth()->guest()) {
+        $authGuard = app('auth')->guard($guard);
+
+        if ($authGuard->guest()) {
             throw UnauthorizedException::notLoggedIn();
         }
 
@@ -27,12 +20,13 @@ class PermissionMiddleware
         $permissions = is_array($permissions)
             ? $permissions
             : explode('|', $permissions);
+
         foreach ($permissions as $permission) {
-            if (auth()->user()->can($permission)) {
+            if ($authGuard->user()->can($permission)) {
                 return $next($request);
             }
 
-            array_push($denied_permissions, $permission);
+            $denied_permissions[] = $permission;
         }
 
         throw UnauthorizedException::forPermissions($denied_permissions);

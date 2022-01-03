@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GroupDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
 {
+    public static function named(string $name): self
+    {
+        return new static("There is no group named `{$name}`");
+    }
+
     public static function withId($id): self
     {
         $message = trans('acl::acl.group_does_not_exist');
