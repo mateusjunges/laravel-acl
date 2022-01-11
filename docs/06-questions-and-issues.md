@@ -1,6 +1,6 @@
 ---
 title: Questions and Issues
-weight: 5
+weight: 6
 ---
 
 Find yourself stuck using the package? found a bug? Do you have general questions or
