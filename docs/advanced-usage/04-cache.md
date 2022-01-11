@@ -17,3 +17,24 @@ To reset the cache manually, you can use the `forgetCachedPermissions` method:
 ```php
 app(\Junges\ACL\AclRegistrar::class)->forgetCachedPermissions();
 ```
+
+Or using the artisan command:
+
+```bash
+php artisan acl:reset-cache
+```
+
+### Cache expiration time
+The default cache expiration time is 24 hours. You may alter the expiration time in `config/acl.php` configuration file, in the `cache` array.
+
+### Cache key
+The default cache key used is `junges.acl.cache`, and you are not encouraged to change it. More likely, setting the cache prefix is better.
+
+### Custom cache store
+You can configure this package to use any cache store you have configured in laravel's cache config file `config/cache.php`. In `config/acl.php`, set the `cache.store` key to 
+the name of any store you have defined.
+
+
+#### Disabling cache
+Setting the `cache.store` to `array` will disable caching by this package between requests, but will keep cache in memory until the current request is completed and processing, never persisting it.
+
