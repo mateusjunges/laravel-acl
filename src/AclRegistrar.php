@@ -100,7 +100,7 @@ class AclRegistrar
         $this->teamId = $id;
     }
 
-    public function getPermissionsTeamId()
+    public function getPermissionsTeamId(): ?int
     {
         return $this->teamId;
     }
