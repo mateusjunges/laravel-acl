@@ -3,4 +3,4 @@ title: Upgrading
 weight: 4
 ---
 
-Not ready yet.
+The upgrade documentation is not ready yet.
