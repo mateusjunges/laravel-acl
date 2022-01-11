@@ -15,6 +15,7 @@ class ResetCacheCommand extends Command
     {
         if (app(AclRegistrar::class)->forgetCachedPermissions()) {
             $this->info('Permissions cache flushed successfully!');
+
             return Command::SUCCESS;
         }
 
