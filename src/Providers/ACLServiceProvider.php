@@ -53,16 +53,16 @@ class ACLServiceProvider extends ServiceProvider
         ], 'acl-config');
 
         $this->publishes([
-            __DIR__ . '/../../database/migrations/create_permissions_table.php' => $this->getMigrationFilename('create_permissions_table.php'),
-            __DIR__ . '/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_groups_table.php'),
-            __DIR__ . '/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php'),
-            __DIR__ . '/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php'),
+            __DIR__ . '/../../database/migrations/create_permissions_table.php' => $this->getMigrationFilename('create_acl_permissions_table.php', 1),
+            __DIR__ . '/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_acl_groups_table.php', 2),
+            __DIR__ . '/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php', 3),
+            __DIR__ . '/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php', 4),
         ], 'acl-migrations');
     }
 
-    protected function getMigrationFilename(string $filename): string
+    protected function getMigrationFilename(string $filename, int $order): string
     {
-        $timestamp = date('Y_m_d_His');
+        $timestamp = now()->addSeconds($order * 2)->format('Y_m_d_His');
 
         $filesystem = $this->app->make(Filesystem::class);
 

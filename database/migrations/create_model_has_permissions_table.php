@@ -36,9 +36,6 @@ class CreateModelHasPermissionsTable extends Migration
                 $table->primary([AclRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_permissions_permission_model_type_primary');
             }
-
-            $table->primary([AclRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
-                'model_has_permissions_permission_model_type_primary');
         });
     }
 
