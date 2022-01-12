@@ -57,6 +57,7 @@ class ACLServiceProvider extends ServiceProvider
             __DIR__ . '/../../database/migrations/create_groups_table.php' => $this->getMigrationFilename('create_acl_groups_table.php', 2),
             __DIR__ . '/../../database/migrations/create_model_has_permissions_table.php' => $this->getMigrationFilename('create_model_has_permissions_table.php', 3),
             __DIR__ . '/../../database/migrations/create_model_has_groups_table.php' => $this->getMigrationFilename('create_model_has_groups_table.php', 4),
+            __DIR__ . '/../../database/migrations/create_group_has_permissions_table.php' => $this->getMigrationFilename('create_group_has_permissions_table.php', 5),
         ], 'acl-migrations');
     }
 
