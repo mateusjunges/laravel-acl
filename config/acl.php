@@ -31,13 +31,13 @@ return [
     | If you would like model binding to use a database column other than id when
     | retrieving a given model class, you may override the getRouteKeyName method
     | on the Eloquent model with yours. The default key used for route model binding
-    | in this package is the `slug` database column. You can modify it by changing the
+    | in this package is the `id` database column. You can modify it by changing the
     | following configuration:
     |
      */
     'route_model_binding_keys' => [
-        'group_model' => 'slug',
-        'permission_model' => 'slug',
+        'group_model' => 'id',
+        'permission_model' => 'id',
     ],
 
     /*
