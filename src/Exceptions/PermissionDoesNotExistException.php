@@ -2,13 +2,10 @@
 
 namespace Junges\ACL\Exceptions;
 
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
-class PermissionDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
+class PermissionDoesNotExistException extends InvalidArgumentException
 {
     public static function create(string $name, string $guard = '')
     {
@@ -34,14 +31,5 @@ class PermissionDoesNotExistException extends InvalidArgumentException implement
         $message = trans('acl::acl.null_model');
 
         return new static($message, Response::HTTP_BAD_REQUEST);
-    }
-
-    public function getSolution(): Solution
-    {
-        return BaseSolution::create('Did you forget to create the permission?')
-            ->setSolutionDescription('You can run `php artisan permission:create` with the name, slug and description in that order.')
-            ->setDocumentationLinks([
-                'Usage' => 'https://mateusjunges.github.io/laravel-acl/guide/usage.html#using-artisan-commands',
-            ]);
     }
 }

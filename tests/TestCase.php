@@ -89,7 +89,6 @@ abstract class TestCase extends Orchestra
             ACLServiceProvider::class,
             ACLAuthServiceProvider::class,
             ACLEventsServiceProvider::class,
-            IgnitionServiceProvider::class,
             ACLViewServiceProvider::class,
         ];
     }
@@ -132,9 +131,6 @@ abstract class TestCase extends Orchestra
 
         // Use test model for users provider
         $app['config']->set('auth.providers.users.model', User::class);
-
-        // Make sure the ignition integration does register correctly
-        $app['config']->set('acl.offer_solutions', true);
 
         $app['config']->set('auth.providers.users.model', User::class);
 
