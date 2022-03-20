@@ -2,13 +2,10 @@
 
 namespace Junges\ACL\Exceptions;
 
-use Facade\IgnitionContracts\BaseSolution;
-use Facade\IgnitionContracts\ProvidesSolution;
-use Facade\IgnitionContracts\Solution;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
-class GroupDoesNotExistException extends InvalidArgumentException implements ProvidesSolution
+class GroupDoesNotExistException extends InvalidArgumentException
 {
     public static function named(string $name): self
     {
@@ -34,14 +31,5 @@ class GroupDoesNotExistException extends InvalidArgumentException implements Pro
         $message = trans('acl::acl.null_model');
 
         return new static($message, Response::HTTP_BAD_REQUEST);
-    }
-
-    public function getSolution(): Solution
-    {
-        return BaseSolution::create('Did you forget to create the group?')
-            ->setSolutionDescription('You can run `php artisan group:create` with the name, slug and description in that order.')
-            ->setDocumentationLinks([
-                'Usage' => 'https://mateusjunges.github.io/laravel-acl/guide/usage.html#using-artisan-commands',
-            ]);
     }
 }

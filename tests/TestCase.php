@@ -7,7 +7,6 @@ use CreateGroupsTable;
 use CreateModelHasGroupsTable;
 use CreateModelHasPermissionsTable;
 use CreatePermissionsTable;
-use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Cache\DatabaseStore;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
@@ -89,7 +88,6 @@ abstract class TestCase extends Orchestra
             ACLServiceProvider::class,
             ACLAuthServiceProvider::class,
             ACLEventsServiceProvider::class,
-            IgnitionServiceProvider::class,
             ACLViewServiceProvider::class,
         ];
     }
@@ -132,9 +130,6 @@ abstract class TestCase extends Orchestra
 
         // Use test model for users provider
         $app['config']->set('auth.providers.users.model', User::class);
-
-        // Make sure the ignition integration does register correctly
-        $app['config']->set('acl.offer_solutions', true);
 
         $app['config']->set('auth.providers.users.model', User::class);
 

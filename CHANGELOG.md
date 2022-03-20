@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+
+# 4.0.0
+
+
 # 3.0.1
 - Fix paths on `ACLServiceProvider`
 
