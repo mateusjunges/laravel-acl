@@ -4,6 +4,7 @@ All notable changes to `mateusjunges/laravel-acl` will be documented in this fil
 
 # 3.0.2
 - Add support for Laravel v9.x
+- Removed Ignition solutions for exceptions
 
 # 3.0.1
 - Fix paths on `ACLServiceProvider`
