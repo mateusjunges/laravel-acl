@@ -7,7 +7,6 @@ use CreateGroupsTable;
 use CreateModelHasGroupsTable;
 use CreateModelHasPermissionsTable;
 use CreatePermissionsTable;
-use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Cache\DatabaseStore;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
