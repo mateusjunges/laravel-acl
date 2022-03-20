@@ -96,7 +96,6 @@ class TestCase extends Orchestra
             ACLServiceProvider::class,
             ACLAuthServiceProvider::class,
             ACLEventsServiceProvider::class,
-            IgnitionServiceProvider::class,
         ];
     }
 
@@ -117,9 +116,6 @@ class TestCase extends Orchestra
 
         // Use test model for users provider
         $app['config']->set('auth.providers.users.model', \Junges\ACL\Tests\User::class);
-
-        // Make sure the ignition integration does register correctly
-        $app['config']->set('acl.offer_solutions', true);
 
         // Set the default admin permission
         $app['config']->set('acl.admin_permission', 'admin');
