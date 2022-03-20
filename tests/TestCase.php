@@ -2,7 +2,6 @@
 
 namespace Junges\ACL\Tests;
 
-use Facade\Ignition\IgnitionServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Junges\ACL\Providers\ACLAuthServiceProvider;
 use Junges\ACL\Providers\ACLEventsServiceProvider;
