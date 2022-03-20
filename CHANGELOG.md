@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
+
+# 3.0.2
+- Add support for Laravel v9.x
+
 # 3.0.1
 - Fix paths on `ACLServiceProvider`
 
