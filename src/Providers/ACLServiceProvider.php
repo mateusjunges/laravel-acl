@@ -21,6 +21,15 @@ use Junges\ACL\Macros\WithPermission;
 
 class ACLServiceProvider extends ServiceProvider
 {
+    /**
+     * Bootstrap any application services.
+     *
+     * @param Dispatcher $events
+     * @param Repository $config
+     * @param Factory $view
+     *
+     * @return void
+     */
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
         $this->packagePublishables();
