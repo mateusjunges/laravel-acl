@@ -3,7 +3,9 @@
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
 # 4.0.0
-
+- Added Team permissions
+- Using morph relations to store model permissions
+- Caching permissions for performance improvements
 
 
 # 3.0.2
