@@ -4,7 +4,6 @@ namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
 use Junges\ACL\Contracts\Group as GroupContract;
-use Junges\ACL\Models\Group;
 use Junges\ACL\Models\Permission;
 
 class ShowPermissions extends Command

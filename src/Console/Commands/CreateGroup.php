@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 use Junges\ACL\AclRegistrar;
 use Junges\ACL\Contracts\Group as GroupContract;
 use Junges\ACL\Contracts\Permission as PermissionContract;
-use Junges\ACL\Exceptions\GroupAlreadyExistsException;
 
 class CreateGroup extends Command
 {
