@@ -3,32 +3,27 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
-use Junges\ACL\Exceptions\PermissionAlreadyExists;
+use Junges\ACL\Contracts\Permission as PermissionContract;
 
 class CreatePermission extends Command
 {
-    protected $signature = 'permission:create {name} {slug} {description}';
+    protected $signature = 'permission:create
+        {name : The name of the permission}
+        {guard? : The guard name}';
+
     protected $description = 'Create a new system permission on permissions table';
 
     public function handle(): int
     {
-        $permissionModel = app(config('acl.models.permission'));
+        /** @var PermissionContract $permissionClass */
+        $permissionClass = app(PermissionContract::class);
 
-        $permission = $permissionModel->where('slug', $this->argument('slug'))
-            ->orWhere('name', $this->argument('name'))
-            ->first();
+        $permission = $permissionClass::findOrCreate(
+            $this->argument('name'),
+            $this->argument('guard')
+        );
 
-        if (! is_null($permission)) {
-            throw PermissionAlreadyExists::create();
-        }
-
-        $permissionModel->create([
-            'name' => $this->argument('name'),
-            'slug' => $this->argument('slug'),
-            'description' => $this->argument('description'),
-        ]);
-
-        $this->info('Permission created successfully!');
+        $this->info("Permission `{$permission->name}` ".($permission->wasRecentlyCreated ? 'created' : 'already exists'));
 
         return Command::SUCCESS;
     }
