@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\AclRegistrar;
 
-class CreateGroupHasPermissionsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -37,4 +37,4 @@ class CreateGroupHasPermissionsTable extends Migration
 
         Schema::dropIfExists($groupHasPermissionsTable);
     }
-}
+};

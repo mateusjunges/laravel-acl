@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGroupsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -39,4 +39,4 @@ class CreateGroupsTable extends Migration
         $groupsTable = config('acl.tables.groups', 'groups');
         Schema::dropIfExists($groupsTable);
     }
-}
+};

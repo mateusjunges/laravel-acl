@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Junges\ACL\AclRegistrar;
 
-class CreateModelHasGroupsTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -44,4 +44,4 @@ class CreateModelHasGroupsTable extends Migration
         $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
         Schema::dropIfExists($userHasGroupsTable);
     }
-}
+};
