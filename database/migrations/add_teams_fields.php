@@ -6,7 +6,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Junges\ACL\AclRegistrar;
 
-class AddTeamsFields extends Migration
+return new class extends Migration
 {
     public function up()
     {
@@ -80,4 +80,4 @@ class AddTeamsFields extends Migration
             ->store(config('acl.cache.store') != 'default' ? config('acl.cache.store') : null)
             ->forget(config('acl.cache.key'));
     }
-}
+};
