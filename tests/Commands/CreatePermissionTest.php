@@ -18,7 +18,7 @@ class CreatePermissionTest extends TestCase
     {
         $this->artisan('permission:create', [
             'name' => 'new-permission',
-            'guard' => 'api'
+            'guard' => 'api',
         ]);
 
         $this->assertCount(1, app(Permission::class)
