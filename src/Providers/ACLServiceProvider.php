@@ -32,13 +32,14 @@ class ACLServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events, Repository $config, Factory $view)
     {
-        $this->packagePublishables();
+        if ($this->app->runningInConsole()) {
+            $this->packagePublishables();
+            $this->registerCommands();
+        }
 
         $this->loadViews();
 
         $this->registerMacroHelpers();
-
-        $this->registerCommands();
 
         $this->registerModelBindings();
 
