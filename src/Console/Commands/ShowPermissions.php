@@ -3,7 +3,7 @@
 namespace Junges\ACL\Console\Commands;
 
 use Illuminate\Console\Command;
-use Junges\ACL\Models\Group;
+use Junges\ACL\Contracts\Group as GroupContract;
 use Junges\ACL\Models\Permission;
 
 class ShowPermissions extends Command
@@ -17,9 +17,9 @@ class ShowPermissions extends Command
 
         if ($groupParameter) {
             if (is_numeric($groupParameter)) {
-                $group = Group::find((int) $groupParameter);
+                $group = app(GroupContract::class)::find((int) $groupParameter);
             } elseif (is_string($groupParameter)) {
-                $group = Group::where('slug', $groupParameter)->first();
+                $group = app(GroupContract::class)::where('name', $groupParameter)->first();
             }
 
             if (is_null($group)) {
@@ -31,7 +31,7 @@ class ShowPermissions extends Command
             $permissions = $group->permissions->map(function ($permission) {
                 return [
                     'permission' => $permission->name,
-                    'slug' => $permission->slug,
+                    'guard' => $permission->guard,
                     'description' => $permission->description,
                 ];
             });

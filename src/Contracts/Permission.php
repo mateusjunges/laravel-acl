@@ -8,6 +8,8 @@ use Illuminate\Support\Collection;
 
 /**
  * @property Collection groups
+ * @property string name
+ * @property ?string guard_name
  * @mixin Model
  */
 interface Permission
