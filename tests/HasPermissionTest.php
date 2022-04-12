@@ -239,6 +239,32 @@ class HasPermissionTest extends TestCase
         $this->assertEquals(0, $this->testUserGroup->permissions()->count());
     }
 
+    public function testItCanGiveAndRevokePermissionModelsArray()
+    {
+        $models = [app(Permission::class)::where('name', 'edit-articles')->first(), app(Permission::class)::where('name', 'edit-news')->first()];
+
+        $this->testUserGroup->assignPermission($models);
+
+        $this->assertEquals(2, $this->testUserGroup->permissions()->count());
+
+        $this->testUserGroup->revokePermission($models);
+
+        $this->assertEquals(0, $this->testUserGroup->permissions()->count());
+    }
+
+    public function testItCanGiveAndRevokePermissionModelsCollection()
+    {
+        $models = app(Permission::class)::whereIn('name', ['edit-articles', 'edit-news'])->get();
+
+        $this->testUserGroup->assignPermission($models);
+
+        $this->assertEquals(2, $this->testUserGroup->permissions()->count());
+
+        $this->testUserGroup->revokePermission($models);
+
+        $this->assertEquals(0, $this->testUserGroup->permissions()->count());
+    }
+
     public function testItCanDetermineThatTheUserDoesNotHaveAPermission()
     {
         $this->assertFalse($this->testUser->hasPermission('edit-articles'));
@@ -548,7 +574,7 @@ class HasPermissionTest extends TestCase
     
     public function testItCanRejectPermissionBasedOnLoggedInUserGuard()
     {
-        $unassignedPermission = app(PermissionContract::class)::create([
+        app(PermissionContract::class)::create([
             'name' => 'do_that',
             'guard_name' => 'api',
         ]);

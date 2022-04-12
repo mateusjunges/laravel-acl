@@ -218,6 +218,10 @@ trait HasPermissions
         }
 
         if (is_array($permissions)) {
+            $permissions = array_map(function ($permission) use ($permissionClass) {
+                return is_a($permission, get_class($permissionClass)) ? $permission->name : $permission;
+            }, $permissions);
+
             return $permissionClass
                 ->whereIn('name', $permissions)
                 ->whereIn('guard_name', $this->getGuardNames())
