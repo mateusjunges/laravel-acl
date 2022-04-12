@@ -10,7 +10,7 @@ class CreateGroupTest extends TestCase
     public function testItCanCreateAGroup()
     {
         $this->artisan('group:create', [
-            'name' => 'new-group'
+            'name' => 'new-group',
         ]);
 
         $this->assertCount(1, app(Group::class)->where('name', 'new-group')->get());
@@ -21,7 +21,7 @@ class CreateGroupTest extends TestCase
     {
         $this->artisan('group:create', [
             'name' => 'new-group',
-            'guard' => 'api'
+            'guard' => 'api',
         ]);
 
         $this->assertCount(1, app(Group::class)->where('name', 'new-group')
