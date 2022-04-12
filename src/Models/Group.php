@@ -76,6 +76,9 @@ class Group extends Model implements GroupContract
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function findByName(string $name, $guardName = null): GroupContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
@@ -89,6 +92,9 @@ class Group extends Model implements GroupContract
         return $group;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function findById(int $id, $guardName = null): GroupContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
@@ -102,6 +108,9 @@ class Group extends Model implements GroupContract
         return $group;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public static function findOrCreate(string $name, $guardName = null): GroupContract
     {
         $guardName = $guardName ?? Guard::getDefaultName(static::class);
@@ -139,11 +148,7 @@ class Group extends Model implements GroupContract
     }
 
     /**
-     * Determine if the user has the given permission.
-     *
-     * @param $permission
-     * @return bool
-     * @throws GuardDoesNotMatch
+     * {@inheritDoc}
      */
     public function hasPermission($permission): bool
     {
