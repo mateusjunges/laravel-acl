@@ -1,5 +1,5 @@
 
-![Readme banner](docs/readme-banner.png)
+![Readme banner](art/laravel-acl.png)
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
