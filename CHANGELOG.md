@@ -2,8 +2,14 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
-# 4.0.1
+# 4.1.1
 - Fixes publishing config file (#256)
+
+
+# 4.1.0
+* [4.x] Fix published migration file names by @alangiacomin in https://github.com/mateusjunges/laravel-acl/pull/252
+* [4.x] Fix commands + Allow passing an array of models to assign/revoke permissions method by @mateusjunges in https://github.com/mateusjunges/laravel-acl/pull/254
+
 
 # 4.0.0
 - Added Team permissions
