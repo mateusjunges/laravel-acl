@@ -54,7 +54,7 @@ class ACLServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__ . '/../../config/acl.php',
+            __DIR__ . '/../../config/acl.php' => config_path('acl.php'),
         ], 'acl-config');
 
         $this->publishes([

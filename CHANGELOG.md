@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 4.0.1
+- Fixes publishing config file (#256)
+
 # 4.0.0
 - Added Team permissions
 - Using morph relations to store model permissions
