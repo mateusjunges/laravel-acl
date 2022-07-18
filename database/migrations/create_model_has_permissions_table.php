@@ -41,7 +41,7 @@ class CreateModelHasPermissionsTable extends Migration
 
     public function down()
     {
-        $userHasPermissionTable = config('acl.tables.model_has_permissions', 'model_has_permissions');
-        Schema::dropIfExists($userHasPermissionTable);
+        $modelHasPermissionTable = config('acl.tables.model_has_permissions', 'model_has_permissions');
+        Schema::dropIfExists($modelHasPermissionTable);
     }
 }
