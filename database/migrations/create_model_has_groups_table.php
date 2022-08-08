@@ -41,7 +41,7 @@ class CreateModelHasGroupsTable extends Migration
 
     public function down()
     {
-        $userHasGroupsTable = config('acl.tables.user_has_groups', 'user_has_groups');
-        Schema::dropIfExists($userHasGroupsTable);
+        $modelHasGroupsTable = config('acl.tables.model_has_groups', 'model_has_groups');
+        Schema::dropIfExists($modelHasGroupsTable);
     }
 }
