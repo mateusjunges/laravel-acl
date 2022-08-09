@@ -2,8 +2,11 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 4.2.0
+- Fixes migration filenames (#258)[https://github.com/mateusjunges/laravel-acl/pull/258]
+
 # 4.1.1
-- Fixes publishing config file (#256)
+- Fixes publishing config file (#256)[https://github.com/mateusjunges/laravel-acl/pull/256]
 
 
 # 4.1.0
