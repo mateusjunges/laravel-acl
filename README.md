@@ -12,7 +12,13 @@
 
 This package allows you to manage user permissions and groups in a database, 
 and is compatible with Laravel v5.8 or higher.
-Please check the [documentations](http://143.110.226.41/documentation/laravel-acl).
+
+# Documentation
+> **Note**
+>
+> You must temporarily access the documentation using the direct IP address. I'm upgrading my server to use Laravel Forge.
+
+Please check the [documentations](http://137.184.142.165/documentation/laravel-acl).
 
 # Buy me a coffee!
 If you think this package helped you in any way, you can <a href="https://www.paypal.com/donate/?hosted_button_id=ECFBTKP2NVKEW" target="_blank">buy me a coffee!</a>
