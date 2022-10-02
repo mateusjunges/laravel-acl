@@ -12,7 +12,7 @@
 
 This package allows you to manage user permissions and groups in a database, 
 and is compatible with Laravel v5.8 or higher.
-Please check the [documentations](http://143.110.226.41/documentation/laravel-acl).
+Please check the [documentations](https:///junges.dev/documentation/laravel-acl).
 
 # Sponsor my work!
 If you think this package helped you in any way, you can sponsor me on GitHub!
