@@ -38,7 +38,7 @@ class ShowPermissions extends Command
             $this->info('Showing '.$group->name.' permissions:');
         } else {
             $this->info('Displaying all permissions:');
-            $permissions = Permission::all(['name', 'slug', 'description']);
+            $permissions = Permission::all(['name', 'guard_name', 'description']);
         }
 
         $headers = ['Permission', 'Slug', 'Description'];
