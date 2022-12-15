@@ -2,6 +2,9 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# 4.2.1
+- Fixes show permission command [#262](https://github.com/mateusjunges/laravel-acl/pull/262)
+
 # 4.2.0
 - Fixes migration filenames [#258](https://github.com/mateusjunges/laravel-acl/pull/258)
 
