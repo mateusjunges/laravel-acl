@@ -19,6 +19,8 @@ jobs:
         exclude:
           - laravel: 9.*
             php: 7.4
+          - laravel: 10.*
+            php: 8.0
 
     name: CI - PHP ${{ matrix.php }}  - Laravel ${{ matrix.laravel }} - Testbench ${{ matrix.testbench }} (${{ matrix.dependency-version }})
 
