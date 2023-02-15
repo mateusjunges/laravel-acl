@@ -2,6 +2,10 @@
 
 All notable changes to `mateusjunges/laravel-acl` will be documented in this file.
 
+# [2023-02-15 v4.2.2](https://github.com/mateusjunges/laravel-acl/compare/v4.2.1...v4.2.2)
+- Drop support for PHP 7.4 by @mateusjunges in [#263](https://github.com/mateusjunges/laravel-acl/pull/263)
+- Add support for Laravel 10.x by @mateusjunges in [#263](https://github.com/mateusjunges/laravel-acl/pull/263)
+
 # 4.2.1
 - Fixes show permission command [#262](https://github.com/mateusjunges/laravel-acl/pull/262)
 
