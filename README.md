@@ -1,6 +1,9 @@
 
 ![Readme banner](art/laravel-acl.png)
 
+> [!CAUTION]
+> As of January 2024, this package is no longer maintained. Please use [`spatie/laravel-permission`](https://github.com/spatie/laravel-permission) instead.
+
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
 [![Total Downloads](https://img.shields.io/packagist/dt/mateusjunges/laravel-acl.svg?style=flat)](https://packagist.org/packages/mateusjunges/laravel-acl)
